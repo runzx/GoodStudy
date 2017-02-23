@@ -29,6 +29,10 @@
     2) .ssh目录一定要有执行权限， 700
         chmod 0700 .ssh
     3） chmod 0600 authorized_keys
+    4） /etc/ssh/sshd_config 里，下面的#去掉
+        RSAAuthentication yes
+        PubkeyAuthentication yes
+        AuthorizedKeysFile	.ssh/authorized_keys
 
 初始化Git仓库
     1)  $ cd /home

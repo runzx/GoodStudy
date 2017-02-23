@@ -1,0 +1,17 @@
+// meituan server维护常用linux命令
+
+
+1. mysql 
+    service mysqld restart
+
+2.nginx
+     /etc/init.d/nginx restart
+
+3. ssh
+    service sshd restart
+
+4.chmod -R 777 Conf
+
+5. /etc/hosts.deny  里： sshd: 179.61.135.65 是屏蔽此IP
+
+6. 
