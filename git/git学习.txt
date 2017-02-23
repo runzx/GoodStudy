@@ -1,0 +1,40 @@
+//  GIT 使用学习 20170223
+//  http://www.imooc.com/video/4293
+//  廖雪峰北京 朝阳区
+//  http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+
+https://github.com/
+runzx   zx131...
+
+1. windows 
+    1. 下载：
+        https://desktop.github.com/
+        https://github-windows.s3.amazonaws.com/GitHubSetup.exe
+        MS .NET Framework 4.5
+
+2.linux 安装
+    yum install git
+    git --help
+
+3.使用学习
+    （1）创建项目
+        1） 
+        2） 
+        
+    （2）linux 检出到本地
+        1） gitbut 右下角 HTTPS clone URL 点击复制 链接
+        2） linux :
+            mkdir test 
+            cd test
+            git clone https://github.com/....
+        3)
+        4)
+    （3）windows 检出到本地
+    （4）linux下第一次提交项目
+        1） git add filename     //开始跟踪此文件
+        2） git commit           //提交变更，填写评论或备注，这只是提交到本地仓库
+        3） 可用git status 查看状态
+        4） git push 
+
+    （5）
