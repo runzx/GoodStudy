@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> new document </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <script type="text/javascript">
+    function openWindow() {
+
+        if (confirm("请确认要打开新窗口？"))
+            window.open(prompt("请输入你要打开的网址：", "http://www.imooc.com"), 'abc', "width=400,height=500,menubar=no,toolbar=no");
+        // 新窗口打开时弹出确认框，是否打开
+    }
+
+    // 通过输入对话框，确定打开的网址，默认为 http：//www.imooc.com/
+
+    //打开的窗口要求，宽400像素，高500像素，无菜单栏、无工具栏。
+    </script>
+</head>
+
+<body>
+    <input type="button" value="新窗口打开网站" onclick="openWindow()" />
+</body>
+
+</html>

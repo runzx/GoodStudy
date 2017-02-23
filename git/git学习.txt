@@ -3,6 +3,9 @@
 //  廖雪峰北京 朝阳区
 //  http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 
+//  PHP项目中的Gitflow多人协作开发工作流
+//  http://www.imooc.com/learn/751
+
 
 https://github.com/
 run..  zx13....
@@ -33,7 +36,7 @@ run..  zx13....
     （3）windows 检出到本地
         1) github 右下角点击 Clone in desktop 指定对应PC目录。
         2) .gitignore files 可设要忽略不提交的文件及类型， 指向此文件点右键选Ignore file or .xxx 
-        3）
+        3） 代码修改后，添加修改信息，点击 「commit to master」提交代码，再点击右上角的「sync」把代码同步到远程服务器。 
     （4）linux下第一次提交项目
         1） git add filename     //开始跟踪此文件
         2） git commit           //提交变更，填写评论或备注，这只是提交到本地仓库
@@ -48,4 +51,22 @@ run..  zx13....
             github发现冲突后，自己合并提提示冲突，我们手工处理。
 
     
-    (6) 
+    (6) 代码返回过去
+        1） git reflog
+        2） git reset --hard xxxxx   // commit ID  
+
+    (7) 建立里程卑
+        1） github -> releases -> Draft a new release 
+        2） 填入版本号，备注
+
+    （8）建立分支开发，合并
+        1） Branches 
+        2） Merge 合并 
+        3） 在github 上合并
+    （9） 多人合作经验
+        1） 多用客户端工具， 少用命令行。
+        2） 提交前diff自己代码。
+        3） 下班前，整理好自己的工作区
+        4） 并行项目， 使用分支开发。
+        5） 冲突时， 先搞清原因， 不要随意丢弃别人代码。
+        6） 产品发布后， 记得打tag, 方便将来拌分支修bug 

@@ -1,0 +1,64 @@
+//  Git 使用 20170223
+//      开发小程序需要建服务器上团队使用Git
+
+1. 定义：
+    repository  版本库又名仓库，一个目录：文件的修改、删除，Git都能跟踪
+
+
+
+2. 创建仓库
+    1）git init              //在目录下
+    2）git add filename      //文件添加到仓库 ，如果不先add提交到暂存区，commit就不能起作用
+    3) git commit -m "备注"   //把暂存区的送到仓库
+
+3. 查看状态
+    1）git status 
+    2) git diff             //查看修改内容
+    3）git log               // 历史记录
+    4)                      HEAD 表示当前版本
+    5) git reset --hard HEAD^           //回退以前版本
+        git reset --hard 3628164
+    6）git reflog            //记录所有次命令
+4.撤销修改
+    1）git checkout --file.txt   //
+            一种是file.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+            一种是file.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+    2)git reset HEAD file       //把暂存区的修改撤销掉（unstage），重新放回工作区
+    3)git rm                    //从版本库中删除， git commit 备注
+
+5.远程仓库
+    1）git remote add origin git@server-name:path/repo-name.git  //关联一个远程库,远程库的名字就是origin，这是Git默认的叫法，也可以改成别的
+    2) git push -u origin master        //第一次推送master分支的所有内容
+
+    3) git clone git@github.com:michaelliao/gitskills.git       //克隆一个本地库 地址也可以用：https://github.com/michaelliao/gitskills.git
+    4）
+6.分支 
+    1）你创建自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。
+    2）git checkout -b dev       //创建dev分支，然后切换到dev分支
+    3）git branch                //查看当前分支,当前分支前面会标一个*号
+    4) git checkout master      // 切换回master分支,
+    5) git merge dev            // 把dev分支的工作成果合并到master分支上
+
+    6) 
+        查看分支：git branch
+        创建分支：git branch <name>
+        切换分支：git checkout <name>
+        创建+切换分支：git checkout -b <name>
+        合并某分支到当前分支：git merge <name>
+        删除分支：git branch -d <name>
+
+11.多人协作
+    1）git remote        //查看远程仓库信息 git remote -v 详细
+    2）git push origin master        //该分支上的所有本地提交推送到远程库(git push origin dev 推送dev分支）
+    3）git checkout -b dev origin/dev    //创建远程origin的dev分支到本地
+    4)冲突时，Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送：
+        Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容，我们修改如下后保存：
+        git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接
+        设置dev和origin/dev的链接：    git branch --set-upstream dev origin/dev    ，然后再pull
+    5)多人协作的工作模式通常:
+        首先，可以试图用git push origin branch-name推送自己的修改；
+        如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+        如果合并有冲突，则解决冲突，并在本地提交；
+        没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+    

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>innerHTML</title>
+</head>
+<body>
+<h2 id="con">javascript</H2>
+<p> JavaScript是一种基于对象、事件驱动的简单脚本语言，嵌入在HTML文档中，由浏览器负责解释和执行，在网页上产生动态的显示效果并实现与用户交互功能。</p>
+<script type="text/javascript">
+  var mychar= document.getElementById('con')          ;
+  document.write("原标题:"+mychar.innerHTML+"<br>"); //输出原h2标签内容
+  mychar.innerHTML="Hello world!";
+  document.write("修改后的标题:"+mychar.innerHTML); //输出修改后h2标签内容
+</script>
+</body>
+</html>
