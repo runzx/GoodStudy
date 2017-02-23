@@ -5,7 +5,7 @@
 
 
 https://github.com/
-runzx   zx131...
+run..  zx13....
 
 1. windows 
     1. 下载：
@@ -31,6 +31,9 @@ runzx   zx131...
         3)
         4)
     （3）windows 检出到本地
+        1) github 右下角点击 Clone in desktop 指定对应PC目录。
+        2)
+        3）
     （4）linux下第一次提交项目
         1） git add filename     //开始跟踪此文件
         2） git commit           //提交变更，填写评论或备注，这只是提交到本地仓库
