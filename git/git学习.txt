@@ -32,7 +32,7 @@ run..  zx13....
         4)
     （3）windows 检出到本地
         1) github 右下角点击 Clone in desktop 指定对应PC目录。
-        2)
+        2) .gitignore files 可设要忽略不提交的文件及类型， 指向此文件点右键选Ignore file or .xxx 
         3）
     （4）linux下第一次提交项目
         1） git add filename     //开始跟踪此文件
@@ -40,4 +40,12 @@ run..  zx13....
         3） 可用git status 查看状态
         4） git push 
 
-    （5）
+    （5） 代码冲突
+        1） linux 下：
+            先git pull ,git自动合并有冲突代码， 我们手工处理
+            再次git add 或 git commit
+        2) windows 下：
+            github发现冲突后，自己合并提提示冲突，我们手工处理。
+
+    
+    (6) 
