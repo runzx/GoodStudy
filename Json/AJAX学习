@@ -1,0 +1,21 @@
+//  AJAX学习
+
+1. 异步的JS和XML， 更新部分网页技术（不刷新下）
+2. XMLHttpRequest 对象来与服务器异步交换
+    JS操作DOM，动态局部刷新
+3. 实例化对象（IE5、6不支持）
+    var request=new XMLHttpRequest();
+4. http请求
+    方法： GET POET
+        GET： 信息获取，<2000B，URL传递参数。 幂等？
+        POST： 修改服务器上资源，不在URL里，数量不限
+    URL
+    请求头
+    正文
+5. 服务器响应：
+    状态码： 成功/失败 3位数字 1XX， 2XX 成功，3XX重定向，4XX客户端错误，如404， 5XX服务器错误 
+    响应头：
+    正文：
+6. XMLHttpRequest 请求 
+    open(method,url,async) 
+    send(string) 

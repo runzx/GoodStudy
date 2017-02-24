@@ -1,0 +1,39 @@
+//  LNMP 1.2/1.3升级Nginx、MySQL/MariaDB、PHP教程
+
+
+作者：licess 发布时间：2015年05月7日 分类：常见问题
+
+一般情况下不建议对生产环境进行升级，升级开始后会停止LNMP相关服务。
+本文仅适用于LNMP1.2、1.3及1.4等以后版本！
+
+在LNMP目前LNMP v1.2/1.3中已经包含了Nginx、MySQL/MariaDB、PHP的升级脚本，可以帮助搭建对环境中的程序进行升级。(注意：以下操作均需要在lnmp压缩包解压后的目录里运行)
+
+一、Nginx升级脚本
+执行：./upgrade.sh nginx 按提示输入版本号后回车（访问 http://nginx.org/en/download.html 可查找nginx的最新版本号和以往旧版本号。如：1.6.0 ），再次回车确认即可开始升级Nginx。如要升级到1.9.5或更高版本必须使用v1.3里面的升级脚本。Nginx升级为平滑升级，升级过程不影响nginx的运行。
+另外如需添加其他模块可以编辑lnmp.conf 配置文件，在 Nginx_Modules_Options 参数的引号里加其他需要的参数。
+lnmp 1.2版修改include/upgrade_nginx.sh文件
+在Nginx_Modules_Arguments="" 参数的双引号里添加需要的其他模块，多个模块参数空格隔开，然后再运行升级即可。
+
+二、MySQL升级脚本
+虽然脚本会备份数据，但依然建议先自行备份！
+执行：./upgrade.sh mysql 需要先输入MySQL root密码进行验证，验证不通过将无法进行升级，验证通过后可以到http://dev.mysql.com/downloads/mysql/ 获取MySQL的版本号，输入后回车确认，如要启用Innodb，输入y，不确定的话也可以输入输入y 回车确认，再次回车确认即可开始升级。会在/root 目录下生成mysql_upgrade日期.log的日志文件，供出错时排查。
+如升级失败可将/usr/local/oldmysql日期的目录重命名为mysql，并将/etc/下的my.conf.bak.日期的配置文件重命名为my.cnf和/etc/init.d/下的mysql.bak.日期重命名为mysql即可恢复原mysql。(下面MySQL升级至MariaDB及升级MariaDB一样)
+
+三、MySQL升级至MariaDB脚本
+MariaDB是MySQL的一个分支，主要由开源社区在维护。MariaDB兼容MySQL，由MySQL创始人主导开发。依然建议先自行备份！
+执行：./upgrade.sh m2m 需要先输入MySQL root密码进行验证，验证不通过将无法进行升级，验证通过后可以到https://downloads.mariadb.org/ 获取MariaDB的版本号，输入后回车确认，如要启用Innodb，输入y，不确定的话也可以输入输入y 回车确认，再次回车确认即可开始升级。会在/root 目录下生产mysql2mariadb_upgrade日期.log的日志文件，供出错时排查。
+
+四、MariaDB升级脚本
+依然建议先自行备份！
+执行：./upgrade.sh mariadb 需要先输入MariaDB root密码进行验证，验证不通过将无法进行升级，验证通过后可以到https://downloads.mariadb.org/ 获取MariaDB的版本号，输入后回车确认，如要启用Innodb，输入y，不确定的话也可以输入输入y 回车确认，再次回车确认即可开始升级。会在/root 目录下生产mariadb_upgrade日期.log的日志文件，供出错时排查。
+如升级失败可将/usr/local/oldmariadb日期的目录重命名为mariadb，并将/etc/下的my.conf.bak.日期的配置文件重命名为my.cnf和/etc/init.d/下的mariadb.bak.日期重命名为mariadb即可恢复原mariadb。
+五、LNMP PHP升级脚本
+升级PHP前，请确认你的网站程序是否支持升级到的PHP版本，防止升级到网站程序不兼容的PHP版本，具体可以去你使用的PHP程序的官网查询相关版本支持信息。v1.3及以后版本大部分情况下也可以进行降级操作。
+执行：./upgrade.sh php 到http://www.php.net/downloads.php 获取版本号，输入版本号，如5.3.28 回车，再次回车确认即可开始升级。
+如需要编译其他参数可以，lnmp 1.3及以后版本版可以修改lnmp.conf配置文件里的 PHP_Modules_Options 参数的引号里加其他需要的参数。
+lnmp 1.2版修改include/upgrade_php.sh文件
+在PHP_Modules_Arguments="" 参数的双引号里添加需要的其他模块，多个模块参数空格隔开，然后再运行升级即可。
+
+六、LNMPA/LAMP PHP升级脚本
+升级PHP前，请确认你的网站程序是否支持升级到的PHP版本，防止升级到网站程序不兼容的PHP版本，具体可以去你使用的PHP程序的官网查询相关版本支持信息。
+执行：./upgrade.sh phpa 到http://www.php.net/downloads.php 获取版本号，输入版本号，如5.3.28 回车，再次回车确认即可开始升级。

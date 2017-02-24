@@ -1,0 +1,48 @@
+//  lnmp去掉nginx上传目录的PHP执行权限
+2011年06月12日 上午 | 作者：VPS侦探
+
+
+
+LNMP有一个缺点就是目录权限设置上不如Apache，有时候网站程序存在上传漏洞或类似pathinfo的漏洞从而导致被上传了php木马，而给网站和服务器带来比较大危险。建议将网站目录的PHP权限去掉，当访问上传目录下的php文件时就会返回403错误。下面VPS侦探详细介绍如何把lnmp环境下去掉指定目录的PHP执行权限。
+
+首先要编辑nginx的虚拟主机配置，在fastcgi的location语句的前面按下面的内容添加：
+
+1、单个目录去掉PHP执行权限
+
+location ~ /attachments/.*\.(php|php5)?$ {
+deny all;
+}
+将attachments目录的PHP执行权限去掉。
+
+2、多个目录去掉PHP执行权限
+
+location ~ /(attachments|upload)/.*\.(php|php5)?$ {
+deny all;
+}
+将attachments、upload这二个目录的PHP执行权限去掉。
+
+附上一个完整的虚拟主机的例子供参考：
+
+server
+{
+listen 80;
+server_name bbs.vpser.net;
+index index.html index.htm index.php;
+root /home/wwwroot/bbs.vpser.net;include discuz.conf;
+location ~ /(attachments|upload)/.*\.(php|php5)?$ {
+deny all;
+}
+location ~ .*\.(php|php5)?$
+{
+fastcgi_pass unix:/tmp/php-cgi.sock;
+fastcgi_index index.php;
+include fastcgi.conf;
+}access_log off;
+}
+添加完执行：/usr/local/nginx/sbin/nginx -t测试配置文件，执行：/usr/local/nginx/sbin/nginx -s reload 载入配置文件使其生效。
+
+如有问题欢迎在本文下方留言或到VPS论坛交流反馈。
+
+原创文章，谢绝转载！
+
+>>转载请注明出处：VPS侦探 本文链接地址：https://www.vpser.net/security/lnmp-remove-nginx-php-execute.html

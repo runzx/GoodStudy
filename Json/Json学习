@@ -1,0 +1,95 @@
+//  Json学习 
+//  http://www.imooc.com/video/902
+
+1. JSON：JavaScript 对象表示法（JavaScript Object Notation）
+    JSON 独立于语言 *
+    JSON 具有自我描述性，更易理解
+        对象：对象包含再{}之间
+        属性：采用Key-Value对来表示。属性之间使用逗号分开。  string : value
+        数组：数组存放再[]之间   [ elements ]
+        元素：元素之间用逗号分开
+        值：值可以是字符串，数字，对象，数组，true，false，null
+    {
+        "employees": [
+            { "firstName":"Bill" , "lastName":"Gates" },
+            { "firstName":"George" , "lastName":"Bush" },
+            { "firstName":"Thomas" , "lastName":"Carter" }
+        ]
+    }
+
+
+2.JSON 文件
+      JSON 文件的文件类型是 ".json"
+      JSON 文本的 MIME 类型是 "application/json"
+        header("Content-Type: application/json;charset=utf-8")  //php
+
+
+3.数据类型：
+    1） 标量 csalar  
+        单独字符串、数字 ：“北京”，1，2
+    2） 序列 sequence, n个数据按顺序并列一起
+        数组array，列表list
+    3） 映射 mapping , 一对 名/值 (Name/value)
+        散列 hash ,字典 dictionary 
+
+4. 基本语法
+    四个基本规则：
+        ，分隔
+        ：映射
+        []数组
+        {}集合，对象
+    字符集： Unicode
+5 PHP 
+    加密： Json_encode()
+    解密： json_decode()
+        php 转换对象时， 只转公有 
+        转为json时，true-> 数组，默认为对象
+
+6 数组： 
+    索引数组 
+    关联数组
+7 JS解析
+    eval('('+str+')'); // 会执行方法，不安全
+    JSON.parse(str)
+        	
+            request.onreadystatechange = function() {
+                if (request.readyState===4) {
+                    if (request.status===200) {             //200是服务成功状态
+                        var data = JSON.parse(request.responseText);
+                        if (data.success) { 
+                            document.getElementById("createResult").innerHTML = data.msg;
+                        } else {
+                            document.getElementById("createResult").innerHTML = "出现错误：" + data.msg;
+                        }
+                    } else {
+                        alert("发生错误：" + request.status);
+                    }
+            } 
+
+    在线校验： jsonlint.com
+
+8. JQuery 
+    1) <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    2)
+        $(document).ready(function(){ 
+            $("#search").click(function(){ 
+                $.ajax({ 
+                    type: "GET", 	
+                    url: "http://127.0.0.1:8000/ajaxdemo/serverjsonp.php?number=" + $("#keyword").val(),
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    success: function(data) {
+                        if (data.success) {
+                            $("#searchResult").html(data.msg);
+                        } else {
+                            $("#searchResult").html("出现错误：" + data.msg);
+                        }  
+                    },
+                    error: function(jqXHR){     
+                    alert("发生错误：" + jqXHR.status);  
+                    },     
+                });
+            });
+
+
+    

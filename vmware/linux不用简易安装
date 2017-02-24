@@ -1,0 +1,84 @@
+//  用vmware安装时很多时候会被简易安装，无法自己选择语言等问题
+
+1. 点击创建新的虚拟机-----------典型（推荐）-----------
+    安装来源：
+        选择第二个自动检测linux系统，执行简易安装.
+        选择第三个稍后安装系统...
+2.启动前：
+    点击到CD/DVD
+    ----选择iso映像文件---预览到ubuntu镜像文件
+    确定，打开虚拟机时就不会简易安装。
+3. CentOS65mini 1G内存安装后
+                 total       used       free     shared    buffers     cached
+    Mem:       1030452      99684     930768          0       5428      37876
+    -/+ buffers/cache:      56380     974072
+    Swap:      2064376          0    2064376
+
+4. vmware克隆虚拟机，配置网卡的时候出现报错：
+    "Bring up interface eth0：Device eth0 does not seem to be present，delaying initialization"。
+    1）删除文件70-persistent-net.rules   //克隆后这里的MAC地址还是母本的。
+        # rm -f /etc/udev/rules.d/70-persistent-net.rule
+    2）修改ifcfg-eth0，删除或者注释MAC地址的配置
+       # vi /etc/sysconfig/network-scripts/ifcfg-eth0
+    3）重启服务器
+5.启动网卡，默认网卡是不启动的
+    #vi /etc/sysconfig/network-scripts/ifcfg-eth0
+        ONBOOT=no 改为 yes    //按：wq保存退出
+            iDEVICE=eth0
+            HWADDR=00:0C:29:87:D9:65
+            TYPE=Ethernet
+            UUID=c65c1a2b-44c9-480a-b8a4-429d4af2d630
+            ONBOOT=yes
+            NM_CONTROLLED=yes
+            BOOTPROTO=static
+            IPADDR=192.168.1.30
+            NETMASK=255.255.255.0
+            NETWORK=192.168.1.0
+            BROADCAST=192.168.1.255
+            GATEWAY=192.168.1.1
+            IPV6INIT=no
+            IPV6_AUTOCONF=no
+            DNS1=192.168.1.1
+        #service network restart 重启网络 或 /etc/init.d/network restart
+    网络配置:
+        # ifconfig eth0 192.168.1.30 netmask 255.255.255.0 　　//ifconfig配置不能保存
+        # route add default gw 192.168.1.1 dev eth0　　//网关
+        # hostname centos 　　//计算机名
+
+6.配置sshd
+    mini默认安装sshd，
+        在 /etc/hosts.deny 和 /etc/hosts.allow 最后都加上一句 sshd:ALL ，保存
+    #service sshd restart
+
+7.关闭selinux
+#vi /etc/selinux/config
+将 SELINUX=enforcing 改成 SELINUX=disabled，保存。
+重启系统 reboot
+
+8.配置yum源
+# yum -y install wget  //安装下载工具
+# cd /etc/yum.repos.d/    //进入yum配置文件目录
+# wget http://mirrors.163.com/.help/CentOS6-Base-163.repo  //下载网易的源配置文件
+
+导入CentOS-6的GPG证书
+#rpm --import http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-6  //这句可用可不用
+
+在所有mirrorlist前面加上#，把所有$releasever替换成6，保存
+#sed -i '/mirrorlist/d' CentOS-Base-163.repo
+#sed -i '/\[addons\]/,/^$/d' CentOS-Base-163.repo
+#sed -i 's/\$releasever/6/' CentOS-Base-163.repo
+#sed -i 's/RPM-GPG-KEY-CentOS-5/RPM-GPG-KEY-CentOS-6/' CentOS-Base-163.repo
+
+# mv CentOS-Base.repo CentOS-Base.repo.bak  //备份旧的配置文件
+# mv CentOS6-Base-163.repo CentOS-Base.repo  //把下载的配置文件改名
+# yum clean all  //清理缓存
+# yum makecache  //更新缓存
+# yum update  //更新系统
+
+ 
+
+9.安装常用软件包
+
+yum -y install vim
+
+yum -y install gcc gcc-c++ make

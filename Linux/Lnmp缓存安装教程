@@ -1,0 +1,104 @@
+//  LNMP 1.2缓存加速类扩展(xcache/Redis/memcached/eAccelerator)、imageMagick、ionCube安装教程
+
+作者：licess 发布时间：2015年05月7日 分类：常见问题
+
+本文仅适用于LNMP1.2、1.3及1.4等以后的版本安装eAccelerator、xcache、memcached、imageMagick、ionCube、redis、opcache.这几个PHP缓存、加速类的扩展不一定对每个人都能用，自己按需要安装，不用装多个同类的扩展，可能会导致出错。下面会对各个程序的作用、安装方法及相关注意事项。(注意：以下操作均需要在lnmp压缩包解压后的目录里运行，如lnmp1.3-full)
+
+这些扩展和组件均采用./addons.sh进行安装。
+基本用法说明：./addons.sh {install|uninstall} {eaccelerator|xcache|memcached|opcache|redis|imagemagick|ioncube}
+不同版本可能显示和选项上略微有些差异。
+
+
+1、eAccelerator
+
+eAccelerator是一个自由开放源码php加速器，优化和动态内容缓存，提高了php脚本的缓存性能，使得PHP脚本在编译的状态下，对服务器的开销几乎完全消除。 它还有对脚本起优化作用，以加快其执行效率。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install eaccelerator 运行后有如下提示：
+addons-install-eaccelerator.png
+eaccelerator 0.9.5.3 支持PHP 5.2，如需此版本，输入 1 回车。
+eaccelerator 0.9.6.1 支持PHP 5.2、5.3，如需此版本，输入 2 回车。
+eaccelerator 1.0-dev 支持PHP 5.2、5.3、5.4，如需此版本输入 3 回车。
+
+提示“Press any key to install...or Press Ctrl+c to cancel” 后回车确认，脚本就会自动安装eaccelerator。
+
+卸载
+执行：./addons.sh uninstall eaccelerator
+
+
+2、xcache
+
+XCache 是一个国人开发的又快又稳定的PHP opcode缓存器。经过良好的测试并在大流量/高负载的生产机器上稳定运行，支持所有现行PHP分支的最新发布版本。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install xcache 运行后有如下提示：
+addons-install-xcache.png
+需要设置xcache管理页面admin用户的密码。
+
+出现“Press any key to install...or Press Ctrl+c to cancel“，再次回车确认即可开始安装。
+
+卸载
+执行：./addons.sh uninstall xcache
+
+
+3、memcached
+
+Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提供动态、数据库驱动网站的速度。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install memcached 
+addons-install-memcached.png
+可以根据自己的需求选择php-memcache或php-memcached扩展，目前discuz x使用的是前者，功能上php-memcached更强大一些。
+输入对应的序号，回车，再次确认回车开始安装。
+
+卸载
+执行：./addons.sh uninstall memcached
+
+
+4、imageMagick
+
+ImageMagick是一个用于查看、编辑位图文件以及进行图像格式转换的开放源代码软件套装。它可以读取、编辑超过100种图象格式。可用来替换GD库。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install imagemagick 
+回车确认后就会自动安装imageMagick。
+
+设置：比如在DiscuzX里设置时路径需要填写：/usr/local/imagemagick/bin/ 并且禁用函数里的exec要去掉才可以正常使用。
+
+卸载
+执行：./addons.sh uninstall imagemagick
+
+
+5、ionCube
+
+此脚本是用来安装ionCube loader的，ionCube loader是用来解密ionCube加密的PHP脚本，如whmcs就采用ionCube加密。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install ionCube 
+回车确认后就会自动安装ionCube loader。
+
+卸载
+执行：./addons.sh uninstall ionCube
+
+
+6、Redis
+
+此脚本是用来安装Redis，Redis是一个开源、支持网络、基于内存、键值对存储数据库。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install redis 
+运行后有如下提示：
+lnmp-eacesselerator-install.png，安装稳定版Redis 2.8.8 输入：s 回车；安装测试版Redis 3.0.0输入：b 回车；安装旧版Redis 2.6.17输入：o 回车。
+
+
+7、opcache
+
+此脚本是用来安装opcache的，是 Zend 开发的闭源但可以免费使用的 PHP 优化加速组件。LNMP 1.2下安装的PHP 5.5或更高版本的PHP不需要额外安装OPcache，默认已经安装上。
+1.3上默认已安装但未启用执行：./addons.sh install opcache 进行开启。
+
+安装
+进入lnmp解压后的目录，执行：./addons.sh install opcache 
+Opcache和eAccelerator是冲突的，脚本会卸载eAccelerator后再安装Opcache，回车确认后就会自动安装opcache。
+
+卸载
+执行：./addons.sh uninstall opcache
