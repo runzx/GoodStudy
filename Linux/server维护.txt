@@ -14,4 +14,15 @@
 
 5. /etc/hosts.deny  里： sshd: 179.61.135.65 是屏蔽此IP
 
-6. 
+6. CentOS下配置iptables防火墙
+    /etc/sysconfig/iptables  
+        -A INPUT -p tcp -m tcp --dport 3306 -j ACCEPT 
+        #-A INPUT -p tcp -m tcp --dport 3306 -j DROP 
+    关闭/开启/重启防火墙
+        /etc/init.d/iptables stop  
+        #start 开启  
+        #restart 重启 
+    验证一下是否规则
+        iptables -L
+    永久性关闭防火墙
+        chkconfig --level 35 iptables off  
