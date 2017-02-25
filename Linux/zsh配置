@@ -1,0 +1,47 @@
+//终极 Shell——ZSH
+
+1.
+
+2.
+
+3.Oh My Zsh安装
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh //自动安装
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh  //手动安装
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+
+4.切換 theme
+    修改 .zshrc 的 ZSH_THEME 這個參數,主題都放在 ~/.oh-my-zsh/themes 目錄中
+
+5.啟用 plugin
+    內建的 plugin 都放在 ~/.oh-my-zsh/plugins
+    在 .zshrc 中做設定,加在括號裡
+        -plugins=(git)
+        +plugins=(git heroku)
+
+6.各种补全：路径补全、命令补全，命令参数补全，插件内容补全等等。
+    触发补全只需要按一下或两下 tab 键，补全项可以使用 ctrl+n/p/f/b上下左右切换。
+
+    目录浏览和跳转：输入 d，即可列出你在这个会话里访问的目录列表，输入列表前的序号，即可直接跳转。
+    在当前目录下输入 .. 或 … ，或直接输入当前目录名（当前目录下的）都可以跳转，你甚至不再需要输入 cd 命令了。
+    通配符搜索：ls -l **/*.sh，可以递归显示当前目录下的 shell 文件，文件少时可以代替 find，文件太多就歇菜了。
+    智能跳转，安装了autojump（插件）之后，zsh 会自动记录你访问过的目录，通过 j + 目录名 可以直接进行目录跳转，而且目录名支持模糊匹配和自动补全，例如你访问过hadoop-1.0.0目录，输入j hado 即可正确跳转。j –stat 可以看你的历史路径库。
+
+    接下来进行别名的设置，我自己的部分配置如下：
+    .zshrc中配置：
+        alias cls='clear'
+        alias ll='ls -l'
+        alias la='ls -a'
+        alias vi='vim'
+        alias javac="javac -J-Dfile.encoding=utf8"
+        alias grep="grep --color=auto"
+        alias -s html=mate   # 在命令行直接输入后缀为 html 的文件名，会在 TextMate 中打开
+        alias -s rb=mate     # 在命令行直接输入 ruby 文件，会在 TextMate 中打开
+        alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+        alias -s js=vi
+        alias -s c=vi
+        alias -s java=vi
+        alias -s txt=vi
+        alias -s gz='tar -xzvf'
+        alias -s tgz='tar -xzvf'
+        alias -s zip='unzip'
+        alias -s bz2='tar -xjvf'
