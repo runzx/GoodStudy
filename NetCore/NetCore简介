@@ -1,0 +1,25 @@
+//  简析 .NET Core 构成体系
+
+1. .NET Core 构成体系
+    Roslyn 编译器
+    RyuJIT 编译器
+    CoreCLR & CoreRT
+    CoreFX(.NET Core Libraries)
+
+2.Roslyn 编译器
+    Roslyn编译器用于将C#或VB.NET代码编译为程序集(assembly)，它的编译过程是一个管道式的处理过程一共包含4个步骤，具体过程见下图。
+        A. Parser(解析)
+            根据语法对源代码进行解析。
+        B. Declaration (声明)
+            为代码生成元数据(metadata),元数据是一个数据表的集合，描述了在当前代码中定义的数据类型和成员，同时也描述了引用的类型及成员。
+        C. Bind(绑定)
+            将生成的IL代码与描述它的元数据绑定在一起，生成托管模块(managed module)。
+        D. Emit(生成)
+            将一个或多个托管模块合并生成程序集(assembly)。
+3.RyuJIT 编译器
+    在程序运行中需要执行某一个方法，首先需要将已经编译好的IL转换本机的机器码，而这个任务就交给了RyuJIT。
+    它是新一代JIT编译器，第一次实现了AMD64的架构，RyuJIT能够比JIT64(上一代编译器)更快地生成代码，以提高程序运行效率(测试详情链接)。
+
+4..NET Core被视为.NET Framework的新一代版本。与现有的.NET Framework在使用上的区别是：
+    .NET Framework采用大包式安装的方式，
+    .NET Core则是采用套件化（Packages）的管理方式，写应用程序只需要调用所需组件即可。

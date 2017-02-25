@@ -1,0 +1,72 @@
+//  Install for CentOS 7.1 (64 bit) & Oracle Linux 7.1 (64 bit)
+//  https://www.microsoft.com/net/core#linuxcentos
+
+1. 安装CentOS7 
+3. 安装 .Net core  
+        [root@localhost ~]# free
+                    total        used        free      shared  buff/cache   available
+        Mem:         999964      119312      309088        6836      571564      676804
+        Swap:       2097148          20     2097128
+
+   Install .NET Core SDK
+        sudo yum install libunwind libicu
+            已安装:  libicu.x86_64 0:50.1.2-15.el7                      libunwind.x86_64 2:1.1-5.el7_2.2
+        curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=835019
+            //下载 dotnet-dev-centos-x64.1.0.0-preview2-1-003177.tar.gz
+        mkdir -p /opt/dotnet && tar zxf dotnet.tar.gz -C /opt/dotnet
+            [root@localhost ~]# ls /opt/dotnet
+            dotnet  host  LICENSE.txt  sdk  shared  ThirdPartyNotices.txt
+        ln -s /opt/dotnet/dotnet /usr/local/bin
+
+    Initialize some code        //Let's initialize a sample Hello World application!
+        mkdir hwapp
+        cd hwapp
+        dotnet new                  //创建一个项目 
+        
+            Welcome to .NET Core!
+            ---------------------
+            Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.
+            Telemetry
+            --------------
+            The .NET Core tools collect usage data in order to improve your experience. The data is anonymous and does not include commandline arguments. The data is collected by Microsoft and shared with the community.
+            You can opt out of telemetry by setting a DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1 using your favorite shell.
+            You can read more about .NET Core tools telemetry @ https://aka.ms/dotnet-cli-telemetry.
+            Configuring...
+            -------------------
+            A command is running to initially populate your local package cache, to improve restore speed and enable offline access. This command will take up to a minute to complete and will only happen once.
+            Decompressing 100% 5212 ms
+            Expanding 100% 21426 ms
+
+            Created new C# project in /root/hwapp.
+        
+    Run the app
+        dotnet restore          //restore the packages specified in the project.json file.
+            A command is running to initially populate your local package cache, to improve restore speed and enable offline access. This command will take up to a minute to complete and will only happen once.
+            Decompressing 100% 4417 ms
+            Expanding 100% 46452 ms
+
+            log  : Restoring packages for /root/hwapp/project.json...
+            log  : Writing lock file to disk. Path: /root/hwapp/project.lock.json
+            log  : /root/hwapp/project.json
+            log  : Restore completed in 1180ms.
+
+            [root@localhost hwapp]# ls -l
+            总用量 304
+            -rwxr--r--. 1 root root    202 11月 11 00:09 Program.cs
+            -rwxr--r--. 1 root root    348 11月 11 00:09 project.json
+            -rwxr--r--. 1 root root 299959 2月  25 23:02 project.lock.json
+
+            dotnet run              //run the actual sample, 执行程序
+
+            [root@localhost hwapp]# dotnet run
+            Project hwapp (.NETCoreApp,Version=v1.1) will be compiled because expected outputs are missing
+            Compiling hwapp for .NETCoreApp,Version=v1.1
+
+            Compilation succeeded.
+                0 Warning(s)
+                0 Error(s)
+
+            Time elapsed 00:00:02.6371230
+
+
+            Hello World!

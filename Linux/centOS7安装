@@ -1,0 +1,58 @@
+//  CentOS7 安装
+
+1. ip命令代替ifconfig命令
+        ip  [选项]  操作对象{link|addr|route...}
+
+        # ip link show                # 显示网络接口信息
+        # ip link set eth0 upi           # 开启网卡
+        # ip link set eth0 down          # 关闭网卡
+        # ip link set eth0 promisc on      # 开启网卡的混合模式
+        # ip link set eth0 promisc offi     # 关闭网卡的混个模式
+        # ip link set eth0 txqueuelen 1200   # 设置网卡队列长度
+        # ip link set eth0 mtu 1400        # 设置网卡最大传输单元
+        # ip addr show                # 显示网卡IP信息
+        # ip addr add 192.168.0.1/24 dev eth0 # 设置eth0网卡IP地址192.168.0.1
+        # ip addr del 192.168.0.1/24 dev eth0 # 删除eth0网卡IP地址
+
+        # ip route list                 # 查看路由信息
+        # ip route add 192.168.4.0/24  via  192.168.0.254 dev eth0 # 设置192.168.4.0网段的网关为192.168.0.254,数据走eth0接口
+        # ip route add default via  192.168.0.254  dev eth0    # 设置默认网关为192.168.0.254
+        # ip route del 192.168.4.0/24      # 删除192.168.4.0网段的网关
+        # ip route del default          # 删除默认路由
+
+2. centOS 7 mini版没有安装网卡
+    ip addr     查看网卡名称 （默认不是eth0）
+        2: ens33: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    vi /etc/sysconfig/network-scripts/ifcfg-ens33
+        TYPE=Ethernet
+        BOOTPROTO=dhcp
+        DEFROUTE=yes
+        PEERDNS=yes
+        PEERROUTES=yes
+        IPV4_FAILURE_FATAL=no
+        IPV6INIT=yes
+        IPV6_AUTOCONF=yes
+        IPV6_DEFROUTE=yes
+        IPV6_PEERDNS=yes
+        IPV6_PEERROUTES=yes
+        IPV6_FAILURE_FATAL=no
+        IPV6_ADDR_GEN_MODE=stable-privacy
+        NAME=ens33
+        UUID=9de2a869-892c-4a81-866c-754fac8bddf7
+        DEVICE=ens33
+        ONBOOT=yes      //这改成yes, 然后/etc/init.d/network restart 就能分配置IP地址，SSH 访问
+    vi打开ifcfg-ens33，输入以下参数，再用#将BOOTPROTO=dhcp注释。(配置文件每行前面不能有空格) 
+        IPADDR0=192.168.1.32
+        PREFIX0=24
+        GATEWAY0=192.168.1.1
+        DNS1=192.168.1.1
+
+
+
+        
+
+
+
+    
+
+
