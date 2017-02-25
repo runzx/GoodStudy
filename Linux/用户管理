@@ -1,0 +1,43 @@
+//  CentOS 注销在线用户, Linux 注销用户
+
+1.  w 命令查看当前登录系统的用户：
+    [root@bosszs ~]# w
+    17:20:19 up 1 day, 20:53,  4 users,  load average: 0.00, 0.00, 0.00
+    USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+    eagle    tty1     -                Thu20   42:41m  1:02   0.10s login -- eagle
+    zhaixian pts/0    39.130.67.132    17:15   29.00s  0.00s  0.00s -sh
+    zhaixian pts/1    39.130.67.132    17:16    4:01   0.00s  0.00s -sh
+    root     pts/2    39.130.67.132    17:20    0.00s  0.00s  0.00s w
+2. 使用 pkill 命令将从 pts/1 终端登录的用户注销：
+        参数 -kill 中的 kill 是 SIGKILL 信号的缩写,-t 选项后跟着连接终端的名称 
+    [root@bosszs ~]# pkill -kill -t tty1
+    [root@bosszs ~]# w
+    17:20:36 up 1 day, 20:53,  3 users,  load average: 0.00, 0.00, 0.00
+    USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+    zhaixian pts/0    39.130.67.132    17:15   46.00s  0.00s  0.00s -sh
+    zhaixian pts/1    39.130.67.132    17:16    4:18   0.00s  0.00s -sh
+    root     pts/2    39.130.67.132    17:20    0.00s  0.00s  0.00s w
+
+3.建立一个新用户
+    useradd username
+    useradd -g groupname username
+    useradd -G groupname1,groupname2 username
+    passwd username     //linux并不采用类似windows的密码回显(显示为*号)
+
+4. 
+    Bourne shell (sh)       //是 UNIX 最初使用的 shell,每种 UNIX 上都可以使用
+        sh一般设成bash的软链,也就是说 /bin/sh 相当于 /bin/bash --posix
+        sh跟bash的区别，实际上就是bash有没有开启posix模式的区别
+    Bourne Again shell (Bash)   // Bourne shell 的扩展 , 完全向后兼容,增加、增强了很多特性,提供如命令补全、命令编辑和命令历史表
+
+
+
+
+
+
+        /etc/profile:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.此文件默认调用/etc/bash.bashrc文件。
+            /etc/bashrc:为每一个运行bash shell的用户执行此文件.当bashshell被打开时,该文件被读取.
+        ~/.bash_profile/~/.bash_login/~/.profile:用户登录执行，source立即生效。每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件.
+        ~/.bashrc:每次打开新窗口时执行。该文件包含专用于你的bashshell的bash信息。与/etc/bashrc冲突则执行前者～。
+        ~/.bash_logout:当每次退出系统(退出bashshell)时,执行该文件. 
+        可以明白的是：针对于用户的配置，应该将配置信息写入~/.bashrc文件。(只对当前用户有效，重新打开的如果不是当前用户的terminal当然没有效果！所以lz一般设置两次，一个root用户，一个当前普通用户)

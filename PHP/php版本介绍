@@ -1,0 +1,20 @@
+//  PHP4/5/6各版本之间的区别
+//  http://www.splaybow.com/post/php-version-difference.html
+
+1.  TS指Thread Safety，即线程安全，一般在IIS以ISAPI方式加载的时候选择这个版本。
+    NTS即None-Thread Safe，一般以fast cgi方式运行的时候选择这个版本，具有更好的性能。nginx
+
+    如果你在apache1或者apache2下使用PHP，你应该选择VC6的版本
+    如果你在IIS下使用PHP应该选择VC9的版本
+    VC6的版本使用visual studio6编译
+    VC9使用Visual Studio 2008编译，并且改进了性能和稳定性。VC9版本的PHP需要你安装Microsoft 2008 C++ Runtime
+    不要在apache下使用VC9的版本
+
+2. PHP5的版本主要分三支：PHP5.2之前的版本、PHP5.2.X和PHP5.3。
+    1994 年 Rasmus Lerdorf 创建 PHP 以来
+    PHP5.2之前的版本不值得考虑，因为某些功能缺陷或者BUG。主流PHP程序对PHP5.2.X的兼容性最好，而每次版本号的升级带来的都是安全性和稳定性的改善，所以宜挑选最新的版本。
+    目前PHP5.2系列最新的是PHP5.2.17
+    而如果产品是自己开发自己使用，PHP5.3在某些方面更具优势，在稳定性上更胜一筹，增加了很多PHP5.2所不具有的功能，比如内置php-fpm、更完善的垃圾回收算法、命名空间的引入、sqlite3的支持等等，是部署项目值得考虑的版本。
+    在 PHP 5.6 发布的时候，在大多数情况下，性能提升在 1.5x 和 3x 之间。
+    2015 年 12 月， PHP 7.0 取得了重大突破。 
+    2016 年 12 月，7.1 版本也带来了一系列增强功能。
