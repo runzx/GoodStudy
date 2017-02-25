@@ -1,0 +1,170 @@
+<html>
+<head>
+  <script src="../lib/OpenLayers.js"></script>
+  <script type="text/javascript"><!--
+    var isMozilla = (navigator.userAgent.indexOf("compatible") == -1);
+    var map; 
+    function test_01_Map_constructor (t) {
+        t.plan( 10 );
+        
+        map = new OpenLayers.Map('map'); // no longer need to call $(), constructor does it
+            t.ok( map instanceof OpenLayers.Map, "new OpenLayers.Map returns object" );
+        if (!isMozilla) {
+            t.ok( true, "skipping element test outside of Mozilla");
+            t.ok( true, "skipping element test outside of Mozilla");
+            t.ok( true, "skipping element test outside of Mozilla");
+        } else {
+            t.ok( map.div instanceof HTMLDivElement, "map.div is an HTMLDivElement" );
+            t.ok( map.viewPortDiv instanceof HTMLDivElement, "map.viewPortDiv is an HTMLDivElement" );
+            t.ok( map.layerContainerDiv instanceof HTMLDivElement, "map.layerContainerDiv is an HTMLDivElement" );
+        }
+        t.ok( map.layers instanceof Array, "map.layers is an Array" );
+        t.ok( map.controls instanceof Array, "map.controls is an Array" );
+        t.ok( map.events instanceof OpenLayers.Events, "map.events is an OpenLayers.Events" );
+        t.ok( map.maxExtent instanceof OpenLayers.Bounds, "map.maxExtent is an OpenLayers.Bounds" );
+        t.ok( map.maxZoomLevel > 0, "map.maxZoomLevel is set" );
+        t.ok( map.maxResolution > 0, "map.maxResolution is set" );
+    }
+    function test_02_Map_center(t) {
+        t.plan(5);
+        map = new OpenLayers.Map($('map'));
+        map.setCenter(new OpenLayers.LonLat(2,1), 0);
+        t.ok( map.getCenter() instanceof OpenLayers.LonLat, "map.getCenter returns a LonLat");
+        t.eq( map.getZoom(), 0, "map.zoom is correct after calling setCenter");
+        t.eq( map.getResolution(), map.maxResolution, "map.getResolution() == map.maxResolution");
+        t.eq( map.getCenter().lon, 2, "map center lon is correct after calling setCenter");
+        t.eq( map.getCenter().lat, 1, "map center lat is correct after calling setCenter");
+    }
+    function test_03_Map_add_layers(t) {
+        t.plan(5);
+        map = new OpenLayers.Map($('map'));
+        var layer1 = new OpenLayers.Layer.WMS("Layer 1", 
+            "http://octo.metacarta.com/cgi-bin/mapserv?",
+            {map: "/mapdata/vmap_wms.map", layers: "basic"});
+        var layer2 = new OpenLayers.Layer.WMS("Layer 2",
+            "http://wms.jpl.nasa.gov/wms.cgi", {layers: "modis,global_mosaic"});
+        // this uses map.addLayer internally
+        map.addLayers([layer1, layer2])
+        t.eq( map.layers.length, 2, "map has exactly two layers" );
+        t.ok( map.layers[0] === layer1, "1st layer is layer1" );
+        t.ok( map.layers[1] === layer2, "2nd layer is layer2" );
+        t.ok( layer1.map === map, "layer.map is map" ); 
+        t.eq( parseInt(layer1.div.style.zIndex), map.Z_INDEX_BASE['Layer'], 
+                "layer1 zIndex is set" );
+    }
+    function test_04_Map_options(t) {
+        t.plan(2);
+        map = new OpenLayers.Map($('map'), {maxZoomLevel: 5, maxResolution: 3.14159});
+        t.eq( map.maxZoomLevel, 5, "map.maxZoomLevel set correctly via options hash" );
+        t.eq( map.maxResolution, 3.14159, "map.maxResolution set correctly via options hash" );
+    }
+    function test_05_Map_center(t) {
+        t.plan(7);
+        map = new OpenLayers.Map($('map'));
+        map.setCenter(new OpenLayers.LonLat(2, 1), 0);
+        map.zoomIn();
+        t.eq( map.getZoom(), 1, "map.zoom is correct after calling setCenter,zoom in");
+        t.eq( map.getCenter().lon, 2, "map center lon is correct after calling setCenter, zoom in");
+        t.eq( map.getCenter().lat, 1, "map center lat is correct after calling setCenter,zoom in");
+        map.zoomOut();
+        t.eq( map.getZoom(), 0, "map.zoom is correct after calling setCenter,zoom in, zoom out");
+	map.zoomTo(5);
+	t.eq( map.getZoom(), 5, "map.zoom is correct after calling zoomTo" );
+	map.zoomToFullExtent();
+	t.eq( map.getZoom(), 2, "map.zoom is correct after calling zoomToFullExtent" );
+	var lonlat = map.getCenter();
+	var zero = new OpenLayers.LonLat(0, 0);
+	t.ok( lonlat.equals(zero), "map center is correct after calling zoomToFullExtent" );
+    }
+
+    function test_06_Map_zoomend_event (t) {
+        t.plan(3);
+        map = new OpenLayers.Map('map');
+        map.events.register("zoomend", {count: 0}, function() { 
+            this.count++; 
+            t.ok(true, "zoomend event was triggered " + this.count + " times");
+            });
+        map.setCenter(new OpenLayers.LonLat(2, 1), 0);
+        map.zoomIn();
+        map.zoomOut();
+    }
+    
+    function test_07_Map_add_remove_popup (t) {
+        t.plan(4);
+
+        map = new OpenLayers.Map('map');
+        
+        var popup = new OpenLayers.Popup("chicken", 
+                                         new OpenLayers.LonLat(0,0),
+                                         new OpenLayers.Size(200,200));
+        map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+
+        map.addPopup(popup);
+        t.eq(map.popups.indexOf(popup), 0, "popup successfully added to Map's internal popups array");
+
+        var nodes = map.layerContainerDiv.childNodes;
+        
+        var found = false;
+        for (var i=0; i < nodes.length; i++) {
+            if (nodes.item(i) == popup.div) {
+                found = true;
+                break;
+            }
+        }
+        t.ok(found, "popup.div successfully added to the map's viewPort");
+
+        
+        map.removePopup(popup);
+        t.eq(map.popups.indexOf(popup), -1, "popup successfully removed from Map's internal popups array");
+
+        var found = false;
+        for (var i=0; i < nodes.length; i++) {
+            if (nodes.item(i) == popup.div) {
+                found = true;
+                break;
+            }
+        }
+        t.ok(!found, "popup.div successfully removed from the map's viewPort");
+    }
+
+    function test_08_Map_px_lonlat_translation (t) {
+        t.plan( 6 );    
+        map = new OpenLayers.Map($('map'));
+        map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+ 
+        var pixel = new OpenLayers.Pixel(50,150);
+        var lonlat = map.getLonLatFromViewPortPx(pixel);
+        t.ok( lonlat instanceof OpenLayers.LonLat, "getLonLatFromViewPortPx returns valid OpenLayers.LonLat" );
+
+        var newPixel = map.getViewPortPxFromLonLat(lonlat);
+        t.ok( newPixel instanceof OpenLayers.Pixel, "getViewPortPxFromLonLat returns valid OpenLayers.Pixel" );
+
+        // WARNING!!!  I'm faily sure that the following test's validity 
+        //             depends highly on rounding and the resolution. For now,
+        //             in the default case, it seems to work. This may not 
+        //             always be so.
+        t.ok( newPixel.equals(pixel), "Translation to pixel and back to lonlat is consistent");
+
+        lonlat = map.getLonLatFromPixel(pixel);
+        t.ok( lonlat instanceof OpenLayers.LonLat, "getLonLatFromPixel returns valid OpenLayers.LonLat" );
+
+        newPixel = map.getPixelFromLonLat(lonlat);
+        t.ok( newPixel instanceof OpenLayers.Pixel, "getPixelFromLonLat returns valid OpenLayers.Pixel" );
+
+        t.ok( newPixel.equals(pixel), "2nd translation to pixel and back to lonlat is consistent");
+    }
+
+    function test_99_Map_destroy (t) {
+        t.plan( 2 );    
+        map = new OpenLayers.Map($('map'));
+        map.destroy();
+        t.eq( map.layers, null, "map.layers is null after destroy" );
+        t.eq( map.controls, null, "map.controls is null after destroy" );
+    }
+  // -->
+  </script>
+</head>
+<body>
+    <div id="map" style="width: 1024px; height: 512px;"/>
+</body>
+</html>

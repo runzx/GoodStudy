@@ -1,0 +1,62 @@
+<html>
+<head>
+  <script src="../lib/OpenLayers.js"></script>
+  <script type="text/javascript"><!--
+    var map; 
+    function test_01_Control_PanZoom_constructor (t) {
+        t.plan( 1 );
+    
+        control = new OpenLayers.Control.PanZoom();
+        t.ok( control instanceof OpenLayers.Control.PanZoom, "new OpenLayers.Control.PanZoom returns object" );
+    }
+    function test_02_Control_PanZoom_addControl (t) {
+        t.plan( 8 );
+        map = new OpenLayers.Map('map');
+        control = new OpenLayers.Control.PanZoom();
+        t.ok( control instanceof OpenLayers.Control.PanZoom, "new OpenLayers.Control.PanZoom returns object" );
+        t.ok( map instanceof OpenLayers.Map, "new OpenLayers.Map creates map" );
+        map.addControl(control);
+        t.ok( control.map === map, "Control.map is set to the map object" );
+        t.ok( map.controls[2] === control, "map.controls contains control" );
+        t.eq( parseInt(control.div.style.zIndex), map.Z_INDEX_BASE['Control'] + 3, "Control div zIndexed properly" );
+        t.eq( parseInt(map.viewPortDiv.lastChild.style.zIndex), map.Z_INDEX_BASE['Control'] + 3, "Viewport div contains control div" );
+        t.eq( control.div.style.top, "4px", "Control div top located correctly by default");
+
+        var control2 = new OpenLayers.Control.PanZoom();
+        map.addControl(control2, new OpenLayers.Pixel(100,100));
+        t.eq( control2.div.style.top, "100px", "2nd control div is located correctly");
+    }
+    function test_03_Control_PanZoom_control_events (t) {
+        t.plan( 7 );
+        var evt = {which: 1}; // control expects left-click
+        map = new OpenLayers.Map('map');
+        control = new OpenLayers.Control.PanZoom();
+        map.addControl(control,
+                       new OpenLayers.Pixel(20,20));
+        map.setCenter(new OpenLayers.LonLat(0,0), 4);
+        var res = map.getResolution();
+        control.buttons[0].onmousedown(evt);
+        t.eq( map.getCenter().lat, res*50, "Pan up works correctly" );
+        control.buttons[1].onmousedown(evt);
+        t.eq( map.getCenter().lon, res*-50, "Pan left works correctly" );
+        control.buttons[2].onmousedown(evt);
+        t.eq( map.getCenter().lon, 0, "Pan right works correctly" );
+        control.buttons[3].onmousedown(evt);
+        t.eq( map.getCenter().lat, 0, "Pan down works correctly" );
+        control.buttons[4].onmousedown(evt);
+        control.buttons[4].onmousedown(evt);
+        t.eq( map.getZoom(), 6, "zoomin works correctly" );
+        control.buttons[6].onmousedown(evt);
+        t.eq( map.getZoom(), 5, "zoomout works correctly" );
+        control.buttons[4].onmousedown(evt);
+        control.buttons[5].onmousedown(evt);
+        t.eq( map.getZoom(), 2, "zoomworld works correctly" );
+
+    }
+  // -->
+  </script>
+</head>
+<body>
+    <div id="map" style="width: 1024px; height: 512px;"/>
+</body>
+</html>
