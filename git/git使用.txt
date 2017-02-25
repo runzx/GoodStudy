@@ -60,5 +60,8 @@
         如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
         如果合并有冲突，则解决冲突，并在本地提交；
         没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+    
+12.记录密码
+    git config --global credential.helper wincred   //Git 1.7.10 or newer ,SSH connection
 
     
