@@ -149,7 +149,7 @@
 		arrayObject.concat(array1,array2,...,arrayN)	//连接,返回一个新数组
 		arrayObject.join(分隔符)	//把数组中的所有元素放入一个字符串。元素是通过指定的分隔符进行分隔的。
 		arrayObject.reverse()		//颠倒数组中元素的顺序,改变原来的数组
-		arrayObject.slice(start,end)	//从已有的数组中返回选定的元素, < end
+		arrayObject.slice(start,end)	//从已有的数组中返回选定的元素, 
 		arrayObject.sort(方法函数)	//按照一定的顺序排列。
 			若返回值<=-1，则表示 A 在排序后的序列中出现在 B 之前。
 			若返回值>-1 && <1，则表示 A 和 B 具有相同的排序顺序。
@@ -161,4 +161,61 @@
 	JavaScript 计时器
 		setTimeout(代码,延迟时间)	//一次性计时器：仅在指定的延迟时间之后触发一次。 	clearTimeout()
 		setInterval(代码,交互时间)	//间隔性触发计时器：以毫秒计	clearInterval(id_of_setInterval)
+	
+		getElementByID,getElementsByName,getElementByTagName 	//区别
+			1. ID 是一个人的身份证号码，是唯一的。所以通过getElementById获取的是指定的一个人。
+			2. Name 是他的名字，可以重复。所以通过getElementsByName获取名字相同的人集合。
+			3. TagName可看似某类，getElementsByTagName获取相同类的人集合。如获取小孩这类人，getElementsByTagName("小孩")。
+
+	getAttribute() 方法，通过元素节点的属性名称获取属性的值。
+		elementNode.getAttribute(name);
+			1. elementNode：使用getElementById()、getElementsByTagName()等方法，获取到的元素节点。
+			2. name：要想查询的元素节点的属性名字
+	
+	setAttribute() 方法增加一个指定名称和值的新属性，或者把一个现有的属性设定为指定的值。
+		elementNode.setAttribute(name,value)
+
+	节点属性
+		在文档对象模型 (DOM) 中，每个节点都是一个对象。DOM 节点有三个重要的属性 ：
+
+		1. nodeName : 节点的名称
+		2. nodeValue ：节点的值
+		3. nodeType ：节点的类型
+
+		一、nodeName 属性: 节点的名称，是只读的。
+			1. 元素节点的 nodeName 与标签名相同
+			2. 属性节点的 nodeName 是属性的名称
+			3. 文本节点的 nodeName 永远是 #text
+			4. 文档节点的 nodeName 永远是 #document
+
+		二、nodeValue 属性：节点的值
+			1. 元素节点的 nodeValue 是 undefined 或 null
+			2. 文本节点的 nodeValue 是文本自身
+			3. 属性节点的 nodeValue 是属性的值
+
+		三、nodeType 属性: 节点的类型，是只读的。以下常用的几种结点类型:
+			元素类型    节点类型
+			元素          1
+			属性          2
+			文本          3
+			注释          8
+			文档          9
+
+	访问选定元素节点下的所有子节点的列表，返回的值可以看作是一个数组，他具有length属性。
+		elementNode.childNodes
+
+		elementNode.parentNode 					//父节点
+		nodeObject.nextSibling 					//兄弟节点
+		appendChild(newnode) 		//指定节点的最后一个子节点列表之后添加一个新的子节点。
+		insertBefore(newnode,node); //节点前插入一个新的子节点。
+		nodeObject.removeChild(node) 
+		node.replaceChild (newnode,oldnew ) 
+		document.createElement(tagName) 
+		document.createTextNode(data) 
+
+	一、对于IE9+、Chrome、Firefox、Opera 以及 Safari：
+
+		window.innerHeight - 浏览器窗口的内部高度
+		window.innerWidth - 浏览器窗口的内部宽度
+	
 	

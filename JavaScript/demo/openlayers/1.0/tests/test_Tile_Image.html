@@ -1,0 +1,59 @@
+<html>
+<head>
+  <script src="../lib/OpenLayers.js"></script>
+  <script type="text/javascript"><!--
+    var isMozilla = (navigator.userAgent.indexOf("compatible") == -1);
+    var tile; 
+    
+    function test_01_Tile_Image_constructor (t) {
+        t.plan( 6 );
+        
+        var layer = new Object(); //bogus layer
+        var position = new OpenLayers.Pixel(20,30);
+        var bounds = new OpenLayers.Bounds(1,2,3,4);
+        var url = "http://www.openlayers.org/dev/tests/tileimage";
+        var size = new OpenLayers.Size(5,6);
+        tile = new OpenLayers.Tile.Image(layer, position, bounds, url, size);
+        
+        t.ok( tile instanceof OpenLayers.Tile.Image, "new OpenLayers.Tile returns Tile object" );
+        t.eq( tile.layer, layer, "tile.layer is set correctly");
+        t.ok( tile.position.equals(position), "tile.position is set correctly");
+        t.ok( tile.bounds.equals(bounds), "tile.bounds is set correctly");
+        t.eq( tile.url, url, "tile.url is set correctly");
+        t.ok( tile.size.equals(size), "tile.size is set correctly");
+    }
+    function test_02_Tile_Image_draw (t) {
+        t.plan( 5 );
+
+        var layer = new Object(); //bogus layer
+        layer.div = document.createElement("div");
+        var position = new OpenLayers.Pixel(20,30);
+        var bounds = new OpenLayers.Bounds(1,2,3,4);
+        var url = "http://www.openlayers.org/dev/tests/tileimage";
+        var size = new OpenLayers.Size(5,6);
+        tile = new OpenLayers.Tile.Image(layer, position, bounds, url, size);
+        
+        tile.draw();
+        
+        var img = tile.imgDiv;
+        
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( tile.imgDiv instanceof HTMLElement, "tile.draw creates an image");
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( img instanceof HTMLImageElement, "tile.draw creates an image");
+        t.eq( img.src, "http://www.openlayers.org/dev/tests/tileimage", "tile.draw creates an image");
+        t.eq( tile.imgDiv.style.width, "5px", "Image width is correct" );
+        t.eq( tile.imgDiv.style.height, "6px", "Image height is correct" );
+    }
+
+  // -->
+  </script>
+</head>
+<body>
+</body>
+</html>
+

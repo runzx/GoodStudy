@@ -1,0 +1,396 @@
+<html>
+<head>
+  <script src="../lib/OpenLayers.js"></script>
+  <script type="text/javascript"><!--
+    var isMozilla = (navigator.userAgent.indexOf("compatible") == -1);
+    var map; 
+    function test_01_Util_getImagesLocation (t) {
+        t.plan( 1 );
+        t.ok( OpenLayers.Util.getImagesLocation(), "../img/",
+                    "getImagesLocation()" );
+    }
+
+    function test_02_Util_Strings(t) {
+        t.plan(3);
+        
+        var str = "  chicken pox  ";
+
+        var trimmedStr = str.trim();        
+
+        t.eq(trimmedStr, "chicken pox", "String.trim works correctly");
+
+        t.eq(trimmedStr.startsWith("chicken"), true, "String.startsWith correctly finds chicken");
+        t.eq(trimmedStr.startsWith("dolphin"), false, "String.startsWith correctly does not find turkey");
+    }
+
+    function test_03_Util_Array(t) {
+        t.plan( 8 );
+
+        var array = new Array(1,2,3,4,5);
+
+        array.prepend(0);        
+        t.eq( array.toString(), "0,1,2,3,4,5", "array.prepend works");    
+
+        array.append(6);        
+        t.eq( array.toString(), "0,1,2,3,4,5,6", "array.append works");    
+
+        array.remove(3);
+        t.eq( array.toString(), "0,1,2,4,5,6", "array.remove works");    
+
+        copy = array.copyOf();
+        t.eq( copy.toString(), "0,1,2,4,5,6", "array.copyOf() works");    
+        array.append(7);
+        t.eq( copy.toString(), "0,1,2,4,5,6", "changing a value in the copied array doesnt affect the new array");    
+
+        
+        t.eq( copy.indexOf(5), 4, "indexOf function returns index of value in an array");    
+        t.eq( copy.indexOf(75), -1, "indexOf function returns -1 when element not found in array");    
+        
+        array.clear();
+        t.eq( array.toString(), "", "array.clear() works");    
+
+
+    }
+
+    function test_04_Util_createDiv(t) {
+        t.plan( 20 );
+
+        var id = "boo";
+        var px = new OpenLayers.Pixel(5,5);
+        var sz = new OpenLayers.Size(10,10);
+        var img = "http://www.openlayers.org/images/OpenLayers.trac.png";
+        var position = "absolute";
+        var border = "13px solid";
+        var overflow = "hidden";
+
+        var div = OpenLayers.Util.createDiv(id, px, sz, img, position, border, overflow);
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( div instanceof HTMLDivElement, "createDiv creates a valid HTMLDivElement" );
+        t.eq( div.id, id, "div.id set correctly");    
+        t.eq( div.style.left, px.x + "px", "div.style.left set correctly");    
+        t.eq( div.style.top, px.y + "px", "div.style.top set correctly");    
+
+        t.eq( div.style.width, sz.w + "px", "div.style.width set correctly");    
+        t.eq( div.style.height, sz.h + "px", "div.style.height set correctly");    
+
+        t.eq( div.style.backgroundImage, "url(" + img + ")", "div.style.backgroundImage correctly");    
+
+        t.eq( div.style.position, position, "div.style.positionset correctly");    
+        t.ok( (div.style.border.indexOf(border) != -1), "div.style.border set correctly");    
+        t.eq( div.style.overflow, overflow, "div.style.overflow set correctly");    
+
+        //test defaults
+        var div = OpenLayers.Util.createDiv();
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( div instanceof HTMLDivElement, "createDiv creates a valid HTMLDivElement" );
+        t.ok( (div.id != ""), "div.id set correctly");    
+        t.eq(div.style.left, "", "div.style.left set correctly");    
+        t.eq(div.style.top, "", "div.style.top set correctly");    
+
+        t.eq( div.style.width, "", "div.style.width set correctly");    
+        t.eq( div.style.height, "", "div.style.height set correctly");    
+
+        t.eq(div.style.backgroundImage, "", "div.style.backgroundImage correctly");    
+
+        t.eq( div.style.position, "absolute", "div.style.positionset correctly");    
+        t.eq( div.style.border, "", "div.style.border set correctly");    
+        t.eq(div.style.overflow, "", "div.style.overflow set correctly");    
+
+    }
+
+    function test_05_Util_createImage(t) {
+        t.plan( 18 );
+
+        var img = "http://www.openlayers.org/images/OpenLayers.trac.png";
+        var sz = new OpenLayers.Size(10,10);
+        var xy = new OpenLayers.Pixel(5,5);
+        var position = "absolute";
+        var id = "boo";
+        var border = "1px solid";
+
+        var image = OpenLayers.Util.createImage(id, xy, sz, img, position, border);
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( image instanceof HTMLImageElement, "createImage creates a valid HTMLImageElement" );
+        t.eq( image.id, id, "image.id set correctly");    
+        t.eq( image.style.left, xy.x + "px", "image.style.left set correctly");    
+        t.eq( image.style.top, xy.y + "px", "image.style.top set correctly");    
+
+        t.eq( image.style.width, sz.w + "px", "image.style.width set correctly");    
+        t.eq( image.style.height, sz.h + "px", "image.style.height set correctly");    
+
+        t.ok( (image.style.border.indexOf(border) != -1), "image.style.border set correctly");    
+        t.eq( image.src, img, "image.style.backgroundImage correctly");    
+        t.eq( image.style.position, position, "image.style.positionset correctly");    
+
+        //test defaults
+        var image = OpenLayers.Util.createImage();
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( image instanceof HTMLImageElement, "createDiv creates a valid HTMLDivElement" );
+        t.ok( (image.id != ""), "image.id set to something");    
+        t.eq( image.style.left, "", "image.style.left set correctly");    
+        t.eq( image.style.top, "", "image.style.top set correctly");    
+
+        t.eq( image.style.width, "", "image.style.width set correctly");    
+        t.eq( image.style.height, "", "image.style.height set correctly");    
+
+        t.ok((image.style.border == ""), "image.style.border set correctly");    
+        t.eq(image.src, "", "image.style.backgroundImage correctly");    
+        t.eq( image.style.position, "relative", "image.style.positionset correctly");    
+
+    }
+
+    function test_06_Util_applyDefaults(t) {
+    
+        t.plan(4);
+        
+        var to = { a: "abra",
+                   b: "blorg"
+                 };
+
+        var from = { b: "zoink",
+                     c: "press"
+                   };
+
+        to = OpenLayers.Util.applyDefaults(to, from);
+
+        t.ok( to instanceof Object, " applyDefaults returns an object");
+        t.eq( to["a"], "abra", "key present in to but not from maintained");
+        t.eq( to["b"], "blorg", "key present in to and from, maintained in to");
+        t.eq( to["c"], "press", "key present in from and not to successfully copied to to");
+    }
+
+    function test_07_Util_getParameterString(t) {
+        t.plan( 1 );
+
+        var params = { foo: "bar",
+                       chicken: 1.5
+                     }
+
+        t.eq( OpenLayers.Util.getParameterString(params), "foo=bar&chicken=1.5", "getParameterString returns correctly");    
+    }
+
+    function test_08_Util_createAlphaImageDiv(t) {
+        t.plan( 17 );
+
+        var img = "http://www.openlayers.org/images/OpenLayers.trac.png";
+        var sz = new OpenLayers.Size(10,10);
+        var xy = new OpenLayers.Pixel(5,5);
+        var position = "absolute";
+        var id = "boo";
+        var border = "1px solid";
+        var sizing = "crop";
+
+        var imageDiv = OpenLayers.Util.createAlphaImageDiv(id, xy, sz, img, position, border, sizing);
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( imageDiv instanceof HTMLDivElement, "createDiv creates a valid HTMLDivElement" );
+
+        t.eq( imageDiv.id, id, "image.id set correctly");    
+        t.eq( imageDiv.style.left, xy.x + "px", "image.style.left set correctly");    
+        t.eq( imageDiv.style.top, xy.y + "px", "image.style.top set correctly");    
+
+        t.eq( imageDiv.style.width, sz.w + "px", "image.style.width set correctly");    
+        t.eq( imageDiv.style.height, sz.h + "px", "image.style.height set correctly");    
+
+        t.eq( imageDiv.style.position, position, "image.style.positionset correctly");    
+
+
+        image = imageDiv.firstChild;
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( image instanceof HTMLImageElement, "createImage creates a valid HTMLImageElement" );
+        t.eq( image.id, id + "_innerImage", "image.id set correctly");    
+
+        t.eq( image.style.width, sz.w + "px", "image.style.width set correctly");    
+        t.eq( image.style.height, sz.h + "px", "image.style.height set correctly");    
+
+        t.ok( (image.style.border.indexOf(border) != -1), "image.style.border set correctly");    
+        t.eq( image.style.position, "relative", "image.style.positionset correctly");    
+
+        if (OpenLayers.Util.alphaHack()) {
+        
+            t.eq(imageDiv.style.display, "inline-block", "imageDiv.style.display set correctly");
+
+            var filter = "progid:DXImageTransform.Microsoft" +
+                         ".AlphaImageLoader(src='" + img + "', " +
+                         "sizingMethod='" + sizing + "')";
+            t.eq(imageDiv.style.filter, filter, "div filter value correctly set");
+
+            filter = "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+            t.eq(image.style.filter, filter, "image filter set correctly");
+
+        } else {
+            t.eq( image.src, img, "image.style.backgroundImage correctly");    
+            t.ok(true, "div filter value not set (not in IE)");
+            t.ok(true, "image filter value not set (not in IE)");
+        }
+
+        var imageDiv = OpenLayers.Util.createAlphaImageDiv(id, xy, sz, img, position, border);
+        if (OpenLayers.Util.alphaHack()) {
+            var filter = "progid:DXImageTransform.Microsoft" +
+                         ".AlphaImageLoader(src='" + img + "', " +
+                         "sizingMethod='scale')";
+            t.eq(imageDiv.style.filter, filter, "sizingMethod default correctly set to scale");
+        } else {
+            t.ok(true);
+        }        
+
+    }
+
+    function test_09_Util_modifyDOMElement(t) {
+
+        t.plan( 8 );
+
+        var id = "boo";
+        var px = new OpenLayers.Pixel(5,5);
+        var sz = new OpenLayers.Size(10,10);
+        var position = "absolute";
+        var border = "1px solid";
+        var overflow = "hidden";
+
+        var element = document.createElement("div");
+
+        OpenLayers.Util.modifyDOMElement(element, id, px, sz, 
+                                         position, border, overflow);
+
+        t.eq( element.id, id, "element.id set correctly");    
+        t.eq( element.style.left, px.x + "px", "element.style.left set correctly");    
+        t.eq( element.style.top, px.y + "px", "element.style.top set correctly");    
+
+        t.eq( element.style.width, sz.w + "px", "element.style.width set correctly");    
+        t.eq( element.style.height, sz.h + "px", "element.style.height set correctly");    
+
+        t.eq( element.style.position, position, "element.style.position set correctly");    
+        t.ok( (element.style.border.indexOf(border) != -1), "element.style.border set correctly");    
+        t.eq( element.style.overflow, overflow, "element.style.overflow set correctly");    
+
+    }
+
+    function test_09_Util_modifyAlphaImageDiv(t) {
+        t.plan( 17 );
+
+        var imageDiv = OpenLayers.Util.createAlphaImageDiv();
+
+        var img = "http://www.openlayers.org/images/OpenLayers.trac.png";
+        var sz = new OpenLayers.Size(10,10);
+        var xy = new OpenLayers.Pixel(5,5);
+        var position = "absolute";
+        var id = "boo";
+        var border = "1px solid";
+        var sizing = "crop";
+
+        OpenLayers.Util.modifyAlphaImageDiv(imageDiv, id, xy, sz, img, position, border, sizing);
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( imageDiv instanceof HTMLDivElement, "createDiv creates a valid HTMLDivElement" );
+
+        t.eq( imageDiv.id, id, "image.id set correctly");    
+        t.eq( imageDiv.style.left, xy.x + "px", "image.style.left set correctly");    
+        t.eq( imageDiv.style.top, xy.y + "px", "image.style.top set correctly");    
+
+        t.eq( imageDiv.style.width, sz.w + "px", "image.style.width set correctly");    
+        t.eq( imageDiv.style.height, sz.h + "px", "image.style.height set correctly");    
+
+        t.eq( imageDiv.style.position, position, "image.style.positionset correctly");    
+
+
+        image = imageDiv.firstChild;
+
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( image instanceof HTMLImageElement, "createImage creates a valid HTMLImageElement" );
+        t.eq( image.id, id + "_innerImage", "image.id set correctly");    
+
+        t.eq( image.style.width, sz.w + "px", "image.style.width set correctly");    
+        t.eq( image.style.height, sz.h + "px", "image.style.height set correctly");    
+
+        t.ok( (image.style.border.indexOf(border) != -1), "image.style.border set correctly");    
+        t.eq( image.style.position, "relative", "image.style.positionset correctly");    
+
+        if (OpenLayers.Util.alphaHack()) {
+        
+            t.eq(imageDiv.style.display, "inline-block", "imageDiv.style.display set correctly");
+
+            var filter = "progid:DXImageTransform.Microsoft" +
+                         ".AlphaImageLoader(src='" + img + "', " +
+                         "sizingMethod='" + sizing + "')";
+            t.eq(imageDiv.style.filter, filter, "div filter value correctly set");
+
+            filter = "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+            t.eq(image.style.filter, filter, "image filter set correctly");
+
+        } else {
+            t.eq( image.src, img, "image.style.backgroundImage correctly");    
+            t.ok(true, "div filter value not set (not in IE)");
+            t.ok(true, "image filter value not set (not in IE)");
+        }
+
+        var imageDiv = OpenLayers.Util.createAlphaImageDiv(id, xy, sz, img, position, border);
+        if (OpenLayers.Util.alphaHack()) {
+            var filter = "progid:DXImageTransform.Microsoft" +
+                         ".AlphaImageLoader(src='" + img + "', " +
+                         "sizingMethod='scale')";
+            t.eq(imageDiv.style.filter, filter, "sizingMethod default correctly set to scale");
+        } else {
+            t.ok(true);
+        }        
+   
+    }
+       
+    function test_10_Util_upperCaseObject(t) {
+    
+        t.plan(8);
+        
+        var aKey = "chicken";
+        var aValue = "pot pie";
+
+        var bKey = "blorg";
+        var bValue = "us maximus";
+        
+        var obj = new Object();
+        obj[aKey] = aValue;        
+        obj[bKey] = bValue;        
+             
+        var uObj = OpenLayers.Util.upperCaseObject(obj);          
+
+        //make sure old object not modified
+        t.eq(obj[aKey], aValue, "old lowercase value still present in old obj");
+        t.eq(obj[bKey], bValue, "old lowercase value still present in old obj");
+
+        t.eq(obj[aKey.toUpperCase()], null, "new uppercase value not present in old obj");
+        t.eq(obj[bKey.toUpperCase()], null, "new uppercase value not present in old obj");
+
+        //make sure new object modified
+        t.eq(uObj[aKey], null, "old lowercase value not present");
+        t.eq(uObj[bKey], null, "old lowercase value not present");
+
+        t.eq(uObj[aKey.toUpperCase()], aValue, "new uppercase value present");
+        t.eq(uObj[bKey.toUpperCase()], bValue, "new uppercase value present");
+    }
+    
+  // -->
+  </script>
+</head>
+<body>
+    <div id="map" style="width: 1024px; height: 512px;"/>
+</body>
+</html>

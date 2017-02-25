@@ -1,0 +1,69 @@
+<html>
+<head>
+  <script src="../lib/OpenLayers.js"></script>
+  <script type="text/javascript"><!--
+    var isMozilla = (navigator.userAgent.indexOf("compatible") == -1);
+    var layer; 
+
+    function test_01_Layer_WMS_constructor (t) {
+        t.plan( 6 );
+        
+        layer = new OpenLayers.Layer.WMS('Test Layer', "http://octo.metacarta.com/cgi-bin/mapserv", {map: '/mapdata/vmap_wms.map', layers: 'basic', format: 'image/png'});
+        t.ok( layer instanceof OpenLayers.Layer.WMS, "new OpenLayers.Layer.WMS returns object" );
+        t.eq( layer.name, "Test Layer", "layer.name is correct" );
+        t.eq( layer.url, "http://octo.metacarta.com/cgi-bin/mapserv", "layer.url is correct" );
+        t.eq( layer.params.MAP, "/mapdata/vmap_wms.map", "layer.params.map is correct" );
+        t.eq( layer.params.FORMAT, "image/png", "layer.params.format is correctly overridden" );
+        t.eq( layer.params.EXCEPTIONS, "application/vnd.ogc.se_inimage", 
+                                       "other default layer.params are set correctly" );
+    }
+    function test_02_Layer_WMS_addtile (t) {
+        t.plan( 6 );
+        layer = new OpenLayers.Layer.WMS('Test Layer', "http://octo.metacarta.com/cgi-bin/mapserv", {map: '/mapdata/vmap_wms.map', layers: 'basic', format: 'image/jpeg'});
+        var map = new OpenLayers.Map($('map'));
+        map.addLayer(layer);
+        var pixel = new OpenLayers.Pixel(5,6);
+        var tile = layer.addTile(new OpenLayers.Bounds(1,2,3,4), pixel);
+        tile.draw();
+
+        var img = tile.imgDiv;
+
+        t.eq( img.src, "http://octo.metacarta.com/cgi-bin/mapserv?MAP=/mapdata/vmap_wms.map&LAYERS=basic&FORMAT=image/jpeg&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&EXCEPTIONS=application/vnd.ogc.se_inimage&SRS=EPSG:4326&BBOX=1,2,3,4&WIDTH=256&HEIGHT=256", "image src is created correctly via addtile" );
+        t.eq( tile.imgDiv.style.top, "6px", "image top is set correctly via addtile" );
+        t.eq( tile.imgDiv.style.left, "5px", "image top is set correctly via addtile" );
+
+        var firstChild = layer.div.firstChild;
+        if (!isMozilla)
+            t.ok( true, "skipping element test outside of Mozilla");
+        else
+            t.ok( firstChild instanceof HTMLElement, "div first child is an image object" );
+        t.eq( firstChild.src, "http://octo.metacarta.com/cgi-bin/mapserv?MAP=/mapdata/vmap_wms.map&LAYERS=basic&FORMAT=image/jpeg&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&EXCEPTIONS=application/vnd.ogc.se_inimage&SRS=EPSG:4326&BBOX=1,2,3,4&WIDTH=256&HEIGHT=256", "div first child is correct image object" );
+        var pos = tile.getPosition();
+        t.eq( pos.toString(), "x=5,y=6", "Position of tile is set correctly." );
+    }
+    function test_03_Layer_WMS_inittiles (t) {
+        t.plan( 2 );
+        var map = new OpenLayers.Map($('map'));
+        layer = new OpenLayers.Layer.WMS('Test Layer', "http://octo.metacarta.com/cgi-bin/mapserv", {map: '/mapdata/vmap_wms.map', layers: 'basic', format: 'image/jpeg'});
+        map.addLayer(layer);
+        map.setCenter(new OpenLayers.LonLat(0,0),5);
+        t.eq( layer.grid.length, 4, "Grid rows is correct." );
+        t.eq( layer.grid[0].length, 2, "Grid cols is correct." );
+        
+    }
+
+    function test_99_Layer_WMS_destroy (t) {
+        t.plan( 1 );
+        layer = new OpenLayers.Layer.WMS('Test Layer', "http://octo.metacarta.com/cgi-bin/mapserv", {map: '/mapdata/vmap_wms.map', layers: 'basic', format: 'image/jpeg'});
+        var map = new OpenLayers.Map('map');
+        map.addLayer(layer);
+        layer.destroy();
+        t.eq( layer.map, null, "layer.map is null after destroy" );
+    }
+  // -->
+  </script>
+</head>
+<body>
+<div id="map" style="width:500px;height:550px;display:none"></div>
+</body>
+</html>
