@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0039)http://www.pinhuba.com/mysql/101295.htm -->
+<html xmlns="http://www.w3.org/1999/xhtml" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>mysql show命令的用法大全 - 品互网络</title>
+<meta http-equiv="keywords" content="">
+<meta http-equiv="description" content="mysql中有很多的基本命令，show命令也是其中之一，在很多使用者中对show命令的使用还容易产生混淆，本文汇集了show命令的众多用法。">
+<link href="http://www.pinhuba.com/favicon.ico" rel="shortcut icon" type="image/ico">
+<link href="http://www.pinhuba.com/favicon.ico" rel="bookmark" type="image/ico">
+
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/common.css">
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/front.css">
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/iconfont.css">
+
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/jquery.js.下载"></script>
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/front.js.下载"></script>
+
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/jquery.d.imagechange.js.下载"></script>
+
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/pinhuba.css">
+
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/layer.js.下载"></script><link rel="stylesheet" href="./mysql show命令的用法大全 - 品互网络_files/layer.css" id="layui_layer_skinlayercss">
+
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/easypage.css">
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/jquery.easypage.js.下载"></script>
+
+<link rel="stylesheet" type="text/css" href="./mysql show命令的用法大全 - 品互网络_files/jquery.fancybox.css">
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/jquery.fancybox.js.下载"></script>
+
+
+<link href="./mysql show命令的用法大全 - 品互网络_files/shCoreDefault.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/shCore.js.下载"></script>
+<script type="text/javascript">
+$(function() {
+  Cms.viewCount("","101295");
+  SyntaxHighlighter.all();
+});
+</script>
+<script src="./mysql show命令的用法大全 - 品互网络_files/share.js.下载"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style><link rel="stylesheet" href="./mysql show命令的用法大全 - 品互网络_files/share_style0_16.css"><link rel="stylesheet" href="./mysql show命令的用法大全 - 品互网络_files/share_style0_24.css"><link rel="stylesheet" href="./mysql show命令的用法大全 - 品互网络_files/share_popup.css"><link rel="stylesheet" href="./mysql show命令的用法大全 - 品互网络_files/select_share.css"></head>
+<body>
+<style>
+ul.nav{list-style:none;}
+ul.nav li{float:left;height:40px;line-height:40px;position:relative;}
+ul.nav li a{display: block;color:#FFFFFF;font-size:14px;padding-left:10px;padding-right:10px;}
+ul.nav li:hover{background:#5DADE2;} 
+ul.nav li div{display:none;position:absolute;left:0px;top:40px;background:#5DADE2;width:160px;padding-top:5px;}
+ul.nav li div a{font-size:12px;height:30px;line-height:30px;}
+ul.nav li div a:hover{background:#3598db;}
+  
+#quick-nav{text-align:left;width:105px;background:#FFFFFF;border:1px solid #3598db;position:absolute;
+top:39px;right:0px;font-size:12px;display:none;z-index:10000;box-shadow: 0 0px 2px rgba(0, 0, 0, .2);}
+#quick-nav ul{padding:0px;margin:0px;}
+#quick-nav ul li{list-style:none;height:25px;line-height:25px;}
+#quick-nav ul li a{display:block;color:#369;padding-left:12px;}
+#quick-nav ul li a:hover{background:#3598db;color:#FFFFFF;text-decoration: none;}
+#quick-nav ul li i.icon{margin-right:5px;font-size:12px;}
+#countdot{position:absolute;top:20px;right:-10px;}  
+
+.caret {display: inline-block;width: 0;height: 0;margin-left: 5px;margin-bottom:3px;vertical-align: middle;border-top: 4px solid #ffffff;border-right: 4px solid transparent;border-bottom: 0 dotted;border-left: 4px solid transparent;}
+
+#search-select{position:absolute;width:50px;left: 2px;top:1px;}
+#search-select span{padding-left:8px;height:24px;line-height:24px;display:inline-block;background:#fff url(/r/cms/www/main/img/search_select.gif) no-repeat 38px center;cursor:pointer;width:40px;color:#666;}
+#search-select ul{width:48px;overflow:auto;position:absolute;top:0px;left:-2px;border: 1px solid #cccccc;border-top: none;background:#fff;z-index: 99;display:none;}
+#search-select ul li a{line-height:25px;display:block;color:#666;padding-left:10px;;}
+#search-select ul li a:hover{background:#f5f5f5;}
+
+</style>
+
+<div style="width:100%;background-color:#3598db;font-family:&#39;Microsoft YaHei&#39;;">
+  		<div class="wrap f-cb" style="height:40px;background-color:#3598db;">
+		<div style="width:150px;float:left;margin-top:6px;">
+			<a href="http://www.pinhuba.com/">
+              <img src="./mysql show命令的用法大全 - 品互网络_files/logo.png" height="26" data-bd-imgshare-binded="1">
+			</a>
+		</div>
+		
+		<div style="float:left; width:410px;">
+			<ul class="nav">
+                <li>
+					<a href="http://www.pinhuba.com/bams/index.htm">开源项目<label class="caret"></label></a>
+                  	<div>
+                    	<a href="http://www.pinhuba.com/bams/index.htm">BAMS信息系统开发框架</a>
+                    	<a href="http://www.pinhuba.com/news/101059.htm">BAMS精简版</a>
+                    	<a href="http://www.pinhuba.com/seven/101133.htm" target="_blank">BAMS安卓客户端</a>
+                    	<a href="http://www.pinhuba.com/ueditor/index.htm" target="_blank">UEditor-with-spring</a>
+                    	<a href="http://www.pinhuba.com/jeecms/index.htm">JEECMS站群管理系统</a>
+                  	</div>
+				</li>
+				<li>
+					<a href="http://www.pinhuba.com/fenxiang/index.htm">技术分享</a>
+				</li>
+                <li>
+					<a href="http://www.pinhuba.com/zhiye/index.htm">职业生涯</a>
+				</li>
+              	<li>
+					<a href="http://www.pinhuba.com/aboutus/index.htm">关于我们 </a>
+				</li>
+              	<li>
+					<a href="http://www.pinhuba.com/bbs.jhtml">交流论坛</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div style="float:left;margin-top:7px;position:relative;">
+			<form id="searchForm" action="http://www.pinhuba.com/search.jspx" target="_blank" onsubmit="return searchCheck();">
+				<div id="search-select">
+					<span>文章</span>
+					
+					<ul>
+						<li><a href="javascript:void(0);" id="contentSearch">文章</a></li>
+						<li><a href="javascript:void(0);" id="topicSearch">帖子</a></li>
+					</ul>
+				</div>
+				
+				<input type="text" id="q" name="q" style="padding:2px 5px 2px 52px;font-size:12px;width:120px;" placeholder="搜索其实很简单...">
+				<input type="submit" value="" style="position:absolute;background:#ffffff url(/r/cms/www/main/img/search.png) center center no-repeat;border:0px;width:24px;height:24px;top:1px;right:3px;cursor:pointer;">
+			</form>
+		</div>
+		
+		
+        <script type="text/javascript">
+        	
+	        if(self != top) {
+				top.location.href = "/";
+			}
+        
+	        function searchCheck() {
+	    		if($.trim($("#q").val()) != "") {
+	    			return true;
+	    		} else {
+	    			alert("请输入您要搜索的内容...");
+	    			$("#q").focus();
+	    			return false;
+	    		}
+	    	}
+        
+            $(function(){
+            	
+            	Cms.loginCsi("");
+            	
+            	$("#search-select").hover(function(){
+            		$(this).find("ul").show();
+                },function(){
+					$(this).find("ul").hide();
+				});
+            	
+            	$("#contentSearch").click(function(){
+            		$("#q").attr("name","q");
+    	            $("#searchForm").attr("action", "/search.jspx");
+    	            $("#search-select span").text($(this).text());
+    	            $("#search-select ul").hide();
+            	})
+            	
+            	$("#topicSearch").click(function(){
+            		$("#q").attr("name","keywords");
+     	            $("#searchForm").attr("action", "/topic/search.jhtml");
+    	            $("#search-select span").text($(this).text());
+    	            $("#search-select ul").hide();
+            	})
+            	
+				$("ul.nav li").hover(function(){
+					$(this).find("div").show();
+                },function(){
+					$(this).find("div").hide();
+				});
+            })
+        </script>
+		
+        <div id="loginCsiDiv" class="user-img" style="height:40px;float:right;text-align:right;position:relative;">		        <div style="margin-top:8px;font-size:14px;">
+	        <a style="color:#FFFFFF;" href="javascript:void(0);" onclick="Cms.login(&#39;&#39;);">登录</a>&nbsp;&nbsp;
+	        <a style="color:#FFFFFF;" href="http://www.pinhuba.com/register.jspx">注册</a>
+        </div>
+         </div>
+	</div>
+</div>
+<div class="wrap">
+<div class="company">
+<div style="padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid #EEEEEE;font-size:14px;">
+当前位置：<a href="http://www.pinhuba.com/">首页</a> &gt; 
+<a href="http://www.pinhuba.com/fenxiang/index.htm">技术分享</a>
+ &gt; 
+<a href="http://www.pinhuba.com/db/index.htm">数据库</a>
+ &gt; 
+<a href="http://www.pinhuba.com/mysql/index.htm">MYSQL</a>
+
+ &gt; 正文
+</div><h1 class="con-title">mysql show命令的用法大全</h1>
+<div class="con-info">
+	老高&nbsp;&nbsp;
+	发布于：2016-10-26 16:46&nbsp;&nbsp;
+	浏览量：<span id="views">48</span>&nbsp;&nbsp;
+	评论数：<span id="comments">0</span>&nbsp;&nbsp;
+	
+	<a onclick="Cms.collect(&#39;&#39;,&#39;101295&#39;,1,&#39;cancelSpan&#39;,&#39;comfirmSpan&#39;)" id="comfirmSpan">收藏一下</a>
+	<a onclick="Cms.collect(&#39;&#39;,&#39;101295&#39;,0,&#39;cancelSpan&#39;,&#39;comfirmSpan&#39;)" id="cancelSpan" style="display: none;">取消收藏</a>
+	<script type="text/javascript">
+	$(function() {
+		Cms.collectexist("","101295","cancelSpan","comfirmSpan");
+	});
+	</script>
+
+</div>
+<div class="con-txt">
+	<table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">show&nbsp;tables或show&nbsp;tables&nbsp;</code><code class="sql keyword">from</code>&nbsp;<code class="sql plain">database_name;&nbsp;</code><code class="sql comments">--&nbsp;显示当前数据库中所有表的名称。&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">show&nbsp;databases;&nbsp;</code><code class="sql comments">--&nbsp;显示mysql中所有数据库的名称。&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">show&nbsp;columns&nbsp;</code><code class="sql keyword">from</code>&nbsp;<code class="sql plain">table_name&nbsp;</code><code class="sql keyword">from</code>&nbsp;<code class="sql plain">database_name;&nbsp;或show&nbsp;columns&nbsp;</code><code class="sql keyword">from</code>&nbsp;<code class="sql plain">database_name.table_name;&nbsp;</code><code class="sql comments">--&nbsp;显示表中列名称。&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">show&nbsp;grants&nbsp;</code><code class="sql keyword">for</code>&nbsp;<code class="sql plain">user_name;&nbsp;</code><code class="sql comments">--&nbsp;显示一个用户的权限，显示结果类似于grant&nbsp;命令。&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">show&nbsp;</code><code class="sql keyword">index</code>&nbsp;<code class="sql keyword">from</code>&nbsp;<code class="sql plain">table_name;&nbsp;</code><code class="sql comments">--&nbsp;显示表的索引。&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">show&nbsp;status;&nbsp;</code><code class="sql comments">--&nbsp;显示一些系统特定资源的信息，例如，正在运行的线程数量。&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">show&nbsp;variables;&nbsp;</code><code class="sql comments">--&nbsp;显示系统变量的名称和值。&nbsp;</code></div><div class="line number8 index7 alt1"><code class="sql plain">show&nbsp;processlist;&nbsp;</code><code class="sql comments">--&nbsp;显示系统中正在运行的所有进程，也就是当前正在执行的查询。大多数用户可以查看他们自己的进程，但是如果他们拥有process权限，就可以查看所有人的进程，包括密码。&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">show&nbsp;</code><code class="sql keyword">table</code>&nbsp;<code class="sql plain">status;&nbsp;</code><code class="sql comments">--&nbsp;显示当前使用或者指定的database中的每个表的信息。信息包括表类型和表的最新更新时间。&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">show&nbsp;</code><code class="sql keyword">privileges</code><code class="sql plain">;&nbsp;</code><code class="sql comments">--&nbsp;显示服务器所支持的不同权限。&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">show&nbsp;</code><code class="sql keyword">create</code>&nbsp;<code class="sql keyword">database</code>&nbsp;<code class="sql plain">database_name;&nbsp;</code><code class="sql comments">--&nbsp;显示create&nbsp;database&nbsp;语句是否能够创建指定的数据库。&nbsp;</code></div><div class="line number12 index11 alt1"><code class="sql plain">show&nbsp;</code><code class="sql keyword">create</code>&nbsp;<code class="sql keyword">table</code>&nbsp;<code class="sql plain">table_name;&nbsp;</code><code class="sql comments">--&nbsp;显示create&nbsp;database&nbsp;语句是否能够创建指定的数据库。&nbsp;</code></div><div class="line number13 index12 alt2"><code class="sql plain">show&nbsp;engines;&nbsp;</code><code class="sql comments">--&nbsp;显示安装以后可用的存储引擎和默认引擎。&nbsp;</code></div><div class="line number14 index13 alt1"><code class="sql plain">show&nbsp;innodb&nbsp;status;&nbsp;</code><code class="sql comments">--&nbsp;显示innoDB存储引擎的状态。&nbsp;</code></div><div class="line number15 index14 alt2"><code class="sql plain">show&nbsp;logs;&nbsp;</code><code class="sql comments">--&nbsp;显示BDB存储引擎的日志。&nbsp;</code></div><div class="line number16 index15 alt1"><code class="sql plain">show&nbsp;warnings;&nbsp;</code><code class="sql comments">--&nbsp;显示最后一个执行的语句所产生的错误、警告和通知。&nbsp;</code></div><div class="line number17 index16 alt2"><code class="sql plain">show&nbsp;errors;&nbsp;</code><code class="sql comments">--&nbsp;只显示最后一个执行语句所产生的错误。&nbsp;</code></div><div class="line number18 index17 alt1"><code class="sql plain">show&nbsp;[storage]&nbsp;engines;&nbsp;</code><code class="sql comments">--显示安装后的可用存储引擎和默认引擎。</code></div></div></td></tr></tbody></table><p>1、显示该数据库连接使用的字符集的情况</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'%char%'</code><code class="sql plain">;</code></div></div></td></tr></tbody></table><p>2、查看MySQL服务器运行的各种状态值</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status;</code></div></div></td></tr></tbody></table><p>3 连接数&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'max_connections'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;max_connections&nbsp;|&nbsp;500&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+-------+&nbsp;</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'max_used_connections'</code><code class="sql plain">;&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">+</code><code class="sql comments">----------------------+-------+&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">+</code><code class="sql comments">----------------------+-------+&nbsp;</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;Max_used_connections&nbsp;|&nbsp;498&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number13 index12 alt2"><code class="sql plain">+</code><code class="sql comments">----------------------+-------+</code></div></div></td></tr></tbody></table><p>设置的最大连接数是500，而响应的连接数是498&nbsp;</p><p>max_used_connections / max_connections * 100% = 99.6% （理想值 ≈ 85%）</p><p>4、key_buffer_size&nbsp;</p><p>key_buffer_size是对MyISAM表性能影响最大的一个参数, 不过数据库中多为Innodb&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'key_buffer_size'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+----------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+----------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;key_buffer_size&nbsp;|&nbsp;67108864&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------+----------+&nbsp;</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'key_read%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">+</code><code class="sql comments">-------------------+----------+&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">+</code><code class="sql comments">-------------------+----------+&nbsp;</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;Key_read_requests&nbsp;|&nbsp;25629497&nbsp;|&nbsp;</code></div><div class="line number13 index12 alt2"><code class="sql plain">|&nbsp;Key_reads&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;66071&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number14 index13 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+----------+</code></div></div></td></tr></tbody></table><p>一共有25629497个索引读取请求，有66071个请求在内存中没有找到直接从硬盘读取索引，计算索引未命中缓存的概率：&nbsp;</p><p>key_cache_miss_rate ＝ Key_reads / Key_read_requests * 100% =0.27%&nbsp;</p><p>需要适当加大key_buffer_size&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'key_blocks_u%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Key_blocks_unused&nbsp;|&nbsp;10285&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Key_blocks_used&nbsp;&nbsp;&nbsp;|&nbsp;47705&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+</code></div></div></td></tr></tbody></table><p>Key_blocks_unused表示未使用的缓存簇(blocks)数，Key_blocks_used表示曾经用到的最大的blocks数&nbsp;</p><p>Key_blocks_used / (Key_blocks_unused + Key_blocks_used) * 100% ≈ 18% （理想值 ≈ 80%）</p><p>max_used_connections / max_connections * 100% = 99.6% （理想值 ≈ 85%）</p><p>5、open table 的情况&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'open%tables%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Open_tables&nbsp;&nbsp;&nbsp;|&nbsp;1024&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Opened_tables&nbsp;|&nbsp;1465&nbsp;&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">+</code><code class="sql comments">---------------+-------+</code></div></div></td></tr></tbody></table><p>Open_tables 表示打开表的数量，Opened_tables表示打开过的表数量，如果Opened_tables数量过大，说明配置中 table_cache(5.1.3之后这个值叫做table_open_cache)值可能太小，我们查询一下服务器table_cache值&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'table_cache'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;table_cache&nbsp;&nbsp;&nbsp;|&nbsp;1024&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+</code></div></div></td></tr></tbody></table><p>Open_tables / Opened_tables * 100% =69% 理想值 （&gt;= 85%）&nbsp;</p><p>Open_tables / table_cache * 100% = 100% 理想值 (&lt;= 95%)</p><p>6、进程使用情况&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'Thread%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Threads_cached&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Threads_connected&nbsp;|&nbsp;239&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">|&nbsp;Threads_created&nbsp;&nbsp;&nbsp;|&nbsp;2914&nbsp;&nbsp;|&nbsp;</code></div><div class="line number8 index7 alt1"><code class="sql plain">|&nbsp;Threads_running&nbsp;&nbsp;&nbsp;|&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+</code></div></div></td></tr></tbody></table><p>如果我们在MySQL服务器配置文件中设置了thread_cache_size，当客户端断开之后，服务器处理此客户的线程将会缓存起来以响应 下一个客户而不是销毁（前提是缓存数未达上限）。Threads_created表示创建过的线程数，如果发现Threads_created值过大的 话，表明 MySQL服务器一直在创建线程，这也是比较耗资源，可以适当增加配置文件中thread_cache_size值，查询服务器 thread_cache_size配置：&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'thread_cache_size'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;thread_cache_size&nbsp;|&nbsp;32&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------+-------+</code></div></div></td></tr></tbody></table><p>7、文件打开数(open_files)&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'open_files'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;|&nbsp;Value&nbsp;|&nbsp;&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Open_files&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;821&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+-------+&nbsp;</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'open_files_limit'</code><code class="sql plain">;&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">+</code><code class="sql comments">------------------+-------+&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;|&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">+</code><code class="sql comments">------------------+-------+&nbsp;</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;open_files_limit&nbsp;|&nbsp;65535&nbsp;|&nbsp;</code></div><div class="line number13 index12 alt2"><code class="sql plain">+</code><code class="sql comments">------------------+-------+</code></div></div></td></tr></tbody></table><p>比较合适的设置：Open_files / open_files_limit * 100% &lt;= 75％&nbsp;</p><p>8、表锁情况&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'table_locks%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------------+---------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------------+---------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Table_locks_immediate&nbsp;|&nbsp;4257944&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Table_locks_waited&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;25182&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">+</code><code class="sql comments">-----------------------+---------+</code></div></div></td></tr></tbody></table><p>Table_locks_immediate 表示立即释放表锁数，Table_locks_waited表示需要等待的表锁数，如果 Table_locks_immediate / Table_locks_waited &gt; 5000，最好采用InnoDB引擎，因为InnoDB是行锁而MyISAM是表锁，对于高并发写入的应用InnoDB效果会好些.</p><p>9、表扫描情况&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'handler_read%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------------+-----------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-----------------------+-----------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Handler_read_first&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;108763&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Handler_read_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;92813521&nbsp;&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">|&nbsp;Handler_read_next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;486650793&nbsp;|&nbsp;</code></div><div class="line number8 index7 alt1"><code class="sql plain">|&nbsp;Handler_read_prev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;688726&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">|&nbsp;Handler_read_rnd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;9321362&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">|&nbsp;Handler_read_rnd_next&nbsp;|&nbsp;153086384&nbsp;|&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">+</code><code class="sql comments">-----------------------+-----------+&nbsp;</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'com_select'</code><code class="sql plain">;&nbsp;</code></div><div class="line number14 index13 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+---------+&nbsp;</code></div><div class="line number15 index14 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number16 index15 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+---------+&nbsp;</code></div><div class="line number17 index16 alt2"><code class="sql plain">|&nbsp;Com_select&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;2693147&nbsp;|&nbsp;</code></div><div class="line number18 index17 alt1"><code class="sql plain">+</code><code class="sql comments">---------------+---------+</code></div></div></td></tr></tbody></table><p>计算表扫描率：&nbsp;</p><p>表扫描率 ＝ Handler_read_rnd_next / Com_select&nbsp;</p><p>如果表扫描率超过4000，说明进行了太多表扫描，很有可能索引没有建好，增加read_buffer_size值会有一些好处，但最好不要超过8MB。</p><p>10、查询缓存(query cache)&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;</code><code class="sql keyword">global</code>&nbsp;<code class="sql plain">status&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'qcache%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------------+----------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">-------------------------+----------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;Qcache_free_blocks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;2226&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;Qcache_free_memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;10794944&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">|&nbsp;Qcache_hits&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;5385458&nbsp;&nbsp;|&nbsp;</code></div><div class="line number8 index7 alt1"><code class="sql plain">|&nbsp;Qcache_inserts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;1806301&nbsp;&nbsp;|&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">|&nbsp;Qcache_lowmem_prunes&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;433101&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">|&nbsp;Qcache_not_cached&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;4429464&nbsp;&nbsp;|&nbsp;</code></div><div class="line number11 index10 alt2"><code class="sql plain">|&nbsp;Qcache_queries_in_cache&nbsp;|&nbsp;7168&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;Qcache_total_blocks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;16820&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number13 index12 alt2"><code class="sql plain">+</code><code class="sql comments">-------------------------+----------+</code></div></div></td></tr></tbody></table><p>Qcache_free_blocks：缓存中相邻内存块的个数。数目大说明可能有碎片。FLUSH QUERY CACHE会对缓存中的碎片进行整理，从而得到一个空闲块。&nbsp;</p><p>Qcache_free_memory：缓存中的空闲内存。&nbsp;</p><p>Qcache_hits：每次查询在缓存中命中时就增大&nbsp;</p><p>Qcache_inserts：每次插入一个查询时就增大。命中次数除以插入次数就是不中比率。&nbsp;</p><p>Qcache_lowmem_prunes：缓存出现内存不足并且必须要进行清理以便为更多查询提供空间的次数。这个数字最好长时间来看；如果这 个数字在不断增长，就表示可能碎片非常严重，或者内存很少。（上面的 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;free_blocks和free_memory可以告诉您属于哪种情况）&nbsp;</p><p>Qcache_not_cached：不适合进行缓存的查询的数量，通常是由于这些查询不是 SELECT 语句或者用了now()之类的函数。&nbsp;</p><p>Qcache_queries_in_cache：当前缓存的查询（和响应）的数量。&nbsp;</p><p>Qcache_total_blocks：缓存中块的数量。&nbsp;</p><p>我们再查询一下服务器关于query_cache的配置：&nbsp;</p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  sql"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">mysql&gt;&nbsp;show&nbsp;variables&nbsp;</code><code class="sql color1">like</code>&nbsp;<code class="sql string">'query_cache%'</code><code class="sql plain">;&nbsp;</code></div><div class="line number2 index1 alt1"><code class="sql plain">+</code><code class="sql comments">------------------------------+----------+&nbsp;</code></div><div class="line number3 index2 alt2"><code class="sql plain">|&nbsp;Variable_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number4 index3 alt1"><code class="sql plain">+</code><code class="sql comments">------------------------------+----------+&nbsp;</code></div><div class="line number5 index4 alt2"><code class="sql plain">|&nbsp;query_cache_limit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;33554432&nbsp;|&nbsp;</code></div><div class="line number6 index5 alt1"><code class="sql plain">|&nbsp;query_cache_min_res_unit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;4096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code></div><div class="line number7 index6 alt2"><code class="sql plain">|&nbsp;query_cache_size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;33554432&nbsp;|&nbsp;</code></div><div class="line number8 index7 alt1"><code class="sql plain">|&nbsp;query_cache_type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;</code><code class="sql keyword">ON</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="sql plain">|&nbsp;</code></div><div class="line number9 index8 alt2"><code class="sql plain">|&nbsp;query_cache_wlock_invalidate&nbsp;|&nbsp;</code><code class="sql keyword">OFF</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="sql plain">|&nbsp;</code></div><div class="line number10 index9 alt1"><code class="sql plain">+</code><code class="sql comments">------------------------------+----------+</code></div></div></td></tr></tbody></table><p>各字段的解释：&nbsp;</p><p>query_cache_limit：超过此大小的查询将不缓存&nbsp;</p><p>query_cache_min_res_unit：缓存块的最小大小&nbsp;</p><p>query_cache_size：查询缓存大小&nbsp;</p><p>query_cache_type：缓存类型，决定缓存什么样的查询，示例中表示不缓存 select sql_no_cache 查询&nbsp;</p><p>query_cache_wlock_invalidate：当有其他客户端正在对MyISAM表进行写操作时，如果查询在query cache中，是否返回cache结果还是等写操作完成再读表获取结果。&nbsp;</p><p>query_cache_min_res_unit的配置是一柄”双刃剑”，默认是4KB，设置值大对大数据查询有好处，但如果你的查询都是小数据查询，就容易造成内存碎片和浪费。&nbsp;</p><p>查询缓存碎片率 = Qcache_free_blocks / Qcache_total_blocks * 100%&nbsp;</p><p>如果查询缓存碎片率超过20%，可以用FLUSH QUERY CACHE整理缓存碎片，或者试试减小query_cache_min_res_unit，如果你的查询都是小数据量的话。&nbsp;</p><p>查询缓存利用率 = (query_cache_size – Qcache_free_memory) / query_cache_size * 100%&nbsp;</p><p>查询缓存利用率在25%以下的话说明query_cache_size设置的过大，可适当减小；查询缓存利用率在80％以上而且Qcache_lowmem_prunes &gt; 50的话说明query_cache_size可能有点小，要不就是碎片太多。&nbsp;</p><p>查询缓存命中率 = (Qcache_hits – Qcache_inserts) / Qcache_hits * 100%&nbsp;</p><p>示例服务器 查询缓存碎片率 ＝ 20.46％，查询缓存利用率 ＝ 62.26％，查询缓存命中率 ＝ 1.94％，命中率很差，可能写操作比较频繁吧，而且可能有些碎片。</p> </div>
+<div style="text-align: center;">
+
+</div>
+
+
+<div style="line-height:25px;font-weight:bold;">
+	上一篇：
+没有了
+	<br>
+	下一篇：
+	<a href="http://www.pinhuba.com/mysql/101286.htm">mysql常用sql</a>
+</div>
+
+<div class="f-cb f-mt10 f-mb10">
+<!-- 评分页面 -->
+<div class="f-cb f-fr">
+		<!-- 系统默认的2号分组是星级评分 -->
+	<!-- 平均评分有二级缓存，评分后不会立即显示新的平均评分 -->
+	<div class="f-cb">
+	    <div class="f-fr" id="function-score" style="height: 30px; line-height: 27px; cursor: pointer; width: 140px;"><img src="./mysql show命令的用法大全 - 品互网络_files/star-off-big.png" alt="1" title="1 分" data-bd-imgshare-binded="1">&nbsp;<img src="./mysql show命令的用法大全 - 品互网络_files/star-off-big.png" alt="2" title="2 分" data-bd-imgshare-binded="1">&nbsp;<img src="./mysql show命令的用法大全 - 品互网络_files/star-off-big.png" alt="3" title="3 分" data-bd-imgshare-binded="1">&nbsp;<img src="./mysql show命令的用法大全 - 品互网络_files/star-off-big.png" alt="4" title="4 分" data-bd-imgshare-binded="1">&nbsp;<img src="./mysql show命令的用法大全 - 品互网络_files/star-off-big.png" alt="5" title="5 分" data-bd-imgshare-binded="1"><input type="hidden" name="score"></div>
+	    <div class="f-fr" id="function-hint" style="height:30px;line-height:27px;margin-right:10px;">不打个分吗？</div>
+	</div>
+	<script type="text/javascript" src="./mysql show命令的用法大全 - 品互网络_files/jquery.raty.min.js.下载"></script>
+	<script type="text/javascript">
+    $(function() {
+		var scored=$.cookie("_cms_score_" +101295);
+		var readOnly=false;
+		if(scored==1) readOnly=true;//已经投票设置只读
+		$.fn.raty.defaults.path = '/r/cms/raty/img';
+		var scores = new Array();
+			scores.push(9);
+			scores.push(10);
+			scores.push(11);
+			scores.push(12);
+			scores.push(13);
+		
+		$('#function-score').raty({
+		  	number    : 5,//多少个星星设置
+		  	
+		  	
+			targetType: 'hint',//类型选择，number是数字值，hint，是设置的数组值
+	        path      : '/r/cms/raty/img',
+			hints     : [
+								'1 分',
+								'2 分',
+								'3 分',
+								'4 分',
+								'5 分'
+			     		],
+	        cancelOff : 'cancel-off-big.png',
+	        cancelOn  : 'cancel-on-big.png',
+	        size      : 24,
+	        starHalf  : 'star-half-big.png',
+	        starOff   : 'star-off-big.png',
+	        starOn    : 'star-on-big.png',
+	        target    : '#function-hint',
+	        cancel    : false,
+	        targetKeep: true,
+			targetText: '不打个分吗？',
+			readOnly  : readOnly,
+	        click: function(score, evt) {
+				var succ = Cms.score('',101295,scores[score-1]);
+				if(!succ){
+					alert("您已经评分过了！");
+					$('#function-score').raty('score', 0);
+				}else{
+					alert("评分成功！");
+					$('#function-score').raty('readOnly', true);
+				}
+			}
+		}); 
+    });   
+	</script>
+</div>
+
+
+<div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1488098710299">
+<a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_more" data-cmd="more">分享到：</a>
+<a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+<a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+<a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{"bdSize":16},"image":{"viewList":["tsina","weixin","qzone","tqq","renren"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin","qzone","tqq","renren"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</div>
+
+<div id="comment-start">
+<h2 style="font-size:14px;font-family:微软雅黑;margin-bottom:10px;">发表评论<span class="tip">（对文章涉及的知识点还有疑问，可以在这里留言，老高看到后会及时回复的。）</span></h2>
+<form id="commentForm" action="http://www.pinhuba.com/comment.jspx" method="post" novalidate="novalidate">
+	<div style="border:1px solid #CCD4D9;display:block;border-radius:3px;">
+	     <div style="border-bottom:1px solid #E6EAED;">
+	        <textarea id="text" name="text" style="width:100%;padding:0px;height:60px;border:hidden;"></textarea>
+	        <input type="hidden" name="contentId" value="101295">
+	     </div>
+	     <div class="f-cb forheight">
+		     <div style="width:162px;height:30px;float:left;">
+		         <div class="biaoqing">
+		         	表情
+		         	<div id="faces">
+			         	<ul class="f-cb">
+					     		<li id="[em1]"><img src="./mysql show命令的用法大全 - 品互网络_files/1.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em2]"><img src="./mysql show命令的用法大全 - 品互网络_files/2.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em3]"><img src="./mysql show命令的用法大全 - 品互网络_files/3.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em4]"><img src="./mysql show命令的用法大全 - 品互网络_files/4.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em5]"><img src="./mysql show命令的用法大全 - 品互网络_files/5.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em6]"><img src="./mysql show命令的用法大全 - 品互网络_files/6.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em7]"><img src="./mysql show命令的用法大全 - 品互网络_files/7.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em8]"><img src="./mysql show命令的用法大全 - 品互网络_files/8.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em9]"><img src="./mysql show命令的用法大全 - 品互网络_files/9.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em10]"><img src="./mysql show命令的用法大全 - 品互网络_files/10.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em11]"><img src="./mysql show命令的用法大全 - 品互网络_files/11.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em12]"><img src="./mysql show命令的用法大全 - 品互网络_files/12.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em13]"><img src="./mysql show命令的用法大全 - 品互网络_files/13.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em14]"><img src="./mysql show命令的用法大全 - 品互网络_files/14.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em15]"><img src="./mysql show命令的用法大全 - 品互网络_files/15.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em16]"><img src="./mysql show命令的用法大全 - 品互网络_files/16.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em17]"><img src="./mysql show命令的用法大全 - 品互网络_files/17.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em18]"><img src="./mysql show命令的用法大全 - 品互网络_files/18.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em19]"><img src="./mysql show命令的用法大全 - 品互网络_files/19.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em20]"><img src="./mysql show命令的用法大全 - 品互网络_files/20.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em21]"><img src="./mysql show命令的用法大全 - 品互网络_files/21.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em22]"><img src="./mysql show命令的用法大全 - 品互网络_files/22.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em23]"><img src="./mysql show命令的用法大全 - 品互网络_files/23.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em24]"><img src="./mysql show命令的用法大全 - 品互网络_files/24.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em25]"><img src="./mysql show命令的用法大全 - 品互网络_files/25.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em26]"><img src="./mysql show命令的用法大全 - 品互网络_files/26.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em27]"><img src="./mysql show命令的用法大全 - 品互网络_files/27.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em28]"><img src="./mysql show命令的用法大全 - 品互网络_files/28.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em29]"><img src="./mysql show命令的用法大全 - 品互网络_files/29.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em30]"><img src="./mysql show命令的用法大全 - 品互网络_files/30.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em31]"><img src="./mysql show命令的用法大全 - 品互网络_files/31.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em32]"><img src="./mysql show命令的用法大全 - 品互网络_files/32.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em33]"><img src="./mysql show命令的用法大全 - 品互网络_files/33.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em34]"><img src="./mysql show命令的用法大全 - 品互网络_files/34.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em35]"><img src="./mysql show命令的用法大全 - 品互网络_files/35.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em36]"><img src="./mysql show命令的用法大全 - 品互网络_files/36.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em37]"><img src="./mysql show命令的用法大全 - 品互网络_files/37.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em38]"><img src="./mysql show命令的用法大全 - 品互网络_files/38.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em39]"><img src="./mysql show命令的用法大全 - 品互网络_files/39.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em40]"><img src="./mysql show命令的用法大全 - 品互网络_files/40.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em41]"><img src="./mysql show命令的用法大全 - 品互网络_files/41.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em42]"><img src="./mysql show命令的用法大全 - 品互网络_files/42.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em43]"><img src="./mysql show命令的用法大全 - 品互网络_files/43.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em44]"><img src="./mysql show命令的用法大全 - 品互网络_files/44.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em45]"><img src="./mysql show命令的用法大全 - 品互网络_files/45.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em46]"><img src="./mysql show命令的用法大全 - 品互网络_files/46.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em47]"><img src="./mysql show命令的用法大全 - 品互网络_files/47.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em48]"><img src="./mysql show命令的用法大全 - 品互网络_files/48.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em49]"><img src="./mysql show命令的用法大全 - 品互网络_files/49.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em50]"><img src="./mysql show命令的用法大全 - 品互网络_files/50.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em51]"><img src="./mysql show命令的用法大全 - 品互网络_files/51.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em52]"><img src="./mysql show命令的用法大全 - 品互网络_files/52.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em53]"><img src="./mysql show命令的用法大全 - 品互网络_files/53.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em54]"><img src="./mysql show命令的用法大全 - 品互网络_files/54.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em55]"><img src="./mysql show命令的用法大全 - 品互网络_files/55.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em56]"><img src="./mysql show命令的用法大全 - 品互网络_files/56.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em57]"><img src="./mysql show命令的用法大全 - 品互网络_files/57.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em58]"><img src="./mysql show命令的用法大全 - 品互网络_files/58.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em59]"><img src="./mysql show命令的用法大全 - 品互网络_files/59.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em60]"><img src="./mysql show命令的用法大全 - 品互网络_files/60.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em61]"><img src="./mysql show命令的用法大全 - 品互网络_files/61.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em62]"><img src="./mysql show命令的用法大全 - 品互网络_files/62.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em63]"><img src="./mysql show命令的用法大全 - 品互网络_files/63.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em64]"><img src="./mysql show命令的用法大全 - 品互网络_files/64.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em65]"><img src="./mysql show命令的用法大全 - 品互网络_files/65.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em66]"><img src="./mysql show命令的用法大全 - 品互网络_files/66.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em67]"><img src="./mysql show命令的用法大全 - 品互网络_files/67.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em68]"><img src="./mysql show命令的用法大全 - 品互网络_files/68.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em69]"><img src="./mysql show命令的用法大全 - 品互网络_files/69.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em70]"><img src="./mysql show命令的用法大全 - 品互网络_files/70.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em71]"><img src="./mysql show命令的用法大全 - 品互网络_files/71.gif" data-bd-imgshare-binded="1"></li>
+					     		<li id="[em72]"><img src="./mysql show命令的用法大全 - 品互网络_files/72.gif" data-bd-imgshare-binded="1"></li>
+				    	</ul>
+			     	</div>
+		         </div>  
+	         </div>
+
+	         <div style="float:right;">
+	         	<input type="submit" name="submit" value="马上发表 " class="btn btn-primary" style="width:100px;border-radius:0px 0px 3px;margin:0px;">
+	         </div>
+		</div>
+	</div>
+</form>
+  
+<style>
+.forheight{height:30px;background-color:#f3f3f3;} 
+.biaoqing{background:url(/r/cms/www/main/img/comment/biaoqn.png) no-repeat 9px; width:30px;height:30px;line-height:30px;border-right:1px solid #E6EAED;float:left;padding-left:35px;cursor:pointer;position:relative;} 
+
+#faces{display:none;position:absolute;left:0px;z-index:100;}
+#faces ul{width:372px; padding:10px; border:1px solid #D9D9D9; background-color:#fff; box-shadow: 0 0 20px rgba(0,0,0,.2);}
+#faces ul li{cursor: pointer; float: left; border: 1px solid #e8e8e8; height: 22px; width: 26px; overflow: hidden; margin: -1px 0 0 -1px; padding: 4px 2px; text-align: center;}
+#faces ul li:hover{position: relative; z-index: 2; border: 1px solid #eb7350; background: #fff9ec;}
+</style>
+  
+<script type="text/javascript">
+
+$(function() {
+  	
+  	$(".biaoqing").click(function(e){
+  		$("#faces").show();
+
+  		$(document).one("click", function(){
+  	        $("#faces").hide();
+  	    });
+
+  		e.stopPropagation();
+  	});
+  	
+  	$("#faces li").click(function(e){
+       	$("#text").val($("#text").val()+$(this).attr("id"));
+       	$("#faces").hide();
+       	e.stopPropagation();//停止事件传播
+  	});
+  	
+	Cms.comment(function(data){
+	    if(data.status==0) {
+	        Cms.commentList("","commentListContainer",{contentId:101295,orderBy:0});
+	        $("#text").val("");
+	    } else if(data.status==1) {	
+	        layer.msg("验证码错误", {icon: 2});
+	    } else if(data.status==2) {	
+	        layer.msg("内容不存在", {icon: 2});
+	    } else if(data.status==3) {	
+	        layer.msg("评论关闭", {icon: 2});
+	    } else if(data.status==4) {
+	    	Cms.login("");
+	    } else if(data.status==100) {	
+	        layer.msg("内容不存在", {icon: 2});
+	    } else if(data.status==101) {	
+	        layer.msg("评论不能为空", {icon: 2});
+	    } else {
+	        layer.msg("评论失败", {icon: 2});
+	    }
+	});
+});
+</script>
+
+
+<div id="commentListContainer"></div>
+<script type="text/javascript">
+$(function(){
+	Cms.commentList("","commentListContainer",{contentId:101295,orderBy:0});
+});
+</script></div></div>	
+</div>
+<div class="wrap">
+<!--
+background:#3598db;color:#FFFFFF;
+-->
+<div style="text-align:center;color:#666;padding:10px;margin-top:20px;margin-bottom:10px;border-radius:4px;">
+品互网络&nbsp;&nbsp;
+<a href="http://www.pinhuba.com/admin/eazycms/index.do" target="_blank" style="color:#666;">版权所有</a> 
+<a href="http://union.baidu.com/customerLogin.html" target="_blank" style="color:#666;">Copyright</a> © 2016 All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#666;">苏ICP备11033012号-2</a>
+&nbsp;&nbsp;
+<a href="http://www.pinhuba.com/guestbook.jspx" target="_blank" style="color:#666;">留言</a>
+&nbsp;&nbsp;
+<a href="http://www.pinhuba.com/rss.jspx" target="_blank" style="color:#666;">订阅</a>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("", location.href, document.referrer);
+});
+
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F379c8011b5d118a8bf03386912009656' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./mysql show命令的用法大全 - 品互网络_files/h.js.下载" type="text/javascript"></script>
+
+<style>
+.mini-way {width:55px;position: fixed;bottom:10px;overflow: hidden;display:none;}
+.mini-way a {float: left;display: block;width: 55px;height: 55px;background: url(/r/cms/help.png) no-repeat;cursor:pointer;}
+.dt-move-act {transition: all .2s ease 0s;}
+.mini-way .online {margin-bottom: 4px;background-position: 0 -114px;}
+.mini-way .online:hover{background-position: -55px -114px;}
+.mini-way .q-survey {background-position: 0 -57px;margin-bottom: 4px;}
+.mini-way .q-survey:hover{background-position: -55px -57px;}
+.mini-way .backtop {background-position: 0 0;}
+.mini-way .backtop:hover{background-position: -55px 0;}
+</style>
+
+<script type="text/javascript">
+$(function(){
+	$(".mini-way").css("left",($(window).width()-980)/2 + 1000);
+	
+	$(window).scroll(function(event){
+		var nScrollTop = $(document).scrollTop();
+		if(nScrollTop > 100){
+			 $(".mini-way").fadeIn(200);
+		}else{
+			 $(".mini-way").fadeOut(200);
+		}
+
+		var nScrollBottom = $(document).height() - nScrollTop - $(window).height();
+		var footer = 65;
+		
+		if(nScrollBottom > footer){
+			$(".mini-way").css("bottom","10px");
+		}else{
+			$(".mini-way").css("bottom",footer-nScrollBottom);
+		}
+    });
+	
+	$('#backtop').click(function(){
+        $("html,body").animate({scrollTop:0},500);
+        return false;
+    });
+})
+</script>
+
+<div class="mini-way" style="left: 1124px; bottom: 10px; display: block;">
+<a title="意见反馈" class="q-survey dt-move-act" href="http://www.pinhuba.com/guestbook.jspx" target="_blank"></a>
+<a title="在线咨询" class="online dt-move-act" href="http://wpa.qq.com/msgrd?v=3&amp;uin=344359951&amp;site=qq&amp;menu=yes" target="_blank"></a>
+<a title="返回顶部" class="backtop dt-move-act" id="backtop" onclick="javascript:void(0);"></a>
+</div>
+<iframe frameborder="0" id="bdSharePopup_selectshare1488098710306bg" class="bdselect_share_bg" style="top: 2766px; left: 227px; display: none; width: 206px; height: 84px;" src="./mysql show命令的用法大全 - 品互网络_files/saved_resource.html"></iframe><div id="bdSharePopup_selectshare1488098710306box" style="top: 2766px; left: 227px; display: none; width: 206px;" share-type="selectshare" class="bdselect_share_box" data-bd-bind="1488098710305"><div class="selectshare-mod-triangle"><div class="triangle-border"></div><div class="triangle-inset"></div></div><div class="bdselect_share_head" style="width: 206px;"><span>分享到</span><a href="http://www.baidu.com/s?wd=show%C2%A0global%C2%A0status%C2%A0like%C2%A0%27table_locks%%27;&amp;tn=SE_hldp08010_vurs2xrp" class="bdselect_share_dialog_search" target="_blank"><i class="bdselect_share_dialog_search_i"></i><span class="bdselect_share_dialog_search_span" style="display: none;">百度一下</span></a><a class="bdselect_share_dialog_close"></a></div><div class="bdselect_share_content"><ul class="bdselect_share_list bdshare-button-style0-24"><div class="bdselect_share_partners"><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_tsina" data-cmd="tsina"></a><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_weixin" data-cmd="weixin"></a><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_qzone" data-cmd="qzone"></a><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_tqq" data-cmd="tqq"></a><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_renren" data-cmd="renren"></a></div><a href="http://www.pinhuba.com/mysql/101295.htm#" class="bds_more" data-cmd="more"></a></ul></div></div><div id="bdimgshare_1488098710349" class="sr-bdimgshare sr-bdimgshare-list sr-bdimgshare-16 sr-bdimgshare-black" style="height:36px;line-height:26px;font-size:12px;width:autopx;display:none;" data-bd-bind="1488098710348"><div class="bdimgshare-bg"></div><div class="bdimgshare-content bdsharebuttonbox bdshare-button-style0-16"><label class="bdimgshare-lbl">分享到：</label><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_tsina" data-cmd="tsina" hidefocus=""></a><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_weixin" data-cmd="weixin" hidefocus=""></a><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_qzone" data-cmd="qzone" hidefocus=""></a><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_tqq" data-cmd="tqq" hidefocus=""></a><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_renren" data-cmd="renren" hidefocus=""></a><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="bds_more" data-cmd="more" hidefocus=""></a></div></div><iframe frameborder="0" id="bdSharePopup_1488099099864bg" class="bdshare_popup_bg" style="height: 326px; width: 228px; top: 1200px; left: 330px; display: none;" src="./mysql show命令的用法大全 - 品互网络_files/saved_resource(1).html"></iframe><div class="bdshare_popup_box" id="bdSharePopup_1488099099864box" style="width: 226px; top: 1200px; left: 330px; display: none;"><div class="bdshare_popup_top">分享到</div><ul class="bdshare_popup_list"><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_mshare" data-cmd="mshare">一键分享</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_qzone" data-cmd="qzone">QQ空间</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_tsina" data-cmd="tsina">新浪微博</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_bdysc" data-cmd="bdysc">百度云收藏</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_weixin" data-cmd="weixin">微信</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_renren" data-cmd="renren">人人网</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_tqq" data-cmd="tqq">腾讯微博</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_bdxc" data-cmd="bdxc">百度相册</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_kaixin001" data-cmd="kaixin001">开心网</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_tqf" data-cmd="tqf">腾讯朋友</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_tieba" data-cmd="tieba">百度贴吧</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_douban" data-cmd="douban">豆瓣网</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_bdhome" data-cmd="bdhome">百度新首页</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_sqq" data-cmd="sqq">QQ好友</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_thx" data-cmd="thx">和讯微博</a></li><li><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_ibaidu" data-cmd="ibaidu">百度中心</a></li></ul><div class="bdshare_popup_bottom"><a href="http://www.pinhuba.com/mysql/101295.htm#" onclick="return false;" class="popup_more" data-cmd="more" target="_blank;">更多...</a></div></div></body></html>

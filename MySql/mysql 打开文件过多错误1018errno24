@@ -1,0 +1,84 @@
+//  MySQL 数据库打开文件过多报错
+//      发生在升级成5.5后，用sqlyog备份数据时 1018错
+
+1. 进入mysql              //如果mysql崩溃，  service mysqld restart
+    mysql -u root -p    //然后输入密码，进入 
+    mysql>              //这是mysql 
+            show processlist;       //显示系统正运行进程
+            show status;            //系统特定资源的信息
+            show errors;
+            show variables;         //-- 显示系统变量的名称和值。 
+                show variables like '%char%';   //显示该数据库连接使用的字符集的情况
+            show global status;     //MySQL服务器运行的各种状态值
+
+            连接数 max_used_connections / max_connections * 100% = （理想值 ≈ 85%）
+                show variables like 'max_connections'; 
+                show global status like 'max_used_connections';     //响应的连接数
+
+            key_buffer_size     对MyISAM表性能影响最大的一个参数, 不过数据库中多为Innodb
+                show variables like 'key_buffer_size'; 
+                show global status like 'key_read%'; 
+                计算索引未命中缓存的概率： ＝ Key_reads / Key_read_requests * 100% =??% 
+
+                show global status like 'key_blocks_u%';
+                +-------------------+-------+ 
+                | Variable_name     | Value | 
+                +-------------------+-------+ 
+                | Key_blocks_unused | 10285 | 
+                | Key_blocks_used   | 47705 | 
+                +-------------------+-------+
+                Key_blocks_unused表示未使用的缓存簇(blocks)数，Key_blocks_used表示曾经用到的最大的blocks数 
+                Key_blocks_used / (Key_blocks_unused + Key_blocks_used) * 100% ≈ 18% （理想值 ≈ 80%）
+                max_used_connections / max_connections * 100% = 99.6% （理想值 ≈ 85%）
+
+
+2. 查看打开文件限制
+    SHOW VARIABLES LIKE 'open_files_limit';
+        mysql> SHOW VARIABLES LIKE 'open_files_limit';
+        +------------------+-------+
+        | Variable_name    | Value |
+        +------------------+-------+
+        | open_files_limit | 1024  |
+        +------------------+-------+
+        1 row in set (0.00 sec)
+    查看当前打开文件数
+        mysql> SHOW GLOBAL STATUS LIKE 'Open_files';
+        +---------------+-------+
+        | Variable_name | Value |
+        +---------------+-------+
+        | Open_files    | 18    |
+        +---------------+-------+
+        1 row in set (0.00 sec)
+
+        执行SQLyog 备份数据库时：
+            mysql> SHOW GLOBAL STATUS LIKE 'Open_files';
+            +---------------+-------+
+            | Variable_name | Value |
+            +---------------+-------+
+            | Open_files    | 778   |
+            +---------------+-------+
+            1 row in set (0.00 sec)
+
+3. 1018错误信息：Can't read dir of '.' (errno: 24)
+    "/var/log/mysqld.log" ：
+        170226 15:28:57 [ERROR] /usr/libexec/mysqld: Can't open file: './tlk/phppos_app_config.frm' (errno: 24)
+        170226 15:38:57 [ERROR] Error in accept: Too many open files
+    5.5打开文件数受限，要改配置
+        /etc/mysql/my.cnf       //- edit or add these values
+
+            open-files-limit = 2048     //默认1024
+            table_cache       = 512     // 可不改，默认64
+
+        改后再备份数据库不报错：
+    
+            mysql> SHOW GLOBAL STATUS LIKE 'Open_files';
+            +---------------+-------+
+            | Variable_name | Value |
+            +---------------+-------+
+            | Open_files    | 800   |
+            +---------------+-------+
+            1 row in set (0.00 sec)
+
+
+
+
