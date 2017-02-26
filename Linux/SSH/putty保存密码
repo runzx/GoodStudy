@@ -1,0 +1,16 @@
+//  Putty保存密码，自动登录
+
+
+创建putty快捷方式
+运行putty，输入各项信息，点击保存。假设session名为“pppp”
+右击putty快捷方式，属性，目标，加上如下参数 -load “pppp” -ssh -l user -pw pwd，保存
+运行putty快捷方式，OK
+
+rpm -qa|grep mysql
+
+[root@bosszs ~]# rpm -qa|grep mysql
+php56w-mysql-5.6.29-1.w6.i386
+mysql-libs-5.5.45-1.el6.remi.i686
+compat-mysql51-5.1.54-1.el6.remi.i686
+mysql-server-5.5.45-1.el6.remi.i686
+mysql-5.5.45-1.el6.remi.i686

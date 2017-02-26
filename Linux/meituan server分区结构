@@ -1,0 +1,73 @@
+//  meituan server 
+
+1. 查看硬盘空间
+    df -lh      //磁盘的使用情况以及文件系统被挂载的位置
+    fdisk -l    //查看磁盘分区表及分区结构
+2. 查看目录大小
+    du -h
+    du sh       //-s表示总结的意思，即只列出一个总结的值
+        -c      //-c或–total 除了显示目录或文件的大小外，同时也显示所有目录或文件的总和。
+        -S      //-S或–separate-dirs 显示每个目录的大小时，并不含其子目录的大小。
+    
+3. 20170226调整后：
+    [root@bosszs zxbak]# df -lh
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/vda1        25G   12G   12G  51% /
+    tmpfs           504M     0  504M   0% /dev/shm
+    /dev/vdc1        20G  9.4G  9.2G  51% /data
+
+//  https://mos.meituan.com/document/faq
+重置系统后发现数据盘消失，如何处理？
+重置/更换系统后，数据盘默认不会自动挂载.
+    win系统可以在磁盘管理选项中，找到对应的数据盘，点击“联机”即可
+    Linux系统，需要重新挂载。例如数据盘是/dev/vdc1，
+    执行sudo mount /dev/vdc1 /data && echo '/dev/vdc1 /data ext4 defaults 2 2' >> /etc/fstab
+        /etc/fstab 内容如下：
+            UUID=4c5f5bf1-f9f7-4618-a14d-bdd1cb2cc304	/	ext4	defaults	1	1
+            tmpfs	/dev/shm	tmpfs	defaults	0	0
+            devpts	/dev/pts	devpts	gid=5,mode=620	0	0
+            sysfs	/sys	sysfs	defaults	0	0
+            proc	/proc	proc	defaults	0	0
+            /dev/vdb1	none	swap	sw	0	0
+            /dev/vdc1	/data	ext4	defaults	2	2
+        
+[root@bosszs ~]# df -lh
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        25G   22G  2.2G  91% /
+tmpfs           504M     0  504M   0% /dev/shm
+/dev/vdc1        20G   44M   19G   1% /data
+You have new mail in /var/spool/mail/root
+
+
+
+[root@bosszs ~]# fdisk -l
+
+Disk /dev/vda: 26.8 GB, 26843545600 bytes
+255 heads, 63 sectors/track, 3263 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000c6488
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *           1        3264    26213376   83  Linux
+
+Disk /dev/vdb: 1073 MB, 1073741824 bytes
+255 heads, 63 sectors/track, 130 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000b7f5d
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vdb1               1         130     1044193+  82  Linux swap / Solaris
+
+Disk /dev/vdc: 21.5 GB, 21474836480 bytes
+255 heads, 63 sectors/track, 2610 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000cdf84
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vdc1               1        2610    20964793+  83  Linux
