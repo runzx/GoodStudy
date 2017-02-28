@@ -1,0 +1,293 @@
+//  CentOS6的内核优化和底层优化以及安全加固。
+
+一.更改yum的源为网易获取更快的更新速度
+        cd /etc/yum.repos.d
+        mv CentOS-Base.repo CentOS-Base.repo.bak
+        wget -c http://mirrors.163.com/.help/CentOS5-Base-163.repo
+        mv CentOS5-Base-163.repo  CentOS-Base.repo
+        yum clean metadata  #清除以前的缓存
+        yum makecache  #重新建立缓存
+
+二.安装ntp服务自动同步时间防止一些编译升级错误
+        yum -y install ntp
+        echo "*/5 * * * * /usr/sbin/ntpdate ntp.api.bz > /dev/null 2>&1" >> /etc/crontab
+        service crond restart
+
+三.修改内核参数
+        net.ipv4.ip_forward = 0
+        net.ipv4.conf.default.rp_filter = 1
+        net.ipv4.conf.default.accept_source_route = 0
+        kernel.sysrq = 0
+        kernel.core_uses_pid = 1
+        net.ipv4.tcp_syncookies = 1
+        kernel.msgmnb = 65536
+        kernel.msgmax = 65536
+        kernel.shmmax = 68719476736
+        #kernel.shmmax        一般建议使用物理内存的一半以4G内存为例：4096/2*1024*1024=2147483648
+        kernel.shmall = 4294967296
+        #kernel.shmall        一般建议使用物理内存的一半以4G内存为例：4096/2*1024*1024=2147483648 以上两项数值如果填写大于本身物理内存则会不生效。
+        超过本身内存启动php会报错
+        net.ipv4.tcp_max_tw_buckets = 6000
+        net.ipv4.tcp_sack = 1
+        net.ipv4.tcp_window_scaling = 1
+        net.ipv4.tcp_rmem = 4096 87380 4194304
+        net.ipv4.tcp_wmem = 4096 16384 4194304
+        net.core.wmem_default = 8388608
+        net.core.rmem_default = 8388608
+        net.core.rmem_max = 16777216
+        net.core.wmem_max = 16777216
+        net.core.netdev_max_backlog = 262144
+        net.core.somaxconn = 262144
+        net.ipv4.tcp_max_orphans = 3276800
+        net.ipv4.tcp_max_syn_backlog = 262144
+        net.ipv4.tcp_timestamps = 0
+        net.ipv4.tcp_synack_retries = 1
+        net.ipv4.tcp_syn_retries = 1
+        net.ipv4.tcp_tw_recycle = 1
+        net.ipv4.tcp_tw_reuse = 1
+        net.ipv4.tcp_mem = 94500000 915000000 927000000
+        net.ipv4.tcp_fin_timeout = 1
+        net.ipv4.tcp_keepalive_time = 1200
+        net.ipv4.ip_local_port_range = 1024 65535
+
+    修改好厚执行/sbin/sysctl -p使之生效。
+四.修改文件最大打开数
+    <blockquote>echo "ulimit -SHn 102400" >> /etc/rc.local
+五.修改系统默认语言以支持中文防止乱码
+        :> /etc/sysconfig/i18n
+        cat >> /etc/sysconfig/i18n << EOF
+        LANG="en_US.UTF-8"
+        EOF
+
+六.加固系统用户组和密码
+        chmod 600 /etc/{passwd,shadow,group,gshadow}
+        #chattr /etc/{passwd,shadow}
+        #chattr +i /etc/{passwd,shadow,group,gshadow}
+
+    #lock system user
+            passwd -l xfs
+        passwd -l news
+        passwd -l nscd
+        passwd -l dbus
+        passwd -l vcsa
+        passwd -l games
+        passwd -l haldaemon
+        passwd -l gopher
+        passwd -l ftp
+        passwd -l mailnull
+        passwd -l pcap
+        passwd -l mail
+        passwd -l shutdown
+        passwd -l halt
+        passwd -l uucp
+        passwd -l operator
+    七.停用ipv6
+        echo "alias net-pf-10 off" >> /etc/modprobe.conf
+        echo "alias ipv6 off" >> /etc/modprobe.conf
+        /sbin/chkconfig ip6tables off
+    7.1：清理开机服务
+        for i in `chkconfig --list|grep "3:on"|awk '{print $1}' | grep -vE "crond|network|sshd|rsyslog"`
+        do
+        chkconfig $i  off;chkconfig --list |grep "3:on"
+        done
+        关闭除crond|network|sshd|rsyslog 之外的其他所有服务
+
+    7.2用户角色切换
+        生产环境下一般操作都使用普通账户，只有特殊命令才使用root账户，以保证系统安全无误操作
+        在知道root密码的情况下：使用su - root  切换到root权限
+        在不知道root密码的情况下：使用sudo  进行root权限下命令的执行 》执行sudo的前提是，管理员要事先为普通用户设置sudo
+        sudo -l 查看自己的权限
+        注意：
+            su - 该命令是真正的用户角色转换命令（默认是切换到root），输入的是root密码
+            su - 与su - root 是一个意思：都是切换到root下
+            su - wu 是 完全切换到wu这个账号上，需要输入wu账号的密码
+            ------------------------------
+            sudo  该命令是通过sudo权限进行角色转换（默认是切换到root）输入的是执行该命令当时执行命令的账号的密码， 非root密码。
+
+    八.合理的利用tmpfs
+
+    /dev/shm/是linux下一个非常有用的目录这个目录不在硬盘上，而在内存里。 
+        在linux下，它默认最大为内存的一半大小，使用df -h命令可以看到。
+        但它并不会真正的占用这块内存，如果/dev/shm/下没有任何文件，它占用的内存实际上就是0字节；
+        如果它最大为1G，里头放有 100M文件，那剩余的900M仍然可为其它应用程序所使用，但它所占用的100M内存，是绝不会被系统回收重新划分的.
+        默认系统就会加载/dev/shm ，它就是tmpfs。象虚拟磁盘一样，tmpfs 可以使用您的 RAM，但它也可以使用您的交换分区来存储。
+        而且传统的虚拟磁盘是个块设备，并需要一个 mkfs 之类的命令才能真正地使用它，tmpfs 是一个文件系统，而不是块设备；您只是安装它，它就可以使用了。
+    tmpfs有以下优势：
+    　　1，动态文件系统的大小。
+    　　2，tmpfs 的另一个主要的好处是它闪电般的速度。因为典型的 tmpfs 文件系统会完全驻留在 RAM 中，读写几乎可以是瞬间的。
+    　　3，tmpfs 数据在重新启动之后不会保留，因为虚拟内存本质上就是易失的。所以有必要做一些脚本做诸如加载，绑定的操作。
+    
+    修改/dev/shm大小
+
+            默认的最大一半内存大小在某些场合可能不够用，并且默认的inode数量很低一般都要调高些，这时可以用mount命令来管理它。
+        #mount -o size=1500M -o nr_inodes=1000000 -o noatime,nodiratime -o remount /dev/shm
+        在2G的机器上，将最大容量调到1.5G，并且inode数量调到1000000，这意味着大致可存入最多一百万个小文件。
+        如果需要永久修改/dev/shm的值，需要修改/etc/fstab
+        tmpfs /dev/shm tmpfs defaults,size=1.5G 0 0
+        #mount -o remount /dev/shm
+
+    /dev/shm应用
+
+        首先在/dev/shm建个tmp文件夹，然后与实际/tmp绑定
+        #mkdir /dev/shm/tmp
+        #chmod 1777 /dev/shm/tmp
+        #mount –bind /dev/shm/tmp /tmp
+        如果你需要永久的自动关联文件夹需要做以下步骤
+        /etc/fstab中加入一行：
+        none /tmp tmpfs default 0 0
+        或者在/etc/rc.local中加入
+        mount tmpfs /tmp -t tmpfs -o size=128m
+        注：size=128m 表示/tmp最大能用128m
+        不管哪种方式，只要linux重启，/tmp下的文件全部消失
+4、ntsysv保留
+anacron
+cpuspeed
+crond
+gpm
+irqbalance
+kudzu
+lm_sensors
+lvm2-monitor
+mdmonitor
+messagebus
+microcde_ctl
+network
+pcscd
+psacct
+readahead_early
+readahead_later
+smartd
+sshd
+syslog
+xfs
+
+
+service NetworkManager stop
+service NetworkManagerDispatcher stop
+service acpid  stop
+service anacron start
+service atd stop
+service auditd stop
+service autofs stop
+service avahi-daemon stop
+service avahi-dnsconfd stop
+service bluetooth stop
+service capi stop
+service conman stop
+service cpuspeed start
+service crond start
+service cups stop
+service dhcdbd stop
+service dkms_autoinstaller stop
+service dund stop
+service firstboot stop
+service gpm start
+service haldaemon stop
+service hidd stop
+service hplip stop
+service ip6tables stop
+service iptables stop
+service irda stop
+service irqbalance start
+service isdn stop
+service kudzu start
+service lm_sensors start
+service lvm2-monitor start
+service mcstrans stop
+service mdmonitor start
+service mdmpd stop
+service messagebus start
+service microcode_ctl start
+service multipathd stop
+service netconsole stop
+service netfs stop
+service netplugd stop
+service network start
+service nfs stop
+service nfslock stop
+service nscd stop
+service ntpd stop
+service oddjobd stop
+service pand stop
+service pcscd start
+service portmap stop
+service psacct start
+service rdisc stop
+service readahead_early start
+service readahead_later start
+service restorecond stop
+service rpcgssd stop
+service rpcidmapd stop
+service rpcsvcgssd stop
+service saslauthd stop
+service sendmail stop
+service smartd start
+service snmptrapd stop
+service sshd start
+service syslog start
+service vncserver stop
+service wdaemon stop
+service winbind stop
+service wpa_supplicant stop
+service xfs start
+service ypbind stop
+service yum-updatesd stop
+
+5、修改SSH 端口
+        vim /etc/ssh/sshd_config
+        Port 22 修改
+        PermitEmptyPasswords no 把#注销掉-禁止空密码帐户登入服务器!
+        MaxAuthTries 2 两次不行就切断重新SSH启动登入
+
+6、远程5分钟无操作自动注销:
+        vim /etc/profile
+        最后添加:
+        export TMOUT=300   ---5分钟自动注销下来
+        找到
+        HISTSIZE=1000
+        修改为:
+        HISTSIZE=100 --减少日记字节为100KB,太大内容过多容易漏重要信息.
+
+7、修改文件属性
+        chmod 700 /bin/rpm 只有root权限用户才可以使用rpm命定,安装软件包
+        chmod 664 /etc/hosts
+        chmod 644 /etc/passwd
+        chmod 644 /etc/exports
+        chmod 644 /etc/issue
+        chmod 664 /var/log/wtmp
+        chmod 664 /var/log/btmp
+        chmod 644 /etc/services
+        chmod 600 /etc/shadow
+        chmod 600 /etc/login.defs
+        chmod 600 /etc/hosts.allow
+        chmod 600 /etc/hosts.deny
+        chmod 600 /etc/securetty
+        chmod 600 /etc/security
+        chmod 600 /etc/ssh/ssh_host_key
+        chmod 600 /etc/ssh/sshd_config
+        chmod 600 /var/log/lastlog
+        chmod 600 /var/log/messages
+12、删除部分不需要的用户和组：
+        # cut -d: -f1 /etc/passwd # 查看系统所有用户
+        # cut -d: -f1 /etc/group # 查看系统所有组
+        userdel adm
+        userdel lp
+        userdel news
+        userdel uucp
+        userdel games
+        groupdel adm
+        groupdel lp
+        groupdel news
+        groupdel uucp
+        groupdel games
+        groupdel dip
+
+
+13、垃圾IP封杀
+        # more /var/log/secure
+        首先通过以上命定观察多次扫描欲远程登入服务器的垃圾IP；
+        然后在
+        vim /etc/hosts.deny
+        增加：
+        sshd:211.100.49.77 ---这以211.100.49.77这个垃圾IP为例！
+        保存即可！

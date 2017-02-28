@@ -26,3 +26,83 @@
         iptables -L
     永久性关闭防火墙
         chkconfig --level 35 iptables off  
+
+7. 备份一个目录
+    zip -r /data/zxbak/appsoft/update17.0.zip /home/update17
+    upzip my.zip -d /xxx/yyy        // 解压my.zip 到指定yyy目录
+
+8. 备份数据库
+    1） webmin   //已设定每周日自动备份
+    2) sqlyog 
+    3) 导出整个数据库
+        mysqldump -u 用户名 -p 数据库名 > 导出的文件名
+        例：mysqldump -u zxmysql -p update_vifnn  > /data/zxbak/mysql-bak/updata20170227.sql
+
+    4) 恢复数据库
+        mysql -u dbadmin -p
+            use update_vifnn;
+            set names utf8;  #这里的字符集跟你的将要导入的数据库的字符集一致。
+            source /date/zxbak/mysql-bak/update20170227.sql;
+    
+9. 转发系统邮件
+    1） /etc/aliases     //添加一个别名，加入你的邮箱地址
+        # Person who should get root's mail
+        root:		843476168@qq.com
+        user2:      user1   //邮件别名设置：用户user1可以接收其他用户发给user2的邮件，user2用户将收不到邮件（user2 --> user1）
+        groupname:  user1,user2,user3   //邮件群组设置：将user1、user2、user3...组成一个组group，则发给group的邮件将转发给user1、user2、user3... 
+    2)
+        newaliases                  //
+        service postfix restart     //重启 Postfix:-
+    3) 测试 
+        echo test | mail -s "test message" root
+
+        让Corn Job在执行任务后不发送邮件：
+        /etc/crontab ：
+            SHELL=/bin/bash
+            PATH=/sbin:/bin:/usr/sbin:/usr/bin
+            MAILTO=root
+            HOME=/
+
+            设定Job时尾部追加> /dev/null：
+                0 * * * * python /etc/example.py > /dev/null
+            去掉文件头上的MAILTO
+    4）DenyHosts抵御ssh密码暴力破解 /usr/share/denyhosts/denyhosts.cfg：
+        SECURE_LOG = /var/log/secure       #指定ssh日志文件
+        HOSTS_DENY = /etc/hosts.deny       #记录阻止登陆系统IP的文件
+        PURGE_DENY =                       #清理HOSTS_DENY文件的时间
+        BLOCK_SERVICE  = sshd              #在HOSTS_DENY中定义要阻止的服务
+        DENY_THRESHOLD_INVALID = 5         #系统不存在用户失败次数
+        DENY_THRESHOLD_VALID = 10          #除root外，系统存在用户失败次数
+        DENY_THRESHOLD_ROOT = 1            #root用户失败次数
+        DENY_THRESHOLD_RESTRICTED = 1      #针对WORK_DIR下定义的限制用户名的失败次数
+        WORK_DIR = /usr/share/denyhosts/data   #将deny的host或ip记录到WORK_DIR中
+        SUSPICIOUS_LOGIN_REPORT_ALLOWED_HOSTS=YES   #来自于allowed-hosts中的可以尝试，是否报告 
+        HOSTNAME_LOOKUP=YES                #是否做域名反向解析
+        LOCK_FILE = /var/lock/subsys/denyhosts  #保证同时只有一个denyhosts程序运行的锁文件
+            
+        ADMIN_EMAIL = runzx@hotamil.com           #设置管理员邮箱，系统开启了sendmail就会发邮件
+        SMTP_HOST = localhost               #SMTP服务器
+        SMTP_PORT = 25                      #SMTP端口
+        SMTP_FROM = DenyHosts <nobody@localhost>   #通知邮件的发信人地址
+        SMTP_SUBJECT = DenyHosts Report            #发信的主题
+        AGE_RESET_VALID=5d                         #指定时间没有失败登陆记录，将此主机的失败计数重置为0，（不适用于root）
+        AGE_RESET_ROOT=25d                         #root用户的重置时间
+        AGE_RESET_RESTRICTED=25d                   #针对有限制用户的
+        AGE_RESET_INVALID=10d                      #针对无效用户的
+        
+        DAEMON_LOG = /var/log/denyhosts            #程序后台运行的日志记录
+        
+        DAEMON_SLEEP = 30s                         #每次读取日志的时间间隔
+        DAEMON_PURGE = 1h                          #清除机制在 HOSTS_DENY 中终止旧条目的时间间隔。 
+10. 超级用户
+    #   //超级用户
+    $   //普通用户
+
+11. 查看 CPU及内存
+    top
+        CPU 用户模式（us），系统模式（sy），低优先级用户模式（ni），空闲任务（id），I/O等待中（wa）
+        -us:用户进程消耗的CPU时间百分比，us的值比较高时，说明用户进程消耗的CPU时间多，但是如果长期超50%的使用，那么我们就该考虑优化程序算法或者进行加速（比如PHP/PERL）
+        -sy:内核进程消耗的CPU时间百分比（sy的值高时，说明系统内核消耗的CPU资源多，这并不是良性表现，我们应该检查原因）
+        -wa:IO等待消耗的CPU时间百分比，wa的值高时，说明IO等待比较严重，这可能由于磁盘大量作随机访问造成，也有可能磁盘出现瓶颈（块操作）。
+        -id:CPU处于空闲状态时间百分比,如果空闲时间(cpu id)持续为0并且系统时间(cpu sy)是用户时间的两倍(cpu us) 系统则面临着CPU资源的短缺.
+

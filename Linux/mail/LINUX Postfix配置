@@ -1,0 +1,63 @@
+//  linux邮件服务器postfix配置
+
+1. Postfix只有一个/etc/postfix/main.cf需要修改，其他配置文件可以直接使用默认设置。
+    myhostname = mail.example.com   //真正的域名
+    mydomain = example.com
+    myorigin = $mydomain        //根域
+    mydestination = $mydomain
+    inet_interfaces = all       //Postfix默认只监听本地地址，如果要与外界通信，就需要监听网卡的所有IP：
+    mynetworks_style = host     //默认将子网内的机器设置为可信任机器，如果只信任本机，就设置为host
+    relay_domains = $mydomain   //哪些地址的邮件能够被Postfix转发，当然是mydomain的才能转发，否则其他人都可以用这台邮件服务器转发垃圾邮件了
+2. 对邮件的发送进行控制：
+    对于外域到本域的邮件，必须接收，否则，收不到任何来自外部的邮件；
+    对于本域到外域的邮件，只允许从本机发出，否则，其他人通过伪造本域地址就可以向外域发信；
+    对于外域到外域的邮件，直接拒绝，否则我们的邮件服务器就是Open Relay，将被视为垃圾邮件服务器。
+    1)设置发件人的规则:
+        smtpd_sender_restrictions = permit_mynetworks, check_sender_access hash:/etc/postfix/sender_access, permit
+        以上规则先判断是否是本域地址，如果是，允许，然后再从sender_access文件里检查发件人是否存在，拒绝存在的发件人，最后允许其他发件人。
+    2)然后设置收件人规则：
+        smtpd_recipient_restrictions = permit_mynetworks, check_recipient_access hash:/etc/postfix/recipient_access, reject
+        以上规则先判断是否是本域地址，如果是，允许，然后再从recipient_access文件里检查收件人是否存在，允许存在的收件人，最后拒绝其他收件人。
+
+/etc/postfix/sender_access的内容：
+
+example.com REJECT
+目的是防止其他用户从外部以xxx@example.com身份发送邮件，但登录到本机再发送则不受影响，因为第一条规则permit_mynetworks允许本机登录用户发送邮件。
+
+/etc/postfix/recipient_access的内容：
+
+postmaster@example.com OK
+webmaster@example.com OK
+因此，外域只能发送给以上两个Email地址，其他任何地址都将被拒绝。但本机到本机发送不受影响。
+
+最后用postmap生成hash格式的文件：
+
+# postmap sender_access
+# postmap recipient_access
+启动Postfix：
+
+# /etc/init.d/postfix start
+设置到启动组里：
+
+# chkconfig postfix on
+
+3.添加一下DNS
+    1，mail.bosstg.cn A 默认 122.225.***.***
+    2，mail.bosstg.cn A 联通 60.12.***.***
+    3，@ MX 默认 mail.bosstg.cn
+    第1和第2，是添加二条A记录，第三行，设置了一下MX记录，这个千万不要忘了，不然你的域名是不通的。
+
+4. 邮件目录
+    1） 默认 /var/spool/mail/user or /var/mail/user (同一个) ，每用户所有邮件收在用户名的1个文件里。
+    2） home_mailbox = Maildir/      //在用户目录下生成此目录接收邮件，1封邮件1个文件 .
+    3） 别名设转发后， 本机不再保存邮件。
+    4） 通过设别名， 就可接收邮件。
+        newaliases
+
+5. 直发邮件 
+     mail runzx2006@gmai.com
+        Subject: Just test        <==这里填写信件标题
+        This is a test email.     <==底下为信件的内容！
+        bye bye !
+        .                         <==注意，这一行只有小数点！代表结束输入之意！
+    
