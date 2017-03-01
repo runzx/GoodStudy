@@ -1,0 +1,8 @@
+//  Git配置
+
+1. git:git 
+
+2. 在/hoem/git下建空仓库
+    pi@raspberrypi:/home/git $ sudo git init --bare pi3.git
+    sudo chown -R git:git pi3.git/      //一定要设权限，否则push 出错
+

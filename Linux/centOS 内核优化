@@ -103,7 +103,28 @@
             su - wu 是 完全切换到wu这个账号上，需要输入wu账号的密码
             ------------------------------
             sudo  该命令是通过sudo权限进行角色转换（默认是切换到root）输入的是执行该命令当时执行命令的账号的密码， 非root密码。
+    7.3.设置用户6小时未操作注销终端
 
+        vi /etc/profile
+        export TMOUT=21600
+    7.4取消生成whatis数据库和locate数据库，防止重建数据库时cpu内存占用过高的情况
+
+        rm -rf /etc/cron.daily/makewhatis.cron 
+        rm -rf /etc/cron.daily/mlocate.cron 
+    7.5 删除日志，命令行记录 导出虚拟机
+
+        rm -rf /var/log/wtmp
+        rm -rf /var/run/utmp
+        rm -rf /root/.bash_history
+    7.6关闭不需要的tty
+        ps aux | grep [t]ty
+        #[t]ty 这样写的话，就不用 | grep -v grep，不过这个解释起来很抽象，估计一些人去印度抽一百头象都弄不清楚其中道理。
+        命令显示有6个tty常驻内存，其实两个就够了
+        打开/etc/init/start-ttys.conf，找到 tty [1-6] 改成 tty [1-2]
+        打开/etc/sysconfig/init，找到ACTIVE_CONSOLES=/dev/tty[1-6] 改成 ACTIVE_CONSOLES=/dev/tty[1-2]
+        重启系统
+    7.7隐藏系统版本信息
+        echo "Welcome to Windows7" > /etc/issue.net
     八.合理的利用tmpfs
 
     /dev/shm/是linux下一个非常有用的目录这个目录不在硬盘上，而在内存里。 

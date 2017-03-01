@@ -1,0 +1,17 @@
+//  clone github 
+
+1. 你当地要有SSH key
+    没有用： ssh-keygen -t rsa -C "843476168@qq.com" 生成github
+    如果你连接github 前没有key直接clone 会报错：
+        Permission denied (publickey).
+        fatal: Could not read from remote repository.
+
+        手工到github 上把id_rsa.pub 内容拷到 settings/keys 里，New SSH key 
+
+2. PI3
+
+    /home/pi/Documents/zx/github, wxdc
+
+    learngit/Git学习笔记/git学习笔记.md
+
+3. 

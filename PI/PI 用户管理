@@ -1,0 +1,22 @@
+//  用户管理
+
+1.树莓派使用的linux是debian系统，所以树莓派启用root和debian是相同的。
+    debian里root账户默认没有密码，但账户锁定。
+    当需要root权限时，由默认账户经由sudo执行，Raspberry pi 系统中的Raspbian
+    默认用户是pi 密码为raspberry
+    重新开启root账号，可由pi用户登录后，在命令行下执行
+        sudo passwd root            //提示输入两遍的root密码，输入你想设的密码即可
+        sudo passwd --unlock root   // 这样就可以解锁root账户了。
+
+2. 用户管理配置文件
+    sudo visudo     //打开
+        # User privilege specification  
+        root  ALL=(ALL:ALL) ALL  
+        bob   ALL = NOPASSWD: ALL       //bob用户免密码访问sudo权限
+
+
+3.删除用户
+    sudo userdel -r bob     //-r标签可以同时删除它们的home文件夹
+4. 新增
+    groupadd git                        //组
+    sudo adduser --ingroup git git

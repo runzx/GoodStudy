@@ -1,0 +1,63 @@
+//  ThinkPHP 入门 学习
+
+1. Model    数据库操作模型， （类）
+2. View     视图，
+3. Controller 控制器 MV的中间层
+
+4. 一个方法 理解 成一个页面
+    C： 。。。/Lib/Action/xxxAction.class.php
+5. 第一次运行后，自动制成编译文件
+    .../Runtime/Temp/~runtime.php
+    config.php 里'APP_DEBUG ' TRUE 关闭缓存里的~runtime.php
+6. 打开数据库，实例化 
+    $db = M('user');
+    数据库的配置最好建在AppPath/Conf/config.php, 如放thinkPHP框架里升级会被覆盖
+7. 自动加载函数
+    1）AppPath/Common/common.php 里（默认）
+    2） 在配置文件里加： 'LOAD_EXT_FILE' => 'XXX.php',   //目录同上
+    3） 临时性加载： load('@.xxxx');   //这立法只能当前方法（函数）有效，目录同上
+8. 模版
+    1） 调用： $this->display();
+    2)  __PUBLIC__只用在模版里
+        css src='__PUBLIC__/Css/index.css'
+        可在配置文件里指定： 
+            'TMP_PARSE_STRING' => array(
+                '__PUBLIC__'=>__ROOT__.'/'.APP_NAME.'/Tpl/Public',
+                '__UPLOAD__'=>__ROOT__.'/Uploads'
+            ),
+    3) 模版名称和函数方法名不同名，要指定 $this->display('模版名');     //实际目录下存的是： 模版名.html
+9. U方法 ，函数
+    U('Index/index');     //
+    配置中：
+        'URL_HTML_SUFFIX'=>'html',  //最后的后缀, 伪静态
+        'RULe_MODEL'=>1,            //生成 /idex/index.html
+    模版里：
+        {：U('index/index')}         //实际制成代码=echo U('index/index');
+
+10. 取表单提交字段
+    $username = I('usernmae');      //3.1.3后 
+    I('xxx','','htmlspecialchars')  //第2个参数是默认值，第3处理函数，实例化，把thml代码变成字符串。
+    
+11. 分组部署 公用项
+    1） 应用组
+        config.php  :
+            'APP_GROUP_LIST'=>'Index,Admin',        //开启分组
+            'DEFAULT_GROUP'=>'Index',               //默认分组
+            'TMPL_FILE_DEPR'=>'_',                  //压缩TPL路径，Index_index.html
+            'TMPL_VAR_INDENTIFY'=>'array',          //点语法默认解析
+
+        在Lib/Action下建子目录  Admin, Index,  分别放IndexAction.class.php
+    2)单独用配置 
+        配置文件，在Conf下建子目录：Admin,Index。 放入config.php
+    3）函数
+        Common/common.php   是公用
+        建子目录 Amin，Index/function.php    //这儿不能用common.php
+
+    4） 分组里U(Index/Index/index')
+
+12. JQUERY实现异步传输数据
+    $.post()        //通过 HTTP POST 方式向服务器发送请求并获取返回的数据。是 $.ajax() 的简化版
+    $.get()         //HTTP GET 方式向服务器发送请求请
+
+
+

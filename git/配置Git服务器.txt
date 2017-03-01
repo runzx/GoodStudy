@@ -28,6 +28,7 @@
     1)公钥id_rsa.pub文件,导入到/home/git/.ssh/authorized_keys文件里，一行一个
     2) .ssh目录一定要有执行权限， 700
         chmod 0700 .ssh
+         touch /root/.ssh/authorized_keys   //生成文件
     3） chmod 0600 authorized_keys
     4） /etc/ssh/sshd_config 里，下面的#去掉
         RSAAuthentication yes
@@ -44,14 +45,31 @@
             Initialized empty Git repository in /home/gitwx/wxdc.git/
         
         chown -R git:git wxdt.git   //把owner改为git
+
+    2)  先把现有仓库导出为裸仓库
+        git clone --bare my_project my_project.git
        
  禁用shell登录
     1)编辑/etc/passwd文件
         git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
 
 远程
-    git clone git@www.bosstg.cn:/gitwx/wxdc.git
-    
+    git remote                      //查看当前的远程库 , -v 显示对应的克隆地址
+    git remote show origin          //查看远程仓库信息
+    git remote add PI3 git@xx.xx:pi3.git                //添加远程仓库,字符串 PI3 指代对应的仓库地址，以后仓库可以PI3代替
+    git clone git@www.bosstg.cn:/home/gitwx/wxdc.git    //git@www.bosstg.cn:/gitwx/wxdc.git 
+    git fetch 远程仓库名                                 //从远程仓库抓取数据,克隆了一个仓库，此命令会自动将远程仓库归于 origin 名下
+        fetch 命令只是将远端的数据拉到本地仓库，并不自动合并到当前工作分支
+    git pull        //自动抓取数据下来，然后将远端分支自动合并到本地仓库中当前分支
+        实际上，默认情况下 git clone 命令本质上就是自动创建了本地的 master 分支用于跟踪远程仓库中的 master 分支（假设远程仓库确实有 master 分支）。
+        所以一般我们运行 git pull，目的都是要从原始克隆的远端仓库中抓取数据后，合并到工作目录中的当前分支。
+    git push [remote-name] [branch-name]        //本地仓库中的数据推送到远程仓库,克隆操作会自动使用默认的 master 和 origin 名字
+        只有在所克隆的服务器上有写权限，或者同一时刻没有其他人在推数据，这条命令才会如期完成任务。
+        如果在你推数据前，已经有其他人推送了若干更新，那你的推送操作就会被驳回。
+        你必须先把他们的更新抓取到本地，合并到自己的项目中，然后才可以再次推送。
+     git push -u origin master  //远程库是空的时，我们第一次推送master分支时，加上了-u参数，
+        Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
     假设windows上已经有个本地仓库，并且与别名叫origin的远程仓库进行了关联，那么，我们只需要将origin所指向的远程仓库的链接改为我们刚搭建的git服务器：
 git remote set-url origin git@git.dabu.info:my-project.git
 如果是本地还没有仓库，可以执行下面的命令，并将其与远程仓库进行关联：
@@ -66,3 +84,8 @@ ssh  git@www.bosstg.cn
     1.windows7 下git要用windows PowerShell 5.0, 升级Win7AndW2K8R2-KB3134760-x64
     2.进行ssh登录时，出现：”Agent admitted failure to sign using the key“ .
     执行： $ssh-add     // 强行将私钥 加进来。
+
+裸仓库
+
+    从裸仓库 clone 下来的本地仓库可以进行正常的 push 操作， 但是从一般仓库 clone 下来的本地仓库却不行。 
+    这也正是裸仓库存在的意义。 裸仓库一般情况下是作为远端的中心仓库而存在的。

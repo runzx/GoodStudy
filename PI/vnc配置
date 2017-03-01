@@ -1,0 +1,20 @@
+//  VNC 配置
+//  https://www.realvnc.com/docs/raspberry-pi.html#raspberry-pi-setup
+
+1. 安装vnc https://www.realvnc.com/docs/raspberry-pi.html#raspberry-pi-setup
+
+2. 改变VNC分辨率
+    vncserver -randr=800x600
+
+    For example, specifying 1024x768,1280x1024,800x600 enables a connected VNC Viewer user to cycle between the three geometries by running the command 
+    xrandr -s <0|1|2>       //循环切换？
+
+3. 浏览器装java后， 可以通过IP:5801 访问
+
+4. 
+    VNCSERVERS="1:root"
+    VNCSERVERARGS[1]="-geometry 1024x768 -alwaysshared -depth 24"
+
+    就需要用IP:1这种方法，而不能直接用IP。如假定你的VNC服务器IP是192.168.1.100，那想进入VNC服务器，
+    并以peter用户登录时，需要在vncviewer里输入IP的地方输入：192.168.1.100:1,
+    如果是root,那就是192.168.1.100:2；
