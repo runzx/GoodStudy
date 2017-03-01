@@ -36,7 +36,7 @@
 
 10. 取表单提交字段
     $username = I('usernmae');      //3.1.3后 
-    I('xxx','','htmlspecialchars')  //第2个参数是默认值，第3处理函数，实例化，把thml代码变成字符串。
+    I('xxx','','htmlspecialchars')  //第2个参数是默认值，第3处理函数，实例化，把thml代码变成字符串。新版已默认了。
     
 11. 分组部署 公用项
     1） 应用组
@@ -59,5 +59,17 @@
     $.post()        //通过 HTTP POST 方式向服务器发送请求并获取返回的数据。是 $.ajax() 的简化版
     $.get()         //HTTP GET 方式向服务器发送请求请
 
+    $.post(handleUrl,{username:usetname.val(),content:content.val()},function(data){
 
+    },'json');      //handleUrl 指向后台handleUrl地址，
+13.后台接收数据
+    1）$data = array(
+        'username'=>I ('username'),
+        'content'=>I ('content'),
 
+    );
+
+14. F ，函数
+    F('文件名',$数组名，'./Data');     //写
+    $data = F('文件名,'','./Data/');   //读
+    
