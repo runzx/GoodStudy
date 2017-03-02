@@ -1,0 +1,26 @@
+//  zend studio 安装配置
+
+1. 13.5.1 汉化
+    Eclipse Platform
+        Luna	4.4	Luna projects	2014年6月25日	2014年9月23日	2015年2月25日
+        Mars	4.5	Mars projects	2015年6月24日	2015年9月22日	2016年2月24日
+        Neon	4.6	Neon projects	2016年6月22日	
+    
+    http://www.eclipse.org/babel/downloads.php      //语言包
+    http://download.eclipse.org/technology/babel/update-site/R0.14.1/mars
+    http://archive.eclipse.org/technology/babel/update-site/R0.14.1/mars
+    help->install new software-> add 
+
+2. 重启后报错: 会死， 删除eclipse/configuration 目录下的 org.eclipse.osgi org.eclipse.update 两个子目录
+3. 进入zend studio 后报错:  failed to create the part's controls
+    依次点击：File-->Switch Workpace-->Other 换个空间目录就OK
+
+    如果是JSP文件打开时报这错: 文件里含有 如下划线(这是网上的,没试过)
+        int a[] = IntStream.range(0, 1_000_000).filter(p -> p % 2 == 0).toArray();
+        去掉下划线，就可以打开了
+
+4. 注册 :
+    com.zend.verifier_13.5.1.v20160705-1334.jar 拷入 C:\Program Files\Zend\Zend Studio 13.5.1\plugins\目录下
+    sn:     3BDD5B31F3E47210A4C54F6F1E68A583DB08B56F1378A7E8C1F07871AFB1ABF5CEAF8D57E2EFBCA2AA9A4107E86665A94C80F85D5CD652CBFD6C67306DA4DADE31656337373039615445414D414D50454435313735333730323266353B30302F30302F303030303B31332E303B3030303B333B30
+
+

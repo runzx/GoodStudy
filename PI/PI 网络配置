@@ -1,0 +1,18 @@
+//  PI 网络配置
+
+1. 有线网卡静态配置 PI3有线固定为192.168.1.10
+    1) /etc/dhcpcd.conf      中:
+        interface eth0
+        static ip_address=192.168.1.10/24
+        static routers=192.168.1.1
+        static domain_name_servers=114.114.114.114  //行前不能有空格? 还是我把/etc/network/interfaces中的eth0设置的部分注解了?
+        
+    2) 重启
+        sudo /etc/init.d/networking restart
+        sudo systemctl daemon-reload
+
+    3) hosts 中 
+        192.168.1.10		PI3         //用Notepad++, 开启管理员权限存盘
+
+    
+

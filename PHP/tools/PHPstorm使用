@@ -1,0 +1,6 @@
+//  PHPstorm使用
+
+一：在PHPstorm中配置 git环境
+    1）点击phpstorm的file->setting->版本控制->git->安装git的具体路径
+    2) Tools->Terminal->shell路径选择好后并在路径后面添加--login-i
+        D:\git\Git\bin\sh.exe --login-i

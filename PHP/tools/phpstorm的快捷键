@@ -1,0 +1,49 @@
+//  phpstorm的快捷键
+
+ctrl+shift+n查找文件
+
+ctrl+shift+f 在一个目录（或项目）里查找一段代码(ctrl+f的升级版)
+
+ctr+shift+r 在一个目录（或项目）里查找一段代码并替换(ctrl+r的升级版)
+
+
+
+CTRL+ALT ←/→  返回上次编辑的位置
+
+ALT+ ←/→  切换代码视图，标签切换
+
+ALT+ ↑/↓  在方法间快速移动定位
+
+ctrl+j    插入活动代码提示
+ctrl+alt+t   当前位置插入环绕代码
+alt+insert    生成代码菜单
+ctrl+q    查看代码注释
+ctrl+d    复制当前行
+ctrl+y    删除当前行
+shift+F6    重命名
+ctrl+shift+u    字母大小写转换
+ctrl+f    查找
+ctrl+r    替换
+F4    查看源码
+
+ctrl+shift+i    查看变量或方法定义源
+ctrl+g    跳转行
+ctrl+alt+F12    跳转至当前文件在磁盘上的位置
+alt+down    查看下一个方法
+alt+up    查看上一个方法
+ctrl+alt+l重新格式化代码
+ctrl+shift+downstatement    向下移动
+ctrl+shift+upstatement    向上移动
+alt+shift+downline    向下移动
+alt+shift+upline    向上移动
+ctrl+/    行注释
+ctrl+shift+/    块注释
+ctrl+shift+n    打开工程中的文件
+ctrl+b    跳到变量申明处
+ctrl+[]    匹配 {}[]
+ctrl+shift+]/[选中块代码
+ctrl+x    剪切行
+ctrl+shift+v    复制多个文本
+alt+left/right    标签切换
+ctrl+p    显示默认参数
+ctrl+F12    在当前类文件里快速查找方法 
