@@ -1,0 +1,65 @@
+//  Debug配置
+
+1. PHP.INI配置文件， 启用Xdebug的远程调试功能。
+    xdebug.remote_enable=true     //Xdebug允许远程IDE连接
+    xdebug.remote_host=127.0.0.1   //允许连接的zend studio的IP地址
+    xdebug.remote_port=9000       //反向连接zend studio使用的端口,nginx 用了9000，这改成9009
+    xdebug.remote_handler=dbgp    //用于zend studio远程调试的应用层通信协议
+        重要说明：这里容易忽视的一个问题是xdebug.remote_host信息的配置
+        如果你使用的是局域网或 无线路由器，将xdebug.remote_host配置为127.0.0.1是无用的，
+        会导致无法使用zend studio调试PHP，zend studio的单步调试按钮也无效！
+        必须将xdebug.remote_host配置为zend studio安装机器的实际地址，
+        IP地址可以通过ipconfig查看，由于我使用的是无线路由器，所以我将xdebug.remote_host配置 为192.168.1.100。
+
+
+3. 在zend studio中使用Xdebug调试PHP源码
+    使用zend studio调试PHP，主要通过Debug As菜单，共有三种选择PHP Script、PHP Web Page、PHP Unit Test，
+        此处选择PHP Web Page，由于可能存在同一PHP文件之前使用zend studio调试PHP时并没有选择使用Xdebug，需要清除旧的调试文件，可以通过Debug Configurations菜单清除上述三种zend studio调试方式中的文件，此处选择的是PHP Web Page，所以只要将此项中的文件清除即可。
+        Debug Configurations可通过三种方式进入：
+            1、右击需要调试的PHP文件，选择Debug As或者打开调试的PHP文件；
+            2、选择菜单栏上Run菜单下的Debug As进入；
+            3、点击菜单栏Run菜单下方小蜘蛛图标旁的向下箭头选择Debug Configurations。
+        Debug Configurations配置完毕后，可打开需要使用zend studio调试的PHP文件选择Debug As中的PHP Web Page选项，核对好Launch Url后点击Ok即可调试，Xdebug在zend studio中调试PHP文件的画面如图
+    如图你可以通过单步调试(F5)对PHP文件进行调试，只要Xdebug配置正确，在调试代码窗口中会出现选中的淡绿色背景代码，否则单步调试(F5)功能是失效的。
+    最后你可以在D:\PHPWeb\xdebug\trace和D:\PHPWeb\xdebug\profiler目录下看到zend studio调试PHP文件时Xdebug输出的调试信息文件cachegrind.out.*和trace.*.xt。
+
+
+
+要想使用远程调试，对我们的URL还是有点要求的。这就需要在我们的URL后面加上XDEBUG_SESSION_START=1，示例如下
+    http://192.168.5.201/index.php? XDEBUG_SESSION_START=1
+
+Debug Port 设为跟php.ini中设置的一样（默认是9000）。
+    Accept remote session（JIT） 选择localhost
+    允许浏览器访问网站时zend studio自动打开文件开始调试。
+        选项说明：
+            off: 关闭浏览器访问时打开调试功能；
+            localhost: 通过localhost访问网页的时候打开调试。
+            any:只要访问服务器上的php都打开调试；
+            prompt:访问服务器上的php时弹出询问是否要调试。    
+一旦打开zend studio允许xebug调试，所有访问php页面都会进入调试。
+    我们可以使用easy xdebug火狐插件可在客户端控制是否开启调试。
+        1、首先php.ini设置
+            xdebug.remote_autostart = 0     //不自动启动调试。
+        2、安装火狐插件easy xdebug，
+            安装好该插件后，点击如下图右下角小绿虫后，虫子上面有个小红点，这时候我们访问测试服务器的时候，Zend Studio就回自动弹出调试。
+
+Summary         //我PC上的配置表：https://xdebug.org/wizard.php 自动帮你分析并告诉你安装Xdebug
+
+Xdebug installed: 2.4.1
+Server API: CGI/FastCGI
+Windows: yes - Compiler: MS VC11 - Architecture: x86
+Zend Server: no
+PHP Version: 5.6.27
+Zend API nr: 220131226
+PHP API nr: 20131226
+Debug Build: no
+Thread Safe Build: no
+Configuration File Path: C:\Windows
+Configuration File: C:\phpStudy\php\php-5.6.27-nts\php.ini
+Extensions directory: C:\phpStudy\php\php-5.6.27-nts\ext
+
+        1.Download php_xdebug-2.5.1-5.6-vc11-nts.dll
+        2.Move the downloaded file to C:\phpStudy\php\php-5.6.27-nts\ext
+        3.Update C:\phpStudy\php\php-5.6.27-nts\php.ini and change the line
+        4.zend_extension = C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug-2.5.1-5.6-vc11-nts.dll
+        5.Restart the webserver

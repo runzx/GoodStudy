@@ -1,0 +1,51 @@
+//  Installing Xdebug on a Zend Studio PHP Executable
+//  http://files.zend.com/help/Zend-Studio/content/installing_xdebug.htm
+
+To install Xdebug:
+    1.Download Xdebug from Xdebug Downloads page. To find out which version of the extension to download, click here.
+        http://xdebug.org/download.php
+    2.Disable the Zend Debugger:
+        a. Open the 'php.ini' file of your PHP:
+            <Zend_Studio_install_dir>\plugins\com.zend.php.debug.debugger.win32.x86_10.6.0.v20140121-1240\resources\php.ini
+        b. Add a semi-colon ';' before "zend_extension=..." as follows:
+            ;zend_extension="C:\Program Files (x86)\Zend\Zend Studio 10.6.0\plugins\com.zend.php.debug.debugger.win32.x86_10.6.0.v20140123-1837\resources\php53\ZendDebugger.dll"
+    3.Move the downloaded file to your Zend Studio's installation files:
+        <Zend_Studio_install_dir>\plugins\com.zend.php.debug.debugger.win32.x86_10.6.0.v20140121-1240\resources\php_version
+    4.Back in the 'php.ini' file, add the path to the Xdebug extension.
+    For example:
+        Linux and Mac OS: zend_extension="/usr/local/php/modules/xdebug.so"
+        Windows: zend_extension="<path to .dll file>"
+    5.Add the following line:
+        xdebug.remote_enable=true
+    6.Save your changes, and restart your Web server.
+    Note:
+    To verify that Xdebug was installed correctly, call the “php --re xdebug” command. If the output is different than 'Exception: Extension xdebug does not exist', the extension is installed correctly.
+
+    Once installed, you can now configure Xdebug in Zend Studio to begin debugging.
+
+    Note:
+    Xdebug cannot be used with PHP 5.5 executable (CLI and CGI) on Windows and Mac.
+
+Configuring Xdebug for CLI Debugging    //http://files.zend.com/help/Zend-Studio/content/configuring_xdebug.htm
+    This topic describes how to configure Zend Studio to use Xdebug to debug your files as a CLI application.
+
+    1. In the menu-bar, go to Window | Preferences | PHP | PHP Executables.
+        The PHP Executables dialog is displayed.
+    2.Click Add.
+        The Add New PHP Executable dialog is displayed.
+    3. Enter the following information:
+        Name - Name of the PHP executable (e.g., PHP 5.5.7 with Xdebug).
+        Executable path - File path to the PHP executable.
+        PHP ini file (Optional) - File path to the 'php.ini' file.
+    4. Click the SAPI Type drop-down menu, and select a SAPI type (CLI, CGI).
+    5. Click the PHP debugger drop-down menu, and select Xdebug.
+    6. Click Finish.
+        Zend Studio adds the new PHP executable to the PHP Executables list.
+    7. Click Set as Default to make Xdebug the default PHP executable, and click OK.
+    8. In the menu-bar, go to Window | Preferences | PHP | Debug.
+        The Debug Preferences dialog is displayed.
+    9. In the CLI Settings area, select the PHP executable with Xdebug from the PHP Executables drop-down menu.
+    10. Click Apply, and OK.
+        Xdebug is set as the default PHP debugger.
+        You can now debug your files and application as CLI using Xdebug. For more information on debugging, see Debugging PHP in Zend Studio.
+
