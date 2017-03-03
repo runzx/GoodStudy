@@ -1,0 +1,14 @@
+//  项目管理
+
+
+1. zend studio打开已存在项目的方法
+     
+    我们用zend studio创建一个php项目以后，把项目文件夹复制到其他电脑上以或切换工作区后，是可以直接打开该项目的。
+    打开方法：
+    File > Import > General > Existing Projects into Workspace
+    然后选择项目所在文件夹即可。
+    Zend Studio每个工作区下创建一个.metadata和RemoteSystemsTempFiles文件夹来保存项目相关信息。
+    我们打开zend studio的时候，它打开了一个Workspace，这个Workspace里面可以有多个项目，项目文件可以再工作区文件夹里面，也可以在外面。
+    不像VS打开单个项目，而是打开一个Workspace，而项目则在Workspace中，如果想打开其他不在工作区中的项目，则把项目导入工作区即可。
+
+2. 

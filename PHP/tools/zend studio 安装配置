@@ -13,7 +13,8 @@
 
 2. 重启后报错: 会死， 删除eclipse/configuration 目录下的 org.eclipse.osgi org.eclipse.update 两个子目录
 3. 进入zend studio 后报错:  failed to create the part's controls
-    依次点击：File-->Switch Workpace-->Other 换个空间目录就OK
+    依次点击：File-->Switch Workpace-->Other 换个空间目录就OK   //(不行zx)
+    D:\Users\zhaixiang\Documents\meituan-weixin     //删除这个空间下目录重启就OK,zx 
 
     如果是JSP文件打开时报这错: 文件里含有 如下划线(这是网上的,没试过)
         int a[] = IntStream.range(0, 1_000_000).filter(p -> p % 2 == 0).toArray();
@@ -22,5 +23,35 @@
 4. 注册 :
     com.zend.verifier_13.5.1.v20160705-1334.jar 拷入 C:\Program Files\Zend\Zend Studio 13.5.1\plugins\目录下
     sn:     3BDD5B31F3E47210A4C54F6F1E68A583DB08B56F1378A7E8C1F07871AFB1ABF5CEAF8D57E2EFBCA2AA9A4107E86665A94C80F85D5CD652CBFD6C67306DA4DADE31656337373039615445414D414D50454435313735333730323266353B30302F30302F303030303B31332E303B3030303B333B30
+
+5. C:\Users\Administrator选择.zend .zendStudio .zs三个文件及目录全部删除 可再用30天试用?
+    C:\Users\zhaixiang\.zs      //我这是这个
+
+    要删除的文件有两个，分别是.zs与10_0。.zs保存的是版本号，10_0保存的是注册码，这两个文件存在的原理是：zend studio 每次启动的会检查这两个文件的创建时间，和当前日期对比，超过30天你的zend studio就过了试用期，如果删除这两个文件，zend studio又会以当前时间来创建与对比过期时间，这样你又可以试用了。
+    这两个文件在linux系统下的路径是你的home目录中~/.zs,和~/.ZendStudio/10_0。
+    在Windows下 用户目录中，【例如我的是在D:\xiaolin\.zs,D:\xialin\.ZendStudio\10_0】
+
+
+
+6. 应用场景快捷键功能查看快捷键ctrl+shift+l显示所有快捷键列表查看和修改快捷键　
+    打开Window->Preferences->General->keys        //查看和修改快捷键  　
+    打开Window->Preferences->General->Appearance->Colors and Fonts，找到Basic->Text Font //修改字体字号
+    
+7. 如何设置字体与字体大小?
+    选择window菜单->Preferences(首选项)-->General(全局)->Appearance->Colors and Fonts 
+    在右侧查找Basic->Text Font, 然后点Edit进行编辑。
+8. 提升性能
+
+    zendStudio安装目录下 ZendStudio.ini 修改:
+        -Xms512M                //-Xms512M- 此设置指示 Java 虚拟机将其初始堆空间设置为 32 MB。通过指示 JVM 最初应分配给堆的内存数量，可以使 JVM 不必在 IDE 占用较多内存时增大堆空间。 
+        -Xxverify:nonne         //参数说明：-Xverify:none - 此开关关闭 Java 字节码验证，从而加快了类装入的速度，并使得在仅为验证目的而启动的过程中无需装入类。
+            此开关缩短了启动时间，因此没有理由不使用它。 
+9. 保存配置文件
+    ZendStudio配置保存在 [Workspace path]\.metadata\plugins\org.eclipse.core.runtime\.settings\。
+    有三个文件必须要复制出来备份的（如下）,等你下回再重新安装ZendStudio时直接覆盖过去，无须重新设置了。
+            org.eclipse.php.ui.prefs           //PHP语言扩充配色
+            com.zend.php.formatter.core.prefs   //php格式化的配置
+            org.eclipse.ui.workbench.prefs      //通用字型与大小
+
 
 
