@@ -1,0 +1,58 @@
+//  typecho安装
+
+
+1. http://pi3/typecho
+    安装的数据库要手工先创建.
+
+安装成功!
+
+您的用户名是: admin
+您的密码是: zx2962
+
+2. Nginx服务器无法登录后台，点击前台链接或者后台登录时出现"404, not found"
+
+    一般的出现这种情况时,nginx.conf里的的location设置都是类似这样
+        location ~ .*\.php$     //要支持pathinfo，要改成
+        location ~ .*\.php(\/.*)*$
+    在某些老版本的php里面，可能还要打开php.ini里的cgi.fix_pathinfo
+        cgi.fix_pathinfo = 1
+        Nginx服务器无法实现伪静态化，在后台设置不成功
+
+        这主要是nginx的rewrite没有设置导致的
+
+        在nginx.conf里找到网站的server配置段，一般我们推荐如下的配置
+
+            server {
+                listen          80;
+                server_name     yourdomain.com;
+                root            /home/yourdomain/www/;
+                index           index.html index.htm index.php;
+        
+                if (!-e $request_filename) {
+                    rewrite ^(.*)$ /index.php$1 last;
+                }
+        
+                location ~ .*\.php(\/.*)*$ {
+                    include fastcgi.conf;
+                    fastcgi_pass  127.0.0.1:9000;
+                }
+        
+                access_log logs/yourdomain.log combined;
+            }
+
+3. 不能上传附件
+    /usr/uploads 这个文件夹设置成 777 权限
+
+4. 插件安装及使用
+    下载插件
+    将插件上传导/usr/plugins这个目录下
+    登陆后台，在“控制台”下拉菜单中进入“插件管理”
+    激活相关插件
+    根据相关插件要求更新设置
+
+5. Typecho 博客主题安装：
+    下载Typecho主题，解压得到一个文件夹
+    通过FTP将整个文件夹上传至usr/themes/目录下
+    登陆自己的Typecho博客后台，在“控制台”的下拉菜单中选择“外观”选项进入已安装主题列表
+    将鼠标移动要上传的主题上传，点击“激活”即可使用
+    提示：解压出来的文件夹里面包含的通常是php文件，如果解压出来的文件里面一个文件夹，就把里面的文件夹上传。
