@@ -1,0 +1,33 @@
+
+//      .htaccess伪静态转向
+
+1. nginx的根目录需要写在每行转向的地址前，每行规则必须以分号(;)结束，301或者404等跳转使用不同的格式。
+
+2.apache上htaccess:
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^show-([0-9]+)-([0-9]+)\.html$ index.php?action=show&id=$1&page=$2
+    RewriteRule ^category-([0-9]+)-([0-9]+)\.html$ index.php?action=index&cid=$1&page=$2
+    RewriteRule ^archives-([0-9]+)-([0-9]+)\.html$ index.php?action=index&setdate=$1&page=$2
+    RewriteRule ^(archives|search|reg|login|index|links)\.html$ index.php?action=$1
+    RewriteRule ^(comments|tagslist|trackbacks|index)-([0-9]+)\.html$ index.php?action=$1&page=$2
+    rewriteCond %{http_host} ^blogguy.cn [NC]
+    rewriteRule ^(.*)$ http://www.blogguy.cn/$1 [R=301,L]
+    ErrorDocument 404 http://www.blogguy.cn/
+
+    转换成nginx的规则:
+    rewrite ^/show-([0-9]+)-([0-9]+)\.html$ /index.php?action=show&id=$1&page=$2;
+    rewrite ^/category-([0-9]+)-([0-9]+)\.html$ /index.php?action=index&cid=$1&page=$2;
+    rewrite ^/archives-([0-9]+)-([0-9]+)\.html$ /index.php?action=index&setdate=$1&page=$2;
+    rewrite ^/(archives|search|reg|login|index|links)\.html$ /index.php?action=$1;
+    rewrite ^/(comments|tagslist|trackbacks|index)-([0-9]+)\.html$ /index.php?action=$1&page=$2;
+    if ($host != 'www.blogguy.cn' ) {
+    rewrite ^/(.*)$ http://www.blogguy.cn/$1 permanent;
+    }
+    error_page  404 http://www.blogguy.cn/;
+
+3.   修改nginx的配置文件，增加include该.htaccess文件
+
+4. 测试并重启
+    /etc/init.d/nginx -configtest
+    /etc/init.d/nginx  restart
