@@ -1,0 +1,89 @@
+//  PI3 安装LNMP
+
+1. 更新源: 中科大
+    编辑/etc/apt/sources.list文件。删除原文件所有内容，用以下内容取代：
+        deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
+        deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
+        编辑此文件后，请使用sudo apt-get update命令，更新软件列表。
+            
+2. 安装LNMP
+    
+3. chmod -R 755 /etc/nginx/sites-available
+
+4. 
+    	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	#
+	#	# With php5-cgi alone:
+	#	fastcgi_pass 127.0.0.1:9000;
+	#	# With php5-fpm:
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+	}
+5.  service nginx restart
+
+
+
+6. 
+    apt-get install phpmyadmin
+    安装完成后，把它，link一个到 /var/www/html， 也就是新的nginx的默认网页文件夹，这样你就可以通过网页，访问它了。
+        sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+            /usr/share/doc/phpmyadmin/html      //这是手册
+            rm -rf /var/www/html/phpmyadmin     //删除符号链接,注意不是rm -rf   symbolic_name/ 
+
+                ln -s source dist        #建立软连接, 系统新建一个链接文件, 此文件指向其所要指的文件。 软链接可对文件和文件夹。
+                ln source dist           #建立硬连接,一个文件拥有两个文件名，而硬链接仅针对文件。
+    并且把这个文件夹的权限改成谁都可以读写执行，为了后面安装typecho做准备
+        sudo chmod -R 777 /var/www/html
+    然后重启一下
+        sudo php5enmod mcrypt
+        sudo service php5-fpm restart
+        
+    修改MySQL的配置文件/etc/mysql/my.cnf，因为默认3306端口只允许本地访问的，注释掉这行
+　　　　#bind-address = 127.0.0.1
+　　然后重启Mysql，/etc/init.d/mysql restart
+
+
+//      /etc/nginx/snippets/fastcgi-php.conf--------------------
+# regex to split $uri to $fastcgi_script_name and $fastcgi_path
+fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+# Check that the PHP script exists before passing it
+try_files $fastcgi_script_name =404;
+
+# Bypass the fact that try_files resets $fastcgi_path_info
+# see: http://trac.nginx.org/nginx/ticket/321
+set $path_info $fastcgi_path_info;
+fastcgi_param PATH_INFO $path_info;
+
+fastcgi_index index.php;
+include fastcgi.conf;
+
+//      /etc/nginx/fastcgi.conf--------------------------------------
+fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+fastcgi_param  QUERY_STRING       $query_string;
+fastcgi_param  REQUEST_METHOD     $request_method;
+fastcgi_param  CONTENT_TYPE       $content_type;
+fastcgi_param  CONTENT_LENGTH     $content_length;
+
+fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+fastcgi_param  REQUEST_URI        $request_uri;
+fastcgi_param  DOCUMENT_URI       $document_uri;
+fastcgi_param  DOCUMENT_ROOT      $document_root;
+fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+fastcgi_param  HTTPS              $https if_not_empty;
+
+fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;
+
+fastcgi_param  REMOTE_ADDR        $remote_addr;
+fastcgi_param  REMOTE_PORT        $remote_port;
+fastcgi_param  SERVER_ADDR        $server_addr;
+fastcgi_param  SERVER_PORT        $server_port;
+fastcgi_param  SERVER_NAME        $server_name;
+
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+fastcgi_param  REDIRECT_STATUS    200;
+
+而这个原因，是因为上面配置的最后一个语句：include fastcgi.conf; 在几乎所有的教程里面都使用include fastcgi_params; 。fastcgi_params相比include fastcgi.conf;少了一条路径的定义。
+这部分具体请看： http://stackoverflow.com/questions/15423500/nginx-showing-blank-php-pages
+

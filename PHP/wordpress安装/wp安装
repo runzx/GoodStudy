@@ -1,0 +1,39 @@
+//  wordpress使用SQLite数据库安装
+
+目的不多说，可能是不在乎访问量，可能是不想装mysql，可能是为了省服务器资源。下面是方法：
+
+1、下载wordpress最新版
+
+2、下载SQLite Integration插件
+
+3、解压 wordpress 压缩包到网站根目录
+
+4、解压 SQLite Integeration 插件到 /wp-content/plugins/ 文件夹，即安装普通插件那样
+
+5、复制 /wp-content/plugins/sqlite-integration 文件夹里面的 db.php 到 /wp-content/ 文件夹
+
+6、重命名根目录的wp-config-sample.php为 wp-config.php
+
+7、这一步是可选的，如果心急的话就直接跳过吧，想多学点就看下下下下文。
+
+8、域名访问网站进行安装，就像平常用mysql那样安装。
+
+搞定！！
+
+这样装好的WordPress的数据库文件在 /wp-content/database/ 目录里面的 .ht.sqlite 文件，如果想改下数据库名或者数据库位置的话就继续看。
+
+在进行至上文第6步后，打开 wp-config.php ，找个位置加上这两行代码：
+
+define('DB_FILE', 'your_database_name'); //如define('DB_FILE', 'myblog.sqlite');
+define('DB_DIR', '/home/youraccount/database_directory/'); ////如define('DB_DIR', '/var/www/html/wordpress/wp-content/mydatabase/');
+另外，为了安全着想，建议编辑一下这几行，把 define() 的第二个参数设置为随机的字符串
+
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
+到此为止，您已经一切都搞定了。

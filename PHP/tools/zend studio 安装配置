@@ -53,5 +53,14 @@
             com.zend.php.formatter.core.prefs   //php格式化的配置
             org.eclipse.ui.workbench.prefs      //通用字型与大小
 
+10. 自动注释时，@author 后面能否设置成自定义的名字而不是电脑的登录名？
+    找到Zend Studio安装目录，打开ZendStudio.ini文件(mac下对应的文件是：/Applications/Zend Studio.app/Contents/Info.plist),
+    在-vmargs 位置换行添加-Duser.name="你要定义的名字"
 
-
+11.减少不必要的启动项，让启动更快
+    选择window菜单- >Preferences- >General- >Startup and Shutdown
+    去掉下面项目前的钩
+        automatic updates scheduler
+        Subclipse Usage Reporting
+        Equinox Provisioning Platform Automatic Update Support
+        Zend Usage Data Collector
