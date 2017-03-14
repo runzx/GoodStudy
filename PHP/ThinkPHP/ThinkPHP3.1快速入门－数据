@@ -1,0 +1,55 @@
+//      ThinkPHP3.1快速入门-数据
+//      http://www.thinkphp.cn/document/101.html
+
+
+1. CURD, 是一个数据库技术中的缩写词
+    创建（Create）、更新（Update）、读取（Read）和删除（Delete）操作
+    ThinkPHP就是使用add、save、select和delete方法表示模型的CURD操作。
+2. 创建数据
+    CREATE TABLE IF NOT EXISTS `think_form` (
+    `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) NOT NULL,
+    `content` varchar(255) NOT NULL,
+    `create_time` int(11) unsigned NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+3. 模型
+    模型类的命名规则: 除去表前缀的数据表名称
+        模型名+Model.class.php （模型名的定义采用驼峰法并且首字母大写）
+        
+        UserTypeModel 对应表：think_user_type 约定对应数据表（假设数据库的前缀定义是 think_）
+
+        class FormModel extends Model {
+            // 定义自动验证
+            protected $_validate    =   array(
+                array('title','require','标题必须'),
+                );
+            // 定义自动完成
+            protected $_auto    =   array(
+                array('create_time','time',1,'function'),
+                );
+        }
+4. 添加数据：
+    $Form   =   D('Form');      //
+    $data['title']  =   'ThinkPHP';
+    $data['content']    =   '表单内容';
+    $Form->add($data);
+    或（对象方式）
+    $Form   =   D('Form');
+    $Form->title  =   'ThinkPHP';
+    $Form->content    =   '表单内容';
+    $Form->add();
+
+5. 读取数据
+    find方法获取一个单一数据
+        $Form   =   M('Form');
+        // 读取数据
+        $data =   $Form->find($id);     //表示读取主键为$id值的数据
+    返回：数组
+        array(
+            'id'        =>  5,
+            'title'     =>  '测试标题',
+            'content'   =>  '测试内容',
+            'status'    =>  1,
+        )

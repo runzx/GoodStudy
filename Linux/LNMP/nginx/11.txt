@@ -1,11 +1,10 @@
-
 //      .htaccess伪静态转向
 
 1. nginx的根目录需要写在每行转向的地址前，每行规则必须以分号(;)结束，301或者404等跳转使用不同的格式。
 
 2.apache上htaccess:
-    RewriteEngine On
-    RewriteBase /
+    RewriteEngine On        # 将 RewriteEngine 模式打开
+    RewriteBase /           # .htaccess文件路径，如果在系统跟目录则为RewriteBase /
     RewriteRule ^show-([0-9]+)-([0-9]+)\.html$ index.php?action=show&id=$1&page=$2
     RewriteRule ^category-([0-9]+)-([0-9]+)\.html$ index.php?action=index&cid=$1&page=$2
     RewriteRule ^archives-([0-9]+)-([0-9]+)\.html$ index.php?action=index&setdate=$1&page=$2
@@ -26,6 +25,12 @@
     }
     error_page  404 http://www.blogguy.cn/;
 
+    apache伪静态：
+    RewriteEngine on
+    RewriteRule ^(.*)/ask/([0-9]+)\.html$ $1/ask/index.php?page=$2
+    Nginx的配置
+    rewrite ^(.*)/ask/([0-9]+).html$ $1/ask/index.php?page=$2 last；
+
 3.   修改nginx的配置文件，增加include该.htaccess文件
 
 4. 测试并重启
@@ -33,3 +38,4 @@
     /etc/init.d/nginx  restart
 
 5. 在线转换工具地址：http://www.winginx.com/en/htaccess
+

@@ -1,0 +1,34 @@
+//      猿代码学习
+//      http://www.ydma.cn/myvideo/5/3/10
+
+1. 框架目录结构 V3.2                  //  PIGCMS用的是3.1版
+    1）.\ThinkPHP\Library\Vender     //第三方扩展
+    2）.\ThinkPHP\Library\Org        //第三方扩展
+        Net : 网络的
+        Util: 实用
+2. CBD模式
+    Core核心
+    Behavior行为
+    Driver驱动
+3. .\composer.json        //整合项目， 管理项目
+    是 PHP 用来管理依赖（dependency）关系的工具。你可以在自己的项目中声明所依赖的外部工具库（libraries），Composer 会帮你安装这些依赖的库文件。
+
+4. 开发规范：
+    1）命名规范
+
+5. 框架配置
+    1）使用数组
+        return array();
+
+    2)配置文件：
+        惯例配置，/ThinkPHP/Conf/convention.php
+        应用配置， config.php
+        模式配置，config_模式名.php
+        调试配置，debug.php
+        状态配置，
+            入口文件定义： define("APP_STATUS','XXX');
+            自动加载：APP/
+        模块配置，
+        动态配置：
+            C('参数名'，参数值);
+        
