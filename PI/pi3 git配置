@@ -6,3 +6,6 @@
     pi@raspberrypi:/home/git $ sudo git init --bare pi3.git
     sudo chown -R git:git pi3.git/      //一定要设权限，否则push 出错
 
+3. o2o73仓库
+    sudo git init --bare /home/git/o2o73.git
+    sudo chown -R git:git /home/git/o2o73.git
