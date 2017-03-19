@@ -24,6 +24,6 @@
     [mnt]，这个就是我们要共享出的目录的名字，可以任何取。
     path就是我们共享的目录
     guest ok就是谁都可以访问，匿名用户，因为家庭网络大多数都是自己访问，不需要用户名密码啥的，当然也可以自己添加。
-
+    netbios name = debian : Open the command prompt and enter "//debian" to open a file explorer:
 3. 给共享的目录权限，让用户有权限访问
     sudo chmod -R 777 /mnt
