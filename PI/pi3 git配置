@@ -9,3 +9,7 @@
 3. o2o73仓库
     sudo git init --bare /home/git/o2o73.git
     sudo chown -R git:git /home/git/o2o73.git
+
+    git remote add origin git@ip3:o2o73.git
+    git push -u origin master
+    

@@ -1,0 +1,29 @@
+//  samba共享
+//  https://www.howtoforge.com/tutorial/debian-samba-server/
+
+1. 安装samba:
+    sudo apt-get install -y samba
+2. 配置共享，/etc/samba/smb.conf
+    备份：sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
+    sudo nano /etc/samba/smb.conf
+        [global]
+                workgroup = WORKGROUP
+                server string = Samba Server %v
+                netbios name = debian
+                security = user
+                map to guest = bad user
+                dns proxy = no
+        [mnt]
+                path = /mnt
+                force group = users
+                create mask = 0660
+                directory mask = 0771
+                browsable =yes
+                writable = yes
+                guest ok = yes
+    [mnt]，这个就是我们要共享出的目录的名字，可以任何取。
+    path就是我们共享的目录
+    guest ok就是谁都可以访问，匿名用户，因为家庭网络大多数都是自己访问，不需要用户名密码啥的，当然也可以自己添加。
+
+3. 给共享的目录权限，让用户有权限访问
+    sudo chmod -R 777 /mnt

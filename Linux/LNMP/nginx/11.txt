@@ -39,3 +39,4 @@
 
 5. 在线转换工具地址：http://www.winginx.com/en/htaccess
 
+G:\zx\git\GoodStudy\Linux\LNMP\nginx

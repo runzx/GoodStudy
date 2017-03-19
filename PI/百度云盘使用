@@ -1,0 +1,40 @@
+//  百度云盘使用 
+//  https://github.com/houtianze/bypy
+//  程序只能存取百度云端/apps/bypy目录下面的文件和目录。
+1. 安装sudo pip install bypy
+
+2.  第一次运行时需要授权，只需跑任何一个命令（比如 bypy info） 
+    pi@raspberrypi:~ $ bypy info
+    Please visit:
+    https://openapi.baidu.com/oauth/2.0/authorize?scope=basic+netdisk&redirect_uri=oob&response_type=code&client_id=q8WE4EpCsau1oS0MplgMKNBn
+    And authorize this app
+    Paste the Authorization Code here within 10 minutes.
+    Press [Enter] when you are done
+    100aa702a1f73db4d306d966216d2800
+    Authorizing, please be patient, it may take upto None seconds...
+    Authorizing/refreshing with the OpenShift server ...
+    OpenShift server failed, authorizing/refreshing with the Heroku server ...
+    Successfully authorized
+    Quota: 2.007TB
+    Used: 786.275GB
+3. 命令 
+    更详细的了解某一个命令：
+    bypy help <command>
+
+    bypy list                           //显示在云盘（程序的）根目录下文件列表：
+    bypy syncup 或 bypy upload       //把当前目录同步到云盘：
+    bypy syncdown 或 bypy downdir /  //把云盘内容同步到本地来：
+    bypy compare                        //比较本地当前目录和云盘（程序的）根目录
+
+    运行时添加-v参数，会显示进度详情。
+    运行时添加-d，会显示一些调试信息。
+    运行时添加-ddd，还会会显示HTTP通讯信息（警告：非常多）                
+
+4. 如果 pip出错，重装
+    重装前先卸载ubuntu的pip包
+        sudo apt-get remove python-pip
+        sudo apt-get autoremove
+    下载
+        wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
+    然后 
+        sudo python get-pip.py

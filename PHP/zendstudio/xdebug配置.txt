@@ -1,0 +1,98 @@
+//		xdebug配置
+
+xdebug.profiler_output_dir="C:\phpStudy\tmp\xdebug"
+xdebug.trace_output_dir="C:\phpStudy\tmp\xdebug"
+zend_extension="C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug.dll"
+
+; for zx
+;zend_extension="C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug-2.5.1-5.6-vc11-nts.dll"
+
+xdebug.remote_enable=true
+
+
+XDEBUG Extension
+
+zend_extension="C:\wamp\bin\php\php5.5.12\ext\php_xdebug-2.3.3-5.5-vc11-x86_64.dll"
+;允许远程IDE调试
+xdebug.remote_enable=true
+;远程主机
+xdebug.remote_host=127.0.0.1
+
+xdebug.profiler_enable=on
+;临时跟踪信息输出
+;xdebug.trace_output_dir="C:\wamp\xdebug\trace"
+;xdebug.profiler_output_dir="C:\wamp\xdebug\profiler"
+
+xdebug.auto_trace=On
+;开启异常跟踪
+xdebug.show_excepti
+;开启远程调试自动启动
+xdebug.remote_autostart=On
+;收集变量
+xdebug.collect_vars=On
+;收集返回值
+xdebug.collect_return=On
+;收集参数
+xdebug.collect_params=On
+;显示局部变量
+xdebug.show_local_vars=On
+;显示默认的错误信息
+xdebug.default_enable=On
+;用于zend studio远程调试的应用层通信协议
+xdebug.remote_handler=dbgp
+;如果设得太小,函数中有递归调用自身次数太多时会报超过最大嵌套数错
+xdebug.max_nesting_level=10000
+
+=====================================================================
+
+
+Zend Studio 13安装Xdebug插件实现调试功能
+1、去官网https://xdebug.org/download.php下载Xdebug插件文件，其中根据自己的PHP版本、IIS服务器选择nts，Apache服务器选择ts，34bit/64bit。
+2、打开E:\PHP_5.6.20\ext，拷贝插件文件到此目录，（例如本人PHP版本是5.6，服务器是IIS，系统是64bit，插件文件是php_xdebug-2.4.0-5.6-vc11-nts-x86_64.dll）。
+3、打开PHP配置文件php.ini，添加如下代码： 
+; XDEBUG Extension 
+zend_extension = “E:/PHP_5.6.20/ext/php_xdebug-2.4.0-5.6-vc11-nts-x86_64.dll” 
+[xdebug] 
+;开启自动跟踪 
+xdebug.auto_trace=On 
+;开启异常跟踪 
+xdebug.show_exception_trace=On 
+;开启远程调试自动启动 
+xdebug.remote_autostart = Off 
+;收集参数 
+xdebug.collect_params=on 
+;收集返回值 
+xdebug.collect_return=on 
+;收集变量 
+xdebug.collect_vars = On 
+xdebug.max_nesting_level=100 
+xdebug.profiler_enable=on 
+xdebug.profiler_trigger=1 
+xdebug.profiler_append=1 
+;开启远程调试 
+xdebug.remote_enable=on 
+;允许连接的zend studio的IP地址 
+xdebug.remote_host=localhost 
+;反向连接zend studio使用的端口 
+xdebug.remote_port=9000 
+;用于zend studio远程调试的应用层通信协议 
+xdebug.remote_handler=dbgp 
+;如果设得太小,函数中有递归调用自身次数太多时会报超过最大嵌套数错 
+xdebugbug.max_nesting_level = 10000 
+xdebug.trace_output_dir=”E:/TMP/trace” 
+xdebug.profiler_output_dir=”E:/TMP/profiler”
+4、端口号可以自己修改，默认9000。如修改了端口号，Zend Studio调试配置中需要做相应的修改。
+5、xdebug.trace_output_dir和xdebug.profiler_output_dir是日志选项，需要手动创建相应的文件夹，PHP不会自动创建。
+6、运行phpinfo()，插件正常运行。 
+这里写图片描述
+7、Zend Studio->窗口->首选项->PHP->PHP Executable，点击添加： 
+名称：PHP_5.6.20_CLI 
+Executable path：E:\PHP_5.6.20\php.exe 
+PHP ini file (optional)：E:\PHP_5.6.20\php.ini 
+SAPI Type：CLI 
+点击“下一步”，选中“XDebug”，填写端口号（注意：需要与php.ini配置文件中设置的端口号一样），点击“完成”。
+8、Zend Studio->窗口->首选项->PHP->服务器，点击新建，选择“Generic PHP Server”： 
+编辑基本URL：http://(这里填写php绑定网站) 
+Document Root：/ 
+点击“下一步”，选中“XDebug”，填写端口号（注意：需要与php.ini配置文件中设置的端口号一样），点击“完成”。
+9、Zend Studio->窗口->首选项->PHP->调试，PHP Server：选择服务器，PHP Executable：选择“PHP_5.6.20_CLI”。
