@@ -28,7 +28,7 @@
 
 5.远程仓库
     1）git remote add origin git@server-name:path/repo-name.git  //关联一个远程库,远程库的名字就是origin，这是Git默认的叫法，也可以改成别的
-    2) git push -u origin master        //第一次推送master分支的所有内容
+    2) git push -u origin master        //第一次推送master分支的所有内容,-u选项指定一个默认主机
 
     3) git clone git@github.com:michaelliao/gitskills.git       //克隆一个本地库 地址也可以用：https://github.com/michaelliao/gitskills.git
     4）
@@ -60,8 +60,41 @@
         如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
         如果合并有冲突，则解决冲突，并在本地提交；
         没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
-    
+    6） git pull <远程主机名> <远程分支名>:<本地分支名>
+        git push <远程主机名> <本地分支名>:<远程分支名>  //-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push
+        git fetch <远程主机名> <分支名>
 12.记录密码
     git config --global credential.helper wincred   //Git 1.7.10 or newer ,SSH connection
 
+13. GIT网址
+    ssh:// [user @] host.xz [:port] /path/to/repo.git/
+    git:// host.xz [:port] /path/to/repo.git/
+    http[s]:// host.xz [:port] /path/to/repo.git/
+    [user @] host.xz : path/to/repo.git/             类似scp的语法,SSH协议另一种写法
     
+    只有在第一个冒号之前没有斜杠时才会识别此语法。这有助于区分包含冒号的本地路径。例如，本地路径foo:bar可以被指定为绝对路径或./foo:bar避免被误解为ssh url。
+    ssh和git协议另外支持〜username扩展：
+        ssh：// [user @] host.xz [：port] /〜[user] /path/to/repo.git/
+        git：//host.xz [：port] /〜[user] /path/to/repo.git/
+        [user @] host.xz：/〜[user] /path/to/repo.git/
+
+    对于也由Git本地支持的本地存储库，可以使用以下语法：
+        /path/to/repo.git/              //git clone /opt/git/project.git 
+        file：///path/to/repo.git/       这两个语法大部分是等价的，除非是克隆，前者意味着--local选项。见混帐克隆的细节（1）。
+    
+    上面在PI3上不能验证，等有时间再说。
+    在zend studio 上
+        git@ip3:o2o73.git 
+        ip3:/home/git/pi3.git
+        ssh://git@ip3/home/git/pi3.git
+    在PC上git bash
+        git clone ssh://ip3/home/git/pi3.git
+        git clone git@ip3:/home/git/wxdc.git        //这也是ssh协议
+
+14. 服务器上的 Git - GitWeb          //https://git-scm.com/book/zh/v1/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-GitWeb
+    git instaweb --httpd=webrick    //在有.git的目录下运行，会自动找当前和父目录下的仓库。如果有httpd,就不用＝和后面的webrick，http://ip:1234
+          -d, --httpd
+           The HTTP daemon command-line that will be executed. Command-line options may be specified here, and the configuration file will be added at the
+           end of the command-line. Currently apache2, lighttpd, mongoose, plackup and webrick are supported. (Default: lighttpd)
+    git instaweb --httpd=webrick --stop     //关闭服务
+    一些 Linux 发行版可以通过 apt 或 yum 安装一个叫做 gitweb 的软件包,( gitlab、cgit)

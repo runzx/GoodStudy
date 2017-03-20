@@ -22,8 +22,8 @@ run..  zx13....
 
 3.使用学习
     （1）创建项目
-        1） 
-        2） 
+        1） git init 
+        2） 此项目的描述在.git/description 文件。
         
     （2）linux 检出到本地
         1） gitbut 右下角 HTTPS clone URL 点击复制 链接

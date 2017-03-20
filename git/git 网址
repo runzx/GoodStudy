@@ -1,0 +1,65 @@
+GIT网址
+通常，URL包含有关传输协议，远程服务器的地址和存储库的路径的信息。根据传输协议，这些信息中的一些可能不存在。
+
+Git支持ssh，git，http和https协议（此外，ftp和ftps可以用于提取，但这是低效的，不推荐使用，不要使用它）。
+
+本地传输（即git：// URL）不进行身份验证，应谨慎使用不安全的网络。
+
+以下语法可与其一起使用：
+
+ssh：// [user @] host.xz [：port] /path/to/repo.git/
+
+git：//host.xz [：port] /path/to/repo.git/
+
+http [s]：//host.xz [：port] /path/to/repo.git/
+
+ftp [s]：//host.xz [：port] /path/to/repo.git/
+
+另一种类似scp的语法也可以与ssh协议一起使用：
+
+[user @] host.xz：path / to / repo.git /
+
+只有在第一个冒号之前没有斜杠时才会识别此语法。这有助于区分包含冒号的本地路径。例如，本地路径foo:bar可以被指定为绝对路径或./foo:bar避免被误解为ssh url。
+
+ssh和git协议另外支持〜username扩展：
+
+ssh：// [user @] host.xz [：port] /〜[user] /path/to/repo.git/
+
+git：//host.xz [：port] /〜[user] /path/to/repo.git/
+
+[user @] host.xz：/〜[user] /path/to/repo.git/
+
+对于也由Git本地支持的本地存储库，可以使用以下语法：
+
+/path/to/repo.git/
+
+file：///path/to/repo.git/
+
+这两个语法大部分是等价的，除非是克隆，前者意味着--local选项。见混帐克隆的细节（1）。
+
+当Git不知道如何处理某个传输协议时，它尝试使用remote- <transport>远程助手（如果存在）。要显式请求远程帮助程序，可以使用以下语法：
+
+<transport> :: <address>
+
+其中<地址>可以是路径，服务器和路径，或由被调用的特定远程助手识别的任意类似于URL的字符串。见gitremote-助手（1）了解详细信息。
+
+如果有大量类似命名的远程存储库，并且您想为它们使用不同的格式（以便您使用的URL将重写为工作的URL），则可以创建以下形式的配置节：
+
+	[url“<actual url base>”]
+		insteadOf = <other url base>
+例如，使用：
+
+	[url“git：//git.host.xz/”]
+		insteadOf = host.xz：/ path / to /
+		insteadOf = work：
+像“work：repo.git”或类似“host.xz：/path/to/repo.git”的URL将在任何上下文中重写，该URL的URL为“git：//git.host.xz/repo .git“。
+
+如果要重新编写URL的URL，您可以创建以下形式的配置节：
+
+	[url“<actual url base>”]
+		pushInsteadOf = <other url base>
+例如，使用：
+
+	[url“ssh：//example.org/”]
+		pushInsteadOf = git：//example.org/
+像“git：//example.org/path/to/repo.git”这样的URL将被重写为“ssh：//example.org/path/to/repo.git”以进行推送，但是pulls仍将使用原始网址。

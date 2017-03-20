@@ -13,3 +13,6 @@
     git remote add origin git@ip3:o2o73.git
     git push -u origin master
     
+4. 
+    sudo git init --bare /home/git/pos.git
+    sudo chown -R git:git /home/git/pos.git
