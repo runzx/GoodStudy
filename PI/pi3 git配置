@@ -16,3 +16,7 @@
 4. 
     sudo git init --bare /home/git/pos.git
     sudo chown -R git:git /home/git/pos.git
+
+    sudo git init --bare /home/git/goodstudy.git
+    sudo chown -R git:git /home/git/goodstudy.git
+    ssh://git@pi3/home/git/goodstudy.git
