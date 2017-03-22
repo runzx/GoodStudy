@@ -1,3 +1,7 @@
+#zx:
+.settings/
+.buildpath
+.project
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
