@@ -32,4 +32,7 @@
     /etc/init.d/nginx -configtest
     /etc/init.d/nginx  restart
 
-5. 在线转换工具地址：http://www.winginx.com/en/htaccess
+5. 在线转换工具地址：http://www.winginx.com/en/htaccess				//转成带 location /{}
+
+	http://www.anilcetin.com/convert-apache-htaccess-to-nginx/	//不带 location /{}
+
