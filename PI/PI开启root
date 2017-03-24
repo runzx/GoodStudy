@@ -1,0 +1,7 @@
+//		PI开启root
+
+1. sudo passwd root
+2. sudo passwd -unlock root
+3. sudo nano /etc/ssh/sshd_config
+	PermitRootLogin without-password 改为 PermitRootLogin yes
+4. sudo reboot
