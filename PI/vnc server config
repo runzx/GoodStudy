@@ -1,0 +1,43 @@
+// VNC sever Config
+
+0. 2016年9月以来，每个版本的Raspbian都具有使用VNC技术
+	sudo apt-get upgrade	//更新
+	sudo apt-get install realvnc-vnc-server realvnc-vnc-viewer
+	
+	https://www.realvnc.com/raspberrypi/
+	
+	如果没有为您的Raspberry Pi设置打印机，则打印到连接到Windows，Mac或Linux计算机的打印机非常有用。为此，首先在您的Raspberry Pi上运行以下命令以进行安装cups（通用Unix打印系统）：
+		sudo apt-get install cups
+		
+1. VNC服务器在服务模式 linux
+	参数应用（优先级最低）
+	vncserver-x11，通过vncserver-x11-serviced	
+		/etc/vnc/config.d/common.custom
+		/etc/vnc/config.d/vncserver-x11
+		/root/.vnc/config.d/common 
+		/root/.vnc/config.d/vncserver-x11 
+		/etc/vnc/policy.d/common 
+		/etc/vnc/policy.d/vncserver-x11	
+	“ 选项 ”对话框更新一个特定的VNC配置文件; 看这个表。
+		/etc/vnc/*/vncserver-x11用户模式中指定的参数也应用于VNC服务器。
+		
+2. 安装VNC Connect后，/etc/vnc/config.d/common将创建。请注意，此文件保留供RealVNC使用。
+	要为计算机上所有用户帐户的所有程序指定参数，请创建
+		/etc/vnc/config.d/common.custom。
+	要为特定用户帐户的所有程序指定参数，请创建
+		~/.vnc/config.d/common。
+	~是root某些程序的用户帐户; 见上表。
+	其他VNC配置文件是特定于程序的。例如，要在用户模式下为Linux计算机上的所有用户帐户指定VNC Server的参数，请创建
+		/etc/vnc/config.d/vncserver-x11。
+	要为用户模式为特定用户帐户指定VNC Server的参数，请创建
+		~/.vnc/config.d/vncserver-x11。
+3. 重新配置
+	VNC服务器处于服务模式	/root/.vnc/config.d/vncserver-x11
+	用户模式下的VNC服务器	~/.vnc/config.d/vncserver-x11
+	重新加载参数：
+		vncserver-x11 -reload
+4. 为虚拟桌面指定屏幕分辨率  pi3:1
+	vncserver -randr=800x600
+	https://www.realvnc.com/docs/raspberry-pi.html#raspberry-pi-setup
+		
+	

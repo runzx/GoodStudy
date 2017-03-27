@@ -23,7 +23,7 @@
 
     bypy list                           //显示在云盘（程序的）根目录下文件列表：
     bypy syncup 或 bypy upload       //把当前目录同步到云盘：
-    bypy syncdown 或 bypy downdir /  //把云盘内容同步到本地来：
+    bypy syncdown 或 bypy downdir -v /  //把云盘内容同步到本地来：
     bypy compare                        //比较本地当前目录和云盘（程序的）根目录
 
     运行时添加-v参数，会显示进度详情。

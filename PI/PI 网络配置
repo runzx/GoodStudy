@@ -14,6 +14,9 @@
     3) hosts 中 
         192.168.1.10		PI3         //用Notepad++, 开启管理员权限存盘
 
+2. 基本配置：
+	 sudo raspi-config
+	/boot/config.txt	文件中指定设置		// https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
     
 
     
