@@ -1,0 +1,8 @@
+
+1. 追加数组
+	arr.push(temp)
+	在头上增加
+	arr.unshift()
+2. 新增对象
+	obj[key]=value;	//键值为变量Key的值。 例key='red' obj[key]='abc'  就是加一个 obj.red='abc';
+	
