@@ -20,3 +20,6 @@
     sudo git init --bare /home/git/goodstudy.git
     sudo chown -R git:git /home/git/goodstudy.git
     ssh://git@pi3/home/git/goodstudy.git
+    
+    sudo git init --bare /home/git/app-xcx.git
+    sudo chown -R git:git /home/git/app-xcx.git		//小程序后台
