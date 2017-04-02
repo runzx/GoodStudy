@@ -7,6 +7,11 @@
         编辑此文件后，请使用sudo apt-get update命令，更新软件列表。
             
 2. 安装LNMP
+    sudo apt-get install nginx php5-fpm php5-cgi php5-cli php5-curl php5-gd php5-mcrypt php5-mysql php5-memcache php5-gd php5-sqlite php5-cgi php5-xmlrpc mysql-server mysql-client
+    有问题， 是因为前面源配置错了， 配置成低版本的了。
+    先装nginx 1.6.2
+    mysql 5.5.54
+    php 5.6.29
     
 3. chmod -R 755 /etc/nginx/sites-available
 

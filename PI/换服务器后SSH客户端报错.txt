@@ -1,0 +1,37 @@
+$ ssh git@pi3
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+SHA256:7LBIvZSrXC/WnGFWwiD3Agx1Wm8I/aSUKV4FJBpV71Y.
+Please contact your system administrator.
+Add correct host key in /c/Users/zhaix/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /c/Users/zhaix/.ssh/known_hosts:1
+RSA host key for pi3 has changed and you have requested strict checking.
+Host key verification failed.
+
+
+”√ssh-keygen -R pi3∫Û£∫
+
+
+$ ssh git@pi3
+The authenticity of host 'pi3 (192.168.1.10)' can't be established.
+ECDSA key fingerprint is SHA256:JB1MhBtnShAbFTsy2xMT1BR0nEtdIwwnZJaxZ05xTzU.
+Are you sure you want to continue connecting (yes/no)? y
+Please type 'yes' or 'no': yes
+Warning: Permanently added 'pi3' (ECDSA) to the list of known hosts.
+Warning: the ECDSA host key for 'pi3' differs from the key for the IP address '192.168.1.10'
+Offending key for IP in /c/Users/zhaix/.ssh/known_hosts:1
+Are you sure you want to continue connecting (yes/no)? yes
+git@pi3's password:
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Apr  1 13:00:55 2017 from 192.168.1.105
