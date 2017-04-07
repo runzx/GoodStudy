@@ -22,4 +22,13 @@
     ssh://git@pi3/home/git/goodstudy.git
     
     sudo git init --bare /home/git/app-xcx.git
+
     sudo chown -R git:git /home/git/app-xcx.git		//小程序后台
+
+5. 换服务器后客户端报错：
+	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+	It is also possible that a host key has just been changed.
+	The fingerprint for the RSA key sent by the remote host is
+	SHA256:7LBIvZSrXC/WnGFWwiD3Agx1Wm8I/aSUKV4FJBpV71Y.
+	用ssh-keygen -R pi3 ，然后重新连接。
+

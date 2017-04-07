@@ -39,5 +39,9 @@
 4. 为虚拟桌面指定屏幕分辨率  pi3:1
 	vncserver -randr=800x600
 	https://www.realvnc.com/docs/raspberry-pi.html#raspberry-pi-setup
+	
+5.PI3上-> licensing -> Options ->Sign in to your RealVNC account
+	runzx@hotmail.com 	zx131...
+	这样就可以远程（非局域网内）连接
 		
 	

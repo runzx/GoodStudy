@@ -7,6 +7,9 @@
     重新开启root账号，可由pi用户登录后，在命令行下执行
         sudo passwd root            //提示输入两遍的root密码，输入你想设的密码即可
         sudo passwd --unlock root   // 这样就可以解锁root账户了。
+        sudo nano /etc/ssh/sshd_config
+			PermitRootLogin without-password 改为 PermitRootLogin yes
+		sudo reboot
 
 2. 用户管理配置文件
     sudo visudo     //打开
