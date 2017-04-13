@@ -31,4 +31,21 @@
 	The fingerprint for the RSA key sent by the remote host is
 	SHA256:7LBIvZSrXC/WnGFWwiD3Agx1Wm8I/aSUKV4FJBpV71Y.
 	用ssh-keygen -R pi3 ，然后重新连接。
+<<<<<<< HEAD
 
+=======
+	
+6. web-git GitWeb          //https://git-scm.com/book/zh/v1/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-GitWeb
+    cd /home/git/pi3.git
+    git instaweb --httpd=webrick    //在有.git的目录下运行，会自动找当前和父目录下的仓库。如果有httpd,就不用＝和后面的webrick，http://ip:1234
+          -d, --httpd
+           The HTTP daemon command-line that will be executed. Command-line options may be specified here, and the configuration file will be added at the
+           end of the command-line. Currently apache2, lighttpd, mongoose, plackup and webrick are supported. (Default: lighttpd)
+    git instaweb --httpd=webrick --stop     //关闭服务
+   		 一些 Linux 发行版可以通过 apt 或 yum 安装一个叫做 gitweb 的软件包,( gitlab、cgit)
+   	自启动：
+   		sudo nano /etc/rc.local
+   		在文件末尾 , exit 0 这一行之前，加入需要启动的命令 : 
+   		
+	
+>>>>>>> 89a84f5db1de67f3b3a86bb20d52855a59d92ba4
