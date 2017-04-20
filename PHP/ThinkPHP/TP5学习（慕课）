@@ -12,3 +12,14 @@
         不够灵活
         不能很好支持URL语义化（最大缺陷）
 2. 5.0默认的应用入口文件位于public/index.php
+
+3. 简化URL路径
+    1）虚拟主机，取代localhost....
+        httpd-vhosts.conf
+    2)route.php
+        动态注册： use think\Route;
+        Route::rule('hello','sample/Test/Hello');   //原有的PATHINFO就失效！
+        Route::rule('路由表达式','路由地址','请求类型','路由参数（数组）','变量规则（数组）');
+    3）3种URL访问模式，可以自定义、配置
+4. 参数获取：
+    $all = Request::instance()->param();
