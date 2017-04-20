@@ -1,0 +1,14 @@
+PHP命名空间（namespace）
+
+1. 在PHP 5.3中加入的,解决下面问题：
+    1）用户编写的代码与PHP内部的类/函数/常量或第三方类/函数/常量之间的名字冲突。
+    2）为很长的标识符名称(通常是为了缓解第一类问题而定义的)创建一个别名（或简短）的名称，提高源代码的可读性。
+2.
+    命名空间通过关键字namespace 来声明。如果一个文件中包含命名空间，它必须在其它所有代码之前声明命名空间。
+    命名空间的名字可以使用分层次的方式定义：namespace MyProject\Sub\Level;  //声明分层次的单个命名空间
+
+    通过命名空间定义的类或函数， 使用时:     //http://blog.jjonline.cn/phptech/154.html
+        use NameSpaceXXX\Demo;
+        $demoObj = new Demo();
+3. PHPstorm中自动生成namespace
+    setting->Directories->Sources

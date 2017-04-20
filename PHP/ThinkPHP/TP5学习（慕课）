@@ -1,0 +1,14 @@
+1. URL路径：PATHINFO模式：
+    http://serverName/index.php/module/controller/action/[pararma/value...]
+
+    5.0取消了URL模式的概念，并且普通模式的URL访问不再支持，但参数可以支持普通方式传值，兼容模式：
+        http://serverName/index.php（或者其它应用入口文件）?s=/模块/控制器/操作/[参数名/参数值...]
+    URL不区分大小写。
+        // 关闭URL中控制器和操作名的自动转换
+        'url_convert'    =>  false,
+    缺点：
+        太长
+        URL路径暴露出服务器文件结构
+        不够灵活
+        不能很好支持URL语义化（最大缺陷）
+2. 5.0默认的应用入口文件位于public/index.php

@@ -1,6 +1,27 @@
-//  PHPstorm使用
+﻿//  PHPstorm使用
 
 一：在PHPstorm中配置 git环境
     1）点击phpstorm的file->setting->版本控制->git->安装git的具体路径
     2) Tools->Terminal->shell路径选择好后并在路径后面添加--login-i
         D:\git\Git\bin\sh.exe --login-i
+
+二。 调试工具： xdebug
+	1. 下载xdebug模块
+		https://xdebug.org/download.php
+			Releases
+			。。。。。。。please refer to the custom installation instructions.//点击这
+		把localhost/phpinfo.php 的html源码全部拷贝到上面的框内，点击分析：
+			Instructions
+				1.Download php_xdebug-2.5.1-5.6-vc11-nts.dll
+				2.Move the downloaded file to C:\phpStudy\php\php-5.6.27-nts\ext
+				3.Update C:\phpStudy\php\php-5.6.27-nts\php.ini and change the line
+					zend_extension = C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug-2.5.1-5.6-vc11-nts.dll
+				4.Restart the webserver
+	2. 把xdebug模块拷贝到PHP扩展目录下...\ext,修改php.ini,重启PHP
+	3. 在PHPstorm中，窗口右上角小三角，edit config
+		增加 PHP web Application: server增加， URL
+	4. windows下nginx用到 9000端口，所以xdebug改成9009，要在PHPstorm中修改成对应端口
+三，快捷方式
+    1.  PHPstorm中自动生成namespace
+           setting->Directories->Sources
+
