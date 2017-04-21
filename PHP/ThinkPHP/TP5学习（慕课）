@@ -12,7 +12,7 @@
         不够灵活
         不能很好支持URL语义化（最大缺陷）
 2. 5.0默认的应用入口文件位于public/index.php
-
+    class 文件名第一个字母要大写！目录小写
 3. 简化URL路径
     1）虚拟主机，取代localhost....
         httpd-vhosts.conf

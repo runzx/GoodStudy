@@ -64,7 +64,7 @@
 	{n,}     重复n次或更多次
 	{n,m}     重复n到m次
 	
-	//	懒惰匹配
+	//	懒惰匹配，非贪婪匹配
 	*?     重复任意次，但尽可能少重复
 	+?     重复1次或更多次，但尽可能少重复
 	??     重复0次或1次，但尽可能少重复
@@ -86,3 +86,23 @@
 	(?!exp)     匹配后面跟的不是exp的位置
 	(?<!exp)     匹配前面不是exp的位置
 	注释     (?#comment)     这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读
+
+    PCRE 类库使用下列语法来支持 命名捕获器：
+	?<name>            Perl 5.10 兼容语法, 从PCRE-7.0开始支持
+    ?'name'            Perl 5.10 兼容语法, 从PCRE-7.0开始支持
+    ?P<name>        Python 5.10 兼容语法, 从PCRE-4.0开始支持
+             （？i）无内存
+             （？J）允许重复的名称
+             （？m）多线
+             （？s）单行（dotall）
+             （？U）默认ungreedy（lazy）   //？U是正则表达式中的非贪婪( ungreedy)匹配。默认情况下，正则表达式使用“贪心”('greedy)模式。 http : //www.pcre.org/pcre.txt
+                    https://trac.nginx.org/nginx/ticket/143
+                    例： http://zx.cn/show.php/article/0001/another.php/something, 这样才不会出错
+                        nginx:  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+             （？x）扩展（忽略空格）
+             （？-...）未设置选项
+    贪婪匹配 ungreedy
+        在满足匹配时，匹配尽可能长的字符串，默认情况下，采用贪婪匹配
+    非贪婪匹配
+        在满足匹配时，匹配尽可能短的字符串，使用?来表示非贪婪匹配 string pattern1 = @"a.*?c";
+
