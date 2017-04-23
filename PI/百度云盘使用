@@ -17,6 +17,10 @@
     Successfully authorized
     Quota: 2.007TB
     Used: 786.275GB
+    1) IE先登录到百度云盘里。
+    2）把https://openapi.baidu.com/... 拷贝到IE里，访问后会出授权要求，同意后 “您正要授权给百度个人云存储Python客户端拥有以下权限”，得到授权码
+    3）授权码拷贝到PI3上面2步的，回车OK
+
 3. 命令 
     更详细的了解某一个命令：
     bypy help <command>
