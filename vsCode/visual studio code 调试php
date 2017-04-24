@@ -1,0 +1,25 @@
+visual studio code 调试php
+
+1: 在vscode中按 F1, 输入ext install 
+    php-debug   点击安装
+2：去 https://xdebug.org/download.php下载php对应版本的插件
+    打开php目录下的php.ini ，添加几行配置，xdebug的路径按实际情况配置，配置完成后重启apache服务器
+        zend_extension=C:\xampp\php\ext\php_xdebug-2.4.1-5.6-vc11.dll
+        [XDebug]
+        xdebug.remote_enable = 1
+        xdebug.remote_autostart = 1     //这个一定要加， 才能在浏览器运行网址后激活VScode的Xdebug（PHPstorm好象可以不用加这）
+
+3：第一次安装vs会提示这个，需要配置下php.exe的路径，在用户设置里添加以下项
+    
+    "php.validate.executablePath": "C:\\xampp\\php\\php.exe"
+    "php.validate.executablePath":"C:/phpStudy/php/php-5.6.27-nts/php.exe",     //windows下
+4.配置debug
+    debug 左上角三角 listen for XDebug, 端口要对应服务器上xdebug
+5.在vscode中的php文件打一断点(行号左边），点Listen for XDebug 项目的运行，配置不用更改，默认就可以
+    运行后跳出这些按键在窗口中上标题： 暂停 单步跳过 单步调试 单步跳出 重启 停止
+6. 直接在浏览器中打开要调试的php（不是文件路径而是服务器的地址(http://127.0.0.1/test.php)）,vscode就会命中到打断点的地方
+
+7. php最大执行时间好像是30秒，超过30秒会自动终止，因此调试的时候要修改一下时间，在php.ini 文件中修改最大运行时间为5分钟
+    max_execution_time=3000
+8. VScode插件PHP-debug:
+    https://github.com/felixfbecker/vscode-php-debug

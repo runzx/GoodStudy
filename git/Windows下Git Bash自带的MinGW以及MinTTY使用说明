@@ -1,0 +1,24 @@
+Windows下Git Bash自带的MinGW以及MinTTY使用说明
+
+1.   Git的Windows客户端，会自带一个叫MinGW的Linux命令行工具，可以执行简单的shell命令，与cygwin功能类似，仅此而已。
+
+           而在MinGW命令行窗口中，执行命令“mintty”既可以打开mintty窗口，再次可以使用ssh命令登录Linux服务器。
+           注意：Git Bash就是MinGW，这里的磁盘路径需要使用/d/来代替d：来访问具体路径。
+2.  在MinGW输入mintty命令，弹出如下窗口，使用ssh可以连接Linux服务器。
+3.
+    可以配置为鼠标右键粘贴（默认是中键粘贴，但是中键比较难按……）
+    可以方便地通过拖拽文件或者目录的图标到mintty窗口来得到路径
+    可以按住Ctrl点击来打开文件或者URL
+    可以通过Ctrl+“+”和Ctrl+“-”来缩放字体
+    可以方便地更改字体，可以选择一些对中文更友好的字体，比如“Lucida Sans Typewriter”
+4. 常用命令
+    ps      //显示进程
+    df      //磁盘状况
+
+    cmd     //windows命令窗口
+    exit    //退出
+    kill 杀死某个进程
+    mkdir 建立目录
+    rmdir 删除目录
+    rm    删除文件
+    mv    文件改名或目录改名
