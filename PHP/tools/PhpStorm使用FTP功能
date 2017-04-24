@@ -1,0 +1,14 @@
+ PhpStorm中如何使用FTP功能 详细操作方法
+
+1.1 打开一个本地项目。依次找到Tools—>Deployment—>Cofiguration，点击进入。
+1.2填写FTP信息
+    依次填入项目名称，FTP主机地址，用户名，密码，项目的浏览器访问地址，然后点击Test FTP connection测试是否连接成功。
+    点击Mappings,配置项目本地地址，其他默认，注意远程地址那有个斜杠。点击OK。
+1.3查看远程项目文件
+    依次找到Tools—>Deployment—>Browse Remote Host，点击进入。
+2.1远程文件后面的日期如何显示？
+    点击一下右上角的小齿轮，选择Show Date即可。
+2.2怎样下载远程文件到本地？
+    右键选择远程文件，点击Download from here，即完成下载。
+2.3可能遇到的问题：
+   如果按照上面的操，点击测试连接无法连接到远程主机。请尝试点击Advanced options—》勾选Passive mode（被动模式）。

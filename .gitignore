@@ -2,6 +2,9 @@
 .settings/
 .buildpath
 .project
+.idea/
+.vscode/
+%APPDATA%/
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

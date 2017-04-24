@@ -22,7 +22,27 @@
         Route::rule('路由表达式','路由地址','请求类型','路由参数（数组）','变量规则（数组）');
     3）3种URL访问模式，可以自定义、配置
         路由三段法： Route::get('banner/:id','api/v1.Banner/getBanner');
+            Route::get('hello/:id','api/v1.Banner/getBanner')    //三层，子目录用.分鬲
             模块名/控制器名/操作方法名
 4. 参数获取：
     $all = Request::instance()->param();
-5.独立验证
+5.独立验证, TP5内置了很多常用规则，也可自定义。// http://www.kancloud.cn/manual/thinkphp5/129356
+    独门验证
+    use think\Validate;
+    $data=[
+        'name'=>'vendor',
+        'email'=>'vendor@qq.com'
+    ];
+    $validate = new Validate([
+        'name'=>'require|max:10',
+        'email'=>'email'
+    ]);
+    $result = $validate->check($data);
+    //结果:
+    echo $validate->getErro();
+    //批量验证
+    $result = $validate->bath()->check($data);
+    val_dump($validate-getErro());  //返回数组
+    验证器， 更好的封装
+        单独建一个类
+
