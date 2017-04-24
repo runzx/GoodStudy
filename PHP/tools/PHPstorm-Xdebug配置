@@ -13,6 +13,7 @@ PhpStorm中如何使用Xdebug工具，入门级操作方法
        下拉右上角三角形，选择 Edit Configurations，配置服务器信息，添加项目调试开发地址，点击OK。PhpStorm配置完成。本地服务器配置详情查看 http://blog.csdn.net/knight_quan/article/details/51830683
             增加： PHP Web Application
 2. 使用调试功能
+    在phpStorm里打开监听，就是一个电话一样的按钮（右上角）
    在需要调试的行上打上断点（点击一下行号后面的空白处即可，再点一次取消断点），需要说明的是当程序运行到该断点时，程序会停留在该行，但该行本身不会执行。自此可以查看程序运行到此处时所包含的所有数据信息。
    操作流程：
     打断点—>点击臭虫—>点击浏览器页面触发断点—>自动跳转回PhpStorm—>查看携带的数据（调试的目的）
@@ -23,3 +24,32 @@ PhpStorm中如何使用Xdebug工具，入门级操作方法
             xdebug.remote_port = 9000
         PhpStorm中:
             setting->Languages&Frameworks->Debug
+=============================================================
+4.浏览器设置
+    Chrome的Xdebug helper, 此扩展程序将帮助您单击启用/禁用调试和分析。您可以在https://chrome.google.com/extensions/detail/eadndfjplgieldjbigjakmdgkmoaaaoc找到扩展 程序。
+    该扩展 的Firefox的建立是为了使调试与IDE更容易。您可以在https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/找到扩展 名。
+
+5. 如果您希望调试器在出现错误情况（PHP错误或异常）时启动会话，那么您还需要更改 xdebug.remote_mode设置。此设置的允许值为“req”（默认值），这将使调试器在脚本启动时立即启动会话，或者只有在出现错误时才启动会话才会启用“jit”
+    xdebug.remote_mode
+    类型：string，默认值：req
+    选择何时启动调试连接。此设置可以有两个不同的值：
+    req 一旦脚本启动，Xdebug将尝试连接到调试客户端。
+    jit 一旦发生错误，Xdebug将只尝试连接到调试客户端。
+
+    xdebug.idekey
+    类型：string，默认值：* complex *
+    控制哪些IDE密钥Xdebug应传递给DBGp调试器处理程序。默认值基于环境设置。首先参考环境设置DBGP_IDEKEY，然后查询USER和最后一个USERNAME。默认设置为找到的第一个环境变量。如果没有找到该设置的默认值为''。如果设置此设置，它将始终覆盖环境变量。
+
+    xdebug.remote_autostart
+    类型：boolean，默认值：0
+    通常，您需要使用特定的HTTP GET / POST变量来启动远程调试（请参阅远程调试）。当此设置设置为1时，即使GET / POST / COOKIE变量不存在，Xdebug将始终尝试启动远程调试会话并尝试连接到客户端。
+
+    xdebug.remote_cookie_expire_time
+    类型：整数，默认值：3600，在Xdebug> = 2.1中引入
+    此设置可用于通过会话cookie增加（或减少）远程调试会话保持活动的时间。
+
+6. PHPstorm 设置
+    1）打开phpStorm，进入File>Settings>PHP>Servers，这里要填写服务器端的相关信息，name填localhost，host填localhost，port填80，debugger选XDebug
+    2）进入File>Settings>PHP>Debug，看到XDebug选项卡，port填9000，其他默认
+    3）进入File>Settings>PHP>Debug>DBGp Proxy，IDE key 填 PHPSTORM，host 填localhost，port 填80
+

@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\{1a003c2f-d27f-42ca-991f-0df04f9aa72d}]
+"InD110"=dword:002580d8
+"InU"=hex:66,61,39,36,37,36,39,34,2d,31,66,30,38,2d,34,61,30,38,2d,38,36,62,38,\
+  2d,37,34,38,62,31,31,65,36,30,64,35,65
+
+1. 直接删除 {1a003..72d}
+
+2. "InD110"=dword:002580d8 	//8是最大14天

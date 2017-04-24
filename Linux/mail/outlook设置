@@ -1,0 +1,11 @@
+MS邮件设置
+1. hotmail
+    imap-mail.outlook.com   993     Use SSL for IMAP4 connection
+    smtp-mail.outlook.com   587     Use STARTTLS commmand to ...
+2. Office 365 商业版电子邮件的的 POP 和 IMAP 设置
+                        服务器名称             端口  需要使用 SSL (TLS)
+
+接收邮件 (IMAP) 服务器︰outlook.office365.com   993 是 （始终加密）
+                                                143 是 (STARTTLS)
+接收邮件 (POP) 服务器︰ outlook.office365.com   995 是 （始终加密）
+发送邮件 (SMTP) 服务器︰smtp.office365.com      587 是 (STARTTLS)
