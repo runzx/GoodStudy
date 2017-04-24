@@ -1,0 +1,25 @@
+PhpStorm中如何使用Xdebug工具，入门级操作方法
+1. 安装
+    1）注 : php版本和xdebug版本一定要相对应。我这里用的是wampserver，PHP与xdebug均已下载。单独下载Xdebug 网址为http://xdebug.org/download.php
+    2）.配置php.ini
+    找到php.ini所在的目录，在该文件的最后添加以下文本（如果已存在，要把前面的分号；去掉）
+    zend_extension_ts="d:/wamp/bin/php/php5.5.12/zend_ext/php_xdebug-2.2.5-5.5-vc11.dll"//Xdebug存放路径，
+    xdebug.remote_enable=ON//是否允许远程终端，这个必须开启
+    xdebug.profiler_enable = Off//性能优化，本文用不到，选择关闭（不关闭，会以约每分钟几百M的速度产生大量日志文件，用不上一天你的硬盘就哭了）
+    xdebug.idekey="PHPSTORM";//这里是调试器的关键字
+    保存，重启服务器。
+    3).查看Xdebug是否开启成功，打印一下phpinfo即可
+    4).配置PhpStorm
+       下拉右上角三角形，选择 Edit Configurations，配置服务器信息，添加项目调试开发地址，点击OK。PhpStorm配置完成。本地服务器配置详情查看 http://blog.csdn.net/knight_quan/article/details/51830683
+            增加： PHP Web Application
+2. 使用调试功能
+   在需要调试的行上打上断点（点击一下行号后面的空白处即可，再点一次取消断点），需要说明的是当程序运行到该断点时，程序会停留在该行，但该行本身不会执行。自此可以查看程序运行到此处时所包含的所有数据信息。
+   操作流程：
+    打断点—>点击臭虫—>点击浏览器页面触发断点—>自动跳转回PhpStorm—>查看携带的数据（调试的目的）
+    —>可按步执行查找问题点—>点击运行（或者F5）—>浏览器页面继续执行—>调试完成
+3.补充说明：
+    3.1如果端口被占用，可以在php.ini中配置xdebug.remote_port与PhpStorm中的Debug port相同即可。
+        php.ini中：
+            xdebug.remote_port = 9000
+        PhpStorm中:
+            setting->Languages&Frameworks->Debug
