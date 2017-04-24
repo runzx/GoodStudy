@@ -33,9 +33,9 @@
     $parm = Request::instance()->route();   //得到路由里参数
     $parm = Request::instance()->get();     //得到?后参数
     $all = Request::instance()->post();     //得到post参数
-    $all = input('parm');                   //助手函数，单个参数 ‘param.name’
+    $all = input('param');                   //助手函数，单个参数 ‘param.name’
 5.独立验证, TP5内置了很多常用规则，也可自定义。// http://www.kancloud.cn/manual/thinkphp5/129356
-    独门验证
+    独立验证
     use think\Validate;
     $data=[
         'name'=>'vendor',
@@ -50,7 +50,6 @@
     echo $validate->getErro();
     //批量验证
     $result = $validate->bath()->check($data);
-    val_dump($validate-getErro());  //返回数组
+    val_dump($validate->getErro());  //返回数组
     验证器， 更好的封装
         单独建一个类
-
