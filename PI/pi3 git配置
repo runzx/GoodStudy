@@ -25,6 +25,13 @@
 
     sudo chown -R git:git /home/git/app-xcx.git		//小程序后台
 
+    git init --bare /home/git/Zerg.git
+    chown -R git:git /home/git/Zerg.git          //ThinkPHP5.0+小程序商城构建全栈应用
+    git remote add origin git@pi3:Zerg.git
+    git push --set-upstream origin master
+
+
+
 5. 换服务器后客户端报错：
 	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
 	It is also possible that a host key has just been changed.

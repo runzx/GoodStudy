@@ -29,11 +29,22 @@
         1）.../:id       ':'后就是参数
         2) URL后 ?参数＝值
         3）post里 body中
-    $all = Request::instance()->param();    //也可在parm('参数名')来指定相应参数
-    $parm = Request::instance()->route();   //得到路由里参数
-    $parm = Request::instance()->get();     //得到?后参数
-    $all = Request::instance()->post();     //得到post参数
-    $all = input('param');                   //助手函数，单个参数 ‘param.name’
+    取参数方法：
+        1）操作方法中变量参数对应
+            public function hello($id,$name)
+        2）使用think\Request 对象
+            use think\Request;
+            $all = Request::instance()->param();    //也可在parm('参数名')来指定相应参数
+                如果是POST，？后的参数是取不到的
+            $parm = Request::instance()->route();   //得到路由里参数
+            $parm = Request::instance()->get();     //得到?后参数
+            $all = Request::instance()->post();     //得到post参数
+        3）使用助手函数
+            $all = input('param');                   //助手函数，单个参数 ‘param.name’
+            function getUserInfo(Request $request, $userId) //依赖注入
+            {
+                return 'Hello,' . $request->param('name') . '！';
+            }
 5.独立验证, TP5内置了很多常用规则，也可自定义。// http://www.kancloud.cn/manual/thinkphp5/129356
     独立验证
     use think\Validate;

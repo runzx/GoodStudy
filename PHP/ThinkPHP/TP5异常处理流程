@@ -1,0 +1,12 @@
+TP5 异常处理流程
+
+1.异常处理接管
+    框架支持异常页面由开发者自定义类进行处理，需要配置参数exception_handle
+
+        // 异常处理handle类 留空使用 \think\exception\handle
+        'exception_handle'       => '\\app\\common\\exception\\Http',
+    自定义类需要继承Handle并且实现render方法，可以参考如下代码：
+        class Http extends Handle
+        {
+        }
+    需要注意的是，如果配置了'exception_handle'，且没有再次调用系统render的情况下，配置http_exception_template就不再生效，具体可以参考Handle类内实现的功能。

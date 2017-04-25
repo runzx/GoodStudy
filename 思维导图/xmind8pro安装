@@ -1,0 +1,23 @@
+
+C:\Program Files (x86)\XMind
+
+XMindCrack --- XMind 破解工具
+支持 XMind7、XMind8、XMind8 Update1
+
+使用步骤:
+
+1、将 -javaagent:D:/XMindCrack.jar 配置到 XMind.ini 中
+    -javaagent:G:/tools/xmind/XMindCrack.jar
+2、阻止 XMind 联网
+    127.0.0.1		www.xmind.net
+3、输入序列号 XAka34A2rVRYJ4XBIU35UZMUEEF64CMMIYZCK2FZZUQNODEKUHGJLFMSLIQMQUCUBXRENLK6NZL37JXP4PZXQFILMQ2RG5R7G4QNDO3PSOEUBOCDRYSSXZGRARV6MGA33TN2AMUBHEL4FXMWYTTJDEINJXUAV4BAYKBDCZQWVF3LWYXSDCXY546U3NBGOI3ZPAP2SO3CSQFNB7VVIY123456789012345
+
+
+Step 1 -全新下载最新版本的 Xmind 8（访问 Xmind 官方网站可以下载，注必须是英文官方的版本，中文代理网站的版本修改过，无法使用破解）。
+        http://www.xmind.net/download/win/
+Step 2 -安装完毕后，点击文末的下载按钮下载破解补丁文件包，将 XMindCrack.zip 内的文件解压到 Xmind 的安装目录，默认安装路径为 C:\Program Files (x86)\XMind；
+        http://www.jb51.net/softs/549424.html
+Step 3 -将 XMindCrack.jar 复制到 D 盘根目录；
+Step 4 -将 Xmind 安装目录下的 XMind.ini 复制至桌面，使用记事本打开增加一行“-javaagent:D:/XMindCrack.jar”（引号内的内容，引号无需复制），保存后将文件重新拖拽或者复制到 Xmind 的安装目录；
+Step 5 -断开网络, 或者使用防火墙阻止 XMind 联网, 或者在 hosts 中添加 0.0.0.0 www.xmind.net（建议采用断网或者增加hosts记录法，优选修改hosts法，推荐一个小工具-使用SwitchHosts小工具随心所欲地更改hosts文件）。
+Step 6 -打开 XMind, “帮助-序列号”，随便输入邮箱地址和下面的序列号激活软件：
