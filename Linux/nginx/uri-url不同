@@ -16,3 +16,17 @@
             ①访问资源的命名机制
             ②存放资源的主机名
             ③资源自身的名称，由路径表示，着重强调于资源。
+
+3. 例：
+    下图展示了两个 URI 例子及它们的组成部分。
+                        hierarchical part
+            ┌─────────┴────────────┐
+                          authority                path
+            ┌─────────┴──────┐┌─┴──┐
+       abc://username:password@example.com: 123 /path/data ? key=value&key2=value2 # fragid1
+      └┬┘└──┬────┘ └─┬──┘└┬┘           └────┬────┘ └─┬─┘
+       scheme user information    host     port                      query          fragment
+
+       urn:example:mammal:monotreme:echidna
+      └┬┘ └──────┬──────┘
+    scheme              path
