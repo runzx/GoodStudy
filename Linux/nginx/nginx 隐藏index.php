@@ -1,5 +1,8 @@
 
-1. fastcgi_split_path_info
+1.
+    /etc/nginx/fastcgi.confg ， 比fastcgi_params只多出下面一行：
+        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_split_path_info
     就是把参数分割成 $fastcgi_script_name 和 $fastcgi_path_info，分割方式是后面的正则表达式。
     fastcgi_split_path_info ^(.+\.php)(.*)$;
         第一个$fastcgi_script_name变量是变量的值，第二个成为$fastcgi_path_info变量的值
