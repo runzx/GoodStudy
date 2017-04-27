@@ -1,0 +1,28 @@
+PHPstorm自动完成代码和路径
+基本代码完成。完成名称和关键字
+    开始输入名称。
+    按Ctrl+Space或选择代码| 完成| 基本从主菜单。
+    如有必要，请再次按下Ctrl+Space（此操作产生与按下相同的效果Ctrl+Alt+Space）。
+智能代码完成。根据类型信息完成代码
+    智能代码完成过滤建议列表，仅显示适用于当前上下文的类型。
+    开始输入 按Ctrl+Shift+Space或选择代码| 完成| SmartType 从主菜单。
+    SmartType代码完成自动突出显示最适合当前上下文的建议列表中的选择。
+    如有必要，再按Ctrl+Shift+Space一次。
+完成声明
+    的智能输入完成使您能够创建语法正确的代码结构。
+    要自动完成语句，请开始输入语句并按Ctrl+Shift+Enter。添加当前上下文中所需的标点符号，插入符号移动到下一个编辑位置。
+        完成代码结构：开始键入代码结构，然后按 Ctrl+Shift+Enter：
+        PhpStorm自动完成构造，插入符处于下一个编辑位置：
+        当您直接在其旁边键入新的方法调用时，PhpStorm会自动封装方法调用。
+        例如，键入
+            |"test"
+        然后键入方法调用。在println建议列表中获取焦点时，请选择Ctrl+Shift+Enter
+            结果代码将如下所示：
+            System.out.println("test");
+完成标签名称
+    PhpStorm会自动完成以下文件类型中的标签和属性名称和值：
+    HTML / XHTML
+    XML / XSL
+    按<并开始输入标签名称。PhpStorm显示当前上下文中适当的标签名称列表。使用ArrowUp和ArrowDown按钮滚动列表。
+    按Enter从列表中接受选择。
+    PhpStorm根据模式自动插入必需属性。
