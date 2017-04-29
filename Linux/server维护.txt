@@ -31,6 +31,8 @@
     zip -r /data/zxbak/appsoft/update17.0.zip /home/update17
     upzip my.zip -d /xxx/yyy        // 解压my.zip 到指定yyy目录
 
+    zip -r /data/zxbak/appsoft/update18.1.zip /home/update      //20170429
+    http://update.bosstg.cn/index.php?g=System&m=Database&a=back
 8. 备份数据库
     1） webmin   //已设定每周日自动备份
     2) sqlyog 

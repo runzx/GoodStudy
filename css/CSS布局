@@ -1,0 +1,35 @@
+CSS 布局
+
+1. display 是CSS中最重要的用于控制布局的属性。每个元素都有一个默认的 display 值，这与元素的类型有关。对于大多数元素它们的默认值通常是 block 或 inline 。
+    block 元素通常被叫做块级元素。
+        div、 p 、 form
+        HTML5中的新元素： header 、 footer 、 section
+        块级元素会新开始一行并且尽可能撑满容器
+    inline 元素通常被叫做行内元素。
+        span、a
+    none
+        script,
+        不删除元素的情况下隐藏或显示元素, 不占空间； visibility: hidden， 还会占据空间。
+2.
+    #main {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    margin: auto; 块左右水平居中
+
+    box-sizing ：此元素的内边距和边框不再会增加它的宽度。
+    * {
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+3.  position 属性
+    relative，相对定位的元素上设置 top 、 right 、 bottom 和 left 属性会使其偏离其正常位置。其他的元素的位置则不会受该元素的影响发生位置改变来弥补它偏离后剩下的空隙。
+    fixed，固定定位元素会相对于视窗来定位，这意味着即便页面滚动，它还是会停留在相同的位置。
+    绝对定位（position属性的值为absolute）的元素没有“positioned”祖先元素，那么它是相对于文档的 body 元素，并且它会随着页面滚动而移动。
+    Float 可用于实现文字环绕图片
+    clear 属性被用于控制浮动。
+
+4. flexbox 布局
+
