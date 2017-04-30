@@ -1,7 +1,7 @@
 //  phpstorm的快捷键
 
 command + 鼠标点击   跳到类或方法或变量等声明处
-alt + f7            直接查询选中的字符
+alt + f7            直接查询选中的字符，函数在什么地方引用
 ctrl + f7           文件中查询选中字符
 command + e         打开最近的文件 // ctrl + Tab
 command + shift + +,- 展开或缩起

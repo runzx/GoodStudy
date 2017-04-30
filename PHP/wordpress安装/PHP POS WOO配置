@@ -1,0 +1,65 @@
+WooCommerce集成
+建议编辑
+用Woocommerce设置PHP销售点
+
+安装Wordpress和WooCommerce
+WooCommerce是流行的网站创建工具Wordpress的免费插件。您首先需要安装wordpress，然后安装Woocommerce插件。注意：出于安全性和性能原因，始终保持最新的这两款软件是非常重要的。
+
+确保Wordpress和WooCommerce是最新的
+由于安全性和性能原因，始终保持最新的wordpress和woocommerce是非常重要的。
+安装Wordpress
+您可以按照以下步骤操作：
+
+Wordpress.org
+
+安装Woocommerce
+您可以按照WooCommerce网站上的步骤操作
+
+配置PHP销售点连接到WooCommerce
+设置PHP销售点与WooCommerce通信很容易。它涉及2个步骤。
+
+在WooCommerce中生成API密钥
+将API信息复制到PHP销售点
+在WooCommerce中生成API密钥
+见 WooCommerce文档上生成的REST API的API密钥。
+
+将API信息复制到PHP销售点
+在最后一步，您为WooCommerce生成了API密钥; 现在您需要将此信息放入PHP销售点。这是步骤。
+
+登录到您的销售点系统，然后在左侧导航栏中选择商店配置
+
+搜索“电子商务”，并选择WooCommerce作为电子商务环境下的电子商务平台。
+
+在您的WooCommerce版本中出现的“Woocommerce”部分; 您商店的网址以及Consumer Key和Consumer Secret，如下图所示
+
+您现在已经完成设置。
+同步PHP销售点和Woo商务
+在与WooCommerce的集成中，我们已经作出了将PHP销售点视为数据主数据的决定。这意味着您在php销售点所做的任何更改都将反映在WooCommerce中。当您想要更改WooCommerce时，您应该从PHP销售点进行。
+
+但是，我们已经尝试使已经拥有WooCommerce站点的人员首次使用POS或第一次使用WooCommerce的人员进行此集成。
+
+同步数据
+我们已经将数据同步到一个按钮操作的过程。您可以选择要同步的内容，我们的程序将会对其进行处理。您可以导入和/或导出项目，类别，标签，或只是同步库存数据。这可以通过选择您的选项并点击同步，从商店配置完成，如下所示。
+
+注意：此过程可能需要长时间; 特别是对于初始同步取决于你有多少数据。
+
+默认情况下，它同步所有项目，类别和标签。注意：您可以在编辑/创建项目时取消选中“电子商务项目”框，以排除项目。
+
+
+通过cron任务设置自动同步
+可以通过php销售点中的cron任务自动设置Woocommerce同步。
+
+如果您从您的网站使用流行的cpanel软件; 您可以阅读在其文档网站上设置cron任务。
+
+如果您有命令行访问您的Linux服务器; 阅读更多关于cron任务：
+
+https://help.ubuntu.com/community/CronHowto
+
+如果您是云客户，请与我们联系以获取此设置。
+
+我们建议将任务设置为每15分钟运行一次。由于性能原因，我们建议不要做更短的间隔。
+
+到脚本的路径因服务器和安装的位置而异; 但是如果将其安装在/ home / public_html / pos中，则每隔15分钟将cron任务中的脚本的修补程序看起来就像
+
+Cron任务
+ */15 * * * * php /home/public_html/pos/index.php ecommerce cron
