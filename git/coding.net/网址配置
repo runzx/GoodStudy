@@ -1,0 +1,15 @@
+
+coding.net 访问方式：
+    https://git.coding.net/runzx/zhaizyC.git    //https
+        （推荐轻量级用户使用）
+        怎样在每次 Push 时不用重复输入密码？
+            $git config --global credential.helper store
+    git@git.coding.net:runzx/zhaizyC.git        // ssh
+        使用加密通道读写仓库，无单次上传限制，需先设置“账户 SSH 公钥”，完成配对验证。
+        本地打开 id_rsa.pub 文件（或执行 $cat id_rsa.pub ），复制其中全部内容，添加到账户“SSH 公钥”页面 中，公钥名称可以随意起名字。
+        命令行测试，首次建立链接会要求信任主机。
+            ssh -T git@git.coding.net
+        信任：
+            1.删除 ~/.ssh/known_hosts 中 coding.net 相关的行
+            2.重试 push 或者 pull 或者 ssh -T git@git.coding.net
+            3.遇到询问是否信任服务器公钥，输入 yes 即可
