@@ -24,4 +24,6 @@
 三，快捷方式
     1.  PHPstorm中自动生成namespace
            setting->Directories->Sources
-
+四，linux下安装
+    sudo tar xf PhpStorm-*.tar.gz -C /opt/
+    ln -s /opt/PhpStorm-171.4424.11/bin/phpstorm.sh /usr/local/bin/phpstorm
