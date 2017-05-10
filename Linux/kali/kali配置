@@ -1,0 +1,18 @@
+
+[SSH 开机自启动]
+    １.　vi /etc/rc.local     （Kali Linux 2.0之后换成systemd来管理启动，所以rc.local就失效了。）
+        /etc/init.d/ssh start
+        exit 0
+    ２.　开机自动启动则：
+       update-rc.d ssh enable
+       关闭则为：
+       update-rc.d ssh disabled
+[vmtools安装]
+    3.按照官方文档。
+        apt-get update
+        apt-get install open-vm-tools-desktop fuse
+        reboot
+
+        vmware-hgfsclient 如何没显示，说明共享文件有问题（内核高于３.１１时）
+1.编辑源
+    vi /etc/apt/sources.list

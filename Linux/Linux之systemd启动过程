@@ -1,0 +1,26 @@
+Linux之systemd启动过程
+
+１.　传统的Linux系统启动过程主要由著名的init进程（也被称为SysV init启动系统）处理，而基于init的启动系统被认为有效率不足的问题
+    理解Linux启动过程
+    在我们打开Linux电脑的电源后第一个启动的进程就是init。分配给init进程的PID是1。它是系统其他所有进程的父进程。当一台Linux电脑启动后，处理器会先在系统存储中查找BIOS，之后BIOS会检测系统资源然后找到第一个引导设备，通常为硬盘，然后会查找硬盘的主引导记录（MBR），然后加载到内存中并把控制权交给它，以后的启动过程就由MBR控制。
+    主引导记录会初始化引导程序（Linux上有两个著名的引导程序，GRUB和LILO，80%的Linux系统在用GRUB引导程序），这个时候GRUB或LILO会加载内核模块。内核会马上查找/sbin下的“init”程序并执行它。从这里开始init成为了Linux系统的父进程。init读取的第一个文件是/etc/inittab，通过它init会确定我们Linux操作系统的运行级别。它会从文件/etc/fstab里查找分区表信息然后做相应的挂载。然后init会启动/etc/init.d里指定的默认启动级别的所有服务/脚本。所有服务在这里通过init一个一个被初始化。在这个过程里，init每次只启动一个服务，所有服务/守护进程都在后台执行并由init来管理。
+２.　Systemd支持并发引导过程从而可以更快启动
+   通过控制组来追踪进程，而不是PID
+   优化了处理引导过程和服务之间依赖的方式
+   支持系统快照和恢复
+   监控已启动的服务；也支持重启已崩溃服务
+   包含了systemd-login模块用于控制用户登录
+   支持加载和卸载组件
+   低内存使用痕迹以及任务调度能力
+   记录事件的Journald模块和记录系统日志的syslogd模块
+３.　
+    １）systemd执行的第一个目标是default.target。但实际上default.target是指向graphical.target的软链接。
+    ２）启动multi-user.target而这个target将自己的子单元放在目录“/etc/systemd/system/multi-user.target.wants”里。这个target为多用户支持设定系统环境。非root用户会在这个阶段的引导过程中启用。防火墙相关的服务也会在这个阶段启动。
+    ３）"basic.target"单元用于启动普通服务特别是图形管理服务。它通过/etc/systemd/system/basic.target.wants目录来决定哪些服务会被启动，basic.target之后将控制权交给sysinit.target.
+    ４）"sysinit.target"会启动重要的系统服务例如系统挂载，内存交换空间和设备，内核补充选项等等。sysinit.target在启动过程中会传递给local-fs.target。
+    ５）local-fs.target，这个target单元不会启动用户相关的服务，它只处理底层核心服务。这个target会根据/etc/fstab和/etc/inittab来执行相关操作。
+４.　
+    /usr/lib/systemd/system/ ：软件包安装的单元
+    /etc/systemd/system/ ：系统管理员安装的单元
+    当 systemd 运行在用户模式下时，使用的加载路径是完全不同的。
+    systemd 单元名仅能包含 ASCII 字符，下划线和点号。其它字符需要用 C-style "\x2d" 替换
