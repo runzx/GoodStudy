@@ -24,3 +24,25 @@ Linux之systemd启动过程
     /etc/systemd/system/ ：系统管理员安装的单元
     当 systemd 运行在用户模式下时，使用的加载路径是完全不同的。
     systemd 单元名仅能包含 ASCII 字符，下划线和点号。其它字符需要用 C-style "\x2d" 替换
+5.
+    #  创建 rc.local文件: sudo vi /etc/rc.local , 写入你要执行的命令,并最后一行用 : exit 0
+    # chmod +x /etc/init.d/rc.local #增加脚本执行权限
+    # update-rc.d rc.local start 99 2 3 4 5 . stop 01 0 1 6 . #设置启动级别
+    # 执行: sudo systemctl enable rc-local.service ?
+    # update-rc.d -f rc.local remove    若要删除脚本的启动级别运行如下命令
+    rc-local.service :
+        [Unit]
+         Description=/etc/rc.local Compatibility
+         ConditionPathExists=/etc/rc.local
+
+        [Service]
+         Type=forking
+         ExecStart=/etc/rc.local start
+         TimeoutSec=0
+         StandardOutput=tty
+         RemainAfterExit=yes
+         SysVStartPriority=99
+        #sysVstart这行可以删掉，我看启动日志中貌似报忽略这个了。。
+
+        [Install]
+         WantedBy=multi-user.target
