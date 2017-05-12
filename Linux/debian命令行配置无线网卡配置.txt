@@ -1,0 +1,59 @@
+先ifconfig wlan0 up 看看有没有检测到无线网卡，笔记本可能要用fn+F5之类的组合键来激活无线网卡。
+
+
+安装无线网卡相关命令程序
+apt-get install iw wpasupplicant wireless-tools
+
+
+获取无线网卡相关数据
+iw list
+
+
+列出当前可以搜索到的无线网络SSID
+
+
+
+配置网络
+编辑 /etc/network/interface
+
+
+有线网卡动态ip加入
+allow-hotplug eth0
+auto eth0
+iface eth0 inet dhcp
+
+
+有线网卡静态IP加入
+auto eth0
+iface eth0 inet static
+address 192.168.10.3
+netmask 255.255.255.0
+gateway 192.168.10.1
+
+
+无线网卡动态IP加入
+auto wlan0
+iface wlan0 inet dhcp
+
+
+无线网卡静态IP加入
+auto wlan0
+iface wlan0 inet static
+address 192.168.10.5
+netmask 255.255.255.0
+gateway 192.168.10.1
+wpa-essid yourssid
+wpa-psk yourpassword
+
+
+
+
+使配置生效
+/etc/init.d/networking restart
+
+
+查看网络配置状态
+ifconfig
+
+
+配置完成

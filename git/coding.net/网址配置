@@ -13,3 +13,14 @@ coding.net 访问方式：
             1.删除 ~/.ssh/known_hosts 中 coding.net 相关的行
             2.重试 push 或者 pull 或者 ssh -T git@git.coding.net
             3.遇到询问是否信任服务器公钥，输入 yes 即可
+1 错误处理：
+    remote: Coding.net Tips : [Authentication failed!]
+    fatal: Authentication failed for 'https://git.coding.net/runzx/GoodSstudy.git/'
+
+    改.git/config    (不能用网站上的： https://git.coding.net/runzx/GoodSstudy.git，https://git.oschina.net/runzx/goodstudy.git 这2个网址只能用于clone, fetch）
+        [remote "oschina"]
+        	url = git@git.oschina.net:runzx/goodstudy.git
+        	fetch = +refs/heads/*:refs/remotes/oschina/*
+        [remote "coding"]
+        	url = git@git.coding.net:runzx/GoodSstudy.git
+        	fetch = +refs/heads/*:refs/remotes/coding/*

@@ -1,0 +1,69 @@
+https://fcitx-im.org/wiki/Fcitx/zh-cn
+
+
+ubuntu 安装fcitx五笔拼音输入法
+
+
+第一步：缷载ibus
+sudo apt-get remove ibus
+重启ubuntu
+
+第二步：更新fctix源及安装
+sudo add-apt-repository ppa:wengxt/fcitx-nightly
+sudo apt-get update
+sudo apt-get install fcitx-table-wbpy
+
+第三步：重启ubuntu即可。
+====================================================================
+
+后来问了搜狗官方，才知道搜狗只管拼音输入法。
+需要五笔98的看来只能自己更换码表了，谷歌的代码网页上有一个：
+
+https://code.google.com/p/fcitx/ ... ?name=wb98-utf8.zip
+https://code.google.com/p/fcitx/downloads/detail?name=wb98-utf8.zip
+下载并解压后把码表复制到 /usr/share/fcitx/table/ 下，删除原来的码表文件 wbx.mb，
+再把这一位置下的 wbx.conf 文件中的 File=wbx.mb 改为 File=wb98.mb，就可以使用五笔98了。
+
+在Deepin系统里是可以不删除原来的86码表和配置文件的，添加98码表和配置文件以后，86版和98版可以切换。优麒麟14.04好像切换不了，只好把86码表删掉
+。
+
+====================================================
+安装源
+
+Fcitx 在 Ubuntu 官方源中已经有很长一段时间了，但是 4.2 之后的 Fcitx 将首次在Ubuntu 12.04 中出现。
+
+如果你想要安装最新的 Fcitx 和相关包的话，你可以使用 ppa。
+
+sudo add-apt-repository ppa:fcitx-team/nightly
+
+或者
+
+sudo add-apt-repository ppa:fcitx-team/stable
+
+可以使用不同的软件源。你可以通过ppa的网页来确认它包含哪个版本的Fcitx。
+
+在增加了软件源之后，你需要使用
+
+sudo apt-get update
+
+或者用你最喜欢的包管理器来刷新，搜索fcitx，并安装它。 
+============
+配置
+
+如果你使用较老的Ubuntu，Ubuntu可能只有im-switch，你可以使用
+
+im-switch -s fcitx
+
+或者通过你桌面的启动器运行 language-selector。
+
+你需要注销来使得所有配置工作。
+
+如果你使用较新的 Ubuntu，你的Ubuntu 也许使用im-config而不是im-switch，你可以通过im-config来选择输入法。
+对于 Qt/Kubuntu
+
+由于一个不一致的im-switch环境变量设置，QT4_IM_MODULE 并不会被设置为环境变量。
+
+1. 不要忘记安装 fcitx-frontend-qt4
+
+2. 安装 qt4-qtconfig，并且运行 qtconfig-qt4 ，并在介面标签选择 fcitx。 
+=============
