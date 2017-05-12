@@ -9,6 +9,8 @@
         {
         }
 2. 快速生成控制器类
+    php think make:conrtoller api/v1/Theme
+
     php think make:controller index/Blog
 
         <?php
