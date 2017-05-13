@@ -134,3 +134,6 @@
     optimize:config	生成配置缓存文件
     optimize:route	生成路由缓存文件
     optimize:schema	生成数据表字段缓存文件
+
+４. TP5自带web server
+    php -S localhost:8080 router.php    //在public/下, 命令行

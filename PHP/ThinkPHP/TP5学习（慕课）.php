@@ -64,3 +64,14 @@
     val_dump($validate->getErro());  //返回数组
     验证器， 更好的封装
         单独建一个类
+６.　TP5 目录结构
+    runtime/ 缓存文件、log日志文件
+    vendor/ 第三方类库，composer
+    extend/ 第三方类库,框架自动注册
+7. TP5自带web server
+    php -S localhost:8080 route　r.php    //在public/下, 命令行
+８.　模块
+    namespace app\模块名\controller
+    phpstorm自动命名空间规范：
+        setting -> Directories -> 选中application目录，点击上面Sources,再点右则Source Folders 右边带p的小三角
+            把application设为app
