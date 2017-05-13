@@ -1,0 +1,31 @@
+vscode 基本配置和使用
+
+快捷键
+    code            在terminal打开vccode
+    ctrl+p          查看搜索打开目录下的所有的文件
+    ctrl+shift+p    或者 F1 打开控制台
+    alt+shift+up/down 列选择
+    alt+up/down     选中后使用快捷键，整块代码向上/下移动
+    alt+click Multiple cursors多处编辑（注：ubuntu和本身快捷键冲突，按alt会弹出菜单，需要设置gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"）
+    ctrl+\          将一个文档分分为两个窗口，最多三个
+    ctrl+tab        切换打开的tab栏，按tab选择
+    ctrl+g          跳转到指定的行
+    ctrl+shift+f    在打开的文件夹中寻找（可以选择文件搜索范围，支持正则表达式,反向引用：$1）
+    ctrl+f          在当前文件查找
+    ctrl+h          在当前文件中
+    shift+alt+鼠标 块选择
+    ctrl+`          启动终端
+    ctrl+/          加//解注释
+    folding折叠
+        Fold (Ctrl+Shift+[)         折叠所在的这个部分
+        Unfold (Ctrl+Shift+])       取消所在部分的折叠
+        Fold All (Ctrl+K Ctrl+0)    折叠当前编辑文件的所有可折叠部分
+        Unfold All (Ctrl+K Ctrl+J)  取消当当前文件所有折叠
+        Fold Level X (Ctrl+K Ctrl+2 for level 2) 折叠所有level x（还可以用 ctrl+3、ctrl+4等）的缩进去（除了当前编辑位置所在的）
+
+php
+
+    php-debug   php Debug棒的不行
+        需要在setting.json里设置"php.validate.executablePath": "/usr/bin/php"
+    php IntelliSense Crane  补全超级牛
+    PHP IntelliSense        另一个，能搜索函数、格式化代码

@@ -1,0 +1,160 @@
+// User/Preferences.sublime-settings
+//我觉得自带字体挺好的。
+{
+    "color_scheme": "Packages/User/SublimeLinter/Dawn (SL).tmTheme", //主题
+    "draw_minimap_border": true, // 右侧缩略图边框
+    "font_size": 10, // 字体大小
+    "highlight_line": true, // 当前行标亮
+    "save_on_focus_lost": true, // 当前行标亮
+    "theme": "Spacegray Eighties.sublime-theme", //主题相关
+    "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?", // 双击选中中划线
+    "word_wrap": true, //自动换行
+    "trim_trailing_white_space_on_save": true, //自动移除行尾多余空格
+    "ensure_newline_at_eof_on_save": true, //文件末尾自动保留一个空行
+    "disable_tab_abbreviations": true, //禁用 Emmet 的 tab 键功能（请使用 ctrl+e）
+    "translate_tabs_to_spaces": true, //把代码 tab 对齐转换为空格对齐
+    "tab_size": 4, //空格数
+    "fade_fold_buttons": false, //显示代码块的倒三角
+    "bold_folder_labels": true, //侧边栏文件夹加粗
+    "auto_find_in_selection": true //开启选中范围内搜索
+}
+
+
+
+// https://www.zybuluo.com/king/note/47271#sublime-text-3-配置和使用方法
+
+{
+    // 开启选中范围内搜索
+    "auto_find_in_selection": true,
+    // 侧边栏文件夹显示加粗，区别于文件
+    "bold_folder_labels": true,
+    "color_scheme": "Packages/C
+
+    olor Scheme - Default/Solarized (Dark).tmTheme",
+    // 使用 unix 风格的换行符
+    "default_line_ending": "unix",
+    // 覆盖操作系统设置的DPI，否则标签上的中文显示为方块
+    "dpi_scale": 1.0,
+    // true则禁用Emmet的tab键功能
+    // "disable_tab_abbreviations": true,
+    // 右侧代码预览时给所在区域加上边框
+    "draw_minimap_border": true,
+    // 保证在文件保存时，在结尾插入一个换行符。
+    // 这样 git 提交时不会生产额外的 diff
+    "ensure_newline_at_eof_on_save": true,
+    // 默认显示行号右侧的代码段闭合展开三角号
+    "fade_fold_buttons": false,
+    "font_face": "Microsoft YaHei Mono",
+    "font_size": 13,
+    // 当前行高亮
+    "highlight_line": true,
+    // 高亮未保存文件
+    "highlight_modified_tabs": true,
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    // 窗口失焦立即保存文件
+    "save_on_focus_lost": true,
+    // 自动移除行尾多余空格
+    "trim_trailing_white_space_on_save": true,
+    "trim_automatic_white_space": true,
+    // 关闭自动更新
+    "update_check": false,
+    // 自动换行
+    "word_wrap": "true",
+    // Tab转空格
+    "translate_tabs_to_spaces": true
+}
+// 快捷键
+[
+// 代码提示
+{ "keys": ["alt+space"], "command": "auto_complete" },
+{ "keys": ["alt+space"], "command": "replace_completion_with_auto_complete", "context":
+  [
+    { "key": "last_command", "operator": "equal", "operand": "insert_best_completion" },
+    { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+    { "key": "setting.tab_completion", "operator": "equal", "operand": true }
+  ]
+},
+// 跳转到函数定义
+{ "keys": ["ctrl+alt+d"], "command": "goto_definition" },
+]
+
+//  https://www.zybuluo.com/king/note/47271
+
+{
+    // 开启选中范围内搜索
+    "auto_find_in_selection": true,
+    // 侧边栏文件夹显示加粗，区别于文件
+    "bold_folder_labels": true,
+    "color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+    // 使用 unix 风格的换行符
+    "default_line_ending": "unix",
+    // 覆盖操作系统设置的DPI，否则标签上的中文显示为方块
+    "dpi_scale": 1.0,
+    // true则禁用Emmet的tab键功能
+    // "disable_tab_abbreviations": true,
+    // 右侧代码预览时给所在区域加上边框
+    "draw_minimap_border": true,
+    // 保证在文件保存时，在结尾插入一个换行符。
+    // 这样 git 提交时不会生产额外的 diff
+    "ensure_newline_at_eof_on_save": true,
+    // 默认显示行号右侧的代码段闭合展开三角号
+    "fade_fold_buttons": false,
+    "font_face": "Microsoft YaHei Mono",
+    "font_size": 13,
+    // 当前行高亮
+    "highlight_line": true,
+    // 高亮未保存文件
+    "highlight_modified_tabs": true,
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    // 窗口失焦立即保存文件
+    "save_on_focus_lost": true,
+    // 自动移除行尾多余空格
+    "trim_trailing_white_space_on_save": true,
+    "trim_automatic_white_space": true,
+    // 关闭自动更新
+    "update_check": false,
+    // 自动换行
+    "word_wrap": "true",
+    // Tab转空格
+    "translate_tabs_to_spaces": true
+}
+
+// https://segmentfault.com/a/1190000004463984
+
+{
+    "bold_folder_labels": true,
+    "caret_style": "phase",
+    "color_scheme": "Packages/Theme - Flatland/Flatland Dark.tmTheme",
+    "draw_white_space": "all",
+    "ensure_newline_at_eof_on_save": true,
+
+    "font_face": "microsoft yahei",
+    "font_size": 12,
+    "highlight_line": true,
+    "highlight_modified_tabs": true,
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    "open_files_in_new_window": false,
+    "rulers":
+    [
+        80,
+        100
+    ],
+    "save_on_focus_lost": true,
+    "show_encoding": true,
+    "show_full_path": true,
+    "spell_check": false,
+    "tab_size": 4,
+    "theme": "Material-Theme-Darker.sublime-theme",
+    "translate_tabs_to_spaces": true,
+    "trim_trailing_white_space_on_save": true,
+    "word_wrap": false
+}

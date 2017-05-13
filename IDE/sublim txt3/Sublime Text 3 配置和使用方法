@@ -1,0 +1,51 @@
+Sublime Text 3 配置和使用方法
+
+技巧
+
+-用户或-User后缀的菜单项，其对应的配置文件都保存在Packages\User文件夹下，将它们上传到Github，便于同步。
+
+ 对应的快捷键与分屏情况如下：
+      Alt+Shift+1       Single             独屏
+      Alt+Shift+2       Columns:2      纵向二栏分屏
+      Alt+Shift+3       Columns:3      纵向三栏分屏
+      Alt+Shift+4       Columns:4      纵向四栏分屏
+      Alt+Shift+8       Rows:2          横向二栏分屏
+      Alt+Shift+9       Rows:3          横向三栏分屏
+      Alt+Shift+5       Grid              四格式分屏
+      Ctrl+Shift+N 		创建一个新窗口。
+      F11    			切换至普通全屏
+      Shift + F11			切换至无干扰全屏
+       Ctrl + Shift + T    恢复刚刚关闭的标签
+
+四种 Goto ：
+Ctrl + P 文件定位
+Ctrl + ; 词语定位 #
+Ctrl + R 函数定位 @
+Ctrl + G 行号定位 :
+
+括号前后移动光标：Ctrl + M
+以单词为单位前后移动光标：Ctrl + Left/Right
+Ctrl+→ 向右单位性地移动光标，快速移动光标。
+重新打开刚刚关闭的标签页：Ctrl + Shift + T
+当前行与上/下一行交换位置：Shift + Ctrl + Up/Down
+向光标前插入一行：Shift + Ctrl + Enter
+向光标后插入一行：Ctrl + Enter
+复制光标所在整行，插入到下一行：Ctrl + Shift + D
+合并选中的多行代码为一行：Ctrl + J
+快速折叠文件内所有函数：Ctrl + K + 1 （数字表示级别）
+
+1.安装控制板：
+	（1）https://packagecontrol.io/
+	（2）选择“SUBLIME TEXT 3”选项卡，复制出里面的代码段
+	（3）菜单“Preferences”可见“Package Control”项，成功。
+	（4）安装插件方法：
+		下载完整的插件包后解压，放入 C:\Users\userName\AppData\Roaming\Sublime Text 3\Packages 目录下
+2.常用插件：
+	（1）ConvertToUTF8  中文必备
+	（2）SideBarEnhancements  左侧文件栏
+	（3）DocBlockr 	语言函数注释 	/** 按TAB 或Enter
+	(4) AutoFileName	自动补全文件(目录)名
+                  (5) HTML-CSS-JS Prettify      格式化js、html与css代码
+
+
+
