@@ -53,3 +53,14 @@ PhpStorm中如何使用Xdebug工具，入门级操作方法
     2）进入File>Settings>PHP>Debug，看到XDebug选项卡，port填9009，(9000留给nginx)其他默认
     3）进入File>Settings>PHP>Debug>DBGp Proxy，IDE key 填 PHPSTORM，host 填localhost，port 填9009
 
+7. PC上php.ini配置:
+    [XDebug]
+    xdebug.profiler_output_dir="C:\phpStudy\tmp\xdebug"
+    xdebug.trace_output_dir="C:\phpStudy\tmp\xdebug"
+    ;zend_extension="C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug.dll"
+    ; for zx
+    zend_extension="C:\phpStudy\php\php-5.6.27-nts\ext\php_xdebug-2.5.3-5.6-vc11-nts.dll"
+    xdebug.remote_port=9009
+    xdebug.remote_enable=true
+    xdebug.remote_autostart = 1
+    xdebug.idekey="PHPSTORM"
