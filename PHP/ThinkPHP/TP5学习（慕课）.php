@@ -42,11 +42,24 @@
             $parm = Request::instance()->get();     //得到?后参数
             $all = Request::instance()->post();     //得到post参数
         3）使用助手函数
-            $all = input('param');                   //助手函数，单个参数 ‘param.name’
+            $all = input('param.');                   //助手函数，单个参数 ‘param.name’或'name'、'get.'、'get.name'
             function getUserInfo(Request $request, $userId) //依赖注入
             {
                 return 'Hello,' . $request->param('name') . '！';
             }
+        4) 方法	    描述
+            param	获取当前请求的变量
+            get	    获取 $_GET 变量
+            post	获取 $_POST 变量
+            put	    获取 PUT 变量
+            delete	获取 DELETE 变量
+            session	获取 $_SESSION 变量
+            cookie	获取 $_COOKIE 变量
+            request	获取 $_REQUEST 变量
+            server	获取 $_SERVER 变量
+            env	    获取 $_ENV 变量
+            route	获取 路由（包括PATHINFO） 变量
+            file	获取 $_FILES 变量
 5.独立验证, TP5内置了很多常用规则，也可自定义。// http://www.kancloud.cn/manual/thinkphp5/129356
     独立验证
     use think\Validate;
@@ -77,3 +90,13 @@
     phpstorm自动命名空间规范：
         setting -> Directories -> 选中application目录，点击上面Sources,再点右则Source Folders 右边带p的小三角
             把application设为app
+
+    快速移除用不到的命名空间
+        ctrl+alt+o
+    因为重名， 所以可以用：
+        use app/api/model/banner as bannerModel     //设个别名
+9. 全局异常处理
+    1.记录日志
+    2.统一错误信息返回格式
+    3. 'exception_handle'       => 'app\lib\exception\ExceptionHandler', config.php中
+        覆盖父类Handle中的render() ,实现自己处理异常。
