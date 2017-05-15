@@ -100,3 +100,9 @@
     2.统一错误信息返回格式
     3. 'exception_handle'       => 'app\lib\exception\ExceptionHandler', config.php中
         覆盖父类Handle中的render() ,实现自己处理异常。
+10. 日志处理
+    生产环境下， 只能用日志处理错误。
+    TP5自动写日志配置：
+        config.php : 'log'
+            目录： runtime/log/ 或自定义：
+            define('LOG_PATH',__DIR__.'/../log/'); TP5会自动生成此目录
