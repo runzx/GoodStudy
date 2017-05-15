@@ -1,0 +1,45 @@
+whonix安装
+1.下载Windows，Mac和Linux
+    对于Windows，可以使用一个简单的安装程序：Windows
+    对于Linux和Mac，请参见下文。
+    注意：您需要同时下载Gateway和Workstation虚拟机映像。
+    下载Whonix-Gateway
+    下载Whonix-Workstation
+2.安装Whonix
+    安装VirtualBox
+    Windows，Mac：下载VirtualBox并安装。
+    Linux等人：sudo apt-get install virtualbox linux-headers - $（uname -r）来安装virtualbox。
+3.将Whonix导入VirtualBox
+    １）启动VirtualBox
+    ２）File->Import Appliance...->whonix-Gateway.ova
+4.开始Whonix
+    开始Whonix很简单。
+    启动VirtualBox - >双击Whonix-Gateway和Whonix-Workstation。
+    第一次用户？
+        Whonix默认密码信息框
+            默认用户名为： user
+            默认密码为： changeme
+    升级：
+        sudo whonix_repository
+    whonix Gateway:
+        eht0 : 10.0.2.15
+        eth1 : 10.152.152.10
+
+        sudo nano /etc/tor/torrc
+            Socks5Proxy 192.168.1.20:1080
+            DisableDebuggerAttachment 0
+        sudo service tor restart
+        sudo arm    //就能通过主机shadowsocks联网了。
+
+        防火墙：
+            在具有root权限的编辑器中打开/etc/whonix_firewall.d/50_user.conf。（30_default.conf）
+                WORKSTATION_TRANSPARENT_TCP=0
+                WORKSTATION_TRANSPARENT_DNS=0
+
+                TransPort 0
+                DnsPort 0
+
+            重新加载Whonix网关防火墙。
+                sudo whonix_firewall
+
+
