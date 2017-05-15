@@ -20,6 +20,8 @@
         动态注册： use think\Route;
         Route::rule('hello','sample/Test/Hello');   //原有的PATHINFO就失效！
         Route::rule('路由表达式','路由地址','请求类型','路由参数（数组）','变量规则（数组）');
+        作API时，最好强制开启路由：
+            'url_route_must'         => true,
     3）3种URL访问模式，可以自定义、配置
         路由三段法： Route::get('banner/:id','api/v1.Banner/getBanner');
             Route::get('hello/:id','api/v1.Banner/getBanner')    //三层，子目录用.分鬲
