@@ -106,3 +106,32 @@
         config.php : 'log'
             目录： runtime/log/ 或自定义：
             define('LOG_PATH',__DIR__.'/../log/'); TP5会自动生成此目录
+11. 数据库
+    1）Db原生用法（query）不自动加表前缀
+        table方法必须指定完整的数据表名
+        name方法可以用表前缀
+    2)where('字段名','条件','表达式') //表达式法， 还是数组、闭包
+    3)fetchsql() 返回sql语句
+    4）log记录：
+        'debug'           => true,
+        在入口index.php处加LOG::init([])开启LOG记录
+    5）模型查询：
+        返回模型对象
+        BannerModel::get($id);
+        'default_return_type'  => 'json',
+        模型名不对应表名：
+            protected $table = 'pigcms_category';   //加前缀
+
+            模型名	     约定对应数据表（假设数据库的前缀定义是 think_）
+            User	    think_user
+            UserType	think_user_type
+
+        命令行快速建模：
+            php think make:model api/BannerItem
+        静态方式比模型实例好
+        ORM 类与对象
+            模型对应 类--》表
+            类实例化--》记录
+        方法：
+            get ,find,all,select 
+            

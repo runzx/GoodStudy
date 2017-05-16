@@ -12,7 +12,8 @@ visual studio code 调试php
 3：第一次安装vs会提示这个，需要配置下php.exe的路径，在用户设置里添加以下项
     
     "php.validate.executablePath": "C:\\xampp\\php\\php.exe"
-    "php.validate.executablePath":"C:/phpStudy/php/php-5.6.27-nts/php.exe",     //windows下
+    "php.validate.executablePath":"D:\\phpStudy\\php\\php-5.6.27-nts\\php.exe"
+    "php.validate.executablePath":"D:/phpStudy/php/php-5.6.27-nts/php.exe",     //windows下
 4.配置debug
     debug 左上角三角 listen for XDebug, 端口要对应服务器上xdebug
 5.在vscode中的php文件打一断点(行号左边），点Listen for XDebug 项目的运行，配置不用更改，默认就可以
