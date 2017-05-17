@@ -1,0 +1,12 @@
+windows查看端口
+    netstat -ano|findstr "8080"
+    查看进程：
+        tasklist|findstr “<PID号>”
+    改变环境变量内容： set 变量名=%变量名%;变量内容
+        set path=%path%;c:/
+Linux
+    netstat –apn | grep 8080
+    ps -aux | grep tomcat
+    查看环境变量：export
+        echo $环境变量名
+        
