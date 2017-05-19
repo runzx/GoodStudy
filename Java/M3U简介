@@ -1,0 +1,42 @@
+  M3U文件标签及属性说明
+M3U文件中可以包含多个tag，每个tag的功能和属性如下：
+    #EXTM3U
+        每个M3U文件第一行必须是这个tag，请标示作用
+    #EXT-X-MEDIA-SEQUENCE:140651513 
+        每一个media URI 在 PlayList中只有唯一的序号，相邻之间序号+1, 一个media URI并不是必须要包含的，如果没有，默认为0
+    #EXTINF:,
+        duration 指定每个媒体段(ts)的持续时间（秒），仅对其后面的URI有效，title是下载资源的url
+    #EXT-X-TARGETDURATION
+        指定最大的媒体段时间长（秒）。所以#EXTINF中指定的时间长度必须小于或是等于这个最大值。这个tag在整个PlayList文件中只能出现一 次（在嵌套的情况下，一般有真正ts url的m3u8才会出现该tag）
+    #EXT-X-KEY
+        表示怎么对media segments进行解码。其作用范围是下次该tag出现前的所有media URI，属性为NONE 或者 AES-128。NONE表示 URI以及IV（Initialization Vector）属性必须不存在， AES-128(Advanced EncryptionStandard)表示URI必须存在，IV可以不存在。
+        对于AES-128的情况，keytag和URI属性共同表示了一个key文件，通过URI可以获得这个key，如果没有IV（Initialization Vector）,则使用序列号作为IV进行编解码，将序列号的高位赋到16个字节的buffer中，左边补0；如果有IV，则将改值当成16个字节的16进制数。
+    #EXT-X-PROGRAM-DATE-TIME
+        将一个绝对时间或是日期和一个媒体段中的第一个sample相关联，只对下一个meida URI有效，格式如#EXT-X-PROGRAM-DATE-TIME:
+        For example: #EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+08:00
+    #EXT-X-ALLOW-CACHE
+        是否允许做cache，这个可以在PlayList文件中任意地方出现，并且最多出现一次，作用效果是所有的媒体段。格式如下：#EXT-X-ALLOW-CACHE:
+    #EXT-X-PLAYLIST-TYPE
+        提供关于PlayList的可变性的信息， 这个对整个PlayList文件有效，是可选的，格式如下：#EXT-X-PLAYLIST-TYPE:：如果是VOD，则服务器不能改变PlayList 文件；如果是EVENT，则服务器不能改变或是删除PlayList文件中的任何部分，但是可以向该文件中增加新的一行内容。
+    #EXT-X-ENDLIST
+        表示PlayList的末尾了，它可以在PlayList中任意位置出现，但是只能出现一个，格式如下：#EXT-X-ENDLIST
+    #EXT-X-MEDIA
+        被用来在PlayList中表示相同内容的不用语种/译文的版本，比如可以通过使用3个这种tag表示3中不用语音的音频，或者用2个这个tag表示不同角度的video在PlayLists中。这个标签是独立存在的，属性包含：
+            URI：如果没有，则表示这个tag描述的可选择版本在主PlayList的EXT-X-STREAM-INF中存在;
+            TYPE:AUDIO and VIDEO;
+            GROUP-ID:具有相同ID的MEDIAtag，组成一组样式；
+            LANGUAGE：确定使用的主要语言
+            NAME：人类可读的语言的翻译
+            DEFAULT：YES或是NO，默认是No，如果是YES，则客户端会以这种选项来播放，除非用户自己进行选择。
+            AUTOSELECT：YES或是NO，默认是No，如果是YES，则客户端会根据当前播放环境来进行选择（用户没有根据自己偏好进行选择的前提下）。
+    #EXT-X-STREAM-INF
+        指定一个包含多媒体信息的 media URI 作为PlayList，一般做M3U8的嵌套使用，它只对紧跟后面的URI有效，格式如下：#EXT-X-STREAM-INF:有以下属性：
+            BANDWIDTH：带宽，必须有。
+            PROGRAM-ID：该值是一个十进制整数，惟一地标识一个在PlayList文件范围内的特定的描述。一个PlayList 文件中可能包含多个有相同ID的此tag。
+            CODECS：不是必须的。
+            RESOLUTION：分辨率。
+            AUDIO：这个值必须和AUDIO类别的“EXT-X-MEDIA”标签中“GROUP-ID”属性值相匹配。
+            VIDEO：同上
+参考文档：
+http://blog.csdn.net/jwzhangjie/article/details/9744027
+http://www.xuebuyuan.com/1726264.html

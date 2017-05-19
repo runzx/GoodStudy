@@ -1,0 +1,30 @@
+1. Java Development Kit（JDK）是太阳微系统针对Java开发人员发布的免费软件开发工具包（SDK，Software development kit）。自从Java推出以来，JDK已经成为使用最广泛的Java SDK。由于JDK的一部分特性采用商业许可证，而非开源[1]。因此，2006年太阳微系统宣布将发布基于GPL的开源JDK，使JDK成为自由软件。在去掉了少量闭源特性之后，太阳微系统最终促成了GPL的OpenJDK的发布。
+
+2. 
+    JDK包含了一批用于Java开发的组件，其中包括：
+        javac：编译器，将后缀名为.java的源代码编译成后缀名为“.class”的字节码
+        java：运行工具，运行.class的字节码
+        jar：打包工具，将相关的类文件打包成一个文件
+        javadoc：文档生成器，从源码注释中提取文档，注释需匹配规范
+        jdb debugger：调试工具
+        jps：显示当前java程序运行的进程状态
+        javap：反编译程序
+        appletviewer：运行和调试applet程序的工具，不需要使用浏览器
+        javah：从Java类生成C头文件和C源文件。这些文件提供了连接胶合，使Java和C代码可进行交互。[2]
+        javaws：运行JNLP程序
+        extcheck：一个检测jar包冲突的工具
+        apt：注释处理工具[3]
+        jhat：java堆分析工具
+        jstack：栈跟踪程序
+        jstat：JVM检测统计工具
+        jstatd：jstat守护进程
+        jinfo：获取正在运行或崩溃的java程序配置信息
+        jmap：获取java进程内存映射信息
+        idlj：IDL-to-Java编译器。将IDL语言转化为java文件[4]
+        policytool：一个GUI的策略文件创建和管理工具
+        jrunscript：命令行脚本运行
+        JDK中还包括完整的JRE（Java Runtime Environment），Java运行环境，也被称为private runtime。包括了用于产品环境的各种库类，如基础类库rt.jar，以及给开发人员使用的补充库，如国际化与本地化的类库、IDL库等等。
+        JDK中还包括各种样例程序，用以展示Java API中的各部分。
+    
+    JDK，开发java程序用的开发包，JDK里面有java的运行环境(JRE)，包括client和server端的。需要配置环境变量。。。。
+    JRE，运行java程序的环境，JVM，JRE里面只有client运行环境，安装过程中，会自动添加PATH。
