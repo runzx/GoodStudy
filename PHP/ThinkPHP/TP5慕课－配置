@@ -58,3 +58,31 @@ TP配置
         使用时：
             $this->wxAppID = config('wx.app_id');
             $this->wxAppSecret = config('wx.app_secret');
+6. TP5配置设置
+    新的配置文件目录，index.php : 
+        define('CONF_PATH',__DIR__.'/../conf/');
+        此目录下：config.php :
+            return[
+                'app_email'=>'zhaix@qq.com',
+                'app_debug'=>true       //这会取代原TP5的配置，array_merge
+            ];
+            此目录下config.php, database.php会自动加载， 替换原来配置。
+            此目录下建extra/目录，在这目录下的配置TP5会自动加载
+7. TP5场景配置
+    应用配置config.php 里设'app_status'=>'home'（场景）
+    在上面设置的目录conf/下可设home.php, 这里面为home场景下配置。
+    <?php
+        return[
+            'database'=[
+                'password'=>'123456'
+            ]
+        ];          //这里要注意，database里的选项，如果这没设， 则原配置里的配置都被删除了。
+8. 模块配置
+        在conf/下建模块同名目录如： index/
+            config.php
+            此下可以建extra/目录，能此模块会自动加载
+    动态配置
+        在控制器的__construce()里 config('xxx','xxyyxx');
+9. config类，助手函数config()
+
+10. Request::get PATH_INFO的值不包含在get中（get为？后的）

@@ -40,3 +40,22 @@ M3U文件中可以包含多个tag，每个tag的功能和属性如下：
 参考文档：
 http://blog.csdn.net/jwzhangjie/article/details/9744027
 http://www.xuebuyuan.com/1726264.html
+
+------------------------------------------------------
+慕课 sz75/1906.all/down.m3u8 :
+    #EXTM3U
+    #EXT-X-VERSION:3
+    #EXT-X-TARGETDURATION:5
+    #EXT-X-MEDIA-SEQUENCE:0
+    #EXT-X-KEY:METHOD=AES-128,URI="http://coding.imooc.com/api/hxk?cid=75&mongo_id=584e942eb3fee302688b456a&uid=4869540&level=high"
+    #EXTINF:5.000000,
+    acfca197365d0e34.ts
+    #EXTINF:5.000000,
+    62e94df2f8639b1d.ts
+    #EXTINF:5.000000,
+    b1d09a40cdc24d87.ts
+    ...
+
+key.hxk
+    NhqqchngBZGOc3ZCFHwCOtItHQ==3Pvfd9uoZh1nlB8gNqN80NXt
+    
