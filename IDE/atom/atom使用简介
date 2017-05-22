@@ -1,0 +1,19 @@
+
+1. 改左边栏字体： 
+    1）. ctrl+, 打开settings设置
+    2）. 选择theme选项，打开style sheet，如下图所示
+        .tree-view {
+        // background-color: whitesmoke;
+        font-size: 18px;
+        }
+
+２.　
+    Increase Font Size	增大字体	Ctrl + Shift + “+”	Sublime的Ctrl + 也能生效
+    Decrease Font Size	减小字体	Ctrl + Shift + “-“	Sublime的Ctrl - 也能生效
+    Delete Line	        删除一行	Ctrl + Shift + K
+    Select Line	        选定一行	Ctrl + L
+    Select Next	        匹配选定下一个	Ctrl + D	和Sublime一模一样有木有
+    Select All	        匹配选定所有	Alt + F3
+    Symbol-view	        进入变量、函数跳转面板。	Ctrl + R
+    Toggle developer tools	打开Chrome调试器	Ctrl + Alt + I
+３.　atom 对js代码补全作的最发好
