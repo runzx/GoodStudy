@@ -68,6 +68,11 @@ TP配置
             ];
             此目录下config.php, database.php会自动加载， 替换原来配置。
             此目录下建extra/目录，在这目录下的配置TP5会自动加载
+        如果你更改了CONF_PATH，那么
+            扩展配置文件目录应该是CONF_PATH/extra，
+            模块配置目录则变成 CONF_PATH/module/，
+                模块的扩展配置目录则变成CONF_PATH/module/extra。
+        默认会加载database和validate两个扩展配置文件。
 7. TP5场景配置
     应用配置config.php 里设'app_status'=>'home'（场景）
     在上面设置的目录conf/下可设home.php, 这里面为home场景下配置。
