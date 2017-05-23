@@ -30,7 +30,10 @@
     git remote add origin git@pi3:Zerg.git
     git push --set-upstream origin master
 
+    git init --bare /home/git/zyb.git
+
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
+    20170523    zyb.git 小程序前端，用七月老师的框架改写
 
 5. 换服务器后客户端报错：
 	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
