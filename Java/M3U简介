@@ -47,7 +47,7 @@ http://www.xuebuyuan.com/1726264.html
     #EXT-X-VERSION:3
     #EXT-X-TARGETDURATION:5
     #EXT-X-MEDIA-SEQUENCE:0
-    #EXT-X-KEY:METHOD=AES-128,URI="http://coding.imooc.com/api/hxk?cid=75&mongo_id=584e942eb3fee302688b456a&uid=4869540&level=high"
+    #EXT-X-KEY:METHOD=AES-128,URI=""
     #EXTINF:5.000000,
     acfca197365d0e34.ts
     #EXTINF:5.000000,
@@ -57,5 +57,5 @@ http://www.xuebuyuan.com/1726264.html
     ...
 
 key.hxk
-    NhqqchngBZGOc3ZCFHwCOtItHQ==3Pvfd9uoZh1nlB8gNqN80NXt
+    
     

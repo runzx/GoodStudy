@@ -31,7 +31,7 @@
         '...product/recent' 这在后是TP5会报错， 它把recent当ID了。
         可以把:id限定到正整数，这样recent就不会匹配进去了。
         ('...product/:id','...',[],['id'=>'\d+']); 用正则表达式限定ID只能是整数。
-    5）路由分组
+    5）路由分组，匹配性能要高些
         Route::group('api/:version/prodcut/',function(){
             Route::get('by_category','api/:version.Product/getAllInCategory');
             Route::get(':id','...',[],['id'=>'\d+']);
