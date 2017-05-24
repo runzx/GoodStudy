@@ -26,6 +26,12 @@
         路由三段法： Route::get('banner/:id','api/v1.Banner/getBanner');
             Route::get('hello/:id','api/v1.Banner/getBanner')    //三层，子目录用.分鬲
             模块名/控制器名/操作方法名
+    4）route.php中路由表是按顺序匹配。
+        '...product/:id'
+        '...product/recent' 这在后是TP5会报错， 它把recent当ID了。
+        可以把:id限定到正整数，这样recent就不会匹配进去了。
+        ('...product/:id','...',[],['id'=>'\d+']); 用正则表达式限定ID只能是整数。
+
 4. 参数获取：
     传参方法：
         1）.../:id       ':'后就是参数
