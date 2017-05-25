@@ -198,4 +198,19 @@
 16. 令牌
     随机字符串： 
         1）够长
-        2）
+        2）不易仿造
+17. 接口
+    1）不需要保护
+    2）保护： 地址、订单类。。。
+18. 约定：
+    token 放在http头数据包里
+    这里是为了对关联表的排序：
+            $product = self::with(
+            [
+                'imgs' => function ($query)
+                {
+                    $query->with(['imgUrl'])
+                        ->order('order', 'asc');
+                }])
+            ->with('properties')
+            ->find($id);
