@@ -1,5 +1,5 @@
 TP配置
-
+<?php
 1. TP3 的 C函数改成 TP5的 config()
     echo Config::get('配置参数1'); 或者使用助手函数
     echo config('配置参数1');
@@ -32,7 +32,7 @@ TP配置
    'url_route_must'=> false,
 5. 自动读取扩展配置
     扩展配置文件放入application/extra目录，即可自动读取。
-    自动读取的配置文件都是二级配置参数，一级配置名称就是扩展配置的文件名。
+    自动读取的配置文件都是二级配置参数，一级配置名称就是扩展配置的文件名;
     如：echo config('配置参数.二级参数');
         .../extra/wx.php 中小程序配置：
             return [

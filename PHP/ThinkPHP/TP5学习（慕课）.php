@@ -1,3 +1,4 @@
+<?php
 1. URL路径：PATHINFO模式：
     http://serverName/index.php/module/controller/action/[pararma/value...]
 
@@ -173,6 +174,21 @@
                 助手函数： collection($模型返回对象)->hidden(['id'])
             // 数据集返回类型
                 'resultset_type'  => 'array', 在database.php中，
+        关联数据新增：
+            public function profile(){
+                return $this->hasOne('Profile','uid')->setAlias(['user'=>'member']);
+            }
+
+            $user = User::get(1);
+            // 如果还没有关联数据 则进行新增
+            $user->profile()->save(['email' => 'thinkphp']);
+            //系统会自动把当前模型的主键传入profile模型。
+        关联数据更新：
+            $user = User::get(1);
+            $user->profile->email = 'thinkphp';
+            $user->profile->save();
+            // 或者
+            $user->profile->save(['email' => 'thinkphp']);
 12。用户自定义配置文件
     特定目录：application/extra/ tp5自动加载
         例：setting.php :
@@ -203,7 +219,7 @@
     1）不需要保护
     2）保护： 地址、订单类。。。
 18. 约定：
-    token 放在http头数据包里
+    1）token 放在http头数据包里
     这里是为了对关联表的排序：
             $product = self::with(
             [
@@ -214,3 +230,14 @@
                 }])
             ->with('properties')
             ->find($id);
+    2）返回token ，要用下面方式，小程序才能以res.data.token取出:
+        return [
+            'token' => $token
+        ];
+19. 前置方法
+    ... extends Controller;
+    protected $beforeActionList=[
+        'all',                                  //无值的话为当前控制器下所有方法的前置方法。
+        'first'=>['only'=>'second,third'],       
+        'xxxxx'=>['except' => '方法名,方法名']    //不使用
+    ];
