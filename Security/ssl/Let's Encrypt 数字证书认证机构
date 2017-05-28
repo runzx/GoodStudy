@@ -1,0 +1,77 @@
+Let's Encrypt 是一个于2015年三季度推出的数字证书认证机构
+
+https://letsencrypt.org/
+
+
+Let's Encrypt 证书生成不需要手动进行，官方推荐 certbot 这套自动化工具来实现。3步轻松搞定：
+
+1.下载安装 certbot (Let’s Encrypt项目的自动化工具)  //https://github.com/certbot/certbot
+2.创建配置文件
+3. 执行证书自动化生成命令
+
+第一步：安装客户端
+    sudo apt-get install letsencrypt
+    Let's Encrypt 客户端名称可能是 letsencrypt 或 certbot. 请用 which 指令看看你属于哪一种情形。后文将统一使用 letsencrypt 指令，如有需要请自行替换成 certbot.
+
+第二步：获取证书
+    1. sudo service nginx stop
+    2. sudo letsencrypt certonly --standalone       //获取证书。
+    3. 证书与相关信息存放在 /etc/letsencrypt 文件夹下。
+
+第三步：配置 Nginx
+    http {
+    server {
+        listen 80; 
+        listen [::]:80;
+        server_name example.com www.example.com;
+        location / {
+            root /var/www/html;
+        }
+        ...
+    }
+    server {
+        listen 443 ssl;
+        server_name example.com www.example.com;
+        ssl_certificate /etc/letsencrypt/live/example.com/cert.pem;
+        ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+        location / {
+            root /var/www/html;
+        }
+        ...
+    }
+    ...
+}
+证书的更新
+    # 先停止 Nginx, 释放端口
+    sudo service nginx stop
+    # 更新证书
+    sudo letsencrypt certonly --standalone
+    # 启动 Nginx
+    sudo service nginx start
+
+进阶：HTTPS 跳转
+    现在，你的服务器同时接受 HTTP 和 HTTPS 请求。如果你希望只受理 HTTPS 请求，可以在 nginx.conf 中添加一个 301 跳转规则，告知浏览器将 HTTP 变成 HTTPS.
+    http {
+    server {
+        listen 80; 
+        listen [::]:80;
+        server_name example.com www.example.com;
+        return 301 https://$server_name$request_uri;
+    }
+    server {
+        listen 443 ssl;
+============================================================
+各OS安装方法：    https://certbot.eff.org/
+
+一。CentOS 6安装    https://certbot.eff.org/#centos6-nginx
+    1. certbot-auto脚本来获取一个副本：       
+        wget https://dl.eff.org/certbot-auto
+        chmod a + x certbot-auto    //certbot-auto接受与certbot相同的标志; 它会自动安装所有自己的依赖项并更新客户端代码
+    2. 
+        $ ./path/to/certbot-auto --nginx    //运行此命令将为您获取证书，并让Certbot自动编辑您的Nginx配置以提供此服务。
+
+    3. 自动更新     https://certbot.eff.org/docs/
+        运行以下命令来测试证书的自动续订：
+            ./path/to/certbot-auto renew --dry-run
+        cron或systemd作业来安排自动更新：
+            ./path/to/certbot-auto renew
