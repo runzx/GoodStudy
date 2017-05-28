@@ -26,6 +26,18 @@
         路由三段法： Route::get('banner/:id','api/v1.Banner/getBanner');
             Route::get('hello/:id','api/v1.Banner/getBanner')    //三层，子目录用.分鬲
             模块名/控制器名/操作方法名
+    4）route.php中路由表是按顺序匹配。
+        '...product/:id'
+        '...product/recent' 这在后是TP5会报错， 它把recent当ID了。
+        可以把:id限定到正整数，这样recent就不会匹配进去了。
+        ('...product/:id','...',[],['id'=>'\d+']); 用正则表达式限定ID只能是整数。
+    5）路由分组，匹配性能要高些
+        Route::group('api/:version/prodcut/',function(){
+            Route::get('by_category','api/:version.Product/getAllInCategory');
+            Route::get(':id','...',[],['id'=>'\d+']);
+            Route::get('recent','...');
+        });
+
 4. 参数获取：
     传参方法：
         1）.../:id       ':'后就是参数
@@ -183,3 +195,22 @@
         修改是封闭的
 
         意味着一个实体是允许在不改变它的源代码的前提下变更它的行为。
+16. 令牌
+    随机字符串： 
+        1）够长
+        2）不易仿造
+17. 接口
+    1）不需要保护
+    2）保护： 地址、订单类。。。
+18. 约定：
+    token 放在http头数据包里
+    这里是为了对关联表的排序：
+            $product = self::with(
+            [
+                'imgs' => function ($query)
+                {
+                    $query->with(['imgUrl'])
+                        ->order('order', 'asc');
+                }])
+            ->with('properties')
+            ->find($id);

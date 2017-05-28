@@ -1,5 +1,8 @@
 //  vsCODE配置文件
 
+1. 左边栏字体改变
+    "window.zoomLevel": 1,  统一放大窗口。
+
 User settings 是全局设置，任何vs Code打开的项目都会依此配置。
 
 默认存储在:

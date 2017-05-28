@@ -1,0 +1,22 @@
+
+ES6匿名函数的书写，也叫箭头函数
+    =>  lambda 表达式也就是匿名函数， 最适合用于非方法函数，并且它们不能用作构造函数。
+
+    setTimeout(function(){
+        console.log(11111);
+    },1000);
+    也可以写成:
+    setTimeout(()=>{
+        console.log(11111);
+    },1000);
+
+    // 如果只有一个参数，圆括号是可选的:
+        (singleParam) => { statements; }
+    // 等价于
+        singleParam => { statements; }
+    // 如果箭头函数 无参数 或者 有多参数, 必须使用 ()圆括号或者 _下划线:
+        () => { statements; } 
+    或
+        _ => { statements; }
+
+    var a ={} 这样就定义a为一个对象
