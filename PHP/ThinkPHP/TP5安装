@@ -22,3 +22,30 @@
     [ Coding ]
         应用项目：https://git.coding.net/liu21st/thinkphp5.git
         核心框架：https://git.coding.net/liu21st/framework.git
+
+6. 升级记录5.0.8-》5.0.9 20170524
+
+    zhaixiang@zhaixiang-PC MINGW64 /g/zx/test/TP5/framework (master)
+    $ git pull
+    Updating a9d58516..7deea9dd
+    Fast-forward
+    base.php                                       |  2 +-
+    helper.php                                     |  2 +-
+    library/think/Model.php                        | 69 ++++++++++++++++--------
+    library/think/Paginator.php                    |  1 +
+    library/think/Request.php                      | 26 +++++----
+    library/think/Response.php                     | 17 +++---
+    library/think/Url.php                          |  2 +-
+    library/think/db/Builder.php                   | 17 +++---
+    library/think/db/Connection.php                | 73 ++++++++++++++------------
+    library/think/db/Query.php                     | 13 ++---
+    library/think/db/connector/Mysql.php           |  4 +-
+    library/think/db/connector/Pgsql.php           |  4 +-
+    library/think/db/connector/Sqlite.php          |  4 +-
+    library/think/db/connector/Sqlsrv.php          |  4 +-
+    library/think/log/driver/File.php              |  2 +-
+    library/think/model/Collection.php             | 14 +++++
+    library/think/model/Relation.php               | 26 +++++++++
+    library/think/model/relation/BelongsToMany.php |  4 +-
+    tests/thinkphp/library/think/dbTest.php        |  2 +-
+    19 files changed, 182 insertions(+), 104 deletions(-)
