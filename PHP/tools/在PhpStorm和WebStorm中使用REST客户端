@@ -1,0 +1,7 @@
+在PhpStorm和WebStorm中使用REST客户端
+
+1. POST方法发送json数据的使用
+    在头里加： Request->Headers
+        Content-Type : application/json;charset=utf-8
+    Request Body :
+        Text : {"var1":"value1","var2":"value2"}
