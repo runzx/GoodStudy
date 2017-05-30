@@ -1,0 +1,30 @@
+
+Docker镜像
+    1. 镜像就是文件
+    2. 分层，每层只读
+
+Docker容器
+    1. 相当于VM
+    2. 每层只读，最上层可写
+
+Docker仓库
+    1. 传输
+    2. hub.docker.com 国内c.163.com
+    3. 可自己建镜像中心
+Docker安装
+    1. windows下，下载docker-toolbox
+    2. linux:
+        1) Redhat&CentOS 64bit ver 3.10
+        2) Ubuntn 64bit ver >3.10
+            a)uname -r 
+            b)apt-get update
+            c)apt-get install -y docker.io
+            d)curl -s https://get.docker.com|sh 更新
+            e)service docker start  启动服务
+            f)docker version    查看
+    3. Docker镜像
+        docker pull [options] NAME [:TAG]
+        docker images [options] [reoository][:TAG]
+        docker images 查看列表
+        docker pull hello-world 下载。。
+        docker pull nginx 
