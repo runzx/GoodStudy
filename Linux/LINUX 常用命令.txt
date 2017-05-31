@@ -1,29 +1,27 @@
-linuxɾ��Ŀ¼�ܼ򵥣��ܶ��˻���ϰ����rmdir������һ��Ŀ¼�ǿգ�����������Ŀ���֮�У�����ʹ��rm -rf����ɡ�
-ֱ��rm�Ϳ����ˣ�����Ҫ����������-rf ����
+linux删除目录很简单，很多人还是习惯用rmdir，不过一旦目录非空，就陷入深深的苦恼之中，现在使用rm -rf命令即可。
+	直接rm就可以了，不过要加两个参数-rf 即：
+		rm -rf 目录名字或文件名
+			-r 就是向下递归，不管有多少级目录，一并删除
+			-f 就是直接强行删除，不作任何提示的意思
 
-	rm -rf Ŀ¼���ֻ��ļ���
-
--r �������µݹ飬�����ж��ټ�Ŀ¼��һ��ɾ��
--f ����ֱ��ǿ��ɾ���������κ���ʾ����˼
-
-$ chmod u+x file ������ ��file����������ִ��Ȩ��
-$ chmod 751 file ������ ��file�������������д��ִ��(7)��Ȩ�ޣ���file��������������ִ��(5)��Ȩ�ޣ��������û�����ִ��(1)��Ȩ��
-$ chmod u=rwx,g=rx,o=x file ��������һ����ʽ
-$ chmod =r file ��������Ϊ�����û������Ȩ��
-$ chmod 444 file �������� ͬ����
-$ chmod a-wx,a+r file ���� �� ͬ����
-$ chmod -R u+r directory �� �ݹ�ظ�directoryĿ¼�������ļ�����Ŀ¼�������������Ȩ��
-$ chmod 4755 ����������ID���������������д��ִ��Ȩ�ޣ�����������û��������ִ�е�Ȩ��
-
-777����һ��7�����ļ������ߵ�Ȩ�ޣ��ڶ���7�����ļ��������������Ȩ�ޣ�������7���������û���Ȩ��
-
-chmod -R 777 *
+	$ chmod u+x file 　　　 给file的属主增加执行权限
+	$ chmod 751 file 　　　 给file的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限
+	$ chmod u=rwx,g=rx,o=x file 上例的另一种形式
+	$ chmod =r file 　　　　为所有用户分配读权限
+	$ chmod 444 file 　　　　 同上例
+	$ chmod a-wx,a+r file 　　 　 同上例
+	$ chmod -R u+r directory 　 递归地给directory目录下所有文件和子目录的属主分配读的权限
+	$ chmod 4755 　　设置用ID，给属主分配读、写和执行权限，给组和其他用户分配读、执行的权限
+	777，第一个7代表文件所属者的权限，第二个7代表文件所属者所在组的权限，第三个7代表其它用户的权限
+		chmod -R 777 *
 
  mv  vifnn88/* /home/weixin
-
  
- netstat �ĳ��ò���: - t��- u��- w��- x�ֱ��ʾTCP��UDP��RAW��UNIX�׽������ӡ�-a��ǣ�������ʾ���ȴ����ӣ�Ҳ����˵���ڼ���ģʽ�����׽��֡�-l ��ʾ���ڱ�����(listen)�Ķ˿�, -n��ʾֱ����ʾ�˿����ֶ�����ͨ���쿴/etc/service��ת��Ϊ�˿���,-pѡ���ʾ�г������ĳ���
- 
- 1.linux�²鿴mysql�������ļ�
+ netstat 的常用参数: - t、- u、- w和- x分别表示TCP、UDP、RAW和UNIX套接字连接。-a标记，还会显示出等待连接（也就是说处于监听模式）的套接字。-l 显示正在被监听(listen)的端口, -n表示直接显示端口数字而不是通过察看/etc/service来转换为端口名,-p选项表示列出监听的程序
+ 	netstat -na|grep 8080	//查看监听8080端口运行否
 
-[root@localhost ~]# vi /etc/my.cnf
+linux下查看mysql的配置文件
+ 	vi /etc/my.cnf
+	
+查看程序的目录
+	which nginx
