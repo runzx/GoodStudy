@@ -1,0 +1,25 @@
+ubuntu server 安装
+
+1. 17.04
+    # 输入sudo passwd设置root(超级管理员)密码;
+    # 先输入用户(ben)密码,再设置root密码;
+    # 使用 su - 切换到root用户,命令提示符变为'#';
+
+    # 使用vim设置网卡信息。
+    # 配置文件：/etc/network/interfaces
+    # 文件内容如图所示，IP地址视NAT网卡设置。
+
+    # 使用 ifdown eth0 关闭网卡;
+    # 使用 ifup eth0 启动网卡;
+
+    # 源
+        sudo nano /etc/apt/sources.list
+            deb http://cn.archive.ubuntu.com/ubuntu/ zesty main restricted universe multiverse
+            deb http://cn.archive.ubuntu.com/ubuntu/ zesty-security main restricted universe multiverse
+            deb http://cn.archive.ubuntu.com/ubuntu/ zesty-updates main restricted universe multiverse
+            deb http://cn.archive.ubuntu.com/ubuntu/ zesty-backports main restricted universe multiverse
+
+    # Ubuntu缺省没有安装SSH Server，使用以下命令安装：
+        sudo apt-get install openssh-server
+            ps -e|grep ssh  
+            netstat -tlp        查看启动
