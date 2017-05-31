@@ -1,384 +1,384 @@
-ÏµÍ³ĞÅÏ¢
-arch ÏÔÊ¾»úÆ÷µÄ´¦ÀíÆ÷¼Ü¹¹(1)
-uname -m ÏÔÊ¾»úÆ÷µÄ´¦ÀíÆ÷¼Ü¹¹(2)
-uname -r ÏÔÊ¾ÕıÔÚÊ¹ÓÃµÄÄÚºË°æ±¾
-dmidecode -q ÏÔÊ¾Ó²¼şÏµÍ³²¿¼ş - (SMBIOS / DMI)
-hdparm -i /dev/hda ÂŞÁĞÒ»¸ö´ÅÅÌµÄ¼Ü¹¹ÌØĞÔ
-hdparm -tT /dev/sda ÔÚ´ÅÅÌÉÏÖ´ĞĞ²âÊÔĞÔ¶ÁÈ¡²Ù×÷
-cat /proc/cpuinfo ÏÔÊ¾CPU infoµÄĞÅÏ¢
-cat /proc/interrupts ÏÔÊ¾ÖĞ¶Ï
-cat /proc/meminfo Ğ£ÑéÄÚ´æÊ¹ÓÃ
-cat /proc/swaps ÏÔÊ¾ÄÄĞ©swap±»Ê¹ÓÃ
-cat /proc/version ÏÔÊ¾ÄÚºËµÄ°æ±¾
-cat /proc/net/dev ÏÔÊ¾ÍøÂçÊÊÅäÆ÷¼°Í³¼Æ
-cat /proc/mounts ÏÔÊ¾ÒÑ¼ÓÔØµÄÎÄ¼şÏµÍ³
-lspci -tv ÂŞÁĞ PCI Éè±¸
-lsusb -tv ÏÔÊ¾ USB Éè±¸
-date ÏÔÊ¾ÏµÍ³ÈÕÆÚ
-cal 2007 ÏÔÊ¾2007ÄêµÄÈÕÀú±í
-date 041217002007.00 ÉèÖÃÈÕÆÚºÍÊ±¼ä - ÔÂÈÕÊ±·ÖÄê.Ãë
-clock -w ½«Ê±¼äĞŞ¸Ä±£´æµ½ BIOS
+ç³»ç»Ÿä¿¡æ¯
+arch æ˜¾ç¤ºæœºå™¨çš„å¤„ç†å™¨æ¶æ„(1)
+uname -m æ˜¾ç¤ºæœºå™¨çš„å¤„ç†å™¨æ¶æ„(2)
+uname -r æ˜¾ç¤ºæ­£åœ¨ä½¿ç”¨çš„å†…æ ¸ç‰ˆæœ¬
+dmidecode -q æ˜¾ç¤ºç¡¬ä»¶ç³»ç»Ÿéƒ¨ä»¶ - (SMBIOS / DMI)
+hdparm -i /dev/hda ç½—åˆ—ä¸€ä¸ªç£ç›˜çš„æ¶æ„ç‰¹æ€§
+hdparm -tT /dev/sda åœ¨ç£ç›˜ä¸Šæ‰§è¡Œæµ‹è¯•æ€§è¯»å–æ“ä½œ
+cat /proc/cpuinfo æ˜¾ç¤ºCPU infoçš„ä¿¡æ¯
+cat /proc/interrupts æ˜¾ç¤ºä¸­æ–­
+cat /proc/meminfo æ ¡éªŒå†…å­˜ä½¿ç”¨
+cat /proc/swaps æ˜¾ç¤ºå“ªäº›swapè¢«ä½¿ç”¨
+cat /proc/version æ˜¾ç¤ºå†…æ ¸çš„ç‰ˆæœ¬
+cat /proc/net/dev æ˜¾ç¤ºç½‘ç»œé€‚é…å™¨åŠç»Ÿè®¡
+cat /proc/mounts æ˜¾ç¤ºå·²åŠ è½½çš„æ–‡ä»¶ç³»ç»Ÿ
+lspci -tv ç½—åˆ— PCI è®¾å¤‡
+lsusb -tv æ˜¾ç¤º USB è®¾å¤‡
+date æ˜¾ç¤ºç³»ç»Ÿæ—¥æœŸ
+cal 2007 æ˜¾ç¤º2007å¹´çš„æ—¥å†è¡¨
+date 041217002007.00 è®¾ç½®æ—¥æœŸå’Œæ—¶é—´ - æœˆæ—¥æ—¶åˆ†å¹´.ç§’
+clock -w å°†æ—¶é—´ä¿®æ”¹ä¿å­˜åˆ° BIOS
 
 
 
-¹Ø»ú (ÏµÍ³µÄ¹Ø»ú¡¢ÖØÆôÒÔ¼°µÇ³ö )
-shutdown -h now ¹Ø±ÕÏµÍ³(1)
-init 0 ¹Ø±ÕÏµÍ³(2)
-telinit 0 ¹Ø±ÕÏµÍ³(3)
-shutdown -h hours:minutes & °´Ô¤¶¨Ê±¼ä¹Ø±ÕÏµÍ³
-shutdown -c È¡Ïû°´Ô¤¶¨Ê±¼ä¹Ø±ÕÏµÍ³
-shutdown -r now ÖØÆô(1)
-reboot ÖØÆô(2)
-logout ×¢Ïú
+å…³æœº (ç³»ç»Ÿçš„å…³æœºã€é‡å¯ä»¥åŠç™»å‡º )
+shutdown -h now å…³é—­ç³»ç»Ÿ(1)
+init 0 å…³é—­ç³»ç»Ÿ(2)
+telinit 0 å…³é—­ç³»ç»Ÿ(3)
+shutdown -h hours:minutes & æŒ‰é¢„å®šæ—¶é—´å…³é—­ç³»ç»Ÿ
+shutdown -c å–æ¶ˆæŒ‰é¢„å®šæ—¶é—´å…³é—­ç³»ç»Ÿ
+shutdown -r now é‡å¯(1)
+reboot é‡å¯(2)
+logout æ³¨é”€
 
 
 
-ÎÄ¼şºÍÄ¿Â¼
-cd /home ½øÈë '/ home' Ä¿Â¼'
-cd .. ·µ»ØÉÏÒ»¼¶Ä¿Â¼
-cd ../.. ·µ»ØÉÏÁ½¼¶Ä¿Â¼
-cd ½øÈë¸öÈËµÄÖ÷Ä¿Â¼
-cd ~user1 ½øÈë¸öÈËµÄÖ÷Ä¿Â¼
-cd - ·µ»ØÉÏ´ÎËùÔÚµÄÄ¿Â¼
-pwd ÏÔÊ¾¹¤×÷Â·¾¶
-ls ²é¿´Ä¿Â¼ÖĞµÄÎÄ¼ş
-ls -F ²é¿´Ä¿Â¼ÖĞµÄÎÄ¼ş
-ls -l ÏÔÊ¾ÎÄ¼şºÍÄ¿Â¼µÄÏêÏ¸×ÊÁÏ
-ls -a ÏÔÊ¾Òş²ØÎÄ¼ş
-ls *[0-9]* ÏÔÊ¾°üº¬Êı×ÖµÄÎÄ¼şÃûºÍÄ¿Â¼Ãû
-tree ÏÔÊ¾ÎÄ¼şºÍÄ¿Â¼ÓÉ¸ùÄ¿Â¼¿ªÊ¼µÄÊ÷ĞÎ½á¹¹(1)
-lstree ÏÔÊ¾ÎÄ¼şºÍÄ¿Â¼ÓÉ¸ùÄ¿Â¼¿ªÊ¼µÄÊ÷ĞÎ½á¹¹(2)
-mkdir dir1 ´´½¨Ò»¸ö½Ğ×ö 'dir1' µÄÄ¿Â¼'
-mkdir dir1 dir2 Í¬Ê±´´½¨Á½¸öÄ¿Â¼
-mkdir -p /tmp/dir1/dir2 ´´½¨Ò»¸öÄ¿Â¼Ê÷
-rm -f file1 É¾³ıÒ»¸ö½Ğ×ö 'file1' µÄÎÄ¼ş'
-rmdir dir1 É¾³ıÒ»¸ö½Ğ×ö 'dir1' µÄÄ¿Â¼'
-rm -rf dir1 É¾³ıÒ»¸ö½Ğ×ö 'dir1' µÄÄ¿Â¼²¢Í¬Ê±É¾³ıÆäÄÚÈİ
-rm -rf dir1 dir2 Í¬Ê±É¾³ıÁ½¸öÄ¿Â¼¼°ËüÃÇµÄÄÚÈİ
-mv dir1 new_dir ÖØÃüÃû/ÒÆ¶¯ Ò»¸öÄ¿Â¼
-cp file1 file2 ¸´ÖÆÒ»¸öÎÄ¼ş
-cp dir/* . ¸´ÖÆÒ»¸öÄ¿Â¼ÏÂµÄËùÓĞÎÄ¼şµ½µ±Ç°¹¤×÷Ä¿Â¼
-cp -a /tmp/dir1 . ¸´ÖÆÒ»¸öÄ¿Â¼µ½µ±Ç°¹¤×÷Ä¿Â¼
-cp -a dir1 dir2 ¸´ÖÆÒ»¸öÄ¿Â¼
-ln -s file1 lnk1 ´´½¨Ò»¸öÖ¸ÏòÎÄ¼ş»òÄ¿Â¼µÄÈíÁ´½Ó
-ln file1 lnk1 ´´½¨Ò»¸öÖ¸ÏòÎÄ¼ş»òÄ¿Â¼µÄÎïÀíÁ´½Ó
-touch -t 0712250000 file1 ĞŞ¸ÄÒ»¸öÎÄ¼ş»òÄ¿Â¼µÄÊ±¼ä´Á - (YYMMDDhhmm)
+æ–‡ä»¶å’Œç›®å½•
+cd /home è¿›å…¥ '/ home' ç›®å½•'
+cd .. è¿”å›ä¸Šä¸€çº§ç›®å½•
+cd ../.. è¿”å›ä¸Šä¸¤çº§ç›®å½•
+cd è¿›å…¥ä¸ªäººçš„ä¸»ç›®å½•
+cd ~user1 è¿›å…¥ä¸ªäººçš„ä¸»ç›®å½•
+cd - è¿”å›ä¸Šæ¬¡æ‰€åœ¨çš„ç›®å½•
+pwd æ˜¾ç¤ºå·¥ä½œè·¯å¾„
+ls æŸ¥çœ‹ç›®å½•ä¸­çš„æ–‡ä»¶
+ls -F æŸ¥çœ‹ç›®å½•ä¸­çš„æ–‡ä»¶
+ls -l æ˜¾ç¤ºæ–‡ä»¶å’Œç›®å½•çš„è¯¦ç»†èµ„æ–™
+ls -a æ˜¾ç¤ºéšè—æ–‡ä»¶
+ls *[0-9]* æ˜¾ç¤ºåŒ…å«æ•°å­—çš„æ–‡ä»¶åå’Œç›®å½•å
+tree æ˜¾ç¤ºæ–‡ä»¶å’Œç›®å½•ç”±æ ¹ç›®å½•å¼€å§‹çš„æ ‘å½¢ç»“æ„(1)
+lstree æ˜¾ç¤ºæ–‡ä»¶å’Œç›®å½•ç”±æ ¹ç›®å½•å¼€å§‹çš„æ ‘å½¢ç»“æ„(2)
+mkdir dir1 åˆ›å»ºä¸€ä¸ªå«åš 'dir1' çš„ç›®å½•'
+mkdir dir1 dir2 åŒæ—¶åˆ›å»ºä¸¤ä¸ªç›®å½•
+mkdir -p /tmp/dir1/dir2 åˆ›å»ºä¸€ä¸ªç›®å½•æ ‘
+rm -f file1 åˆ é™¤ä¸€ä¸ªå«åš 'file1' çš„æ–‡ä»¶'
+rmdir dir1 åˆ é™¤ä¸€ä¸ªå«åš 'dir1' çš„ç›®å½•'
+rm -rf dir1 åˆ é™¤ä¸€ä¸ªå«åš 'dir1' çš„ç›®å½•å¹¶åŒæ—¶åˆ é™¤å…¶å†…å®¹
+rm -rf dir1 dir2 åŒæ—¶åˆ é™¤ä¸¤ä¸ªç›®å½•åŠå®ƒä»¬çš„å†…å®¹
+mv dir1 new_dir é‡å‘½å/ç§»åŠ¨ ä¸€ä¸ªç›®å½•
+cp file1 file2 å¤åˆ¶ä¸€ä¸ªæ–‡ä»¶
+cp dir/* . å¤åˆ¶ä¸€ä¸ªç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶åˆ°å½“å‰å·¥ä½œç›®å½•
+cp -a /tmp/dir1 . å¤åˆ¶ä¸€ä¸ªç›®å½•åˆ°å½“å‰å·¥ä½œç›®å½•
+cp -a dir1 dir2 å¤åˆ¶ä¸€ä¸ªç›®å½•
+ln -s file1 lnk1 åˆ›å»ºä¸€ä¸ªæŒ‡å‘æ–‡ä»¶æˆ–ç›®å½•çš„è½¯é“¾æ¥
+ln file1 lnk1 åˆ›å»ºä¸€ä¸ªæŒ‡å‘æ–‡ä»¶æˆ–ç›®å½•çš„ç‰©ç†é“¾æ¥
+touch -t 0712250000 file1 ä¿®æ”¹ä¸€ä¸ªæ–‡ä»¶æˆ–ç›®å½•çš„æ—¶é—´æˆ³ - (YYMMDDhhmm)
 file file1 outputs the mime type of the file as text
-iconv -l ÁĞ³öÒÑÖªµÄ±àÂë
+iconv -l åˆ—å‡ºå·²çŸ¥çš„ç¼–ç 
 iconv -f fromEncoding -t toEncoding inputFile > outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding.
 find . -maxdepth 1 -name *.jpg -print -exec convert "{}" -resize 80x60 "thumbs/{}" \; batch resize files in the current directory and send them to a thumbnails directory (requires convert from Imagemagick)
 
 
 
-ÎÄ¼şËÑË÷
-find / -name file1 ´Ó '/' ¿ªÊ¼½øÈë¸ùÎÄ¼şÏµÍ³ËÑË÷ÎÄ¼şºÍÄ¿Â¼
-find / -user user1 ËÑË÷ÊôÓÚÓÃ»§ 'user1' µÄÎÄ¼şºÍÄ¿Â¼
-find /home/user1 -name \*.bin ÔÚÄ¿Â¼ '/ home/user1' ÖĞËÑË÷´øÓĞ'.bin' ½áÎ²µÄÎÄ¼ş
-find /usr/bin -type f -atime +100 ËÑË÷ÔÚ¹ıÈ¥100ÌìÄÚÎ´±»Ê¹ÓÃ¹ıµÄÖ´ĞĞÎÄ¼ş
-find /usr/bin -type f -mtime -10 ËÑË÷ÔÚ10ÌìÄÚ±»´´½¨»òÕßĞŞ¸Ä¹ıµÄÎÄ¼ş
-find / -name \*.rpm -exec chmod 755 '{}' \; ËÑË÷ÒÔ '.rpm' ½áÎ²µÄÎÄ¼ş²¢¶¨ÒåÆäÈ¨ÏŞ
-find / -xdev -name \*.rpm ËÑË÷ÒÔ '.rpm' ½áÎ²µÄÎÄ¼ş£¬ºöÂÔ¹âÇı¡¢½İÅÌµÈ¿ÉÒÆ¶¯Éè±¸
-locate \*.ps Ñ°ÕÒÒÔ '.ps' ½áÎ²µÄÎÄ¼ş - ÏÈÔËĞĞ 'updatedb' ÃüÁî
-whereis halt ÏÔÊ¾Ò»¸ö¶ş½øÖÆÎÄ¼ş¡¢Ô´Âë»òmanµÄÎ»ÖÃ
-which halt ÏÔÊ¾Ò»¸ö¶ş½øÖÆÎÄ¼ş»ò¿ÉÖ´ĞĞÎÄ¼şµÄÍêÕûÂ·¾¶
+æ–‡ä»¶æœç´¢
+find / -name file1 ä» '/' å¼€å§‹è¿›å…¥æ ¹æ–‡ä»¶ç³»ç»Ÿæœç´¢æ–‡ä»¶å’Œç›®å½•
+find / -user user1 æœç´¢å±äºç”¨æˆ· 'user1' çš„æ–‡ä»¶å’Œç›®å½•
+find /home/user1 -name \*.bin åœ¨ç›®å½• '/ home/user1' ä¸­æœç´¢å¸¦æœ‰'.bin' ç»“å°¾çš„æ–‡ä»¶
+find /usr/bin -type f -atime +100 æœç´¢åœ¨è¿‡å»100å¤©å†…æœªè¢«ä½¿ç”¨è¿‡çš„æ‰§è¡Œæ–‡ä»¶
+find /usr/bin -type f -mtime -10 æœç´¢åœ¨10å¤©å†…è¢«åˆ›å»ºæˆ–è€…ä¿®æ”¹è¿‡çš„æ–‡ä»¶
+find / -name \*.rpm -exec chmod 755 '{}' \; æœç´¢ä»¥ '.rpm' ç»“å°¾çš„æ–‡ä»¶å¹¶å®šä¹‰å…¶æƒé™
+find / -xdev -name \*.rpm æœç´¢ä»¥ '.rpm' ç»“å°¾çš„æ–‡ä»¶ï¼Œå¿½ç•¥å…‰é©±ã€æ·ç›˜ç­‰å¯ç§»åŠ¨è®¾å¤‡
+locate \*.ps å¯»æ‰¾ä»¥ '.ps' ç»“å°¾çš„æ–‡ä»¶ - å…ˆè¿è¡Œ 'updatedb' å‘½ä»¤
+whereis halt æ˜¾ç¤ºä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ã€æºç æˆ–mançš„ä½ç½®
+which halt æ˜¾ç¤ºä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶æˆ–å¯æ‰§è¡Œæ–‡ä»¶çš„å®Œæ•´è·¯å¾„
 
 
 
-¹ÒÔØÒ»¸öÎÄ¼şÏµÍ³
-mount /dev/hda2 /mnt/hda2 ¹ÒÔØÒ»¸ö½Ğ×öhda2µÄÅÌ - È·¶¨Ä¿Â¼ '/ mnt/hda2' ÒÑ¾­´æÔÚ
-umount /dev/hda2 Ğ¶ÔØÒ»¸ö½Ğ×öhda2µÄÅÌ - ÏÈ´Ó¹ÒÔØµã '/ mnt/hda2' ÍË³ö
-fuser -km /mnt/hda2 µ±Éè±¸·±Ã¦Ê±Ç¿ÖÆĞ¶ÔØ
-umount -n /mnt/hda2 ÔËĞĞĞ¶ÔØ²Ù×÷¶ø²»Ğ´Èë /etc/mtab ÎÄ¼ş- µ±ÎÄ¼şÎªÖ»¶Á»òµ±´ÅÅÌĞ´ÂúÊ±·Ç³£ÓĞÓÃ
-mount /dev/fd0 /mnt/floppy ¹ÒÔØÒ»¸öÈíÅÌ
-mount /dev/cdrom /mnt/cdrom ¹ÒÔØÒ»¸öcdrom»òdvdrom
-mount /dev/hdc /mnt/cdrecorder ¹ÒÔØÒ»¸öcdrw»òdvdrom
-mount /dev/hdb /mnt/cdrecorder ¹ÒÔØÒ»¸öcdrw»òdvdrom
-mount -o loop file.iso /mnt/cdrom ¹ÒÔØÒ»¸öÎÄ¼ş»òISO¾µÏñÎÄ¼ş
-mount -t vfat /dev/hda5 /mnt/hda5 ¹ÒÔØÒ»¸öWindows FAT32ÎÄ¼şÏµÍ³
-mount /dev/sda1 /mnt/usbdisk ¹ÒÔØÒ»¸öusb ½İÅÌ»òÉÁ´æÉè±¸
-mount -t smbfs -o username=user,password=pass //WinClient/share /mnt/share ¹ÒÔØÒ»¸öwindowsÍøÂç¹²Ïí
+æŒ‚è½½ä¸€ä¸ªæ–‡ä»¶ç³»ç»Ÿ
+mount /dev/hda2 /mnt/hda2 æŒ‚è½½ä¸€ä¸ªå«åšhda2çš„ç›˜ - ç¡®å®šç›®å½• '/ mnt/hda2' å·²ç»å­˜åœ¨
+umount /dev/hda2 å¸è½½ä¸€ä¸ªå«åšhda2çš„ç›˜ - å…ˆä»æŒ‚è½½ç‚¹ '/ mnt/hda2' é€€å‡º
+fuser -km /mnt/hda2 å½“è®¾å¤‡ç¹å¿™æ—¶å¼ºåˆ¶å¸è½½
+umount -n /mnt/hda2 è¿è¡Œå¸è½½æ“ä½œè€Œä¸å†™å…¥ /etc/mtab æ–‡ä»¶- å½“æ–‡ä»¶ä¸ºåªè¯»æˆ–å½“ç£ç›˜å†™æ»¡æ—¶éå¸¸æœ‰ç”¨
+mount /dev/fd0 /mnt/floppy æŒ‚è½½ä¸€ä¸ªè½¯ç›˜
+mount /dev/cdrom /mnt/cdrom æŒ‚è½½ä¸€ä¸ªcdromæˆ–dvdrom
+mount /dev/hdc /mnt/cdrecorder æŒ‚è½½ä¸€ä¸ªcdrwæˆ–dvdrom
+mount /dev/hdb /mnt/cdrecorder æŒ‚è½½ä¸€ä¸ªcdrwæˆ–dvdrom
+mount -o loop file.iso /mnt/cdrom æŒ‚è½½ä¸€ä¸ªæ–‡ä»¶æˆ–ISOé•œåƒæ–‡ä»¶
+mount -t vfat /dev/hda5 /mnt/hda5 æŒ‚è½½ä¸€ä¸ªWindows FAT32æ–‡ä»¶ç³»ç»Ÿ
+mount /dev/sda1 /mnt/usbdisk æŒ‚è½½ä¸€ä¸ªusb æ·ç›˜æˆ–é—ªå­˜è®¾å¤‡
+mount -t smbfs -o username=user,password=pass //WinClient/share /mnt/share æŒ‚è½½ä¸€ä¸ªwindowsç½‘ç»œå…±äº«
 
 
 
-´ÅÅÌ¿Õ¼ä
-df -h ÏÔÊ¾ÒÑ¾­¹ÒÔØµÄ·ÖÇøÁĞ±í
-ls -lSr |more ÒÔ³ß´ç´óĞ¡ÅÅÁĞÎÄ¼şºÍÄ¿Â¼
-du -sh dir1 ¹ÀËãÄ¿Â¼ 'dir1' ÒÑ¾­Ê¹ÓÃµÄ´ÅÅÌ¿Õ¼ä'
-du -sk * | sort -rn ÒÔÈİÁ¿´óĞ¡ÎªÒÀ¾İÒÀ´ÎÏÔÊ¾ÎÄ¼şºÍÄ¿Â¼µÄ´óĞ¡
-rpm -q -a --qf '%10{SIZE}t%{NAME}n' | sort -k1,1n ÒÔ´óĞ¡ÎªÒÀ¾İÒÀ´ÎÏÔÊ¾ÒÑ°²×°µÄrpm°üËùÊ¹ÓÃµÄ¿Õ¼ä (fedora, redhatÀàÏµÍ³)
-dpkg-query -W -f='${Installed-Size;10}t${Package}n' | sort -k1,1n ÒÔ´óĞ¡ÎªÒÀ¾İÏÔÊ¾ÒÑ°²×°µÄdeb°üËùÊ¹ÓÃµÄ¿Õ¼ä (ubuntu, debianÀàÏµÍ³)
+ç£ç›˜ç©ºé—´
+df -h æ˜¾ç¤ºå·²ç»æŒ‚è½½çš„åˆ†åŒºåˆ—è¡¨
+ls -lSr |more ä»¥å°ºå¯¸å¤§å°æ’åˆ—æ–‡ä»¶å’Œç›®å½•
+du -sh dir1 ä¼°ç®—ç›®å½• 'dir1' å·²ç»ä½¿ç”¨çš„ç£ç›˜ç©ºé—´'
+du -sk * | sort -rn ä»¥å®¹é‡å¤§å°ä¸ºä¾æ®ä¾æ¬¡æ˜¾ç¤ºæ–‡ä»¶å’Œç›®å½•çš„å¤§å°
+rpm -q -a --qf '%10{SIZE}t%{NAME}n' | sort -k1,1n ä»¥å¤§å°ä¸ºä¾æ®ä¾æ¬¡æ˜¾ç¤ºå·²å®‰è£…çš„rpmåŒ…æ‰€ä½¿ç”¨çš„ç©ºé—´ (fedora, redhatç±»ç³»ç»Ÿ)
+dpkg-query -W -f='${Installed-Size;10}t${Package}n' | sort -k1,1n ä»¥å¤§å°ä¸ºä¾æ®æ˜¾ç¤ºå·²å®‰è£…çš„debåŒ…æ‰€ä½¿ç”¨çš„ç©ºé—´ (ubuntu, debianç±»ç³»ç»Ÿ)
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÓÃ»§ºÍÈº×é
-groupadd group_name ´´½¨Ò»¸öĞÂÓÃ»§×é
-groupdel group_name É¾³ıÒ»¸öÓÃ»§×é
-groupmod -n new_group_name old_group_name ÖØÃüÃûÒ»¸öÓÃ»§×é
-useradd -c "Name Surname " -g admin -d /home/user1 -s /bin/bash user1 ´´½¨Ò»¸öÊôÓÚ "admin" ÓÃ»§×éµÄÓÃ»§
-useradd user1 ´´½¨Ò»¸öĞÂÓÃ»§
-userdel -r user1 É¾³ıÒ»¸öÓÃ»§ ( '-r' ÅÅ³ıÖ÷Ä¿Â¼)
-usermod -c "User FTP" -g system -d /ftp/user1 -s /bin/nologin user1 ĞŞ¸ÄÓÃ»§ÊôĞÔ
-passwd ĞŞ¸Ä¿ÚÁî
-passwd user1 ĞŞ¸ÄÒ»¸öÓÃ»§µÄ¿ÚÁî (Ö»ÔÊĞírootÖ´ĞĞ)
-chage -E 2005-12-31 user1 ÉèÖÃÓÃ»§¿ÚÁîµÄÊ§Ğ§ÆÚÏŞ
-pwck ¼ì²é '/etc/passwd' µÄÎÄ¼ş¸ñÊ½ºÍÓï·¨ĞŞÕıÒÔ¼°´æÔÚµÄÓÃ»§
-grpck ¼ì²é '/etc/passwd' µÄÎÄ¼ş¸ñÊ½ºÍÓï·¨ĞŞÕıÒÔ¼°´æÔÚµÄÈº×é
-newgrp group_name µÇÂ½½øÒ»¸öĞÂµÄÈº×éÒÔ¸Ä±äĞÂ´´½¨ÎÄ¼şµÄÔ¤ÉèÈº×é
+ç”¨æˆ·å’Œç¾¤ç»„
+groupadd group_name åˆ›å»ºä¸€ä¸ªæ–°ç”¨æˆ·ç»„
+groupdel group_name åˆ é™¤ä¸€ä¸ªç”¨æˆ·ç»„
+groupmod -n new_group_name old_group_name é‡å‘½åä¸€ä¸ªç”¨æˆ·ç»„
+useradd -c "Name Surname " -g admin -d /home/user1 -s /bin/bash user1 åˆ›å»ºä¸€ä¸ªå±äº "admin" ç”¨æˆ·ç»„çš„ç”¨æˆ·
+useradd user1 åˆ›å»ºä¸€ä¸ªæ–°ç”¨æˆ·
+userdel -r user1 åˆ é™¤ä¸€ä¸ªç”¨æˆ· ( '-r' æ’é™¤ä¸»ç›®å½•)
+usermod -c "User FTP" -g system -d /ftp/user1 -s /bin/nologin user1 ä¿®æ”¹ç”¨æˆ·å±æ€§
+passwd ä¿®æ”¹å£ä»¤
+passwd user1 ä¿®æ”¹ä¸€ä¸ªç”¨æˆ·çš„å£ä»¤ (åªå…è®¸rootæ‰§è¡Œ)
+chage -E 2005-12-31 user1 è®¾ç½®ç”¨æˆ·å£ä»¤çš„å¤±æ•ˆæœŸé™
+pwck æ£€æŸ¥ '/etc/passwd' çš„æ–‡ä»¶æ ¼å¼å’Œè¯­æ³•ä¿®æ­£ä»¥åŠå­˜åœ¨çš„ç”¨æˆ·
+grpck æ£€æŸ¥ '/etc/passwd' çš„æ–‡ä»¶æ ¼å¼å’Œè¯­æ³•ä¿®æ­£ä»¥åŠå­˜åœ¨çš„ç¾¤ç»„
+newgrp group_name ç™»é™†è¿›ä¸€ä¸ªæ–°çš„ç¾¤ç»„ä»¥æ”¹å˜æ–°åˆ›å»ºæ–‡ä»¶çš„é¢„è®¾ç¾¤ç»„
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÎÄ¼şµÄÈ¨ÏŞ - Ê¹ÓÃ "+" ÉèÖÃÈ¨ÏŞ£¬Ê¹ÓÃ "-" ÓÃÓÚÈ¡Ïû
-ls -lh ÏÔÊ¾È¨ÏŞ
-ls /tmp | pr -T5 -W$COLUMNS ½«ÖÕ¶Ë»®·Ö³É5À¸ÏÔÊ¾
-chmod ugo+rwx directory1 ÉèÖÃÄ¿Â¼µÄËùÓĞÈË(u)¡¢Èº×é(g)ÒÔ¼°ÆäËûÈË(o)ÒÔ¶Á£¨r £©¡¢Ğ´(w)ºÍÖ´ĞĞ(x)µÄÈ¨ÏŞ
-chmod go-rwx directory1 É¾³ıÈº×é(g)ÓëÆäËûÈË(o)¶ÔÄ¿Â¼µÄ¶ÁĞ´Ö´ĞĞÈ¨ÏŞ
-chown user1 file1 ¸Ä±äÒ»¸öÎÄ¼şµÄËùÓĞÈËÊôĞÔ
-chown -R user1 directory1 ¸Ä±äÒ»¸öÄ¿Â¼µÄËùÓĞÈËÊôĞÔ²¢Í¬Ê±¸Ä±ä¸ÄÄ¿Â¼ÏÂËùÓĞÎÄ¼şµÄÊôĞÔ
-chgrp group1 file1 ¸Ä±äÎÄ¼şµÄÈº×é
-chown user1:group1 file1 ¸Ä±äÒ»¸öÎÄ¼şµÄËùÓĞÈËºÍÈº×éÊôĞÔ
-find / -perm -u+s ÂŞÁĞÒ»¸öÏµÍ³ÖĞËùÓĞÊ¹ÓÃÁËSUID¿ØÖÆµÄÎÄ¼ş
-chmod u+s /bin/file1 ÉèÖÃÒ»¸ö¶ş½øÖÆÎÄ¼şµÄ SUID Î» - ÔËĞĞ¸ÃÎÄ¼şµÄÓÃ»§Ò²±»¸³ÓèºÍËùÓĞÕßÍ¬ÑùµÄÈ¨ÏŞ
-chmod u-s /bin/file1 ½ûÓÃÒ»¸ö¶ş½øÖÆÎÄ¼şµÄ SUIDÎ»
-chmod g+s /home/public ÉèÖÃÒ»¸öÄ¿Â¼µÄSGID Î» - ÀàËÆSUID £¬²»¹ıÕâÊÇÕë¶ÔÄ¿Â¼µÄ
-chmod g-s /home/public ½ûÓÃÒ»¸öÄ¿Â¼µÄ SGID Î»
-chmod o+t /home/public ÉèÖÃÒ»¸öÎÄ¼şµÄ STIKY Î» - Ö»ÔÊĞíºÏ·¨ËùÓĞÈËÉ¾³ıÎÄ¼ş
-chmod o-t /home/public ½ûÓÃÒ»¸öÄ¿Â¼µÄ STIKY Î»
+æ–‡ä»¶çš„æƒé™ - ä½¿ç”¨ "+" è®¾ç½®æƒé™ï¼Œä½¿ç”¨ "-" ç”¨äºå–æ¶ˆ
+ls -lh æ˜¾ç¤ºæƒé™
+ls /tmp | pr -T5 -W$COLUMNS å°†ç»ˆç«¯åˆ’åˆ†æˆ5æ æ˜¾ç¤º
+chmod ugo+rwx directory1 è®¾ç½®ç›®å½•çš„æ‰€æœ‰äºº(u)ã€ç¾¤ç»„(g)ä»¥åŠå…¶ä»–äºº(o)ä»¥è¯»ï¼ˆr ï¼‰ã€å†™(w)å’Œæ‰§è¡Œ(x)çš„æƒé™
+chmod go-rwx directory1 åˆ é™¤ç¾¤ç»„(g)ä¸å…¶ä»–äºº(o)å¯¹ç›®å½•çš„è¯»å†™æ‰§è¡Œæƒé™
+chown user1 file1 æ”¹å˜ä¸€ä¸ªæ–‡ä»¶çš„æ‰€æœ‰äººå±æ€§
+chown -R user1 directory1 æ”¹å˜ä¸€ä¸ªç›®å½•çš„æ‰€æœ‰äººå±æ€§å¹¶åŒæ—¶æ”¹å˜æ”¹ç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶çš„å±æ€§
+chgrp group1 file1 æ”¹å˜æ–‡ä»¶çš„ç¾¤ç»„
+chown user1:group1 file1 æ”¹å˜ä¸€ä¸ªæ–‡ä»¶çš„æ‰€æœ‰äººå’Œç¾¤ç»„å±æ€§
+find / -perm -u+s ç½—åˆ—ä¸€ä¸ªç³»ç»Ÿä¸­æ‰€æœ‰ä½¿ç”¨äº†SUIDæ§åˆ¶çš„æ–‡ä»¶
+chmod u+s /bin/file1 è®¾ç½®ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶çš„ SUID ä½ - è¿è¡Œè¯¥æ–‡ä»¶çš„ç”¨æˆ·ä¹Ÿè¢«èµ‹äºˆå’Œæ‰€æœ‰è€…åŒæ ·çš„æƒé™
+chmod u-s /bin/file1 ç¦ç”¨ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶çš„ SUIDä½
+chmod g+s /home/public è®¾ç½®ä¸€ä¸ªç›®å½•çš„SGID ä½ - ç±»ä¼¼SUID ï¼Œä¸è¿‡è¿™æ˜¯é’ˆå¯¹ç›®å½•çš„
+chmod g-s /home/public ç¦ç”¨ä¸€ä¸ªç›®å½•çš„ SGID ä½
+chmod o+t /home/public è®¾ç½®ä¸€ä¸ªæ–‡ä»¶çš„ STIKY ä½ - åªå…è®¸åˆæ³•æ‰€æœ‰äººåˆ é™¤æ–‡ä»¶
+chmod o-t /home/public ç¦ç”¨ä¸€ä¸ªç›®å½•çš„ STIKY ä½
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÎÄ¼şµÄÌØÊâÊôĞÔ - Ê¹ÓÃ "+" ÉèÖÃÈ¨ÏŞ£¬Ê¹ÓÃ "-" ÓÃÓÚÈ¡Ïû
-chattr +a file1 Ö»ÔÊĞíÒÔ×·¼Ó·½Ê½¶ÁĞ´ÎÄ¼ş
-chattr +c file1 ÔÊĞíÕâ¸öÎÄ¼şÄÜ±»ÄÚºË×Ô¶¯Ñ¹Ëõ/½âÑ¹
-chattr +d file1 ÔÚ½øĞĞÎÄ¼şÏµÍ³±¸·İÊ±£¬dump³ÌĞò½«ºöÂÔÕâ¸öÎÄ¼ş
-chattr +i file1 ÉèÖÃ³É²»¿É±äµÄÎÄ¼ş£¬²»ÄÜ±»É¾³ı¡¢ĞŞ¸Ä¡¢ÖØÃüÃû»òÕßÁ´½Ó
-chattr +s file1 ÔÊĞíÒ»¸öÎÄ¼ş±»°²È«µØÉ¾³ı
-chattr +S file1 Ò»µ©Ó¦ÓÃ³ÌĞò¶ÔÕâ¸öÎÄ¼şÖ´ĞĞÁËĞ´²Ù×÷£¬Ê¹ÏµÍ³Á¢¿Ì°ÑĞŞ¸ÄµÄ½á¹ûĞ´µ½´ÅÅÌ
-chattr +u file1 ÈôÎÄ¼ş±»É¾³ı£¬ÏµÍ³»áÔÊĞíÄãÔÚÒÔºó»Ö¸´Õâ¸ö±»É¾³ıµÄÎÄ¼ş
-lsattr ÏÔÊ¾ÌØÊâµÄÊôĞÔ
+æ–‡ä»¶çš„ç‰¹æ®Šå±æ€§ - ä½¿ç”¨ "+" è®¾ç½®æƒé™ï¼Œä½¿ç”¨ "-" ç”¨äºå–æ¶ˆ
+chattr +a file1 åªå…è®¸ä»¥è¿½åŠ æ–¹å¼è¯»å†™æ–‡ä»¶
+chattr +c file1 å…è®¸è¿™ä¸ªæ–‡ä»¶èƒ½è¢«å†…æ ¸è‡ªåŠ¨å‹ç¼©/è§£å‹
+chattr +d file1 åœ¨è¿›è¡Œæ–‡ä»¶ç³»ç»Ÿå¤‡ä»½æ—¶ï¼Œdumpç¨‹åºå°†å¿½ç•¥è¿™ä¸ªæ–‡ä»¶
+chattr +i file1 è®¾ç½®æˆä¸å¯å˜çš„æ–‡ä»¶ï¼Œä¸èƒ½è¢«åˆ é™¤ã€ä¿®æ”¹ã€é‡å‘½åæˆ–è€…é“¾æ¥
+chattr +s file1 å…è®¸ä¸€ä¸ªæ–‡ä»¶è¢«å®‰å…¨åœ°åˆ é™¤
+chattr +S file1 ä¸€æ—¦åº”ç”¨ç¨‹åºå¯¹è¿™ä¸ªæ–‡ä»¶æ‰§è¡Œäº†å†™æ“ä½œï¼Œä½¿ç³»ç»Ÿç«‹åˆ»æŠŠä¿®æ”¹çš„ç»“æœå†™åˆ°ç£ç›˜
+chattr +u file1 è‹¥æ–‡ä»¶è¢«åˆ é™¤ï¼Œç³»ç»Ÿä¼šå…è®¸ä½ åœ¨ä»¥åæ¢å¤è¿™ä¸ªè¢«åˆ é™¤çš„æ–‡ä»¶
+lsattr æ˜¾ç¤ºç‰¹æ®Šçš„å±æ€§
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-´ò°üºÍÑ¹ËõÎÄ¼ş
-bunzip2 file1.bz2 ½âÑ¹Ò»¸ö½Ğ×ö 'file1.bz2'µÄÎÄ¼ş
-bzip2 file1 Ñ¹ËõÒ»¸ö½Ğ×ö 'file1' µÄÎÄ¼ş
-gunzip file1.gz ½âÑ¹Ò»¸ö½Ğ×ö 'file1.gz'µÄÎÄ¼ş
-gzip file1 Ñ¹ËõÒ»¸ö½Ğ×ö 'file1'µÄÎÄ¼ş
-gzip -9 file1 ×î´ó³Ì¶ÈÑ¹Ëõ
-rar a file1.rar test_file ´´½¨Ò»¸ö½Ğ×ö 'file1.rar' µÄ°ü
-rar a file1.rar file1 file2 dir1 Í¬Ê±Ñ¹Ëõ 'file1', 'file2' ÒÔ¼°Ä¿Â¼ 'dir1'
-rar x file1.rar ½âÑ¹rar°ü
-unrar x file1.rar ½âÑ¹rar°ü
-tar -cvf archive.tar file1 ´´½¨Ò»¸ö·ÇÑ¹ËõµÄ tarball
-tar -cvf archive.tar file1 file2 dir1 ´´½¨Ò»¸ö°üº¬ÁË 'file1', 'file2' ÒÔ¼° 'dir1'µÄµµ°¸ÎÄ¼ş
-tar -tf archive.tar ÏÔÊ¾Ò»¸ö°üÖĞµÄÄÚÈİ
-tar -xvf archive.tar ÊÍ·ÅÒ»¸ö°ü
-tar -xvf archive.tar -C /tmp ½«Ñ¹Ëõ°üÊÍ·Åµ½ /tmpÄ¿Â¼ÏÂ
-tar -cvfj archive.tar.bz2 dir1 ´´½¨Ò»¸öbzip2¸ñÊ½µÄÑ¹Ëõ°ü
-tar -xvfj archive.tar.bz2 ½âÑ¹Ò»¸öbzip2¸ñÊ½µÄÑ¹Ëõ°ü
-tar -cvfz archive.tar.gz dir1 ´´½¨Ò»¸ögzip¸ñÊ½µÄÑ¹Ëõ°ü
-tar -xvfz archive.tar.gz ½âÑ¹Ò»¸ögzip¸ñÊ½µÄÑ¹Ëõ°ü
-zip file1.zip file1 ´´½¨Ò»¸özip¸ñÊ½µÄÑ¹Ëõ°ü
-zip -r file1.zip file1 file2 dir1 ½«¼¸¸öÎÄ¼şºÍÄ¿Â¼Í¬Ê±Ñ¹Ëõ³ÉÒ»¸özip¸ñÊ½µÄÑ¹Ëõ°ü
-unzip file1.zip ½âÑ¹Ò»¸özip¸ñÊ½Ñ¹Ëõ°ü
+æ‰“åŒ…å’Œå‹ç¼©æ–‡ä»¶
+bunzip2 file1.bz2 è§£å‹ä¸€ä¸ªå«åš 'file1.bz2'çš„æ–‡ä»¶
+bzip2 file1 å‹ç¼©ä¸€ä¸ªå«åš 'file1' çš„æ–‡ä»¶
+gunzip file1.gz è§£å‹ä¸€ä¸ªå«åš 'file1.gz'çš„æ–‡ä»¶
+gzip file1 å‹ç¼©ä¸€ä¸ªå«åš 'file1'çš„æ–‡ä»¶
+gzip -9 file1 æœ€å¤§ç¨‹åº¦å‹ç¼©
+rar a file1.rar test_file åˆ›å»ºä¸€ä¸ªå«åš 'file1.rar' çš„åŒ…
+rar a file1.rar file1 file2 dir1 åŒæ—¶å‹ç¼© 'file1', 'file2' ä»¥åŠç›®å½• 'dir1'
+rar x file1.rar è§£å‹raråŒ…
+unrar x file1.rar è§£å‹raråŒ…
+tar -cvf archive.tar file1 åˆ›å»ºä¸€ä¸ªéå‹ç¼©çš„ tarball
+tar -cvf archive.tar file1 file2 dir1 åˆ›å»ºä¸€ä¸ªåŒ…å«äº† 'file1', 'file2' ä»¥åŠ 'dir1'çš„æ¡£æ¡ˆæ–‡ä»¶
+tar -tf archive.tar æ˜¾ç¤ºä¸€ä¸ªåŒ…ä¸­çš„å†…å®¹
+tar -xvf archive.tar é‡Šæ”¾ä¸€ä¸ªåŒ…
+tar -xvf archive.tar -C /tmp å°†å‹ç¼©åŒ…é‡Šæ”¾åˆ° /tmpç›®å½•ä¸‹
+tar -cvfj archive.tar.bz2 dir1 åˆ›å»ºä¸€ä¸ªbzip2æ ¼å¼çš„å‹ç¼©åŒ…
+tar -xvfj archive.tar.bz2 è§£å‹ä¸€ä¸ªbzip2æ ¼å¼çš„å‹ç¼©åŒ…
+tar -cvfz archive.tar.gz dir1 åˆ›å»ºä¸€ä¸ªgzipæ ¼å¼çš„å‹ç¼©åŒ…
+tar -xvfz archive.tar.gz è§£å‹ä¸€ä¸ªgzipæ ¼å¼çš„å‹ç¼©åŒ…
+zip file1.zip file1 åˆ›å»ºä¸€ä¸ªzipæ ¼å¼çš„å‹ç¼©åŒ…
+zip -r file1.zip file1 file2 dir1 å°†å‡ ä¸ªæ–‡ä»¶å’Œç›®å½•åŒæ—¶å‹ç¼©æˆä¸€ä¸ªzipæ ¼å¼çš„å‹ç¼©åŒ…
+unzip file1.zip è§£å‹ä¸€ä¸ªzipæ ¼å¼å‹ç¼©åŒ…
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-RPM °ü - £¨Fedora, Redhat¼°ÀàËÆÏµÍ³£©
-rpm -ivh package.rpm °²×°Ò»¸örpm°ü
-rpm -ivh --nodeeps package.rpm °²×°Ò»¸örpm°ü¶øºöÂÔÒÀÀµ¹ØÏµ¾¯¸æ
-rpm -U package.rpm ¸üĞÂÒ»¸örpm°üµ«²»¸Ä±äÆäÅäÖÃÎÄ¼ş
-rpm -F package.rpm ¸üĞÂÒ»¸öÈ·¶¨ÒÑ¾­°²×°µÄrpm°ü
-rpm -e package_name.rpm É¾³ıÒ»¸örpm°ü
-rpm -qa ÏÔÊ¾ÏµÍ³ÖĞËùÓĞÒÑ¾­°²×°µÄrpm°ü
-rpm -qa | grep httpd ÏÔÊ¾ËùÓĞÃû³ÆÖĞ°üº¬ "httpd" ×ÖÑùµÄrpm°ü
-rpm -qi package_name »ñÈ¡Ò»¸öÒÑ°²×°°üµÄÌØÊâĞÅÏ¢
-rpm -qg "System Environment/Daemons" ÏÔÊ¾Ò»¸ö×é¼şµÄrpm°ü
-rpm -ql package_name ÏÔÊ¾Ò»¸öÒÑ¾­°²×°µÄrpm°üÌá¹©µÄÎÄ¼şÁĞ±í
-rpm -qc package_name ÏÔÊ¾Ò»¸öÒÑ¾­°²×°µÄrpm°üÌá¹©µÄÅäÖÃÎÄ¼şÁĞ±í
-rpm -q package_name --whatrequires ÏÔÊ¾ÓëÒ»¸örpm°ü´æÔÚÒÀÀµ¹ØÏµµÄÁĞ±í
-rpm -q package_name --whatprovides ÏÔÊ¾Ò»¸örpm°üËùÕ¼µÄÌå»ı
-rpm -q package_name --scripts ÏÔÊ¾ÔÚ°²×°/É¾³ıÆÚ¼äËùÖ´ĞĞµÄ½Å±¾l
-rpm -q package_name --changelog ÏÔÊ¾Ò»¸örpm°üµÄĞŞ¸ÄÀúÊ·
-rpm -qf /etc/httpd/conf/httpd.conf È·ÈÏËù¸øµÄÎÄ¼şÓÉÄÄ¸örpm°üËùÌá¹©
-rpm -qp package.rpm -l ÏÔÊ¾ÓÉÒ»¸öÉĞÎ´°²×°µÄrpm°üÌá¹©µÄÎÄ¼şÁĞ±í
-rpm --import /media/cdrom/RPM-GPG-KEY µ¼Èë¹«Ô¿Êı×ÖÖ¤Êé
-rpm --checksig package.rpm È·ÈÏÒ»¸örpm°üµÄÍêÕûĞÔ
-rpm -qa gpg-pubkey È·ÈÏÒÑ°²×°µÄËùÓĞrpm°üµÄÍêÕûĞÔ
-rpm -V package_name ¼ì²éÎÄ¼ş³ß´ç¡¢ Ğí¿É¡¢ÀàĞÍ¡¢ËùÓĞÕß¡¢Èº×é¡¢MD5¼ì²éÒÔ¼°×îºóĞŞ¸ÄÊ±¼ä
-rpm -Va ¼ì²éÏµÍ³ÖĞËùÓĞÒÑ°²×°µÄrpm°ü- Ğ¡ĞÄÊ¹ÓÃ
-rpm -Vp package.rpm È·ÈÏÒ»¸örpm°ü»¹Î´°²×°
-rpm2cpio package.rpm | cpio --extract --make-directories *bin* ´ÓÒ»¸örpm°üÔËĞĞ¿ÉÖ´ĞĞÎÄ¼ş
-rpm -ivh /usr/src/redhat/RPMS/`arch`/package.rpm ´ÓÒ»¸örpmÔ´Âë°²×°Ò»¸ö¹¹½¨ºÃµÄ°ü
-rpmbuild --rebuild package_name.src.rpm ´ÓÒ»¸örpmÔ´Âë¹¹½¨Ò»¸ö rpm °ü
+RPM åŒ… - ï¼ˆFedora, RedhatåŠç±»ä¼¼ç³»ç»Ÿï¼‰
+rpm -ivh package.rpm å®‰è£…ä¸€ä¸ªrpmåŒ…
+rpm -ivh --nodeeps package.rpm å®‰è£…ä¸€ä¸ªrpmåŒ…è€Œå¿½ç•¥ä¾èµ–å…³ç³»è­¦å‘Š
+rpm -U package.rpm æ›´æ–°ä¸€ä¸ªrpmåŒ…ä½†ä¸æ”¹å˜å…¶é…ç½®æ–‡ä»¶
+rpm -F package.rpm æ›´æ–°ä¸€ä¸ªç¡®å®šå·²ç»å®‰è£…çš„rpmåŒ…
+rpm -e package_name.rpm åˆ é™¤ä¸€ä¸ªrpmåŒ…
+rpm -qa æ˜¾ç¤ºç³»ç»Ÿä¸­æ‰€æœ‰å·²ç»å®‰è£…çš„rpmåŒ…
+rpm -qa | grep httpd æ˜¾ç¤ºæ‰€æœ‰åç§°ä¸­åŒ…å« "httpd" å­—æ ·çš„rpmåŒ…
+rpm -qi package_name è·å–ä¸€ä¸ªå·²å®‰è£…åŒ…çš„ç‰¹æ®Šä¿¡æ¯
+rpm -qg "System Environment/Daemons" æ˜¾ç¤ºä¸€ä¸ªç»„ä»¶çš„rpmåŒ…
+rpm -ql package_name æ˜¾ç¤ºä¸€ä¸ªå·²ç»å®‰è£…çš„rpmåŒ…æä¾›çš„æ–‡ä»¶åˆ—è¡¨
+rpm -qc package_name æ˜¾ç¤ºä¸€ä¸ªå·²ç»å®‰è£…çš„rpmåŒ…æä¾›çš„é…ç½®æ–‡ä»¶åˆ—è¡¨
+rpm -q package_name --whatrequires æ˜¾ç¤ºä¸ä¸€ä¸ªrpmåŒ…å­˜åœ¨ä¾èµ–å…³ç³»çš„åˆ—è¡¨
+rpm -q package_name --whatprovides æ˜¾ç¤ºä¸€ä¸ªrpmåŒ…æ‰€å çš„ä½“ç§¯
+rpm -q package_name --scripts æ˜¾ç¤ºåœ¨å®‰è£…/åˆ é™¤æœŸé—´æ‰€æ‰§è¡Œçš„è„šæœ¬l
+rpm -q package_name --changelog æ˜¾ç¤ºä¸€ä¸ªrpmåŒ…çš„ä¿®æ”¹å†å²
+rpm -qf /etc/httpd/conf/httpd.conf ç¡®è®¤æ‰€ç»™çš„æ–‡ä»¶ç”±å“ªä¸ªrpmåŒ…æ‰€æä¾›
+rpm -qp package.rpm -l æ˜¾ç¤ºç”±ä¸€ä¸ªå°šæœªå®‰è£…çš„rpmåŒ…æä¾›çš„æ–‡ä»¶åˆ—è¡¨
+rpm --import /media/cdrom/RPM-GPG-KEY å¯¼å…¥å…¬é’¥æ•°å­—è¯ä¹¦
+rpm --checksig package.rpm ç¡®è®¤ä¸€ä¸ªrpmåŒ…çš„å®Œæ•´æ€§
+rpm -qa gpg-pubkey ç¡®è®¤å·²å®‰è£…çš„æ‰€æœ‰rpmåŒ…çš„å®Œæ•´æ€§
+rpm -V package_name æ£€æŸ¥æ–‡ä»¶å°ºå¯¸ã€ è®¸å¯ã€ç±»å‹ã€æ‰€æœ‰è€…ã€ç¾¤ç»„ã€MD5æ£€æŸ¥ä»¥åŠæœ€åä¿®æ”¹æ—¶é—´
+rpm -Va æ£€æŸ¥ç³»ç»Ÿä¸­æ‰€æœ‰å·²å®‰è£…çš„rpmåŒ…- å°å¿ƒä½¿ç”¨
+rpm -Vp package.rpm ç¡®è®¤ä¸€ä¸ªrpmåŒ…è¿˜æœªå®‰è£…
+rpm2cpio package.rpm | cpio --extract --make-directories *bin* ä»ä¸€ä¸ªrpmåŒ…è¿è¡Œå¯æ‰§è¡Œæ–‡ä»¶
+rpm -ivh /usr/src/redhat/RPMS/`arch`/package.rpm ä»ä¸€ä¸ªrpmæºç å®‰è£…ä¸€ä¸ªæ„å»ºå¥½çš„åŒ…
+rpmbuild --rebuild package_name.src.rpm ä»ä¸€ä¸ªrpmæºç æ„å»ºä¸€ä¸ª rpm åŒ…
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-YUM Èí¼ş°üÉı¼¶Æ÷ - £¨Fedora, RedHat¼°ÀàËÆÏµÍ³£©
-yum install package_name ÏÂÔØ²¢°²×°Ò»¸örpm°ü
-yum localinstall package_name.rpm ½«°²×°Ò»¸örpm°ü£¬Ê¹ÓÃÄã×Ô¼ºµÄÈí¼ş²Ö¿âÎªÄã½â¾öËùÓĞÒÀÀµ¹ØÏµ
-yum update package_name.rpm ¸üĞÂµ±Ç°ÏµÍ³ÖĞËùÓĞ°²×°µÄrpm°ü
-yum update package_name ¸üĞÂÒ»¸örpm°ü
-yum remove package_name É¾³ıÒ»¸örpm°ü
-yum list ÁĞ³öµ±Ç°ÏµÍ³ÖĞ°²×°µÄËùÓĞ°ü
-yum search package_name ÔÚrpm²Ö¿âÖĞËÑÑ°Èí¼ş°ü
-yum clean packages ÇåÀírpm»º´æÉ¾³ıÏÂÔØµÄ°ü
-yum clean headers É¾³ıËùÓĞÍ·ÎÄ¼ş
-yum clean all É¾³ıËùÓĞ»º´æµÄ°üºÍÍ·ÎÄ¼ş
+YUM è½¯ä»¶åŒ…å‡çº§å™¨ - ï¼ˆFedora, RedHatåŠç±»ä¼¼ç³»ç»Ÿï¼‰
+yum install package_name ä¸‹è½½å¹¶å®‰è£…ä¸€ä¸ªrpmåŒ…
+yum localinstall package_name.rpm å°†å®‰è£…ä¸€ä¸ªrpmåŒ…ï¼Œä½¿ç”¨ä½ è‡ªå·±çš„è½¯ä»¶ä»“åº“ä¸ºä½ è§£å†³æ‰€æœ‰ä¾èµ–å…³ç³»
+yum update package_name.rpm æ›´æ–°å½“å‰ç³»ç»Ÿä¸­æ‰€æœ‰å®‰è£…çš„rpmåŒ…
+yum update package_name æ›´æ–°ä¸€ä¸ªrpmåŒ…
+yum remove package_name åˆ é™¤ä¸€ä¸ªrpmåŒ…
+yum list åˆ—å‡ºå½“å‰ç³»ç»Ÿä¸­å®‰è£…çš„æ‰€æœ‰åŒ…
+yum search package_name åœ¨rpmä»“åº“ä¸­æœå¯»è½¯ä»¶åŒ…
+yum clean packages æ¸…ç†rpmç¼“å­˜åˆ é™¤ä¸‹è½½çš„åŒ…
+yum clean headers åˆ é™¤æ‰€æœ‰å¤´æ–‡ä»¶
+yum clean all åˆ é™¤æ‰€æœ‰ç¼“å­˜çš„åŒ…å’Œå¤´æ–‡ä»¶
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-DEB °ü (Debian, Ubuntu ÒÔ¼°ÀàËÆÏµÍ³)
-dpkg -i package.deb °²×°/¸üĞÂÒ»¸ö deb °ü
-dpkg -r package_name ´ÓÏµÍ³É¾³ıÒ»¸ö deb °ü
-dpkg -l ÏÔÊ¾ÏµÍ³ÖĞËùÓĞÒÑ¾­°²×°µÄ deb °ü
-dpkg -l | grep httpd ÏÔÊ¾ËùÓĞÃû³ÆÖĞ°üº¬ "httpd" ×ÖÑùµÄdeb°ü
-dpkg -s package_name »ñµÃÒÑ¾­°²×°ÔÚÏµÍ³ÖĞÒ»¸öÌØÊâ°üµÄĞÅÏ¢
-dpkg -L package_name ÏÔÊ¾ÏµÍ³ÖĞÒÑ¾­°²×°µÄÒ»¸ödeb°üËùÌá¹©µÄÎÄ¼şÁĞ±í
-dpkg --contents package.deb ÏÔÊ¾ÉĞÎ´°²×°µÄÒ»¸ö°üËùÌá¹©µÄÎÄ¼şÁĞ±í
-dpkg -S /bin/ping È·ÈÏËù¸øµÄÎÄ¼şÓÉÄÄ¸ödeb°üÌá¹©
+DEB åŒ… (Debian, Ubuntu ä»¥åŠç±»ä¼¼ç³»ç»Ÿ)
+dpkg -i package.deb å®‰è£…/æ›´æ–°ä¸€ä¸ª deb åŒ…
+dpkg -r package_name ä»ç³»ç»Ÿåˆ é™¤ä¸€ä¸ª deb åŒ…
+dpkg -l æ˜¾ç¤ºç³»ç»Ÿä¸­æ‰€æœ‰å·²ç»å®‰è£…çš„ deb åŒ…
+dpkg -l | grep httpd æ˜¾ç¤ºæ‰€æœ‰åç§°ä¸­åŒ…å« "httpd" å­—æ ·çš„debåŒ…
+dpkg -s package_name è·å¾—å·²ç»å®‰è£…åœ¨ç³»ç»Ÿä¸­ä¸€ä¸ªç‰¹æ®ŠåŒ…çš„ä¿¡æ¯
+dpkg -L package_name æ˜¾ç¤ºç³»ç»Ÿä¸­å·²ç»å®‰è£…çš„ä¸€ä¸ªdebåŒ…æ‰€æä¾›çš„æ–‡ä»¶åˆ—è¡¨
+dpkg --contents package.deb æ˜¾ç¤ºå°šæœªå®‰è£…çš„ä¸€ä¸ªåŒ…æ‰€æä¾›çš„æ–‡ä»¶åˆ—è¡¨
+dpkg -S /bin/ping ç¡®è®¤æ‰€ç»™çš„æ–‡ä»¶ç”±å“ªä¸ªdebåŒ…æä¾›
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-APT Èí¼ş¹¤¾ß (Debian, Ubuntu ÒÔ¼°ÀàËÆÏµÍ³)
-apt-get install package_name °²×°/¸üĞÂÒ»¸ö deb °ü
-apt-cdrom install package_name ´Ó¹âÅÌ°²×°/¸üĞÂÒ»¸ö deb °ü
-apt-get update Éı¼¶ÁĞ±íÖĞµÄÈí¼ş°ü
-apt-get upgrade Éı¼¶ËùÓĞÒÑ°²×°µÄÈí¼ş
-apt-get remove package_name ´ÓÏµÍ³É¾³ıÒ»¸ödeb°ü
-apt-get check È·ÈÏÒÀÀµµÄÈí¼ş²Ö¿âÕıÈ·
-apt-get clean ´ÓÏÂÔØµÄÈí¼ş°üÖĞÇåÀí»º´æ
-apt-cache search searched-package ·µ»Ø°üº¬ËùÒªËÑË÷×Ö·û´®µÄÈí¼ş°üÃû³Æ
+APT è½¯ä»¶å·¥å…· (Debian, Ubuntu ä»¥åŠç±»ä¼¼ç³»ç»Ÿ)
+apt-get install package_name å®‰è£…/æ›´æ–°ä¸€ä¸ª deb åŒ…
+apt-cdrom install package_name ä»å…‰ç›˜å®‰è£…/æ›´æ–°ä¸€ä¸ª deb åŒ…
+apt-get update å‡çº§åˆ—è¡¨ä¸­çš„è½¯ä»¶åŒ…
+apt-get upgrade å‡çº§æ‰€æœ‰å·²å®‰è£…çš„è½¯ä»¶
+apt-get remove package_name ä»ç³»ç»Ÿåˆ é™¤ä¸€ä¸ªdebåŒ…
+apt-get check ç¡®è®¤ä¾èµ–çš„è½¯ä»¶ä»“åº“æ­£ç¡®
+apt-get clean ä»ä¸‹è½½çš„è½¯ä»¶åŒ…ä¸­æ¸…ç†ç¼“å­˜
+apt-cache search searched-package è¿”å›åŒ…å«æ‰€è¦æœç´¢å­—ç¬¦ä¸²çš„è½¯ä»¶åŒ…åç§°
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-²é¿´ÎÄ¼şÄÚÈİ
-cat file1 ´ÓµÚÒ»¸ö×Ö½Ú¿ªÊ¼ÕıÏò²é¿´ÎÄ¼şµÄÄÚÈİ
-tac file1 ´Ó×îºóÒ»ĞĞ¿ªÊ¼·´Ïò²é¿´Ò»¸öÎÄ¼şµÄÄÚÈİ
-more file1 ²é¿´Ò»¸ö³¤ÎÄ¼şµÄÄÚÈİ
-less file1 ÀàËÆÓÚ 'more' ÃüÁî£¬µ«ÊÇËüÔÊĞíÔÚÎÄ¼şÖĞºÍÕıÏò²Ù×÷Ò»ÑùµÄ·´Ïò²Ù×÷
-head -2 file1 ²é¿´Ò»¸öÎÄ¼şµÄÇ°Á½ĞĞ
-tail -2 file1 ²é¿´Ò»¸öÎÄ¼şµÄ×îºóÁ½ĞĞ
-tail -f /var/log/messages ÊµÊ±²é¿´±»Ìí¼Óµ½Ò»¸öÎÄ¼şÖĞµÄÄÚÈİ
+æŸ¥çœ‹æ–‡ä»¶å†…å®¹
+cat file1 ä»ç¬¬ä¸€ä¸ªå­—èŠ‚å¼€å§‹æ­£å‘æŸ¥çœ‹æ–‡ä»¶çš„å†…å®¹
+tac file1 ä»æœ€åä¸€è¡Œå¼€å§‹åå‘æŸ¥çœ‹ä¸€ä¸ªæ–‡ä»¶çš„å†…å®¹
+more file1 æŸ¥çœ‹ä¸€ä¸ªé•¿æ–‡ä»¶çš„å†…å®¹
+less file1 ç±»ä¼¼äº 'more' å‘½ä»¤ï¼Œä½†æ˜¯å®ƒå…è®¸åœ¨æ–‡ä»¶ä¸­å’Œæ­£å‘æ“ä½œä¸€æ ·çš„åå‘æ“ä½œ
+head -2 file1 æŸ¥çœ‹ä¸€ä¸ªæ–‡ä»¶çš„å‰ä¸¤è¡Œ
+tail -2 file1 æŸ¥çœ‹ä¸€ä¸ªæ–‡ä»¶çš„æœ€åä¸¤è¡Œ
+tail -f /var/log/messages å®æ—¶æŸ¥çœ‹è¢«æ·»åŠ åˆ°ä¸€ä¸ªæ–‡ä»¶ä¸­çš„å†…å®¹
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÎÄ±¾´¦Àí
+æ–‡æœ¬å¤„ç†
 cat file1 file2 ... | command <> file1_in.txt_or_file1_out.txt general syntax for text manipulation using PIPE, STDIN and STDOUT
-cat file1 | command( sed, grep, awk, grep, etc...) > result.txt ºÏ²¢Ò»¸öÎÄ¼şµÄÏêÏ¸ËµÃ÷ÎÄ±¾£¬²¢½«¼ò½éĞ´ÈëÒ»¸öĞÂÎÄ¼şÖĞ
-cat file1 | command( sed, grep, awk, grep, etc...) >> result.txt ºÏ²¢Ò»¸öÎÄ¼şµÄÏêÏ¸ËµÃ÷ÎÄ±¾£¬²¢½«¼ò½éĞ´ÈëÒ»¸öÒÑÓĞµÄÎÄ¼şÖĞ
-grep Aug /var/log/messages ÔÚÎÄ¼ş '/var/log/messages'ÖĞ²éÕÒ¹Ø¼ü´Ê"Aug"
-grep ^Aug /var/log/messages ÔÚÎÄ¼ş '/var/log/messages'ÖĞ²éÕÒÒÔ"Aug"¿ªÊ¼µÄ´Ê»ã
-grep [0-9] /var/log/messages Ñ¡Ôñ '/var/log/messages' ÎÄ¼şÖĞËùÓĞ°üº¬Êı×ÖµÄĞĞ
-grep Aug -R /var/log/* ÔÚÄ¿Â¼ '/var/log' ¼°ËæºóµÄÄ¿Â¼ÖĞËÑË÷×Ö·û´®"Aug"
-sed 's/stringa1/stringa2/g' example.txt ½«example.txtÎÄ¼şÖĞµÄ "string1" Ìæ»»³É "string2"
-sed '/^$/d' example.txt ´Óexample.txtÎÄ¼şÖĞÉ¾³ıËùÓĞ¿Õ°×ĞĞ
-sed '/ *#/d; /^$/d' example.txt ´Óexample.txtÎÄ¼şÖĞÉ¾³ıËùÓĞ×¢ÊÍºÍ¿Õ°×ĞĞ
-echo 'esempio' | tr '[:lower:]' '[:upper:]' ºÏ²¢ÉÏÏÂµ¥Ôª¸ñÄÚÈİ
-sed -e '1d' result.txt ´ÓÎÄ¼şexample.txt ÖĞÅÅ³ıµÚÒ»ĞĞ
-sed -n '/stringa1/p' ²é¿´Ö»°üº¬´Ê»ã "string1"µÄĞĞ
-sed -e 's/ *$//' example.txt É¾³ıÃ¿Ò»ĞĞ×îºóµÄ¿Õ°××Ö·û
-sed -e 's/stringa1//g' example.txt ´ÓÎÄµµÖĞÖ»É¾³ı´Ê»ã "string1" ²¢±£ÁôÊ£ÓàÈ«²¿
-sed -n '1,5p;5q' example.txt ²é¿´´ÓµÚÒ»ĞĞµ½µÚ5ĞĞÄÚÈİ
-sed -n '5p;5q' example.txt ²é¿´µÚ5ĞĞ
-sed -e 's/00*/0/g' example.txt ÓÃµ¥¸öÁãÌæ»»¶à¸öÁã
-cat -n file1 ±êÊ¾ÎÄ¼şµÄĞĞÊı
-cat example.txt | awk 'NR%2==1' É¾³ıexample.txtÎÄ¼şÖĞµÄËùÓĞÅ¼ÊıĞĞ
-echo a b c | awk '{print $1}' ²é¿´Ò»ĞĞµÚÒ»À¸
-echo a b c | awk '{print $1,$3}' ²é¿´Ò»ĞĞµÄµÚÒ»ºÍµÚÈıÀ¸
-paste file1 file2 ºÏ²¢Á½¸öÎÄ¼ş»òÁ½À¸µÄÄÚÈİ
-paste -d '+' file1 file2 ºÏ²¢Á½¸öÎÄ¼ş»òÁ½À¸µÄÄÚÈİ£¬ÖĞ¼äÓÃ"+"Çø·Ö
-sort file1 file2 ÅÅĞòÁ½¸öÎÄ¼şµÄÄÚÈİ
-sort file1 file2 | uniq È¡³öÁ½¸öÎÄ¼şµÄ²¢¼¯(ÖØ¸´µÄĞĞÖ»±£ÁôÒ»·İ)
-sort file1 file2 | uniq -u É¾³ı½»¼¯£¬ÁôÏÂÆäËûµÄĞĞ
-sort file1 file2 | uniq -d È¡³öÁ½¸öÎÄ¼şµÄ½»¼¯(Ö»ÁôÏÂÍ¬Ê±´æÔÚÓÚÁ½¸öÎÄ¼şÖĞµÄÎÄ¼ş)
-comm -1 file1 file2 ±È½ÏÁ½¸öÎÄ¼şµÄÄÚÈİÖ»É¾³ı 'file1' Ëù°üº¬µÄÄÚÈİ
-comm -2 file1 file2 ±È½ÏÁ½¸öÎÄ¼şµÄÄÚÈİÖ»É¾³ı 'file2' Ëù°üº¬µÄÄÚÈİ
-comm -3 file1 file2 ±È½ÏÁ½¸öÎÄ¼şµÄÄÚÈİÖ»É¾³ıÁ½¸öÎÄ¼ş¹²ÓĞµÄ²¿·Ö
+cat file1 | command( sed, grep, awk, grep, etc...) > result.txt åˆå¹¶ä¸€ä¸ªæ–‡ä»¶çš„è¯¦ç»†è¯´æ˜æ–‡æœ¬ï¼Œå¹¶å°†ç®€ä»‹å†™å…¥ä¸€ä¸ªæ–°æ–‡ä»¶ä¸­
+cat file1 | command( sed, grep, awk, grep, etc...) >> result.txt åˆå¹¶ä¸€ä¸ªæ–‡ä»¶çš„è¯¦ç»†è¯´æ˜æ–‡æœ¬ï¼Œå¹¶å°†ç®€ä»‹å†™å…¥ä¸€ä¸ªå·²æœ‰çš„æ–‡ä»¶ä¸­
+grep Aug /var/log/messages åœ¨æ–‡ä»¶ '/var/log/messages'ä¸­æŸ¥æ‰¾å…³é”®è¯"Aug"
+grep ^Aug /var/log/messages åœ¨æ–‡ä»¶ '/var/log/messages'ä¸­æŸ¥æ‰¾ä»¥"Aug"å¼€å§‹çš„è¯æ±‡
+grep [0-9] /var/log/messages é€‰æ‹© '/var/log/messages' æ–‡ä»¶ä¸­æ‰€æœ‰åŒ…å«æ•°å­—çš„è¡Œ
+grep Aug -R /var/log/* åœ¨ç›®å½• '/var/log' åŠéšåçš„ç›®å½•ä¸­æœç´¢å­—ç¬¦ä¸²"Aug"
+sed 's/stringa1/stringa2/g' example.txt å°†example.txtæ–‡ä»¶ä¸­çš„ "string1" æ›¿æ¢æˆ "string2"
+sed '/^$/d' example.txt ä»example.txtæ–‡ä»¶ä¸­åˆ é™¤æ‰€æœ‰ç©ºç™½è¡Œ
+sed '/ *#/d; /^$/d' example.txt ä»example.txtæ–‡ä»¶ä¸­åˆ é™¤æ‰€æœ‰æ³¨é‡Šå’Œç©ºç™½è¡Œ
+echo 'esempio' | tr '[:lower:]' '[:upper:]' åˆå¹¶ä¸Šä¸‹å•å…ƒæ ¼å†…å®¹
+sed -e '1d' result.txt ä»æ–‡ä»¶example.txt ä¸­æ’é™¤ç¬¬ä¸€è¡Œ
+sed -n '/stringa1/p' æŸ¥çœ‹åªåŒ…å«è¯æ±‡ "string1"çš„è¡Œ
+sed -e 's/ *$//' example.txt åˆ é™¤æ¯ä¸€è¡Œæœ€åçš„ç©ºç™½å­—ç¬¦
+sed -e 's/stringa1//g' example.txt ä»æ–‡æ¡£ä¸­åªåˆ é™¤è¯æ±‡ "string1" å¹¶ä¿ç•™å‰©ä½™å…¨éƒ¨
+sed -n '1,5p;5q' example.txt æŸ¥çœ‹ä»ç¬¬ä¸€è¡Œåˆ°ç¬¬5è¡Œå†…å®¹
+sed -n '5p;5q' example.txt æŸ¥çœ‹ç¬¬5è¡Œ
+sed -e 's/00*/0/g' example.txt ç”¨å•ä¸ªé›¶æ›¿æ¢å¤šä¸ªé›¶
+cat -n file1 æ ‡ç¤ºæ–‡ä»¶çš„è¡Œæ•°
+cat example.txt | awk 'NR%2==1' åˆ é™¤example.txtæ–‡ä»¶ä¸­çš„æ‰€æœ‰å¶æ•°è¡Œ
+echo a b c | awk '{print $1}' æŸ¥çœ‹ä¸€è¡Œç¬¬ä¸€æ 
+echo a b c | awk '{print $1,$3}' æŸ¥çœ‹ä¸€è¡Œçš„ç¬¬ä¸€å’Œç¬¬ä¸‰æ 
+paste file1 file2 åˆå¹¶ä¸¤ä¸ªæ–‡ä»¶æˆ–ä¸¤æ çš„å†…å®¹
+paste -d '+' file1 file2 åˆå¹¶ä¸¤ä¸ªæ–‡ä»¶æˆ–ä¸¤æ çš„å†…å®¹ï¼Œä¸­é—´ç”¨"+"åŒºåˆ†
+sort file1 file2 æ’åºä¸¤ä¸ªæ–‡ä»¶çš„å†…å®¹
+sort file1 file2 | uniq å–å‡ºä¸¤ä¸ªæ–‡ä»¶çš„å¹¶é›†(é‡å¤çš„è¡Œåªä¿ç•™ä¸€ä»½)
+sort file1 file2 | uniq -u åˆ é™¤äº¤é›†ï¼Œç•™ä¸‹å…¶ä»–çš„è¡Œ
+sort file1 file2 | uniq -d å–å‡ºä¸¤ä¸ªæ–‡ä»¶çš„äº¤é›†(åªç•™ä¸‹åŒæ—¶å­˜åœ¨äºä¸¤ä¸ªæ–‡ä»¶ä¸­çš„æ–‡ä»¶)
+comm -1 file1 file2 æ¯”è¾ƒä¸¤ä¸ªæ–‡ä»¶çš„å†…å®¹åªåˆ é™¤ 'file1' æ‰€åŒ…å«çš„å†…å®¹
+comm -2 file1 file2 æ¯”è¾ƒä¸¤ä¸ªæ–‡ä»¶çš„å†…å®¹åªåˆ é™¤ 'file2' æ‰€åŒ…å«çš„å†…å®¹
+comm -3 file1 file2 æ¯”è¾ƒä¸¤ä¸ªæ–‡ä»¶çš„å†…å®¹åªåˆ é™¤ä¸¤ä¸ªæ–‡ä»¶å…±æœ‰çš„éƒ¨åˆ†
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
 
-×Ö·ûÉèÖÃºÍÎÄ¼ş¸ñÊ½×ª»»
-dos2unix filedos.txt fileunix.txt ½«Ò»¸öÎÄ±¾ÎÄ¼şµÄ¸ñÊ½´ÓMSDOS×ª»»³ÉUNIX
-unix2dos fileunix.txt filedos.txt ½«Ò»¸öÎÄ±¾ÎÄ¼şµÄ¸ñÊ½´ÓUNIX×ª»»³ÉMSDOS
-recode ..HTML < page.txt > page.html ½«Ò»¸öÎÄ±¾ÎÄ¼ş×ª»»³Éhtml
-recode -l | more ÏÔÊ¾ËùÓĞÔÊĞíµÄ×ª»»¸ñÊ½
+å­—ç¬¦è®¾ç½®å’Œæ–‡ä»¶æ ¼å¼è½¬æ¢
+dos2unix filedos.txt fileunix.txt å°†ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶çš„æ ¼å¼ä»MSDOSè½¬æ¢æˆUNIX
+unix2dos fileunix.txt filedos.txt å°†ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶çš„æ ¼å¼ä»UNIXè½¬æ¢æˆMSDOS
+recode ..HTML < page.txt > page.html å°†ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶è½¬æ¢æˆhtml
+recode -l | more æ˜¾ç¤ºæ‰€æœ‰å…è®¸çš„è½¬æ¢æ ¼å¼
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÎÄ¼şÏµÍ³·ÖÎö
-badblocks -v /dev/hda1 ¼ì²é´ÅÅÌhda1ÉÏµÄ»µ´Å¿é
-fsck /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏlinuxÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-fsck.ext2 /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏext2ÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-e2fsck /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏext2ÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-e2fsck -j /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏext3ÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-fsck.ext3 /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏext3ÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-fsck.vfat /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏfatÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-fsck.msdos /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏdosÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
-dosfsck /dev/hda1 ĞŞ¸´/¼ì²éhda1´ÅÅÌÉÏdosÎÄ¼şÏµÍ³µÄÍêÕûĞÔ
+æ–‡ä»¶ç³»ç»Ÿåˆ†æ
+badblocks -v /dev/hda1 æ£€æŸ¥ç£ç›˜hda1ä¸Šçš„åç£å—
+fsck /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šlinuxæ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+fsck.ext2 /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šext2æ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+e2fsck /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šext2æ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+e2fsck -j /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šext3æ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+fsck.ext3 /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šext3æ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+fsck.vfat /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šfatæ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+fsck.msdos /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šdosæ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
+dosfsck /dev/hda1 ä¿®å¤/æ£€æŸ¥hda1ç£ç›˜ä¸Šdosæ–‡ä»¶ç³»ç»Ÿçš„å®Œæ•´æ€§
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-³õÊ¼»¯Ò»¸öÎÄ¼şÏµÍ³
-mkfs /dev/hda1 ÔÚhda1·ÖÇø´´½¨Ò»¸öÎÄ¼şÏµÍ³
-mke2fs /dev/hda1 ÔÚhda1·ÖÇø´´½¨Ò»¸ölinux ext2µÄÎÄ¼şÏµÍ³
-mke2fs -j /dev/hda1 ÔÚhda1·ÖÇø´´½¨Ò»¸ölinux ext3(ÈÕÖ¾ĞÍ)µÄÎÄ¼şÏµÍ³
-mkfs -t vfat 32 -F /dev/hda1 ´´½¨Ò»¸ö FAT32 ÎÄ¼şÏµÍ³
-fdformat -n /dev/fd0 ¸ñÊ½»¯Ò»¸öÈíÅÌ
-mkswap /dev/hda3 ´´½¨Ò»¸öswapÎÄ¼şÏµÍ³
+åˆå§‹åŒ–ä¸€ä¸ªæ–‡ä»¶ç³»ç»Ÿ
+mkfs /dev/hda1 åœ¨hda1åˆ†åŒºåˆ›å»ºä¸€ä¸ªæ–‡ä»¶ç³»ç»Ÿ
+mke2fs /dev/hda1 åœ¨hda1åˆ†åŒºåˆ›å»ºä¸€ä¸ªlinux ext2çš„æ–‡ä»¶ç³»ç»Ÿ
+mke2fs -j /dev/hda1 åœ¨hda1åˆ†åŒºåˆ›å»ºä¸€ä¸ªlinux ext3(æ—¥å¿—å‹)çš„æ–‡ä»¶ç³»ç»Ÿ
+mkfs -t vfat 32 -F /dev/hda1 åˆ›å»ºä¸€ä¸ª FAT32 æ–‡ä»¶ç³»ç»Ÿ
+fdformat -n /dev/fd0 æ ¼å¼åŒ–ä¸€ä¸ªè½¯ç›˜
+mkswap /dev/hda3 åˆ›å»ºä¸€ä¸ªswapæ–‡ä»¶ç³»ç»Ÿ
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-SWAPÎÄ¼şÏµÍ³
-mkswap /dev/hda3 ´´½¨Ò»¸öswapÎÄ¼şÏµÍ³
-swapon /dev/hda3 ÆôÓÃÒ»¸öĞÂµÄswapÎÄ¼şÏµÍ³
-swapon /dev/hda2 /dev/hdb3 ÆôÓÃÁ½¸öswap·ÖÇø
+SWAPæ–‡ä»¶ç³»ç»Ÿ
+mkswap /dev/hda3 åˆ›å»ºä¸€ä¸ªswapæ–‡ä»¶ç³»ç»Ÿ
+swapon /dev/hda3 å¯ç”¨ä¸€ä¸ªæ–°çš„swapæ–‡ä»¶ç³»ç»Ÿ
+swapon /dev/hda2 /dev/hdb3 å¯ç”¨ä¸¤ä¸ªswapåˆ†åŒº
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-±¸·İ
-dump -0aj -f /tmp/home0.bak /home ÖÆ×÷Ò»¸ö '/home' Ä¿Â¼µÄÍêÕû±¸·İ
-dump -1aj -f /tmp/home0.bak /home ÖÆ×÷Ò»¸ö '/home' Ä¿Â¼µÄ½»»¥Ê½±¸·İ
-restore -if /tmp/home0.bak »¹Ô­Ò»¸ö½»»¥Ê½±¸·İ
-rsync -rogpav --delete /home /tmp Í¬²½Á½±ßµÄÄ¿Â¼
-rsync -rogpav -e ssh --delete /home ip_address:/tmp Í¨¹ıSSHÍ¨µÀrsync
-rsync -az -e ssh --delete ip_addr:/home/public /home/local Í¨¹ısshºÍÑ¹Ëõ½«Ò»¸öÔ¶³ÌÄ¿Â¼Í¬²½µ½±¾µØÄ¿Â¼
-rsync -az -e ssh --delete /home/local ip_addr:/home/public Í¨¹ısshºÍÑ¹Ëõ½«±¾µØÄ¿Â¼Í¬²½µ½Ô¶³ÌÄ¿Â¼
-dd bs=1M if=/dev/hda | gzip | ssh user@ip_addr 'dd of=hda.gz' Í¨¹ısshÔÚÔ¶³ÌÖ÷»úÉÏÖ´ĞĞÒ»´Î±¸·İ±¾µØ´ÅÅÌµÄ²Ù×÷
-dd if=/dev/sda of=/tmp/file1 ±¸·İ´ÅÅÌÄÚÈİµ½Ò»¸öÎÄ¼ş
-tar -Puf backup.tar /home/user Ö´ĞĞÒ»´Î¶Ô '/home/user' Ä¿Â¼µÄ½»»¥Ê½±¸·İ²Ù×÷
-( cd /tmp/local/ && tar c . ) | ssh -C user@ip_addr 'cd /home/share/ && tar x -p' Í¨¹ısshÔÚÔ¶³ÌÄ¿Â¼ÖĞ¸´ÖÆÒ»¸öÄ¿Â¼ÄÚÈİ
-( tar c /home ) | ssh -C user@ip_addr 'cd /home/backup-home && tar x -p' Í¨¹ısshÔÚÔ¶³ÌÄ¿Â¼ÖĞ¸´ÖÆÒ»¸ö±¾µØÄ¿Â¼
-tar cf - . | (cd /tmp/backup ; tar xf - ) ±¾µØ½«Ò»¸öÄ¿Â¼¸´ÖÆµ½ÁíÒ»¸öµØ·½£¬±£ÁôÔ­ÓĞÈ¨ÏŞ¼°Á´½Ó
-find /home/user1 -name '*.txt' | xargs cp -av --target-directory=/home/backup/ --parents ´ÓÒ»¸öÄ¿Â¼²éÕÒ²¢¸´ÖÆËùÓĞÒÔ '.txt' ½áÎ²µÄÎÄ¼şµ½ÁíÒ»¸öÄ¿Â¼
-find /var/log -name '*.log' | tar cv --files-from=- | bzip2 > log.tar.bz2 ²éÕÒËùÓĞÒÔ '.log' ½áÎ²µÄÎÄ¼ş²¢×ö³ÉÒ»¸öbzip°ü
-dd if=/dev/hda of=/dev/fd0 bs=512 count=1 ×öÒ»¸ö½« MBR (Master Boot Record)ÄÚÈİ¸´ÖÆµ½ÈíÅÌµÄ¶¯×÷
-dd if=/dev/fd0 of=/dev/hda bs=512 count=1 ´ÓÒÑ¾­±£´æµ½ÈíÅÌµÄ±¸·İÖĞ»Ö¸´MBRÄÚÈİ
+å¤‡ä»½
+dump -0aj -f /tmp/home0.bak /home åˆ¶ä½œä¸€ä¸ª '/home' ç›®å½•çš„å®Œæ•´å¤‡ä»½
+dump -1aj -f /tmp/home0.bak /home åˆ¶ä½œä¸€ä¸ª '/home' ç›®å½•çš„äº¤äº’å¼å¤‡ä»½
+restore -if /tmp/home0.bak è¿˜åŸä¸€ä¸ªäº¤äº’å¼å¤‡ä»½
+rsync -rogpav --delete /home /tmp åŒæ­¥ä¸¤è¾¹çš„ç›®å½•
+rsync -rogpav -e ssh --delete /home ip_address:/tmp é€šè¿‡SSHé€šé“rsync
+rsync -az -e ssh --delete ip_addr:/home/public /home/local é€šè¿‡sshå’Œå‹ç¼©å°†ä¸€ä¸ªè¿œç¨‹ç›®å½•åŒæ­¥åˆ°æœ¬åœ°ç›®å½•
+rsync -az -e ssh --delete /home/local ip_addr:/home/public é€šè¿‡sshå’Œå‹ç¼©å°†æœ¬åœ°ç›®å½•åŒæ­¥åˆ°è¿œç¨‹ç›®å½•
+dd bs=1M if=/dev/hda | gzip | ssh user@ip_addr 'dd of=hda.gz' é€šè¿‡sshåœ¨è¿œç¨‹ä¸»æœºä¸Šæ‰§è¡Œä¸€æ¬¡å¤‡ä»½æœ¬åœ°ç£ç›˜çš„æ“ä½œ
+dd if=/dev/sda of=/tmp/file1 å¤‡ä»½ç£ç›˜å†…å®¹åˆ°ä¸€ä¸ªæ–‡ä»¶
+tar -Puf backup.tar /home/user æ‰§è¡Œä¸€æ¬¡å¯¹ '/home/user' ç›®å½•çš„äº¤äº’å¼å¤‡ä»½æ“ä½œ
+( cd /tmp/local/ && tar c . ) | ssh -C user@ip_addr 'cd /home/share/ && tar x -p' é€šè¿‡sshåœ¨è¿œç¨‹ç›®å½•ä¸­å¤åˆ¶ä¸€ä¸ªç›®å½•å†…å®¹
+( tar c /home ) | ssh -C user@ip_addr 'cd /home/backup-home && tar x -p' é€šè¿‡sshåœ¨è¿œç¨‹ç›®å½•ä¸­å¤åˆ¶ä¸€ä¸ªæœ¬åœ°ç›®å½•
+tar cf - . | (cd /tmp/backup ; tar xf - ) æœ¬åœ°å°†ä¸€ä¸ªç›®å½•å¤åˆ¶åˆ°å¦ä¸€ä¸ªåœ°æ–¹ï¼Œä¿ç•™åŸæœ‰æƒé™åŠé“¾æ¥
+find /home/user1 -name '*.txt' | xargs cp -av --target-directory=/home/backup/ --parents ä»ä¸€ä¸ªç›®å½•æŸ¥æ‰¾å¹¶å¤åˆ¶æ‰€æœ‰ä»¥ '.txt' ç»“å°¾çš„æ–‡ä»¶åˆ°å¦ä¸€ä¸ªç›®å½•
+find /var/log -name '*.log' | tar cv --files-from=- | bzip2 > log.tar.bz2 æŸ¥æ‰¾æ‰€æœ‰ä»¥ '.log' ç»“å°¾çš„æ–‡ä»¶å¹¶åšæˆä¸€ä¸ªbzipåŒ…
+dd if=/dev/hda of=/dev/fd0 bs=512 count=1 åšä¸€ä¸ªå°† MBR (Master Boot Record)å†…å®¹å¤åˆ¶åˆ°è½¯ç›˜çš„åŠ¨ä½œ
+dd if=/dev/fd0 of=/dev/hda bs=512 count=1 ä»å·²ç»ä¿å­˜åˆ°è½¯ç›˜çš„å¤‡ä»½ä¸­æ¢å¤MBRå†…å®¹
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-¹âÅÌ
-cdrecord -v gracetime=2 dev=/dev/cdrom -eject blank=fast -force Çå¿ÕÒ»¸ö¿É¸´Ğ´µÄ¹âÅÌÄÚÈİ
-mkisofs /dev/cdrom > cd.iso ÔÚ´ÅÅÌÉÏ´´½¨Ò»¸ö¹âÅÌµÄiso¾µÏñÎÄ¼ş
-mkisofs /dev/cdrom | gzip > cd_iso.gz ÔÚ´ÅÅÌÉÏ´´½¨Ò»¸öÑ¹ËõÁËµÄ¹âÅÌiso¾µÏñÎÄ¼ş
-mkisofs -J -allow-leading-dots -R -V "Label CD" -iso-level 4 -o ./cd.iso data_cd ´´½¨Ò»¸öÄ¿Â¼µÄiso¾µÏñÎÄ¼ş
-cdrecord -v dev=/dev/cdrom cd.iso ¿ÌÂ¼Ò»¸öISO¾µÏñÎÄ¼ş
-gzip -dc cd_iso.gz | cdrecord dev=/dev/cdrom - ¿ÌÂ¼Ò»¸öÑ¹ËõÁËµÄISO¾µÏñÎÄ¼ş
-mount -o loop cd.iso /mnt/iso ¹ÒÔØÒ»¸öISO¾µÏñÎÄ¼ş
-cd-paranoia -B ´ÓÒ»¸öCD¹âÅÌ×ªÂ¼Òô¹ìµ½ wav ÎÄ¼şÖĞ
-cd-paranoia -- "-3" ´ÓÒ»¸öCD¹âÅÌ×ªÂ¼Òô¹ìµ½ wav ÎÄ¼şÖĞ£¨²ÎÊı-3£©
-cdrecord --scanbus É¨Ãè×ÜÏßÒÔÊ¶±ğscsiÍ¨µÀ
-dd if=/dev/hdc | md5sum Ğ£ÑéÒ»¸öÉè±¸µÄmd5sum±àÂë£¬ÀıÈçÒ»ÕÅ CD
+å…‰ç›˜
+cdrecord -v gracetime=2 dev=/dev/cdrom -eject blank=fast -force æ¸…ç©ºä¸€ä¸ªå¯å¤å†™çš„å…‰ç›˜å†…å®¹
+mkisofs /dev/cdrom > cd.iso åœ¨ç£ç›˜ä¸Šåˆ›å»ºä¸€ä¸ªå…‰ç›˜çš„isoé•œåƒæ–‡ä»¶
+mkisofs /dev/cdrom | gzip > cd_iso.gz åœ¨ç£ç›˜ä¸Šåˆ›å»ºä¸€ä¸ªå‹ç¼©äº†çš„å…‰ç›˜isoé•œåƒæ–‡ä»¶
+mkisofs -J -allow-leading-dots -R -V "Label CD" -iso-level 4 -o ./cd.iso data_cd åˆ›å»ºä¸€ä¸ªç›®å½•çš„isoé•œåƒæ–‡ä»¶
+cdrecord -v dev=/dev/cdrom cd.iso åˆ»å½•ä¸€ä¸ªISOé•œåƒæ–‡ä»¶
+gzip -dc cd_iso.gz | cdrecord dev=/dev/cdrom - åˆ»å½•ä¸€ä¸ªå‹ç¼©äº†çš„ISOé•œåƒæ–‡ä»¶
+mount -o loop cd.iso /mnt/iso æŒ‚è½½ä¸€ä¸ªISOé•œåƒæ–‡ä»¶
+cd-paranoia -B ä»ä¸€ä¸ªCDå…‰ç›˜è½¬å½•éŸ³è½¨åˆ° wav æ–‡ä»¶ä¸­
+cd-paranoia -- "-3" ä»ä¸€ä¸ªCDå…‰ç›˜è½¬å½•éŸ³è½¨åˆ° wav æ–‡ä»¶ä¸­ï¼ˆå‚æ•°-3ï¼‰
+cdrecord --scanbus æ‰«ææ€»çº¿ä»¥è¯†åˆ«scsié€šé“
+dd if=/dev/hdc | md5sum æ ¡éªŒä¸€ä¸ªè®¾å¤‡çš„md5sumç¼–ç ï¼Œä¾‹å¦‚ä¸€å¼  CD
 
-·µ»Ø¶¥²¿Ë÷Òı ^
+è¿”å›é¡¶éƒ¨ç´¢å¼• ^
 
-ÍøÂç - £¨ÒÔÌ«ÍøºÍWIFIÎŞÏß£©
-ifconfig eth0 ÏÔÊ¾Ò»¸öÒÔÌ«Íø¿¨µÄÅäÖÃ
-ifup eth0 ÆôÓÃÒ»¸ö 'eth0' ÍøÂçÉè±¸
-ifdown eth0 ½ûÓÃÒ»¸ö 'eth0' ÍøÂçÉè±¸
-ifconfig eth0 192.168.1.1 netmask 255.255.255.0 ¿ØÖÆIPµØÖ·
-ifconfig eth0 promisc ÉèÖÃ 'eth0' ³É»ìÔÓÄ£Ê½ÒÔĞáÌ½Êı¾İ°ü (sniffing)
-dhclient eth0 ÒÔdhcpÄ£Ê½ÆôÓÃ 'eth0'
+ç½‘ç»œ - ï¼ˆä»¥å¤ªç½‘å’ŒWIFIæ— çº¿ï¼‰
+ifconfig eth0 æ˜¾ç¤ºä¸€ä¸ªä»¥å¤ªç½‘å¡çš„é…ç½®
+ifup eth0 å¯ç”¨ä¸€ä¸ª 'eth0' ç½‘ç»œè®¾å¤‡
+ifdown eth0 ç¦ç”¨ä¸€ä¸ª 'eth0' ç½‘ç»œè®¾å¤‡
+ifconfig eth0 192.168.1.1 netmask 255.255.255.0 æ§åˆ¶IPåœ°å€
+ifconfig eth0 promisc è®¾ç½® 'eth0' æˆæ··æ‚æ¨¡å¼ä»¥å—…æ¢æ•°æ®åŒ… (sniffing)
+dhclient eth0 ä»¥dhcpæ¨¡å¼å¯ç”¨ 'eth0'
 route -n show routing table
 route add -net 0/0 gw IP_Gateway configura default gateway
 route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1 configure static route to reach network '192.168.0.0/16'
