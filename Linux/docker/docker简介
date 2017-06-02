@@ -158,8 +158,8 @@ Docker安装
             安装Docker，将下面的路径更改为您下载Docker包的路径。
             $ sudo yum install /path/to/package.rpm
 
-<<<<<<< HEAD
-如何使用Docker加速器
+
+如何使用Docker加速器(阿里云)
     针对Docker客户端版本大于1.10的用户
     sudo mkdir -p /etc/docker
     sudo tee /etc/docker/daemon.json <<-'EOF'
@@ -171,6 +171,6 @@ Docker安装
     sudo systemctl restart docker
 =======
 默认情况下，docker命令使用Unix socket与Docker引擎通讯。只有root用户和docker组用户才可以访问Unix socket，处于安全考虑Linux一般不会直接用root用户，因此更好的做法是将docker用户加入docker用户组。s
-sudo groupadd docker
-sudo usermod -aG docker $USER
->>>>>>> 775f0321f1d96494ebb6a2dae3b1e13cfe8c696f
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+
