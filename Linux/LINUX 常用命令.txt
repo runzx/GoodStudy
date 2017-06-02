@@ -1,9 +1,9 @@
-linux删除目录很简单，很多人还是习惯用rmdir，不过一旦目录非空，就陷入深深的苦恼之中，现在使用rm -rf命令即可。
+1. linux删除目录很简单，很多人还是习惯用rmdir，不过一旦目录非空，就陷入深深的苦恼之中，现在使用rm -rf命令即可。
 	直接rm就可以了，不过要加两个参数-rf 即：
 		rm -rf 目录名字或文件名
 			-r 就是向下递归，不管有多少级目录，一并删除
 			-f 就是直接强行删除，不作任何提示的意思
-
+2. 文件属性修改
 	$ chmod u+x file 　　　 给file的属主增加执行权限
 	$ chmod 751 file 　　　 给file的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限
 	$ chmod u=rwx,g=rx,o=x file 上例的另一种形式
@@ -14,14 +14,35 @@ linux删除目录很简单，很多人还是习惯用rmdir，不过一旦目录�
 	$ chmod 4755 　　设置用ID，给属主分配读、写和执行权限，给组和其他用户分配读、执行的权限
 	777，第一个7代表文件所属者的权限，第二个7代表文件所属者所在组的权限，第三个7代表其它用户的权限
 		chmod -R 777 *
-
+3. 移动文件
  mv  vifnn88/* /home/weixin
- 
+4. 查看网络状态 
  netstat 的常用参数: - t、- u、- w和- x分别表示TCP、UDP、RAW和UNIX套接字连接。-a标记，还会显示出等待连接（也就是说处于监听模式）的套接字。-l 显示正在被监听(listen)的端口, -n表示直接显示端口数字而不是通过察看/etc/service来转换为端口名,-p选项表示列出监听的程序
  	netstat -na|grep 8080	//查看监听8080端口运行否
-
+5. 查看MYSQL配置
 linux下查看mysql的配置文件
  	vi /etc/my.cnf
 	
-查看程序的目录
+6. 查看程序的目录
 	which nginx
+
+7. linux系统下怎么安装.deb .rpm文件？
+    dpkg -i xxx.deb
+    deb 是 ubuntu 、debian 的格式。
+    rpm 是 redhat 、fedora 、suse 的格式。
+        rpm -ivh 安装包名字
+
+8. ubuntu/debian查看版本  
+    1) lsb_release -a 
+        No LSB modules are available.
+        Distributor ID: Debian
+        Description:    Debian GNU/Linux 8.2 (jessie)
+        Release:        8.2
+        Codename:       jessie          //qcloud 主机
+    2） cat /proc/version
+        Linux version 3.16.0-4-amd64 (debian-kernel@lists.debian.org) (gcc version 4.8.4 (Debian 4.8.4-1) ) #1 SMP Debian 3.16.36-1+deb8u2 (2016-10-19)
+    3）cat /etc/issue
+        Debian GNU/Linux 8 \n \l
+    4）uname -a
+        Linux VM-11-122-debian 3.16.0-4-amd64 #1 SMP Debian 3.16.36-1+deb8u2 (2016-10-19) x86_64 GNU/Linux
+

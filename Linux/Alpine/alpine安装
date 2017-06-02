@@ -1,0 +1,11 @@
+
+1. 安装设置,base,networking
+    setup-alpine
+
+2. 安装软件
+    apk add 
+3. 开始服务
+    /etc/init.d/xxx start
+
+    ssh root 要改/etc/ssh/sshd_config 
+        PermitRootLogin yes

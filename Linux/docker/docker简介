@@ -148,3 +148,13 @@ Docker安装
             安装Docker，将下面的路径更改为您下载Docker包的路径。
             $ sudo yum install /path/to/package.rpm
 
+如何使用Docker加速器
+    针对Docker客户端版本大于1.10的用户
+    sudo mkdir -p /etc/docker
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    {
+    "registry-mirrors": ["https://7fff2b1x.mirror.aliyuncs.com"]
+    }
+    EOF
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker

@@ -1,0 +1,55 @@
+“嵌入式Linux的瑞士军刀
+
+1. 最初是由布鲁斯·斐伦斯在1996年为Debian GNU/Linux安装光盘而编写的
+    BusyBox可以被自定义化以提供一个超过两百种功能的子集，BusyBox使用ash。
+    BusyBox受惠于单一可执行文件策略，如此一来省去了每个可执行文件必需有的标头（特别是ELF的可执行文件），这也让Busybox不需要库便可达成代码共用。
+
+    ash - 匹配POSIX的一个简单的shell
+    awk - 将文件解析为记录及字段后，按模式匹配操作其内容
+    cat - 将多个文件首尾相连显示于标准输出
+    chmod
+    cp
+    date
+    dd
+    df - 印出文件系统的使用统计
+    dmesg
+    echo
+    egrep - 接受扩展RE的grep
+    fgrep - 接受固定字符串模式的grep
+    grep - 列出文件或标准输入中匹配模式的行
+    gunzip
+    gzip
+    kill - 关闭一个程序
+    ln
+    login
+    ls - 列出目录或文件
+    mdu
+    mkdir - 创建一个目录
+    more
+    mount 挂载存储设备
+    mv - 移动文件
+    netstat
+    ntpc
+    ntpsync
+    nvram
+    pidof
+    ping
+    ps - 印出程序状态
+    pwd - 印出工作目录
+    rm - 删除文件
+    rmdir - 移除目录
+    rstats
+    sed
+    sh
+    sleep
+    sync
+    tar
+    touch
+    umount 移除挂载的存储设备
+    uname
+    usleep
+    vi - 一个带有简单的模式提示的精简版仿vi编辑器
+    watch
+    wget - HTTP或FTP下载工具
+    zcat
+    实际的命令列表按编译时的设置决定，在有Busybox的系统上执行busybox --list即可看到一个列表。

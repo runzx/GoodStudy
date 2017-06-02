@@ -1,0 +1,121 @@
+RancherOS安装
+
+1. 安装docker-machine
+    docker-machine -v   //查看版本号
+    docker-machine ls   //查看虚拟机
+
+2. 安装RancherOS
+    docker-machine create -d virtualbox --virtualbox-boot2docker-url https://releases.rancher.com/os/latest/rancheros.iso zx-machine
+
+    默认的账号密码为rancher:rancher
+2.1 安装到硬盘
+    cloud-config.yml : 里面先写入访问端的公钥
+        #cloud-config
+        ssh_authorized_keys:
+        - ssh-rsa
+    sudo ros install -c cloud-config.yml -d /dev/sda 
+    说下，这里的公钥是在别的电脑上生成秘钥对后，提供的公钥。由于不能剪贴板copy，所以只能通过网络方式。如果你有一台linux服务器，可以在rancheros的机子上，使用scp连到那台linux上，将文件copy过来。呵呵，如果你手头没有，只有一台windows怎么办？在IIS下挂一个站点，把配置文件丢上去。然后在rancheros通过wget命令下载下来：
+        wget -O cloud-config.yml http://<你的服务器:你的网站端口>/cloud-config.txt
+        scp zhaixiang@192.168.207.132:/home/zhaixiang/cloud-config.yml /home/rancher/
+        scp /home/zhaixiang/cloud-config.yml rancher@192.168.207.131:/home/rancher
+    把本机的公钥拷入cloud-config.yml文件， 安装后 ssh -i id_rsa rancher@192.168.207.131
+        winscp 在编辑->高级->ssh->验证-> 只选参数验证 ，密钥文件选私钥。
+2.2 rancherOS配置
+    1） /var/lib/rancher/conf/cloud-config.yml
+        新版1.0.1 用户配置：
+            sudo vi /var/lib/rancher/conf/cloud-config.d/user_config.ym     //ssh_authorized_keys在这
+
+
+    2)
+        $ sudo ros config set rancher.network.interfaces.eth1.address 192.168.1.21/24
+        $ sudo ros config set rancher.network.interfaces.eth1.gateway 192.168.1.1
+        $ sudo ros config set rancher.network.interfaces.eth1.mtu 1500
+        $ sudo ros config set rancher.network.interfaces.eth1.dhcp false
+
+        cloud-config.yml:       //http://docs.rancher.com/os/networking/interfaces/
+            #cloud-config
+            rancher:
+            network:
+                interfaces:
+                eth1:
+                    address: 172.68.1.100/24
+                    gateway: 172.68.1.1
+                    mtu: 1500
+                    dhcp: false 
+
+            ------------------------------------------
+            #cloud-config
+            hostname: rancher-01
+            rancher:
+            network:
+                interfaces:
+                eth0:
+                    address: 192.168.0.101/16
+                    dhcp: false
+                    gateway: 192.168.1.1
+                    mtu: 1500
+            services_include:
+                open-vm-tools: true
+            ssh_authorized_keys:
+            - ssh-rsa AAAXXXXXX
+            --------------------------------------------
+            验证配置文件
+                sudo ros config validate -i cloud-config.yml
+2.3 Ros 命令
+    config, c   configure settings
+     console     manage which console container is used
+     engine      manage which Docker engine is used
+     service, s  Command line interface for services and compose.
+     os          operating system upgrade/downgrade
+     tls         setup tls configuration
+     install     install RancherOS to disk
+     selinux     Launch SELinux tools container.
+     help, h     Shows a list of commands or help for one command
+     第一个是配置相关的，可以直接通过命令方式更改配置。
+    第二个是控制台，默认的几乎什么都不能干，你可以选择切换为debian、centos、xfce这类带有包管理的控制台。控制台，主要是帮助你管理linux服务器的，而不是为了安装服务，这个切记。应用服务类的，还是以docker容器方式为好。（虽然console本身其实也是一个docker容器而已，还是分开比较好）
+    第三个是docker engine，可以切换docker版本
+    第四个是系统服务，你也可以自行将docker镜像配置为系统服务
+    第五个是操作系统，你可以升降系统版本。（我刚刚从rancher/os:v0.7.1升级到rancher/os:v0.8.1）
+    第六个是安装系统到硬盘，就开头安装的时候用到的命令。
+    第七个，selinux，懂linux的自然就懂了，就不多说了。
+
+    sudo ros service list
+    sudo ros service enable kernel-headers
+    sudo ros service up kernel-headers
+
+    sudo ros os version
+    sudo ros -v
+    sudo ros engine list                    //docker版本
+    sudo ros engine switch docker-1.11.2    //切换docker版本
+    sudo ros os list
+    sudo ros os upgrade
+     sudo ros console list
+     sudo ros console switch ubuntu
+     sudo system-docker ps          //我本机内容如下：
+        CONTAINER ID        IMAGE                       COMMAND                  CREATED                  STATUS              PORTS               NAMES
+        c0887cdb7e7d        rancher/os-docker:17.03.1   "ros user-docker"        Less than a second ago   Up About an hour                        docker
+        bde3980c688e        rancher/os-base:v1.0.1      "/usr/bin/ros entrypo"   Less than a second ago   Up About an hour                        ntp
+        3b5c12139ca6        rancher/os-base:v1.0.1      "/usr/bin/ros entrypo"   Less than a second ago   Up About an hour                        network
+        ef5cbd7faa8b        rancher/os-base:v1.0.1      "/usr/bin/ros entrypo"   Less than a second ago   Up About an hour                        udev
+        90da3698aa69        rancher/os-acpid:v1.0.1     "/usr/bin/ros entrypo"   Less than a second ago   Up About an hour                        acpid
+        93851b0e582a        rancher/os-base:v1.0.1      "/usr/bin/ros entrypo"   Less than a second ago   Up About an hour                        syslog
+        746e73b6abee        rancher/os-console:v1.0.1   "/usr/bin/ros entrypo"   About an hour ago        Up About an hour                        console
+    持久化目录：
+        /home
+        /opt
+        /var/lib/docker
+        /var/lib/rancher
+2.4 rancherOS特性：
+    rancheros的系统管理方式很奇特，操作系统的所有系统级别的服务，
+        如ntp、network、udev、acpid、syslog、console，均已docker容器形式存在，此为系统级别的docker容器服务；另一个是应用级别的，即一般使用意义上的docker容器服务。
+    rancheros的docker engine软件，是可以直接支持在线升级的，说的更贴切点，就是多个docker engine版本之间是可以随意切换的。这点很好，可以及时体验到docker的新特性。
+    在RancherOS中运行两个Docker守护进程。system-docker只能由root用户使用
+        system-docker，这就是RancherOS运行的系统服务，如NTPD和系统日志。您可以使用system-docker命令来控制system-docker守护进程。
+        docker，它可以通过使用正常的docker命令来访问。
+
+    RancherOS的主要功能包括：
+        极简操作系统：筛除不必要的库和服务
+        自动配置：使用cloud-init从多个数据源解析云配置文件，从而简化操作系统配置
+        设置简单：使用Docker Compose服务文件运行容器内部的服务，使安装程序像运行Docker容器一样简单
+        减少占用空间：减少资源需求，其占用的内存是市场上其他容器操作系统的三分之一
+        广泛的平台支持：支持Amazon EC2，裸机，Digital Ocean，Docker Machine，GCE，KVM，OpenStack，Packet，Vagrant，VMware（实验性的）和VirtualBox
