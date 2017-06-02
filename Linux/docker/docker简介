@@ -26,6 +26,11 @@ Docker安装
         docker pull [options] NAME [:TAG]
         docker images [options] [reoository][:TAG]
         docker images 查看列表
+            REPOSITORY：仓库名称
+            TAG：标签名，一个仓库可以有若干个标签对应不同的镜像，默认都是latest
+            IMAGE ID：镜像ID, 镜像的唯一标识符是镜像ID.有的时候同一个镜像可以有不同的TAG，但实际指向的是同一个镜像ID。TAG可以理解为镜像的别名。
+            CREATED：创建时间，注意不是本地的pull时间
+            SIZE：镜像大小
         docker pull hello-world 下载。。
         docker pull nginx 
     4.Docker网络
@@ -51,6 +56,11 @@ Docker安装
             from hub.c.163.com/library/tomcat
             MAINTAINER zhaix runzx@hotmail.com
             COPY jpress.war /usr/local/tomcat/webapps       //从c.163.com上查看到tomcat 环境 CATALINA_BASE:   /usr/local/tomcat
+        Dockerfile 的基本语法是
+            使用#来注释
+            FROM 指令告诉 Docker 使用哪个镜像作为基础
+            接着是维护者的信息
+            RUN开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get 来安装了一些软件
         docker build  -t jpress:latest .    //-t指定TAG
         docker run -d -p 8888:8080 jpress
             通过localhost:8888/jpress 访问
@@ -148,6 +158,7 @@ Docker安装
             安装Docker，将下面的路径更改为您下载Docker包的路径。
             $ sudo yum install /path/to/package.rpm
 
+<<<<<<< HEAD
 如何使用Docker加速器
     针对Docker客户端版本大于1.10的用户
     sudo mkdir -p /etc/docker
@@ -158,3 +169,8 @@ Docker安装
     EOF
     sudo systemctl daemon-reload
     sudo systemctl restart docker
+=======
+默认情况下，docker命令使用Unix socket与Docker引擎通讯。只有root用户和docker组用户才可以访问Unix socket，处于安全考虑Linux一般不会直接用root用户，因此更好的做法是将docker用户加入docker用户组。s
+sudo groupadd docker
+sudo usermod -aG docker $USER
+>>>>>>> 775f0321f1d96494ebb6a2dae3b1e13cfe8c696f
