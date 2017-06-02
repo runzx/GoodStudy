@@ -1,0 +1,10 @@
+
+git同时push推送到github、码云等多个平台
+
+添加github：
+
+git remote add origin git@github.com:baijunyao/laravel-bjyblog.git
+
+添加码云
+
+git remote set-url --add origin git@git.oschina.net:shuaibai123/laravel-bjyblog.git

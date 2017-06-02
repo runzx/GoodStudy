@@ -1,0 +1,72 @@
+
+1995年，美国海军研究实验室(NRL)为了保护船只之间的通讯网络安全、避免被敌军跟踪信号，启动了一项旨在通过代理服务器加密传输数据的技术开发，这个产品被命名为“洋葱路由”(Onion Routing)，Tor就是其简称。
+
+Tor的原理，是将P2P的分布式机制引入，将每一个安装了Tor的用户的计算机变成加密的中继连接，当用户基于Tor访问“暗网”时，他的路径会随机(或者说无序化的)经过多个中继连接，而且每一次都是变化的，没有任何一个中继或服务器能够获悉完整的连接痕迹。
+
+电子前哨基金会(EFF)的知名自由主义网络组织——他们致力于保护受到政府权力迫害的美国公民，提供辩护、声援、监督等多种资助行为——接管了Tor的后续研发和支持，直到今年7月，电子前哨基金会还在网站上推广Tor，列出的理由包括：美国国家安全局(NSA)无法绕过Tor的匿名机制；Tor在开源之后经历过多次挑战，但从未被发现存在后门；Tor的易用性很高，使用者不需要过高的计算机技术……
+
+http://hiddenwikitor.com/
+http://hwikis25cffertqe.onion/index.php?title=Main_Page
+http://hwikis25cffertqe.onion //Not EVIL : A onion search engine like Google, but not evil. Good index of onions.
+http://zqktlwi4fecvo6ri.onion/wiki/index.php/Main_Page  //The Hidden Wiki
+
+洋葱地址（暗网的网站域名大多为.onion)
+
+http://dirnxxdraygbifgc.onion/
+http://loveacg345fbzd47.onion
+http://3cvpkfx4gdnkcduj.onion/  皮皮书室
+================================================================================
+
+如何创建一个 Tor .onion 网站
+
+    不要在这台服务器上运行或做其它事情。
+    在新服务器或 VPS 上进行全新安装。
+    不要保留或运行来自 VPS 提供商那儿的任何服务。
+    用 Paypal 支付你的 VPS 服务，不过最好使用 Bitcoin。
+    不要向 VPS 提供关于你的任何身份信息。
+    不要在这台服务器上运行 Tor 中继，因为 Tor 中继在真实世界的公开 IP 是公开的。
+    不要从这台服务器发送电子邮件。
+    不要运行讨厌的或卑鄙的 web 软件。如果你的 web 软件有管理员登陆或管理员账号，把密码改成复杂的 26 个字符组成的密码。很多 Tor 网站被攻破只是某人猜到了管理员登陆密码。
+    避免使用任何 JavaScript 之类脚本的 web 软件。
+    确保你的 web 应用不会泄露任何错误信息或身份信息，比如在错误信息中的真实公开 IP。
+    审查 web 前端代码，确保它不会从 jquery.com、Google Fonts 或任何外部服务拉取资源。
+    及时做好 VPS 的安全更新。
+
+本向导使用 nginx 为使用 Debian Wheezy 的 Tor 提供网站文件服务。nginx 将被配置为只监听 Tor，只可通过 Tor 访问。
+    nginx默认会发送一个当前运行的版本信息广播。通过设置下面文件中的 server_tokens 为 off，以关闭 nginx 版本信息：
+        /etc/nginx/nginx.conf：
+            http { ... server_tokens off; ...
+    在同样的文件，彻底关闭来自 nginx 的日志：
+        http { ... ## # Logging Settings ## #access_log /var/log/nginx/access.log; #error_log /var/log/nginx/error.log; error_log /dev/null crit;
+    关闭 rsyslog 以关闭任何系统日志。
+        $ sudo apt-get remove --purge rsyslog
+    关闭所有可被用来发送邮件的 email MTA 软件。
+        $ sudo apt-get remove --purge exim $ sudo apt-get remove --purge postfix $ sudo apt-get remove --purge sendmail
+    删除 wget，如果被连累了，它可通过恶意脚本识别你的主机。
+        $ sudo apt-get remove wget
+    如果开启 ssh，关闭 Debian 版本信息，这可用于从公开 IP 识别出 Debian 版本。
+        /etc/ssh/sshd_config
+            DebianBanner no
+    安装 Tor
+        debian的源的配置文件，然后就可以直接apt-get方式安装tor
+            deb     http://deb.torproject.org/torproject.org  main
+        然后添加key文件签名
+            sudo gpg --keyserver keys.gnupg.net --recv 886DDD89
+            sudo  gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+         Tor的官方提供了一个debian的软件包，帮助我们时刻保持签名key的更新同步，用下面命令安装：
+            sudo apt-get install deb.torproject.org-keyring
+         sudo apt-get install tor deb.torproject.org-keyring
+         dns名称是deb.torproject.org，如果连不上，可尝试下面三个：
+            deb-master.torproject.org
+            mirror.netcologne.de
+            tor.mirror.youam.de
+    编辑 /etc/tor/torrc
+        HiddenServiceDir /var/lib/tor/hidden_service/       //这里创建一个名为hostname的文件 ，它将告诉你洋葱的URL。
+                公共/私人密钥对。它被写入一个名为“private_key”的文件
+        HiddenServicePort 80 127.0.0.1:8080
+    当 Tor 启动时，它仍然在你的 HiddenServiceDir 文件夹创建了私钥，也创建了你唯一的 .onion 主机名。
+
+    配置并使用防火墙
+        启用防火墙，有选择地允许 22 端口。如果稍微偏执些，根本不要允许 22 端口，仅仅从提供商的控制面板控制台来管理。
+            $ sudo apt-get install ufw $ sudo ufw allow ssh $ sudo ufw enable
+    

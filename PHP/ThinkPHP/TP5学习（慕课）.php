@@ -255,3 +255,17 @@
         //成功：库存扣除;失败：返回支付失败的信息
 21. 重构
     把共用的，可重复的放到基类里， 通过继承方式
+22. 时间戳
+    protected $autoWriteTimestamp=true;
+
+23. 事务
+    Db::startTrans();
+    tyr{
+        ...
+    }
+    Db::commit();
+    catch(\Exception $e){
+        Db::rollback(); //回滚事务
+        throw $e;
+    }
+
