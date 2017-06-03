@@ -21,6 +21,26 @@
 2. Laravel 安装
     1） 通过 Composer Create-Project
         composer create-project --prefer-dist laravel/laravel blog  //blog 是项目名称，改成自己的
+    2）
+3. Laravel artisan
+    php artisan list 
+    
+4. auth 里自动建数据表（库得手工建）数据迁移
+    新的迁移位于 database/migrations 目录下，每个迁移文件名都包含时间戳从而允许 Laravel 判断其顺序。
+    错误： Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes 
+        Laravel 5.4：指定的键太长错误，
+        Laravel 5.4更改了默认数据库字符集，现在utf8mb4它包括支持存储emojis。这只会影响新的应用程序，只要你运行MySQL v5.7.7或更高版本，你就不需要做任何事情。
+        要解决此问题，您只需编辑AppServiceProvider.php文件，并在boot方法中设置一个默认的字符串长度：
+            use Illuminate\Support\Facades\Schema;
+            public function boot()
+            {
+                Schema::defaultStringLength(191);
+            }
+    生成迁移：
+        php artisan make:migration create_users_table       //--table 和 --create 选项可以用于指定表名以及该迁移是否要创建一个新的数据表。
+    运行迁移：
+        php artisan  migrate
+        
 
 ==================================================================
 
