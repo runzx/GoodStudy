@@ -10,6 +10,7 @@ Laraval IDE 自动补全助手：Laravel IDE Helper Generator
         composer require barryvdh/laravel-ide-helper
     安装完成后我们需要到config/app.php的providers选项中注册服务提供者：
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+    安装后就会在根目录下自动生成一个vendor文件夹，该文件夹存放各种依赖包。
 3、自动生成Laravel门面对应的phpDoc
     在使用这个扩展包之前，或许不少人已经碰到了使用PHPStorm不能自动补全门面（Facade）的问题，现在Laravel IDE Helper Generator 为我们带来了福音。我们使用如下命令生成包含门面补全信息的文件：
         php artisan ide-helper:generate
@@ -28,3 +29,13 @@ Laraval IDE 自动补全助手：Laravel IDE Helper Generator
     有些类需要数据库连接，如果没有相应的数据库连接，某些门面可能无法包含进来。
         你可以选择要包含的辅助函数文件，默认该选项并未开启，但是你可以通过--helpers选项覆盖默认配置。
         默认会引入Illuminate/Support/helpers.php，当然你还可以在配置文件中添加自定义的辅助函数文件。
+4、自动生成模型对应的phpDoc
+    在使用本特性之前，需要先安装doctrine/dbal: ~2.3：
+        composer require doctrine/dbal
+    如果你不想自己编写模型属性，可以使用php artisan ide-helper:models命令来基于数据表字段、关联关系以及getters/setters生成对应的phpDoc。你可以通过—write（-W）选项来编写模型文件的注释，默认情况下，你需要覆盖或新建一个单独的文件_ide_helper_models.php，你也可以通过—nowrite（-N）不做更改。需要注意的是在进行操作之前需要备份模型文件，因为我们要保留之前已存在的，只是追加新属性和方法，而不是覆盖和重写。phpdoc已存在会被替换，否则新增，通过—reset（-R）选项，已存在的phpdoc会被忽略，新增的字段/关系才会被保存。
+        php artisan ide-helper:models Post
+    该命令会根目录下生成文件 _ide_helper_models.php。
+5、PHPStorm中容器实例对应的Meta
+    可以生成一个PHPStorm meta文件来添加工厂设计模式支持，对Laravel而言，这意味着我们可以让PHPStorm理解从IoC容器中取出的对象类型。例如，events会返回Illuminate\Events\Dispatcher对象，因此通过meta文件你可以调用app('events')然后它会自动补全对应的调度方法。
+        php artisan ide-helper:meta
+    会在根目录下生成 .phpstorm.meta.php文件。
