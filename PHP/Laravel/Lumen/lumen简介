@@ -1,0 +1,161 @@
+
+专注于构建无状态 API
+    专注于构建无状态 API，JSON API 服务。 正因为如此，session 和视图不在包含在框架中。
+    Lumen是一个基于Laravel的微框架，主要用于小型应用和微服务，专注于性能和速度的优化，该框架一个重要的应用就是构建 REST API。
+    Lumen访问速度非常快
+    每秒能够处理的请求数比Laravel更多
+    使用nikic/FastRoute取代Symphony，从而提升了性能
+安装
+    这里我们使用Composer在web根目录下安装：
+        composer create-project laravel/lumen rest_api
+    安装barryvdh/laravel-ide-helper
+        composer require barryvdh/laravel-ide-helper
+        主要的配置参数位于bootstrap/app.php
+            当Laravel IDE Helper可以自动生成默认的Facade代码提示时，Lumen不会启动Facades。如果您计划使用它们，则必须在该Create The Application部分下启用它们，取消注释此行：
+                // $app->withFacades();
+                从这里，您应该能够使用该create_alias()功能在您的应用程序中添加其他Facade。
+            安装Laravel IDE Helper app/Providers/AppServiceProvider.php
+                // $app->register(App\Providers\AppServiceProvider :: class);
+    添加额外的立面Faceade
+        config/app.php文件并aliases再次添加您的自定义别名，如下所示：
+            return [ 
+            ' aliases ' => [ ' CustomAliasOne ' => Example \ Support \ Facades \ CustomAliasOne :: class，' CustomAliasTwo ' => Example \ Support \ Facades \ CustomAliasTwo :: class，// ...     ] ];     
+   
+配置
+    安装完成后，在.env中配置数据库连接信息：
+        DB_DATABASE=<db_name>
+        DB_USERNAME=<db_username>
+        DB_PASSWORD=<db_password>
+    然后在bootstrap/app.php中取消下面两行之前的注释：
+        $app->withFacades();
+        $app->withEloquent();
+
+
+======================================================================
+
+$ composer.bat create-project laravel/lumen lumen
+Installing laravel/lumen (v5.4.0)
+  - Installing laravel/lumen (v5.4.0): Downloading (100%)
+Created project in lumen
+> php -r "copy('.env.example', '.env');"
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Package operations: 68 installs, 0 updates, 0 removals
+  - Installing psr/log (1.0.2): Downloading (100%)
+  - Installing symfony/debug (v3.3.0): Downloading (100%)
+  - Installing symfony/polyfill-mbstring (v1.3.0): Downloading (100%)
+  - Installing symfony/http-foundation (v3.3.0): Downloading (100%)
+  - Installing symfony/event-dispatcher (v3.3.0): Downloading (100%)
+  - Installing symfony/http-kernel (v3.3.0): Downloading (100%)
+  - Installing paragonie/random_compat (v2.0.10): Downloading (100%)
+  - Installing nikic/fast-route (v1.2.0): Downloading (100%)
+  - Installing mtdowling/cron-expression (v1.2.0): Downloading (100%)
+  - Installing monolog/monolog (1.22.1): Downloading (100%)
+  - Installing illuminate/contracts (v5.4.19): Downloading (100%)
+  - Installing doctrine/inflector (v1.1.0): Downloading (100%)
+  - Installing illuminate/support (v5.4.19): Downloading (100%)
+  - Installing symfony/finder (v3.3.0): Downloading (100%)
+  - Installing illuminate/filesystem (v5.4.19): Downloading (100%)
+  - Installing illuminate/container (v5.4.19): Downloading (100%)
+  - Installing illuminate/events (v5.4.19): Downloading (100%)
+  - Installing illuminate/view (v5.4.19): Downloading (100%)
+  - Installing illuminate/translation (v5.4.19): Downloading (100%)
+  - Installing illuminate/validation (v5.4.19): Downloading (100%)
+  - Installing symfony/process (v3.3.0): Downloading (100%)
+  - Installing symfony/translation (v3.3.0): Downloading (100%)
+  - Installing nesbot/carbon (1.22.1): Downloading (100%)
+  - Installing symfony/console (v3.3.0): Downloading (100%)
+  - Installing illuminate/console (v5.4.19): Downloading (100%)
+  - Installing illuminate/queue (v5.4.19): Downloading (100%)
+  - Installing illuminate/pipeline (v5.4.19): Downloading (100%)
+  - Installing illuminate/pagination (v5.4.19): Downloading (100%)
+  - Installing illuminate/session (v5.4.19): Downloading (100%)
+  - Installing illuminate/http (v5.4.19): Downloading (100%)
+  - Installing illuminate/hashing (v5.4.19): Downloading (100%)
+  - Installing illuminate/encryption (v5.4.19): Downloading (100%)
+  - Installing illuminate/database (v5.4.19): Downloading (100%)
+  - Installing illuminate/config (v5.4.19): Downloading (100%)
+  - Installing illuminate/cache (v5.4.19): Downloading (100%)
+  - Installing illuminate/bus (v5.4.19): Downloading (100%)
+  - Installing illuminate/broadcasting (v5.4.19): Downloading (100%)
+  - Installing illuminate/auth (v5.4.19): Downloading (100%)
+  - Installing laravel/lumen-framework (v5.4.6): Downloading (100%)
+  - Installing vlucas/phpdotenv (v2.4.0): Downloading (100%)
+  - Installing fzaninotto/faker (v1.6.0): Downloading (100%)
+  - Installing symfony/yaml (v3.3.0): Downloading (100%)
+  - Installing sebastian/version (2.0.1): Downloading (100%)
+  - Installing sebastian/resource-operations (1.0.0): Downloading (100%)          - Installing sebastian/recursion-context (2.0.0): Downloading (100%)
+  - Installing sebastian/object-enumerator (2.0.1): Downloading (100%)
+  - Installing sebastian/global-state (1.1.1): Downloading (100%)
+  - Installing sebastian/exporter (2.0.0): Downloading (100%)
+  - Installing sebastian/environment (2.0.0): Downloading (100%)
+  - Installing sebastian/diff (1.4.3): Downloading (100%)
+  - Installing sebastian/comparator (1.2.4): Downloading (100%)
+  - Installing doctrine/instantiator (1.0.5): Downloading (100%)
+  - Installing phpunit/php-text-template (1.2.1): Downloading (100%)
+  - Installing phpunit/phpunit-mock-objects (3.4.3): Downloading (100%)
+  - Installing phpunit/php-timer (1.0.9): Downloading (100%)
+  - Installing phpunit/php-file-iterator (1.4.2): Downloading (100%)
+  - Installing sebastian/code-unit-reverse-lookup (1.0.1): Downloading (100%)     - Installing phpunit/php-token-stream (1.4.11): Downloading (100%)
+  - Installing phpunit/php-code-coverage (4.0.8): Downloading (100%)
+  - Installing webmozart/assert (1.2.0): Downloading (100%)
+  - Installing phpdocumentor/reflection-common (1.0): Downloading (100%)          - Installing phpdocumentor/type-resolver (0.2.1): Downloading (100%)
+  - Installing phpdocumentor/reflection-docblock (3.1.1): Downloading (100%)      - Installing phpspec/prophecy (v1.7.0): Downloading (100%)
+  - Installing myclabs/deep-copy (1.6.1): Downloading (100%)
+  - Installing phpunit/phpunit (5.7.20): Downloading (100%)
+  - Installing hamcrest/hamcrest-php (v1.2.2): Downloading (100%)
+  - Installing mockery/mockery (0.9.9): Downloading (100%)
+symfony/event-dispatcher suggests installing symfony/dependency-injection ()
+symfony/http-kernel suggests installing symfony/browser-kit ()
+symfony/http-kernel suggests installing symfony/class-loader ()
+symfony/http-kernel suggests installing symfony/config ()
+symfony/http-kernel suggests installing symfony/dependency-injection ()
+symfony/http-kernel suggests installing symfony/var-dumper ()
+paragonie/random_compat suggests installing ext-libsodium (Provides a modern crypto API that can be used to generate random bytes.)
+monolog/monolog suggests installing aws/aws-sdk-php (Allow sending log messages to AWS services like DynamoDB)
+monolog/monolog suggests installing doctrine/couchdb (Allow sending log messages to a CouchDB server)
+monolog/monolog suggests installing ext-amqp (Allow sending log messages to an AMQP server (1.0+ required))
+monolog/monolog suggests installing ext-mongo (Allow sending log messages to a MongoDB server)
+monolog/monolog suggests installing graylog2/gelf-php (Allow sending log messages to a GrayLog2 server)
+monolog/monolog suggests installing mongodb/mongodb (Allow sending log messages to a MongoDB server via PHP Driver)
+monolog/monolog suggests installing php-amqplib/php-amqplib (Allow sending log messages to an AMQP server using php-amqplib)
+monolog/monolog suggests installing php-console/php-console (Allow sending log messages to Google Chrome)
+monolog/monolog suggests installing rollbar/rollbar (Allow sending log messages to Rollbar)
+monolog/monolog suggests installing ruflin/elastica (Allow sending log messages to an Elastic Search server)
+monolog/monolog suggests installing sentry/sentry (Allow sending log messages to a Sentry server)
+illuminate/support suggests installing symfony/var-dumper (Required to use the dd function (~3.2).)
+illuminate/filesystem suggests installing league/flysystem (Required to use the Flysystem local and FTP drivers (~1.0).)
+illuminate/filesystem suggests installing league/flysystem-aws-s3-v3 (Required to use the Flysystem S3 driver (~1.0).)
+illuminate/filesystem suggests installing league/flysystem-rackspace (Required to use the Flysystem Rackspace driver (~1.0).)
+symfony/translation suggests installing symfony/config ()
+symfony/console suggests installing symfony/filesystem ()
+illuminate/console suggests installing guzzlehttp/guzzle (Required to use the ping methods on schedules (~6.0).)
+illuminate/queue suggests installing aws/aws-sdk-php (Required to use the SQS queue driver (~3.0).)
+illuminate/queue suggests installing illuminate/redis (Required to use the Redis queue driver (5.4.*).)
+illuminate/queue suggests installing pda/pheanstalk (Required to use the Beanstalk queue driver (~3.0).)
+illuminate/database suggests installing doctrine/dbal (Required to rename columns and drop SQLite columns (~2.5).)
+illuminate/cache suggests installing illuminate/redis (Required to use the redis cache driver (5.4.*).)
+illuminate/broadcasting suggests installing pusher/pusher-php-server (Required to use the Pusher broadcast driver (~2.0).)
+laravel/lumen-framework suggests installing laravel/tinker (Required to use the tinker console command (~1.0).)
+sebastian/global-state suggests installing ext-uopz (*)
+phpunit/phpunit-mock-objects suggests installing ext-soap (*)
+phpunit/phpunit suggests installing phpunit/php-invoker (~1.1)
+Writing lock file
+Generating autoload files
+
+------------------------------------------------------------------------
+
+$ composer.bat require barryvdh/laravel-ide-helper
+Using version ^2.3 for barryvdh/laravel-ide-helper
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Package operations: 3 installs, 0 updates, 0 removals
+  - Installing symfony/class-loader (v3.3.0): Downloading (100%)
+  - Installing barryvdh/reflection-docblock (v2.0.4): Downloading (100%)          - Installing barryvdh/laravel-ide-helper (v2.3.2): Downloading (100%)
+symfony/class-loader suggests installing symfony/polyfill-apcu (For using ApcClassLoader on HHVM)
+barryvdh/reflection-docblock suggests installing dflydev/markdown (~1.0)
+barryvdh/reflection-docblock suggests installing erusev/parsedown (~1.0)
+barryvdh/laravel-ide-helper suggests installing doctrine/dbal (Load information from the database about models for phpdocs (~2.3))
+Writing lock file
+Generating autoload files

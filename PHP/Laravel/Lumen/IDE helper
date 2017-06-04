@@ -1,0 +1,11 @@
+
+使用Artisan生成PHPDoc辅助文件
+
+在安装Laravel IDE Helper之后，我们能够使用artisan生成PhpStorm 以及 Laravel用来提供代码补全和定位的PHPDoc辅助文件
+
+最容易的操作方法就是就是在command line tool功能中开启对artisan的支持。
+    settings——Tools | Command Line Tool Support——添加一个新的命令行。
+        Path to script: 选根目录下artisan.
+    这个工具基于Symfony Console，因此我们接下来需要提供artisan命令的路径。
+    保存之后, 我们即可在IDE内使用artisan命令. Tools | Run Command… (Ctrl+Shift+X or CMD+Shift+X on Mac OS X) 提供了对所有可以执行的artisan命令的自动补全。
+    运行artisan ide-helper:generate 命令可以生成必要的 PHPDoc信息。
