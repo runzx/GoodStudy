@@ -41,7 +41,11 @@
     运行迁移：
         php artisan  migrate
         
-
+5. 在另一台电脑上运行
+    错误： in Encrypter.php (line 43) 可能是因为.env 没有git同步，我用.env.example改。所以APP_KEY新建是空的
+        php artisan key:generate
+            它会在.env 中生成： APP_KEY=base64:2lbB1Trywi0kVIhUnkQYMSKROSxmrL6BTYKE5A99CNc=
+    artisan config:clear 可以清除配置
 ==================================================================
 
  composer.bat show --all  laravel/laravel
