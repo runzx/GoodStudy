@@ -6,6 +6,7 @@
     $app->patch($uri, $callback);
     $app->delete($uri, $callback);
     $app->options($uri, $callback);
+     
 路由参数
     路由参数始终包含在“{}”括号中
     路由参数不能包含-字符。使用下划线（_）代替。
@@ -13,15 +14,30 @@
         $app->get('user[/{name}]', function ($name = null) {
     正则表达式约束
         $app->get('user/{name:[A-Za-z]+}',...
+    控制器或者 路由中参数直接 在方法中使用$params ???
+    如果是？get=xxx后面的参数，使用 Request $req,在方法中 $req->input('get')获取参数;
 路由群组
     路由群组允许你共用路由属性，例如：中间件、命名空间，你可以利用路由群组统一为多个路由设置共同属性，而不需在每个路由上都设置一次。
     共用属性被指定为数组格式，当作 $app->group 方法的第一个参数。
     中间件
         $app->group(['middleware' => 'auth'],
     命名空间
-        $app->group(['namespace' => 'App\Http\Controllers\Admin'], function() use ($app)
+        $app->group(['namespace' => 'App\Http\Controllers']     //lumen5.4已在app.php中加入
+        在路由表中设定：
+            $app->group(['namespace' => 'Admin'], function() use ($app)
+            {
+                // 控制器在 "App\Http\Controllers\Admin" 命名空间下
+
+                $app->group(['namespace' => 'User'], function(){
+                    // 控制器在 "App\Http\Controllers\Admin\User" 命名空间下
+                });
+            });
     路由前缀
         在路由群组内为每个路由指定的 URI 加上前缀，共用的参数：
         $app->group(['prefix' => 'admin'], function () use ($app) {
         $app->group(['prefix' => 'accounts/{account_id}'], function () use ($app) {
+
+6、路由指向的controller，在app/Http/Controllers/下面，
+    控制器或者 路由中参数直接 在方法中使用$params,
+    如果是？get=xxx后面的参数，使用 Request $req,在方法中 $req->input('get')获取参数;
             

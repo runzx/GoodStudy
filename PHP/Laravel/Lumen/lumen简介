@@ -30,7 +30,9 @@
         $app->withFacades();
         $app->withEloquent();
 
-
+Facades
+    Facades 提供一个静态接口给在应用程序的服务容器中可以取用的类
+    开启方式是去掉bootstrap/app.php中$app->withFacades();的注释。
 ======================================================================
 
 $ composer.bat create-project laravel/lumen lumen
