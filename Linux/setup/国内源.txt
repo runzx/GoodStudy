@@ -1,31 +1,31 @@
-kali-rolling°æ±¾£º£¨ÖĞ¿Æ´óµÄ¾Í¹»ÓÃÁË£¬¸öÈË°´Ğè°É£©
+kali-rollingç‰ˆæœ¬ï¼šï¼ˆä¸­ç§‘å¤§çš„å°±å¤Ÿç”¨äº†ï¼Œä¸ªäººæŒ‰éœ€å§ï¼‰
 
-¸´ÖÆ´úÂë
-#ÖĞ¿Æ´ó
+å¤åˆ¶ä»£ç 
+#ä¸­ç§‘å¤§
 deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
 deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
 
-#°¢ÀïÔÆ
+#é˜¿é‡Œäº‘
 #deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
 #deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
 
-#Çå»ª´óÑ§
+#æ¸…åå¤§å­¦
 #deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
 #deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
 
-#Õã´ó
+#æµ™å¤§
 #deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
 #deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
 
-#¶«Èí´óÑ§
+#ä¸œè½¯å¤§å­¦
 #deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
 #deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
 
-#¹Ù·½Ô´
+#å®˜æ–¹æº
 #deb http://http.kali.org/kali kali-rolling main non-free contrib
 #deb-src http://http.kali.org/kali kali-rolling main non-free contrib
 
-#ÖØÇì´óÑ§
+#é‡åº†å¤§å­¦
 #deb http://http.kali.org/kali kali-rolling main non-free contrib
 #deb-src http://http.kali.org/kali kali-rolling main non-free contrib
-¸´ÖÆ´úÂë
+å¤åˆ¶ä»£ç 

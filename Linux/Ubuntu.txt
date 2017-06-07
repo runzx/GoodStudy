@@ -1,99 +1,99 @@
-½¨Òé°²×°Ç°ÏÈ·ÖºÃÇø£¬²»Òª¸ñÊ½»¯£¨°²×°Ê±¸ñÊ½»¯£©
-ÒÔÏÂÊÇÎÒµÄ·ÖÇø½¨Òé£¨²»Ò»¶¨¿ÆÑ§£¬Çë×ÔÐÐÅÐ¶Ï£©
-ÒýÓÃ:
-/ ½¨Òé15GÒÔÉÏ£¬Èç¹û/home²»µ¥¶À·ÖÇø£¬Ôò½¨Òé30GÒÔÉÏ
-/home ½¨Òé30GÒÔÉÏ£¬¾¡Á¿µ¥¶À·ÖÇø¡£
-swap ½¨Òé2GÒÔÏÂ¡£Ò²¿ÉÒÔ²»·Ö
-/boot ¿ÉÒÔ²»µ¥¶À·ÖÇø£¬Èç¹ûµ¥¶À·ÖÇø£¬½¨Òé300MÒÔÉÏ¡£
+å»ºè®®å®‰è£…å‰å…ˆåˆ†å¥½åŒºï¼Œä¸è¦æ ¼å¼åŒ–ï¼ˆå®‰è£…æ—¶æ ¼å¼åŒ–ï¼‰
+ä»¥ä¸‹æ˜¯æˆ‘çš„åˆ†åŒºå»ºè®®ï¼ˆä¸ä¸€å®šç§‘å­¦ï¼Œè¯·è‡ªè¡Œåˆ¤æ–­ï¼‰
+å¼•ç”¨:
+/ å»ºè®®15Gä»¥ä¸Šï¼Œå¦‚æžœ/homeä¸å•ç‹¬åˆ†åŒºï¼Œåˆ™å»ºè®®30Gä»¥ä¸Š
+/home å»ºè®®30Gä»¥ä¸Šï¼Œå°½é‡å•ç‹¬åˆ†åŒºã€‚
+swap å»ºè®®2Gä»¥ä¸‹ã€‚ä¹Ÿå¯ä»¥ä¸åˆ†
+/boot å¯ä»¥ä¸å•ç‹¬åˆ†åŒºï¼Œå¦‚æžœå•ç‹¬åˆ†åŒºï¼Œå»ºè®®300Mä»¥ä¸Šã€‚
 
 
-ÌØ±ð×¢Òâ£º²»Òª»ìÓÃ·ÖÇø¹¤¾ß£¬¼´²»ÒªÔÚwindowsÏÂ·Ö¼¸¸öÇø£¬ÔÙµ½linuxÏÂ·Ö¼¸¸öÇø£¬ÕâÑùÈÝÒ×³ö´í¡£
+ç‰¹åˆ«æ³¨æ„ï¼šä¸è¦æ··ç”¨åˆ†åŒºå·¥å…·ï¼Œå³ä¸è¦åœ¨windowsä¸‹åˆ†å‡ ä¸ªåŒºï¼Œå†åˆ°linuxä¸‹åˆ†å‡ ä¸ªåŒºï¼Œè¿™æ ·å®¹æ˜“å‡ºé”™ã€‚
 
-ÒÔÏÂÊÇÓÃgrub4dos£¬ÔÚwindows»·¾³ÖÐÒýµ¼isoÎÄ¼þÊµÏÖÓ²ÅÌ°²×°¡£
-ÒýÓÃ:
-Ò»¡¢ÏÂÔØ×îÐÂ°æ±¾µÄGrub4DOS
-ÏÂÔØµØÖ·£ºhttp://download.gna.org/grub4dos£¨Çë×Ô¼ºÕÒ×îÐÂµÄzip°ü£©
-ÏÂÔØ²¢½âÑ¹Ëõºó£¬½«Ä¿Â¼ÖÐµÄgrldr £¨·Çgrldr.mbr£©£¬grub.exeÁ½¸öÎÄ¼þ¸´ÖÆµ½CÅÌ¸ùÄ¿Â¼ÏÂ
-ÒÔÏÂÊÇ43Â¥µÄ²¹³ä£º
-ÒýÓÃ:
-grldr.mbrÓ¦¸ÃÊÇÓÃÓÚvista¼°ÒÔÉÏÏµÍ³µÄ£¬ÊÊÓÃÓÚbootmgrÒýµ¼·½Ê½£¬Ê¹ÓÃµÄÊ±ºòÒªºÍgrldrÒ»ÆðÓÃ£¬ÖÁÓÚgrub.exeÔòÊÇdosÏÂµ÷ÓÃµÄ£¬»ù±¾²»ÓÃ¿½±´µ½CÅÌÏÂ¡£
-Èç¹ûÊ¹ÓÃboot.iniµÄ·½Ê½µÄ»°£¬ÔÚ¿½±´ÁËxpµÄntldrµÄÇé¿öÏÂ£¬ntldrÊÇ¿ÉÒÔÖ±½ÓÒýµ¼grldr¶ø²»Ðègrldr.mbrÁË£¬Òò´Ë²»Ðè¿½±´ºóÕß¡£
-·´Ö®£¬µ¥¶ÀÔÚbootmgrµÄÒýµ¼½çÃæÑ¡Ôñgrub4dosµÄÏîÄ¿£¨Êµ¼ÊÖ¸Ïògrldr£©ºÜÈÝÒ×±¨´í¡£
+ä»¥ä¸‹æ˜¯ç”¨grub4dosï¼Œåœ¨windowsçŽ¯å¢ƒä¸­å¼•å¯¼isoæ–‡ä»¶å®žçŽ°ç¡¬ç›˜å®‰è£…ã€‚
+å¼•ç”¨:
+ä¸€ã€ä¸‹è½½æœ€æ–°ç‰ˆæœ¬çš„Grub4DOS
+ä¸‹è½½åœ°å€ï¼šhttp://download.gna.org/grub4dosï¼ˆè¯·è‡ªå·±æ‰¾æœ€æ–°çš„zipåŒ…ï¼‰
+ä¸‹è½½å¹¶è§£åŽ‹ç¼©åŽï¼Œå°†ç›®å½•ä¸­çš„grldr ï¼ˆéžgrldr.mbrï¼‰ï¼Œgrub.exeä¸¤ä¸ªæ–‡ä»¶å¤åˆ¶åˆ°Cç›˜æ ¹ç›®å½•ä¸‹
+ä»¥ä¸‹æ˜¯43æ¥¼çš„è¡¥å……ï¼š
+å¼•ç”¨:
+grldr.mbråº”è¯¥æ˜¯ç”¨äºŽvistaåŠä»¥ä¸Šç³»ç»Ÿçš„ï¼Œé€‚ç”¨äºŽbootmgrå¼•å¯¼æ–¹å¼ï¼Œä½¿ç”¨çš„æ—¶å€™è¦å’Œgrldrä¸€èµ·ç”¨ï¼Œè‡³äºŽgrub.exeåˆ™æ˜¯dosä¸‹è°ƒç”¨çš„ï¼ŒåŸºæœ¬ä¸ç”¨æ‹·è´åˆ°Cç›˜ä¸‹ã€‚
+å¦‚æžœä½¿ç”¨boot.iniçš„æ–¹å¼çš„è¯ï¼Œåœ¨æ‹·è´äº†xpçš„ntldrçš„æƒ…å†µä¸‹ï¼Œntldræ˜¯å¯ä»¥ç›´æŽ¥å¼•å¯¼grldrè€Œä¸éœ€grldr.mbräº†ï¼Œå› æ­¤ä¸éœ€æ‹·è´åŽè€…ã€‚
+åä¹‹ï¼Œå•ç‹¬åœ¨bootmgrçš„å¼•å¯¼ç•Œé¢é€‰æ‹©grub4dosçš„é¡¹ç›®ï¼ˆå®žé™…æŒ‡å‘grldrï¼‰å¾ˆå®¹æ˜“æŠ¥é”™ã€‚
 
-¶þ¡¢ÔÚÏÂÔØºÃµÄisoÎÄ¼þÖÐ£¬casperÎÄ¼þ¼ÐÄ¿Â¼ÏÂ£¬ÕÒµ½vmlinuz¡¢initrd.lz£¨ÎÄ¼þÃûÒ²¿ÉÄÜÊÇinitrd.gz£©½âÑ¹£¬²¢¸´ÖÆµ½CÅÌ¸ùÄ¿Â¼ÏÂ
-£¨ÎÞÐè½âÑ¹Õû¸öcasperÎÄ¼þ¼Ð£©
-ÏÂÔØÄ¿Â¼£ºhttp://releases.ubuntu.com/11.10/£¬ÕÒdesktopµÄ°æ±¾ÏÂÔØ£¨·ÖÎªi386ºÍamd64Á½ÖÖ,·Ö±ðÊÇ32Î»ºÍ64Î»µÄ£©¡£¼ÙÉèÏÂÔØµÄÎÄ¼þÊÇ£ºubuntu-11.10-desktop-i386.iso
-Èý¡¢CÅÌ¸ùÄ¿Â¼ÏÂ½¨Á¢menu.lstÎÄ¼þ£¬ÄÚÈÝÎª£º
+äºŒã€åœ¨ä¸‹è½½å¥½çš„isoæ–‡ä»¶ä¸­ï¼Œcasperæ–‡ä»¶å¤¹ç›®å½•ä¸‹ï¼Œæ‰¾åˆ°vmlinuzã€initrd.lzï¼ˆæ–‡ä»¶åä¹Ÿå¯èƒ½æ˜¯initrd.gzï¼‰è§£åŽ‹ï¼Œå¹¶å¤åˆ¶åˆ°Cç›˜æ ¹ç›®å½•ä¸‹
+ï¼ˆæ— éœ€è§£åŽ‹æ•´ä¸ªcasperæ–‡ä»¶å¤¹ï¼‰
+ä¸‹è½½ç›®å½•ï¼šhttp://releases.ubuntu.com/11.10/ï¼Œæ‰¾desktopçš„ç‰ˆæœ¬ä¸‹è½½ï¼ˆåˆ†ä¸ºi386å’Œamd64ä¸¤ç§,åˆ†åˆ«æ˜¯32ä½å’Œ64ä½çš„ï¼‰ã€‚å‡è®¾ä¸‹è½½çš„æ–‡ä»¶æ˜¯ï¼šubuntu-11.10-desktop-i386.iso
+ä¸‰ã€Cç›˜æ ¹ç›®å½•ä¸‹å»ºç«‹menu.lstæ–‡ä»¶ï¼Œå†…å®¹ä¸ºï¼š
 title Install Ubuntu 11.10
 root (hd0,0)
 kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-11.10-desktop-i386.iso ro quiet splash locale=zh_CN.UTF-8
 initrd (hd0,0)/initrd.lz
 
-×¢£ººìÉ«×ÖÌå²¿·Ö¾ÍÊÇÐèÒª°²×°µÄISOÓ³ÏñÎÄ¼þµÄÎÄ¼þÃû£¬¸ù¾ÝÊµ¼ÊÇé¿ö×÷µ÷Õû£¬initrd.lzÒ²¿ÉÄÜÊÇinitrd.gz£¬ÇëÈ·±£ÎÄ¼þÃûÕýÈ·£¬×¢Òâ´óÐ¡Ð´Ò»ÖÂ¡£Ò²¿ÉÒÔ°ÑquietºÍsplashÈ¥µô£¬ÕâÑù¾ÍÄÜ¿´µ½Òýµ¼Ê§°Ü»áÍ£ÔÚÄÄÀïÁË¡£
+æ³¨ï¼šçº¢è‰²å­—ä½“éƒ¨åˆ†å°±æ˜¯éœ€è¦å®‰è£…çš„ISOæ˜ åƒæ–‡ä»¶çš„æ–‡ä»¶åï¼Œæ ¹æ®å®žé™…æƒ…å†µä½œè°ƒæ•´ï¼Œinitrd.lzä¹Ÿå¯èƒ½æ˜¯initrd.gzï¼Œè¯·ç¡®ä¿æ–‡ä»¶åæ­£ç¡®ï¼Œæ³¨æ„å¤§å°å†™ä¸€è‡´ã€‚ä¹Ÿå¯ä»¥æŠŠquietå’ŒsplashåŽ»æŽ‰ï¼Œè¿™æ ·å°±èƒ½çœ‹åˆ°å¼•å¯¼å¤±è´¥ä¼šåœåœ¨å“ªé‡Œäº†ã€‚
 
-ËÄ¡¢½Ó×Å£¬ÔÚÎÒµÄµçÄÔ¨C>¹¤¾ß¨C>ÎÄ¼þ¼ÐÑ¡Ïî¨C> µÄ²é¿´±êÇ©ÏÂÈ¥µô¡°Òþ²ØÊÜ±£»¤µÄ²Ù×÷ÏµÍ³ÎÄ¼þ¡±Ö®Ç°µÄ¹´£¬²¢¹´Ñ¡¡°ÏÔÊ¾ËùÓÐÎÄ¼þºÍÎÄ¼þ¼Ð¡±¡£È¡ÏûCÅÌ¸ùÄ¿Â¼ÏÂµÄboot.iniÎÄ¼þµÄ¡°Ö»¶Á¡±ÊôÐÔ£¬È»ºóÓÃ¼ÇÊÂ±¾´ò¿ªboot.iniÎÄ¼þ£¬×öÈçÏÂ¸ü¸Ä£ºtimeout=0 ¸Ä³É timeout=5 »òÕß¸ü´óµÄÊý×Ö£¬ÔÚboot.ini ÎÄ¼þÄÚÈÝÄ©Î²¼ÓÉÏÒ»ÐÐ C:\grldr="GRUB"
-£¨¸½£ºboot.ini ÎÄ¼þÂ·¾¶ c:\boot.ini £©
+å››ã€æŽ¥ç€ï¼Œåœ¨æˆ‘çš„ç”µè„‘â€“>å·¥å…·â€“>æ–‡ä»¶å¤¹é€‰é¡¹â€“> çš„æŸ¥çœ‹æ ‡ç­¾ä¸‹åŽ»æŽ‰â€œéšè—å—ä¿æŠ¤çš„æ“ä½œç³»ç»Ÿæ–‡ä»¶â€ä¹‹å‰çš„å‹¾ï¼Œå¹¶å‹¾é€‰â€œæ˜¾ç¤ºæ‰€æœ‰æ–‡ä»¶å’Œæ–‡ä»¶å¤¹â€ã€‚å–æ¶ˆCç›˜æ ¹ç›®å½•ä¸‹çš„boot.iniæ–‡ä»¶çš„â€œåªè¯»â€å±žæ€§ï¼Œç„¶åŽç”¨è®°äº‹æœ¬æ‰“å¼€boot.iniæ–‡ä»¶ï¼Œåšå¦‚ä¸‹æ›´æ”¹ï¼štimeout=0 æ”¹æˆ timeout=5 æˆ–è€…æ›´å¤§çš„æ•°å­—ï¼Œåœ¨boot.ini æ–‡ä»¶å†…å®¹æœ«å°¾åŠ ä¸Šä¸€è¡Œ C:\grldr="GRUB"
+ï¼ˆé™„ï¼šboot.ini æ–‡ä»¶è·¯å¾„ c:\boot.ini ï¼‰
 
-Îå¡¢½«ubuntu-11.10-desktop-i386.iso¸´ÖÆµ½Ä³¸ö·ÖÇøµÄÅÌ¸ùÄ¿Â¼ÏÂ
-£¨grub4dosÏÖÔÚÄÜ¹»Ê¶±ðntfsµÄ·ÖÇø£¬µ«²»Èçfat·ÖÇøÊ¶±ðµÄºÃ¡£²»Ê¶±ðext4·ÖÇø¡£Èç¹ûÒýµ¼Ê±ËµÕÒ²»µ½isoÎÄ¼þ£¬²¢ÇÒÎÄ¼þÃûÈ·ÐÅÃ»ÓÐÐ´´í£¬Ôò½¨Òé·Ö³öÀ´Ò»¸öÐ¡µÄfat·ÖÇøÀ´´æ·ÅisoÎÄ¼þ£¬ÔÙÊÔ¡£ÁíÍâ£¬´æ·ÅISOÎÄ¼þµÄ·ÖÇø°²×°Ê±²»ÄÜ¸ñÊ½»¯£¬¼´´Ë·ÖÇø²»ÄÜ×÷ÎªlinuxµÄÖ÷·ÖÇø/¡¢ /home¡¢ /boot Ê¹ÓÃ£¬ËùÒÔÒª°ÑËü·Åµ½windowsÊ¹ÓÃµÄ·ÖÇøÀïÃæ¡££©
+äº”ã€å°†ubuntu-11.10-desktop-i386.isoå¤åˆ¶åˆ°æŸä¸ªåˆ†åŒºçš„ç›˜æ ¹ç›®å½•ä¸‹
+ï¼ˆgrub4dosçŽ°åœ¨èƒ½å¤Ÿè¯†åˆ«ntfsçš„åˆ†åŒºï¼Œä½†ä¸å¦‚fatåˆ†åŒºè¯†åˆ«çš„å¥½ã€‚ä¸è¯†åˆ«ext4åˆ†åŒºã€‚å¦‚æžœå¼•å¯¼æ—¶è¯´æ‰¾ä¸åˆ°isoæ–‡ä»¶ï¼Œå¹¶ä¸”æ–‡ä»¶åç¡®ä¿¡æ²¡æœ‰å†™é”™ï¼Œåˆ™å»ºè®®åˆ†å‡ºæ¥ä¸€ä¸ªå°çš„fatåˆ†åŒºæ¥å­˜æ”¾isoæ–‡ä»¶ï¼Œå†è¯•ã€‚å¦å¤–ï¼Œå­˜æ”¾ISOæ–‡ä»¶çš„åˆ†åŒºå®‰è£…æ—¶ä¸èƒ½æ ¼å¼åŒ–ï¼Œå³æ­¤åˆ†åŒºä¸èƒ½ä½œä¸ºlinuxçš„ä¸»åˆ†åŒº/ã€ /homeã€ /boot ä½¿ç”¨ï¼Œæ‰€ä»¥è¦æŠŠå®ƒæ”¾åˆ°windowsä½¿ç”¨çš„åˆ†åŒºé‡Œé¢ã€‚ï¼‰
 
-Áù¡¢ÖØÆôµçÄÔ£¬¿ª»úÑ¡Ôñ¡°GRUB¡±£¬½øÈëlive CDÄ£Ê½
+å…­ã€é‡å¯ç”µè„‘ï¼Œå¼€æœºé€‰æ‹©â€œGRUBâ€ï¼Œè¿›å…¥live CDæ¨¡å¼
 
-°²×°Ç°£¬Ê×ÏÈ´ò¿ªÖÕ¶ËÊäÈë£º
+å®‰è£…å‰ï¼Œé¦–å…ˆæ‰“å¼€ç»ˆç«¯è¾“å…¥ï¼š
 
-´úÂë:
+ä»£ç :
 sudo umount -l /isodevice
 
 
-£¨´ËÃüÁîÒ»¶¨ÒªÔËÐÐ£¬·ñÔò»á³öÏÖ²»ÄÜ¶Ô´ÅÅÌ²Ù×÷µÄÇé¿ö£¡£©
+ï¼ˆæ­¤å‘½ä»¤ä¸€å®šè¦è¿è¡Œï¼Œå¦åˆ™ä¼šå‡ºçŽ°ä¸èƒ½å¯¹ç£ç›˜æ“ä½œçš„æƒ…å†µï¼ï¼‰
 
-Æß¡¢Ë«»÷×ÀÃæµÄÍ¼±ê¡°°²×°¡±¿ªÊ¼°²×°£¬ÏÂÃæ¾ÍÖ±½ÓÏÂÒ»²½£¬ÏÂÒ»²½£¬°²×°Ê±¡°·ÖÅä´ÅÅÌ¿Õ¼ä¡±ÕâÒ»²½£¬¼ÇµÃÑ¡ÔñµÚÈýÏî¡°ÆäËû¡±£¬±à¼­¸÷¸ö·ÖÇø¹ÒÔÚ¶ÔÓ¦Ä¿Â¼£¨/¡¢/homeµÈ£©¾ÍOK£»
-Í¼Æ¬
-½¨ÒéÑ¡ÔñµÚÈýÏî¡°ÆäËû¡±£¬ÊÖ¶¯±à¼­·ÖÇø¡£
+ä¸ƒã€åŒå‡»æ¡Œé¢çš„å›¾æ ‡â€œå®‰è£…â€å¼€å§‹å®‰è£…ï¼Œä¸‹é¢å°±ç›´æŽ¥ä¸‹ä¸€æ­¥ï¼Œä¸‹ä¸€æ­¥ï¼Œå®‰è£…æ—¶â€œåˆ†é…ç£ç›˜ç©ºé—´â€è¿™ä¸€æ­¥ï¼Œè®°å¾—é€‰æ‹©ç¬¬ä¸‰é¡¹â€œå…¶ä»–â€ï¼Œç¼–è¾‘å„ä¸ªåˆ†åŒºæŒ‚åœ¨å¯¹åº”ç›®å½•ï¼ˆ/ã€/homeç­‰ï¼‰å°±OKï¼›
+å›¾ç‰‡
+å»ºè®®é€‰æ‹©ç¬¬ä¸‰é¡¹â€œå…¶ä»–â€ï¼Œæ‰‹åŠ¨ç¼–è¾‘åˆ†åŒºã€‚
 
-Í¼Æ¬
-°Ë¡¢ÖØÆô
+å›¾ç‰‡
+å…«ã€é‡å¯
 
 
-Õë¶Ôwin7µÄÌØ±ðËµÃ÷£º
-ÓÐÈËËµ±¾·½·¨²»ÊÊÓÃÓëWindows7 64bit£¬µ«Ò²ÓÐÈËËµ¿ÉÒÔ£¬ËùÒÔWindows7 64bitµÄÈç¹ûÊ¹ÓÃÁË±¾·½·¨£¬Çë»ØÌûËµÃ÷ÊÇ·ñ¿ÉÓÃ¡£
+é’ˆå¯¹win7çš„ç‰¹åˆ«è¯´æ˜Žï¼š
+æœ‰äººè¯´æœ¬æ–¹æ³•ä¸é€‚ç”¨ä¸ŽWindows7 64bitï¼Œä½†ä¹Ÿæœ‰äººè¯´å¯ä»¥ï¼Œæ‰€ä»¥Windows7 64bitçš„å¦‚æžœä½¿ç”¨äº†æœ¬æ–¹æ³•ï¼Œè¯·å›žå¸–è¯´æ˜Žæ˜¯å¦å¯ç”¨ã€‚
 
-win7Ã»ÓÐboot.ini ÎÄ¼þ£¬Ö±½Ó´´½¨Ò»¸öboot.ini ÎÄ¼þ¾ÍÐÐ£¬Òýµ¼³ÌÐò»á×Ô¼º²éÕÒ²¢Ìí¼Ó½øÈ¥µÄ¡£¼ÙÈç²»Òýµ¼£¬Ò²¿ÉÒÔÓÃÁíÍâÒ»ÖÖÕë¶Ôwin7µÄ·½·¨£ºÓÃEasyBCDÒýµ¼ISO½øÐÐÓ²ÅÌ°²×°£º
-1,ÏÂÔØisoÎÄ¼þ£¬casperÎÄ¼þ¼ÐÄ¿Â¼ÏÂ£¬ÕÒµ½vmlinuz¡¢initrd.lz£¨ÎÄ¼þÃûÒ²¿ÉÄÜÊÇinitrd.gz£©½âÑ¹£¬²¢¸´ÖÆµ½CÅÌ¸ùÄ¿Â¼ÏÂ
-£¨ÎÞÐè½âÑ¹Õû¸öcasperÎÄ¼þ¼Ð£©
-ÏÂÔØÄ¿Â¼£ºhttp://releases.ubuntu.com/11.10/£¬ÕÒdesktopµÄ°æ±¾ÏÂÔØ£¨·ÖÎªi386ºÍamd64Á½ÖÖ,·Ö±ðÊÇ32Î»ºÍ64Î»µÄ£©¡£¼ÙÉèÏÂÔØµÄÎÄ¼þÊÇ£ºubuntu-11.10-desktop-i386.iso,¸´ÖÆµ½Ä³¸ö·ÖÇøµÄÅÌ¸ùÄ¿Â¼ÏÂ£¨´ÅÅÌ¸ñÊ½¿ÉÒÔÊÇntfsºÍfat£¬¾¡Á¿ÊÇfat¸ñÊ½£©
-2, ÏÂÔØEasyBCD×îÐÂ°æ°²×°Ö®¡£Æô¶¯ EasyBCD Ñ¡ÔñAdd new entry¡ª>NeoGrub¡ª>Install£¬È»ºóÔÚÐÂ³öÏÖµÄ½çÃæµã£ºconfigure£¬³öÏÖmenu.lst£¬Ìí¼ÓÒÔÏÂÄÚÈÝ£º
-×¢£ººìÉ«×ÖÌå²¿·Ö¾ÍÊÇÐèÒª°²×°µÄISOÓ³ÏñÎÄ¼þµÄÎÄ¼þÃû£¬¸ù¾ÝÊµ¼ÊÇé¿ö×÷µ÷Õû£¬initrd.lzÒ²¿ÉÄÜÊÇinitrd.gz£¬ÇëÈ·±£ÎÄ¼þÃûÕýÈ·£¬×¢Òâ´óÐ¡Ð´Ò»ÖÂ¡££¨Ä³Ð©Í¬Ñ§µÄwin7°²×°Ê±ºò·ÖÇøÁË£¬È»ºó×Ô¶¯Éú³ÉÁËÒ»¸ö100MBµÄÏµÍ³·ÖÇøÔÚµÚÒ»Î»ÖÃ£¬ÕâÑùËùÎ½µÄCÅÌ¾Í²»ÊÇ(hd0,0)ÁË£¬Ó¦¸ÃÎª(hd0,1)£»Í¬Ñù£¬ÍòÒ»µã¶ù±³£¬»¹ÊÇÔÚgrub4dosÏÂ²âÊÔ¿´¿´Ó¦¸ÃÊÇÄÄ¸ö·ÖÇø°É¡££©
-ÒýÓÃ:
+win7æ²¡æœ‰boot.ini æ–‡ä»¶ï¼Œç›´æŽ¥åˆ›å»ºä¸€ä¸ªboot.ini æ–‡ä»¶å°±è¡Œï¼Œå¼•å¯¼ç¨‹åºä¼šè‡ªå·±æŸ¥æ‰¾å¹¶æ·»åŠ è¿›åŽ»çš„ã€‚å‡å¦‚ä¸å¼•å¯¼ï¼Œä¹Ÿå¯ä»¥ç”¨å¦å¤–ä¸€ç§é’ˆå¯¹win7çš„æ–¹æ³•ï¼šç”¨EasyBCDå¼•å¯¼ISOè¿›è¡Œç¡¬ç›˜å®‰è£…ï¼š
+1,ä¸‹è½½isoæ–‡ä»¶ï¼Œcasperæ–‡ä»¶å¤¹ç›®å½•ä¸‹ï¼Œæ‰¾åˆ°vmlinuzã€initrd.lzï¼ˆæ–‡ä»¶åä¹Ÿå¯èƒ½æ˜¯initrd.gzï¼‰è§£åŽ‹ï¼Œå¹¶å¤åˆ¶åˆ°Cç›˜æ ¹ç›®å½•ä¸‹
+ï¼ˆæ— éœ€è§£åŽ‹æ•´ä¸ªcasperæ–‡ä»¶å¤¹ï¼‰
+ä¸‹è½½ç›®å½•ï¼šhttp://releases.ubuntu.com/11.10/ï¼Œæ‰¾desktopçš„ç‰ˆæœ¬ä¸‹è½½ï¼ˆåˆ†ä¸ºi386å’Œamd64ä¸¤ç§,åˆ†åˆ«æ˜¯32ä½å’Œ64ä½çš„ï¼‰ã€‚å‡è®¾ä¸‹è½½çš„æ–‡ä»¶æ˜¯ï¼šubuntu-11.10-desktop-i386.iso,å¤åˆ¶åˆ°æŸä¸ªåˆ†åŒºçš„ç›˜æ ¹ç›®å½•ä¸‹ï¼ˆç£ç›˜æ ¼å¼å¯ä»¥æ˜¯ntfså’Œfatï¼Œå°½é‡æ˜¯fatæ ¼å¼ï¼‰
+2, ä¸‹è½½EasyBCDæœ€æ–°ç‰ˆå®‰è£…ä¹‹ã€‚å¯åŠ¨ EasyBCD é€‰æ‹©Add new entryâ€”>NeoGrubâ€”>Installï¼Œç„¶åŽåœ¨æ–°å‡ºçŽ°çš„ç•Œé¢ç‚¹ï¼šconfigureï¼Œå‡ºçŽ°menu.lstï¼Œæ·»åŠ ä»¥ä¸‹å†…å®¹ï¼š
+æ³¨ï¼šçº¢è‰²å­—ä½“éƒ¨åˆ†å°±æ˜¯éœ€è¦å®‰è£…çš„ISOæ˜ åƒæ–‡ä»¶çš„æ–‡ä»¶åï¼Œæ ¹æ®å®žé™…æƒ…å†µä½œè°ƒæ•´ï¼Œinitrd.lzä¹Ÿå¯èƒ½æ˜¯initrd.gzï¼Œè¯·ç¡®ä¿æ–‡ä»¶åæ­£ç¡®ï¼Œæ³¨æ„å¤§å°å†™ä¸€è‡´ã€‚ï¼ˆæŸäº›åŒå­¦çš„win7å®‰è£…æ—¶å€™åˆ†åŒºäº†ï¼Œç„¶åŽè‡ªåŠ¨ç”Ÿæˆäº†ä¸€ä¸ª100MBçš„ç³»ç»Ÿåˆ†åŒºåœ¨ç¬¬ä¸€ä½ç½®ï¼Œè¿™æ ·æ‰€è°“çš„Cç›˜å°±ä¸æ˜¯(hd0,0)äº†ï¼Œåº”è¯¥ä¸º(hd0,1)ï¼›åŒæ ·ï¼Œä¸‡ä¸€ç‚¹å„¿èƒŒï¼Œè¿˜æ˜¯åœ¨grub4dosä¸‹æµ‹è¯•çœ‹çœ‹åº”è¯¥æ˜¯å“ªä¸ªåˆ†åŒºå§ã€‚ï¼‰
+å¼•ç”¨:
 title Install Ubuntu 11.10
 root (hd0,0)
 kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-11.10-desktop-i386.iso ro quiet splash locale=zh_CN.UTF-8
 initrd (hd0,0)/initrd.lz
 
-Ò²¿ÉÒÔ°ÑquietºÍsplashÈ¥µô£¬ÕâÑù¾ÍÄÜ¿´µ½Òýµ¼Ê§°Ü»áÍ£ÔÚÄÄÀïÁË¡£
-¸½¼þ:
+ä¹Ÿå¯ä»¥æŠŠquietå’ŒsplashåŽ»æŽ‰ï¼Œè¿™æ ·å°±èƒ½çœ‹åˆ°å¼•å¯¼å¤±è´¥ä¼šåœåœ¨å“ªé‡Œäº†ã€‚
+é™„ä»¶:
 easybcd.png
-easybcd.png [ 349.25 KiB | ±»ä¯ÀÀ 17693 ´Î ]
+easybcd.png [ 349.25 KiB | è¢«æµè§ˆ 17693 æ¬¡ ]
 
 
 
-ÖØÆô£¬Ñ¡¡°NeoGrub Bootloader¡±½øÈëlive cd¡£
-°²×°Ç°£¬Ê×ÏÈ´ò¿ªÖÕ¶ËÊäÈë£º
-´úÂë:
+é‡å¯ï¼Œé€‰â€œNeoGrub Bootloaderâ€è¿›å…¥live cdã€‚
+å®‰è£…å‰ï¼Œé¦–å…ˆæ‰“å¼€ç»ˆç«¯è¾“å…¥ï¼š
+ä»£ç :
 sudo umount -l /isodevice
 
-£¨´ËÃüÁîÒ»¶¨ÒªÔËÐÐ£¬·ñÔò»á³öÏÖ²»ÄÜ¶Ô´ÅÅÌ²Ù×÷µÄÇé¿ö£¡£©
-ÆäËûÍ¬ÉÏÃæ Æß¡¢°Ë Á½²½¡£
+ï¼ˆæ­¤å‘½ä»¤ä¸€å®šè¦è¿è¡Œï¼Œå¦åˆ™ä¼šå‡ºçŽ°ä¸èƒ½å¯¹ç£ç›˜æ“ä½œçš„æƒ…å†µï¼ï¼‰
+å…¶ä»–åŒä¸Šé¢ ä¸ƒã€å…« ä¸¤æ­¥ã€‚
 
 
-Èç¹ûÄãµÄÏµÍ³ÒÑ¾­´æÔÚÆäËû°æ±¾µÄlinux
-Ê×ÏÈÅÐ¶ÏÄãµÄgrubµÄ°æ±¾£¨Æô¶¯Ê±£¬grubÏÔÊ¾1.98ºÍ1.99µÄÊÇgrub2,·ñÔòÊÇgrub1£©,grub1Ò²ÊÇÐÞ¸Ämenu.lst£¨/boot/grub/menu.lst£©ÎÄ¼þ£¬Ð´·¨Í¬ÉÏ¡£grub2ÔòÓÐÇø±ð£¬·½·¨ÈçÏÂ£º
+å¦‚æžœä½ çš„ç³»ç»Ÿå·²ç»å­˜åœ¨å…¶ä»–ç‰ˆæœ¬çš„linux
+é¦–å…ˆåˆ¤æ–­ä½ çš„grubçš„ç‰ˆæœ¬ï¼ˆå¯åŠ¨æ—¶ï¼Œgrubæ˜¾ç¤º1.98å’Œ1.99çš„æ˜¯grub2,å¦åˆ™æ˜¯grub1ï¼‰,grub1ä¹Ÿæ˜¯ä¿®æ”¹menu.lstï¼ˆ/boot/grub/menu.lstï¼‰æ–‡ä»¶ï¼Œå†™æ³•åŒä¸Šã€‚grub2åˆ™æœ‰åŒºåˆ«ï¼Œæ–¹æ³•å¦‚ä¸‹ï¼š
 
-1,grub2²»ÓÃÌáÈ¡ÄÇÁ½¸öÎÄ¼þ¡£
-2,grub2½¨Òé°ÑisoÎÄ¼þ¸ÄÃûÎªubuntu.iso£¬È»ºó·Åµ½²»ÓÃ¸ñÊ½»¯µÄ·ÖÇø¸ùÄ¿Â¼ÏÂ¡£
-3,±à¼­/etc/grub.d/40_custom£¬¼ÓÉÏÒÔÏÂÄÚÈÝ£º
-£¨ºìÉ«µÄXÇë×ÔÐÐÐÞ¸Ä£¬±ÈÈç(hd0,2) ±íÊ¾µÚÒ»¿éÓ²ÅÌµÄµÚ¶þ¸ö·ÖÇø£¬Ö÷·ÖÇøÓÃ1¡¢2¡¢3¡¢4,Âß¼­·ÖÇøÔò´Ó5¿ªÊ¼¡££©
-ÒýÓÃ:
+1,grub2ä¸ç”¨æå–é‚£ä¸¤ä¸ªæ–‡ä»¶ã€‚
+2,grub2å»ºè®®æŠŠisoæ–‡ä»¶æ”¹åä¸ºubuntu.isoï¼Œç„¶åŽæ”¾åˆ°ä¸ç”¨æ ¼å¼åŒ–çš„åˆ†åŒºæ ¹ç›®å½•ä¸‹ã€‚
+3,ç¼–è¾‘/etc/grub.d/40_customï¼ŒåŠ ä¸Šä»¥ä¸‹å†…å®¹ï¼š
+ï¼ˆçº¢è‰²çš„Xè¯·è‡ªè¡Œä¿®æ”¹ï¼Œæ¯”å¦‚(hd0,2) è¡¨ç¤ºç¬¬ä¸€å—ç¡¬ç›˜çš„ç¬¬äºŒä¸ªåˆ†åŒºï¼Œä¸»åˆ†åŒºç”¨1ã€2ã€3ã€4,é€»è¾‘åˆ†åŒºåˆ™ä»Ž5å¼€å§‹ã€‚ï¼‰
+å¼•ç”¨:
 menuentry "Boot ubuntu 11.10 desktop iso" {
 insmod loopback
 insmod iso9660
@@ -102,21 +102,21 @@ linux (loop)/casper/vmlinuz boot=casper noacpi iso-scan/filename=/ubuntu.iso ro 
 initrd (loop)/casper/initrd.lz
 }
 
-È»ºó£º
-´úÂë:
+ç„¶åŽï¼š
+ä»£ç :
 sudo update-grub
 
 
-ÖØÆô¼´¿É¡£
-°²×°Ç°£¬Ê×ÏÈ´ò¿ªÖÕ¶ËÊäÈë£º
+é‡å¯å³å¯ã€‚
+å®‰è£…å‰ï¼Œé¦–å…ˆæ‰“å¼€ç»ˆç«¯è¾“å…¥ï¼š
 
-´úÂë:
+ä»£ç :
 sudo umount -l /isodevice
 
 
-£¨´ËÃüÁîÒ»¶¨ÒªÔËÐÐ£¬·ñÔò»á³öÏÖ²»ÄÜ¶Ô´ÅÅÌ²Ù×÷µÄÇé¿ö£¡£©
-ÆäËûÍ¬ÉÏÃæ¡°Æß¡±¡¢¡°°Ë¡±Á½²½¡£
+ï¼ˆæ­¤å‘½ä»¤ä¸€å®šè¦è¿è¡Œï¼Œå¦åˆ™ä¼šå‡ºçŽ°ä¸èƒ½å¯¹ç£ç›˜æ“ä½œçš„æƒ…å†µï¼ï¼‰
+å…¶ä»–åŒä¸Šé¢â€œä¸ƒâ€ã€â€œå…«â€ä¸¤æ­¥ã€‚
 
-ºó¼Ç£º
-°²×°Íê³Éºó£¬¿ÉÒÔ°Ñvmlinuz¡¢initrd.lz¡¢grldr¡¢grub.exe¡¢ubuntu-11.10-desktop-i386.isoÉ¾³ý£¬°Ñboot.ini»Ö¸´Ô­Ñù¡£
-Ò²¿ÉÒÔ±£ÁôËûÃÇ£¬ÒÔºóÍòÒ»ubuntu³öÎÊÌâÁË£¬¿ÉÒÔÓÃËü»Ø¸´ºÍ´¦Àí£¬Ö»ÊÇÕâÑùgrub²Ëµ¥ÖÐÑ¡Ôñwindowsºó£¬»¹ÒªÑ¡ÔñÒ»´Îgrub4dosµÄ²Ëµ¥¡£
+åŽè®°ï¼š
+å®‰è£…å®ŒæˆåŽï¼Œå¯ä»¥æŠŠvmlinuzã€initrd.lzã€grldrã€grub.exeã€ubuntu-11.10-desktop-i386.isoåˆ é™¤ï¼ŒæŠŠboot.iniæ¢å¤åŽŸæ ·ã€‚
+ä¹Ÿå¯ä»¥ä¿ç•™ä»–ä»¬ï¼Œä»¥åŽä¸‡ä¸€ubuntuå‡ºé—®é¢˜äº†ï¼Œå¯ä»¥ç”¨å®ƒå›žå¤å’Œå¤„ç†ï¼Œåªæ˜¯è¿™æ ·grubèœå•ä¸­é€‰æ‹©windowsåŽï¼Œè¿˜è¦é€‰æ‹©ä¸€æ¬¡grub4dosçš„èœå•ã€‚

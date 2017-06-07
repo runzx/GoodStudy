@@ -1,29 +1,29 @@
-ÏÈifconfig wlan0 up ¿´¿´ÓĞÃ»ÓĞ¼ì²âµ½ÎŞÏßÍø¿¨£¬±Ê¼Ç±¾¿ÉÄÜÒªÓÃfn+F5Ö®ÀàµÄ×éºÏ¼üÀ´¼¤»îÎŞÏßÍø¿¨¡£
+å…ˆifconfig wlan0 up çœ‹çœ‹æœ‰æ²¡æœ‰æ£€æµ‹åˆ°æ— çº¿ç½‘å¡ï¼Œç¬”è®°æœ¬å¯èƒ½è¦ç”¨fn+F5ä¹‹ç±»çš„ç»„åˆé”®æ¥æ¿€æ´»æ— çº¿ç½‘å¡ã€‚
 
 
-°²×°ÎŞÏßÍø¿¨Ïà¹ØÃüÁî³ÌĞò
+å®‰è£…æ— çº¿ç½‘å¡ç›¸å…³å‘½ä»¤ç¨‹åº
 apt-get install iw wpasupplicant wireless-tools
 
 
-»ñÈ¡ÎŞÏßÍø¿¨Ïà¹ØÊı¾İ
+è·å–æ— çº¿ç½‘å¡ç›¸å…³æ•°æ®
 iw list
 
 
-ÁĞ³öµ±Ç°¿ÉÒÔËÑË÷µ½µÄÎŞÏßÍøÂçSSID
+åˆ—å‡ºå½“å‰å¯ä»¥æœç´¢åˆ°çš„æ— çº¿ç½‘ç»œSSID
 
 
 
-ÅäÖÃÍøÂç
-±à¼­ /etc/network/interface
+é…ç½®ç½‘ç»œ
+ç¼–è¾‘ /etc/network/interface
 
 
-ÓĞÏßÍø¿¨¶¯Ì¬ip¼ÓÈë
+æœ‰çº¿ç½‘å¡åŠ¨æ€ipåŠ å…¥
 allow-hotplug eth0
 auto eth0
 iface eth0 inet dhcp
 
 
-ÓĞÏßÍø¿¨¾²Ì¬IP¼ÓÈë
+æœ‰çº¿ç½‘å¡é™æ€IPåŠ å…¥
 auto eth0
 iface eth0 inet static
 address 192.168.10.3
@@ -31,12 +31,12 @@ netmask 255.255.255.0
 gateway 192.168.10.1
 
 
-ÎŞÏßÍø¿¨¶¯Ì¬IP¼ÓÈë
+æ— çº¿ç½‘å¡åŠ¨æ€IPåŠ å…¥
 auto wlan0
 iface wlan0 inet dhcp
 
 
-ÎŞÏßÍø¿¨¾²Ì¬IP¼ÓÈë
+æ— çº¿ç½‘å¡é™æ€IPåŠ å…¥
 auto wlan0
 iface wlan0 inet static
 address 192.168.10.5
@@ -48,12 +48,12 @@ wpa-psk yourpassword
 
 
 
-Ê¹ÅäÖÃÉúĞ§
+ä½¿é…ç½®ç”Ÿæ•ˆ
 /etc/init.d/networking restart
 
 
-²é¿´ÍøÂçÅäÖÃ×´Ì¬
+æŸ¥çœ‹ç½‘ç»œé…ç½®çŠ¶æ€
 ifconfig
 
 
-ÅäÖÃÍê³É
+é…ç½®å®Œæˆ
