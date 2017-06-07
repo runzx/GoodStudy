@@ -46,6 +46,11 @@
         php artisan key:generate
             它会在.env 中生成： APP_KEY=base64:2lbB1Trywi0kVIhUnkQYMSKROSxmrL6BTYKE5A99CNc=
     artisan config:clear 可以清除配置
+
+    错误： laravel.zx.com/时报403错：（laravel.zx.com/index.php 正常）
+        index  index.html index.htm index.php;
+        autoindex  off;     #目录浏览功能，加这2句就解决。
+
 ==================================================================
 
  composer.bat show --all  laravel/laravel

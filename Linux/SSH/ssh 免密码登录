@@ -6,9 +6,18 @@
 2.把A机下的id_rsa.pub复制到B机下，在B机的.ssh/authorized_keys文件里
 	scp .ssh/id_rsa.pub chenlb@192.168.1.181:/home/chenlb/id_rsa.pub 
 	cat id_rsa.pub >> .ssh/authorized_keys
-	authorized_keys的权限要是600。
-3. 
+	authorized_keys的权限要是600。 
+	.ssh 权限 700， 如果还要密码，就删除.ssh, 通过ssh-copy-id -p 22000 zhaix@machineB"重建
+3. 主机上/etc/ssh/sshd_config
+	RSAAuthentication yes  
+	PubkeyAuthentication yes  
+	AuthorizedKeysFile .ssh/authorized_keys 		// ％h由被验证的用户的主目录替换
 
+	service sshd restart
+
+	ssh-copy-id "-p 22000 nameB@machineB"	//上传公钥
+	关于putty的登陆设置，由于putty与ssh2的key文件不同，所以要用puttygen.exe转换一下，运行puttygen.exe，选择Conversions->Import key，选择privateKey文件，注意这里要选privatekey文件，而不是前面用的publickey文件，最后选择"save private key"将密钥保存为.ppk文件，这个就是putty需要的key文件。
+	运行putty，填写完session信息后，到connection->ssh->auth中指定好privatekey文件即可，当然也可以在connection->data中设置上auto-login username
 
 $ ssh-keygen -t rsa -C "843476168@qq.com"
 Generating public/private rsa key pair.

@@ -1,0 +1,33 @@
+
+1. 软件包存储在一个或多个存储库中。存储库只是一个包含* .apk文件集合的目录。该目录必须包含一个名为APKINDEX.tar.gz的特殊索引文件，以被视为存储库。
+    除了本地存储库之外，apk实用程序还使用busybox wget来使用http：，https：或ftp： protocols 来获取包。
+    /etc/apk/repositories ：
+        /media/sda1/apks
+        http://dl-3.alpinelinux.org/alpine/v2.6/main
+        https://dl-3.alpinelinux.org/alpine/v2.6/main
+        ftp://dl-3.alpinelinux.org/alpine/v2.6/main
+    Repository pinning ：
+        @edge http://nl.alpinelinux.org/alpine/edge/main
+        @testing http://nl.alpinelinux.org/alpine/edge/testing
+
+        之后，您可以使用以下命令“固定”这些标签的依赖关系：
+            apk add stableapp newapp@edge bleedingapp@testing
+2. apk update 
+    更新后内容存在local cache:
+    /var/cache/apk/ 
+    /var/lib/apk/
+    /etc/apk/cache/ 
+
+    安装本地包，请使用--allow-untrusted标志
+        apk add --allow-untrusted /path/to/file.apk
+3. 本地缓存
+    通过创建一个名为/etc/apk/cache 的符号链接（a symlink named）指向缓存目录来启用缓存。
+    启用本地缓存运行：
+        setup-apkcache
+        如果您已将Alpine安装到硬盘驱动器（作为“sys”），则创建一个缓存目录，然后创建一个指向该目录的/etc/apk/cache符号链接：
+            mkdir -p /var/cache/apk
+            ln -s /var/cache/apk /etc/apk/cache
+4. 删除旧包
+    apk cache clean
+    
+    

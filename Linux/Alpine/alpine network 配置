@@ -1,0 +1,32 @@
+alpine wlan0配置
+    https://wiki.alpinelinux.org/wiki/Connecting_to_a_wireless_access_point
+
+
+1. 安装工具
+    apk add wireless-tools wpa_supplicant
+
+
+2. /etc/network/interfaces
+    auto wlan0
+    iface wlan0 inet static
+    address 192.168.1.31
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+    #pre-up iwconfig wlan0 essid ESSID
+            hostname fx160
+3. /etc/wpa_supplicant/wpa_supplicant.conf
+    network={
+        ssid="zhai-home"
+        key_mgmt=WPA-PSK
+        psk="5722323123"
+    }
+4. 查看状态
+    iwconfig wlan0
+4.1 重启
+    rc-service networking restart
+    /etc/init.d/networking restart
+
+
+5. wpa_supplicant设置为在启动时自动启动
+    rc-update add wpa_supplicant boot
+

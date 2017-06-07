@@ -1,0 +1,12 @@
+用PYTHON搭建简易文件共享WEB服务器（支持上传和下载）
+
+python自带的SimpleHTTPServer，只需要一个命令就可成为一个web服务器，可以实现文件的共享（下载）功能。
+
+python -m SimpleHTTPServer
+    默认就会监听0.0.0.0:8000，其输出信息中有 “Serving HTTP on 0.0.0.0 port 8000”等。
+    换个端口（假设8888），命令改一下即可：python -m SimpleHTTPServer 8888
+    原生的SimpleHTTPServer不支持文件的上传
+    web上显示当前目录内容。
+
+带上传功能代码：
+    https://github.com/smilejay/python/blob/master/py2016/SimpleHTTPServerWithUpload.py
