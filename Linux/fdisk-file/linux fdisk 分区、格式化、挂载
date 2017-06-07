@@ -1,0 +1,34 @@
+linux fdisk 分区、格式化、挂载！
+
+1. fdisk -l 查看系统上的硬盘
+
+2. 进入设备
+    fdisk /dev/sdb
+    Command action
+        a   toggle a bootable flag
+        b   edit bsd disklabel
+        c   toggle the dos compatibility flag
+        d   delete a partition              注：这是删除一个分区的动作；
+        l   list known partition types      注：l是列出分区类型，以供我们设置相应分区的类型；
+        m   print this menu                 注：m 是列出帮助信息；
+        n   add a new partition             注：添加一个分区；
+        o   create a new empty DOS partition table 
+        p   print the partition table       注：p列出分区表；
+        q   quit without saving changes     注：不保存退出；
+        s   create a new empty Sun disklabel    
+        t   change a partition's system id  注：t 改变分区类型；
+        u   change display/entry units 
+        v   verify the partition table
+        w   write table to disk and exit    注：把分区表写入硬盘并退出；
+        x   extra functionality (experts only) 注：扩展应用，专家功能；
+3. 通过fdisk的n指令增加一个分区
+    l   logical (5 or over) 注：增加逻辑分区，分区编号要大于5；为什么要大于5，因为已经有sda5了；
+    p   primary partition (1-4) 注：增加一个主分区；编号从 1-4 ；但sda1 和sda2都被占用，所以只能从3开始；
+    e   extended
+
+警告：删除分区时要小心，请看好分区的序号，如果您删除了扩展分区，扩展分区之下的逻辑分区都会删除；所以操作时一定要小心；如果知道自己操作错了，请不要惊慌，
+    q       不保存退出，切记切记！！！！
+    w       保存退出
+
+4. ntfs分区 安装ntfs-3g 
+        /dev/sdb1 /data/sdb1 ntfs-3g defaults 2 2

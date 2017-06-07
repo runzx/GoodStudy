@@ -1,0 +1,4 @@
+
+dmesg |egrep -i '(apm|acpi)'
+    fx160:~# dmesg |egrep -i '(apm|acpi)'
+    [   15.237560] ACPI: Power Button [PWRF]
