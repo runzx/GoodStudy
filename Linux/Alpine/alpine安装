@@ -1,11 +1,106 @@
 
 1. 安装设置,base,networking
     setup-alpine
+        安装到硬盘： 选sys
+    
+    issus:
+        它采用了musl libc和busybox以减小系统的体积和运行时资源消耗，同时还提供了自己的包管理工具apk。
+        Alpine Linux使用了musl，可能和其他Linux发行版使用的glibc实现会有些不同。
+        musl实现的DNS服务不会使用resolv.conf文件中的search和domain两个配置，通过DNS来进行服务发现时需要注意。
+        Alpine Linux的内核都打了grsecurity/PaX补丁，并且所有的程序都编译为Position Independent Executables (PIE) 以增强系统的安全性。
+        update命令会从各个镜像源列表下载APKINDEX.tar.gz并存储到本地缓存，一般在
+            /var/cache/apk/     (Alpine在该目录下)、 
+            /var/lib/apk/
+            /etc/apk/cache/     下。
 
 2. 安装软件
     apk add 
+    apk add --no-cache mysql-client
+    apk add docker --update-cache --repository http://mirrors.ustc.edu.cn/alpine/v3.4/main/ --allow-untrusted
+    安装指定版本软件包
+        apk add asterisk=1.6.0.21-r0
+        apk add 'asterisk<1.6.1'
+    del:卸载并删除
+        apk del openssh openntp vim
+    upgrade:升级当前已安装的软件包，（通过-u或--upgrade选择指定）
+        apk add --upgrade busybox   #指定升级部分软件包
+    搜索
+        apk search -v 'acf*'        #通过软件包名称查找软件包
+        apk search -v -d 'docker'   #通过描述文件查找特定的软件包
+    info命令用于显示软件包的信息。
+        apk info                    #列出所有已安装的软件包
+        apk info -a zlib            #显示完整的软件包信息
+        apk info --who-owns /sbin/lbu #显示指定文件属于的包
+    官方镜像列表：http://rsync.alpinelinux.org/alpine/MIRRORS.txt
+        清华TUNA镜像源：https://mirror.tuna.tsinghua.edu.cn/alpine/
+        中科大镜像源：http://mirrors.ustc.edu.cn/alpine/
+        阿里云镜像源：http://mirrors.aliyun.com/alpine/
+    vi /etc/apk/repositories
+        # /media/cdrom/apks
+        http://mirrors.ustc.edu.cn/alpine/v3.5/main
+        http://mirrors.ustc.edu.cn/alpine/v3.5/community
+2.1 安装第2个硬盘作数据盘
+    mount -t ext3 /dev/sdb /mnt
 3. 开始服务
+    是Gentoo一样的OpenRC init系统.
+    使用实例
+        rc-update add docker boot #增加一个服务
+        rc-update del docker boot #删除一个服务
+        rc-status  #检查默认运行级别的状态
+        rc-status -a #检查所有运行级别的状态
+        rc-service sshd start #启动一个服务。
+        rc-service sshd stop  #停止一个服务。
+        rc-service sshd restart  #重启一个服务。
+
     /etc/init.d/xxx start
 
     ssh root 要改/etc/ssh/sshd_config 
         PermitRootLogin yes
+
+
+    reboot      #重启系统，类似于shutdown -r now。
+    halt        #关机，类似于shutdown -h now。
+    poweroff    #关机
+
+=====================================================================
+官方安装流程：
+    以下是一个绝对的新手指南
+        将高山ISO映像刻录到CD
+        将CD放入新电脑并打开电源。确保计算机能够从CD启动。您的手册为电脑或BIOS可以帮助。
+        等待文本登录：出现，键入root，然后按Enter键。
+        运行setup-alpine脚本
+        选择您的键盘布局。如果你不知道你的键盘布局选择us。在这里us被选中。
+            然后我选择了us的变种。
+        主机名称，这将是您的计算机的名称，您可以按Enter键，如果要使用默认名称
+        选择你的网卡，大多数人都可以随意默认（按回车）
+            大多数人会使用DHCP，所以请再次输入，或者输入您的静态IP地址
+            系统会询问您是否要进行任何手动网络配置，按Enter键进行编号
+        键入您的root密码两次。
+        选择一个时区，你可以按一下列表？。如果你想要一个子区，例如非洲，输入非洲并按enter键？将会给你一个非洲地区的清单。
+        按f选择最快的镜像，e 自己配置镜像源表。
+        选择一个SSH服务器，这样可以远程管理您的机器。OpenSSH是大发行版的使用，DropBear是一个小型的SSH替换。选择没有最好的安全。
+        选择一个NTP客户端，这样可以使用Internet时间服务器来保持计算机的时间准确。Openntpd是大发行版的使用，而Chrony是一个很小的替代品。
+        选择要安装Alpine的磁盘，例如，sda是计算机中的第一个磁盘。
+            现在选择如何使用它，对于本指南，选择sys，这将把整个操作系统安装到硬盘上
+            您有机会退出，输入Y继续
+                zx:
+                    安装sys在/dev/sda上
+                        installing system on /dev/sda3
+                        /mnt/boot is device /dev/sda1
+                        inittramfs:creating /boot/initramfs-hardened
+                        /boot is device /dev/sda1
+
+        安装完成，您将被要求重新启动。键入重新启动并按Enter键
+        拿出CD，你的电脑应该使用你的硬盘启动阿尔卑斯山。
+    继续设置您的计算机
+        Alpine Linux软件包管理 （如何在Alpine上添加/删除软件包）
+        高山启动服务 （配置服务在下次重启时自动启动）
+        设置ssh服务器 （使用ssh是远程管理您的方式的好方法）
+        教程和Howtos （各种教程，包括如何设置XFCE桌面）
+    
+    时区...设置
+        setup-timezone      //中国： PRC
+        setup-alpine -q
+        setup-sshd
+        setup-ntp
+        setup-disk -m sys /mnt

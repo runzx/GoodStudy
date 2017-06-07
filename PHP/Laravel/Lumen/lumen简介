@@ -6,6 +6,11 @@
     每秒能够处理的请求数比Laravel更多
     使用nikic/FastRoute取代Symphony，从而提升了性能
 安装
+    环境：
+        PHP> = 5.6.4
+        OpenSSL PHP扩展
+        PDO PHP扩展
+        Mbstring PHP扩展
     这里我们使用Composer在web根目录下安装：
         composer create-project laravel/lumen rest_api
     安装barryvdh/laravel-ide-helper
@@ -16,12 +21,17 @@
                 从这里，您应该能够使用该create_alias()功能在您的应用程序中添加其他Facade。
             安装Laravel IDE Helper app/Providers/AppServiceProvider.php
                 // $app->register(App\Providers\AppServiceProvider :: class);
+                if ($app->environment() !== 'production') {
+                    $app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+                }
     添加额外的立面Faceade
         config/app.php文件并aliases再次添加您的自定义别名，如下所示：
             return [ 
             ' aliases ' => [ ' CustomAliasOne ' => Example \ Support \ Facades \ CustomAliasOne :: class，' CustomAliasTwo ' => Example \ Support \ Facades \ CustomAliasTwo :: class，// ...     ] ];     
-   
+        运行后php artisan ide-helper:generate
 配置
+    应用密钥
+        .env APP_KEY=32个字符长
     安装完成后，在.env中配置数据库连接信息：
         DB_DATABASE=<db_name>
         DB_USERNAME=<db_username>

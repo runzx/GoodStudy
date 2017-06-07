@@ -31,9 +31,12 @@
     git push --set-upstream origin master
 
     git init --bare /home/git/zyb.git
+    git init --bare /home/git/lumen.git
+    chown -R git:git /home/git/lumen.git
 
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
     20170523    zyb.git 小程序前端，用七月老师的框架改写
+    20170604    lumen.git   用lumen开发REST API
 
 5. 换服务器后客户端报错：
 	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
