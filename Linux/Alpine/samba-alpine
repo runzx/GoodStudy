@@ -1,0 +1,37 @@
+
+1. 
+    apk add samba samba-common-tools
+2. 创建共享目录
+    chmod -R 0777 /media/storage
+3. 创建smb.conf
+    [global]
+        workgroup = WORKGROUP
+        dos charset = gb2312            //ntfs的
+         
+        server string = Samba Server %v
+        netbios name = Fx160
+        security = user
+        map to guest = bad user
+        dns proxy = no
+    [date]
+        path = /data
+        force group = users
+        create mask = 0660
+        directory mask = 0771
+        browsable =yes
+        writable = yes
+        guest ok = yes
+    ---------------------------------下面是alpine官网推荐
+    [global]
+        workgroup = WORKGROUP
+        dos charset = gb2312
+	    unix charset = ISO-8859-1   //可不用
+        force user = username       //用户访问 
+
+    [storage]
+        browseable = yes
+        writeable = yes
+        path = /media/storage
+4. Configure the Samba service
+    rc-update add samba             //自启动
+    rc-service samba start

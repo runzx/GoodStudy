@@ -1,0 +1,51 @@
+
+#压缩
+    tar -czvf ***.tar.gz
+    tar -cjvf ***.tar.bz2
+#解压缩
+    tar -xzvf ***.tar.gz
+    tar -xjvf ***.tar.bz2
+
+参数：
+    -c  ：建立一个压缩档案的参数指令(create 的意思)；
+    -x  ：解开一个压缩档案的参数指令！
+    -t  ：查看 tarfile 里面的档案！
+
+    -z  ：是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩？
+    -j  ：是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩？
+    -v  ：压缩的过程中显示档案！这个常用，但不建议用在背景执行过程！
+    -f  ：使用档名，请留意，在 f 之后要立即接档名喔！不要再加参数！
+
+    例如使用『 tar -zcvfP tfile sfile 』就是错误的写法，要写成
+        tar -zcvPf tfile sfile 才对喔！
+    -p  ：使用原档案的原来属性（属性不会依据使用者而变）
+    -P  ：可以使用绝对路径来压缩！
+    -N  ：比后面接的日期(yyyy/mm/dd)还要新的才会被打包进新建的档案中！
+    --exclude FILE：在压缩的过程中，不要将 FILE 打包！
+
+范例：
+    范例一：将整个 /etc 目录下的档案全部打包成为 /tmp/etc.tar
+        tar -cvf /tmp/etc.tar /etc          <==仅打包，不压缩！
+        tar -czvf /tmp/etc.tar.gz /etc      <==打包后，以 gzip 压缩
+        tar -cjvf /tmp/etc.tar.bz2 /etc     <==打包后，以 bzip2 压缩
+        # 特别注意，在参数 f 之后的档案档名是自己取的，我们习惯上都用 .tar 来作为辨识。
+        # 如果加 z 参数，则以 .tar.gz 或 .tgz 来代表 gzip 压缩过的 tar file ～
+        # 如果加 j 参数，则以 .tar.bz2 来作为附档名啊～
+
+比较：
+    bz2比gz压缩率更高，gz比bz2花费更少的时间
+
+    范例二：查阅上述 /tmp/etc.tar.gz 档案内有哪些档案？
+        tar -tzvf /tmp/etc.tar.gz 
+        # 由于我们使用 gzip 压缩，所以要查阅该 tar file 内的档案时，
+        # 就得要加上 z 这个参数了！这很重要的！
+    范例四：在 /tmp 底下，我只想要将 /tmp/etc.tar.gz 内的 etc/passwd 解开而已
+        cd /tmp
+        tar -xzvf /tmp/etc.tar.gz etc/passwd
+        # 我可以透过 tar -tzvf 来查阅 tarfile 内的文件名称，如果单只要一个档案，
+        # 就可以透过这个方式来下达！注意到！ etc.tar.gz 内的根目录 / 是被拿掉了！
+    范例五：将 /etc/ 内的所有档案备份下来，并且保存其权限！
+        tar -czvpf /tmp/etc.tar.gz /etc
+        # 这个 -p 的属性是很重要的，尤其是当您要保留原本档案的属性时！
+
+    http://www.cnblogs.com/52linux/archive/2012/03/04/2379738.html

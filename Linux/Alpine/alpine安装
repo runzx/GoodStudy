@@ -41,6 +41,10 @@
         http://mirrors.ustc.edu.cn/alpine/v3.5/community
 2.1 安装第2个硬盘作数据盘
     mount -t ext3 /dev/sdb /mnt
+    mount -t ntfs /dev/sdb1 /data/sdb1 && echo '/dev/sdb1 /data/sdb1 ntfs defaults 2 2' >> /etc/fstab
+    mount /dev/sdb2 /data/sdb2 && echo '/dev/sdb2 /data/sdb2 ext4 defaults 2 2' >> /etc/fstab
+    目录、文件名中文显示乱码
+        
 3. 开始服务
     是Gentoo一样的OpenRC init系统.
     使用实例
