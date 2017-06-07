@@ -1,0 +1,228 @@
+1、查看硬盘设备，找到要添加的硬盘/dev/sdb
+	fdisk -l
+
+2、创建硬盘分区
+	fdisk /dev/sdb
+	进入到fdisk程序
+	p 命令显示硬盘的分区表信息
+	n 添加新分区
+
+		(1) n 添加新分区
+		(2) p 添加主分区Partition number 1
+		(3) First cylinder (1-13054, default 1)(第一个柱面,默认就行,直接会回车)
+		(4) Last cylinder, +cylinders or +size{K,M,G} (1-13054, default 13054)(最后一个柱面,默认就行,直接会回车)
+		(5) p 查看分区
+		(6) w 把分区信息写入新硬盘的分区表
+
+3、使linux内核识别分区信息
+
+	cat /proc/partitions 查看内核识别的分区信息
+
+	[root@Redhat5 ~]# cat /proc/partitions
+
+		major minor #blocks name
+
+		8 0 125829120 sda
+
+		8 1 104391 sda1
+
+		8 2 41945715 sda2
+
+		8 3 1052257 sda3
+
+		253 0 30703616 dm-0
+
+		253 1 5111808 dm-1
+
+	让内核重新读取硬件分区表有两个命令
+
+		partprobe /dev/sda ------> redhat 5.x ,redhat 6.x需要重启
+		partx -a /dev/sda5 /dev/sda------->redhat 6.x
+
+4、格式化分区
+	格式化分区的命令
+
+		mkfs -t fstype /dev/part -t选择格式化的类型，然后是那个分区
+
+		mkfs.ext2 /dev/part 格式化为ext2的类型，然后是接那个分区
+
+		mkfs.ext3 /dev/part 格式化为ext3的类型，然后是接那个分区
+
+		mkfs.ext4 /dev/part 格式化为ext4的类型，然后是接那个分区
+
+		mke2fs 比之前几个更加强大的格式化分区的命令
+
+	这几个命令之间相关的关系
+
+		mkfs -t ext4 = mkfs.ext4 = mke2fs -t ext4
+
+		mkfs -t ext3 = mkfs.ext3 = mke2fs -j = mke2fs -t ext3
+
+		mkfs -t ext2 = mkfs.ext2 = mke2fs = mke2fs -t ext2
+
+		mke2fs (man mke2fs):创建文件类型--->/etc/mke2fs.conf 配置文件
+
+			-t:文件类型
+
+			-j：相当于 ext3
+
+			-b:指定块大小{1024"2048|4096byte}，块大小取决cpu对内存页框大小的支持，x86系统默认页
+
+			大小是4096,4k
+
+			-L: label 设定卷标
+
+			-m: #预留给管理使用的块所占的比率 一般用在分区很大的时候，#为数字
+
+		mke2fs -t ext3 /dev/sda5                     #把分区格式为ext3格式的
+		mke2fs  -t ext3 -b  2048  /dev/sda5     # 把分区的块改成2048字节，一般用于系统中小文件很多的情况
+		mke2fs -t ext3 -m 3   /dev/sda5           #把分区预留的空间改为所占总空间的3%，默认为5%，因为当某个分区足够大的时候，可以减少空间
+		mke2fs -t ext3 -L  DATE   /dev/sda5     #把分区的卷标设置为DATE
+
+
+5、创建挂载点
+	mkdir /develop
+
+6、挂载/dev/sdb1
+	mount /deve/sdb1 /develop
+
+7、开机自动挂载
+	在/etc/fstab文件中添加下面这一行
+		/dev/sdb1 /develop ext3 defaults 0 2
+			1         2      3    4      5 6
+			1: 设备名		:设备文件、卷标、UUID
+			2: 挂载点		与跟相关联的目录
+			3: 文件系统  	：ext3，ext4
+			4: 特定参数选项(通常使用defaults),
+				ro 以只读模式加载该文件系统
+				sync 不对该设备的写操作进行缓冲处理，这可以防止在非正常关机时情况下破坏文件系统，但是却降低了计算机速度
+				user 允许普通用户加载该文件系统
+				quota 强制在该文件系统上进行磁盘定额限制
+				noauto 不再使用mount －a命令（例如系统启动时）加载该文件系统
+			5: 检查文件系统应该以多快频率进行转储(0不需要转储,1:每日备份、2:每隔一日备份)
+			6: fsck启动时被扫描的顺序，根文件系统/对应该字段的值应该为1，其他文件系统应该为2。(0启动时不扫描、1：第一个检测，一般只能为根文件系统第一个检测 2 ...9)
+			
+=================================
+mount 挂载------>显示的是/etc/mtab文件里面的内容
+
+	mount [-t fstype] 	DEVICE 	MOUNT_POINT
+
+	命令 				设备 	挂载点
+
+	mount [-t fstype] LABEL="卷标" MOUNT_POINT 		-->e2label查看标签
+
+	mount [-t fstype] UUID="UUID" MOUNT_POINT 		---->blkid可以查看UUID
+
+		options:
+
+			-o:用于指定挂着选项，常用的挂着选项，选项有很多用逗号隔开
+
+			ro：只读挂载
+
+			rw：读写挂载(默认)
+
+			noatime:关闭更新访问时间
+
+			auto：是否能够由"mount -a"挂载
+
+			defaults:相当于rw, suid, dev, exec, auto, nouser, async.
+
+			sync：同步
+
+			async：异步
+
+			noexec:不容易设备中的二进制直接运行
+
+			remount：重新挂载
+
+			loop:本地回环设备: 挂载系统已经存在的镜像
+
+			-t:
+
+			-v:verbose 显示详细信息
+
+			-n:挂载文件系统时，不更新/etc/mtab文件
+
+			-r:只读挂载相当于"-o ro"
+			
+挂载的几种方式
+
+	显示系统已经挂载的文件
+
+		mount
+			sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+			proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+			udev on /dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=218792,mode=755)
+			devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+			tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=181384k,mode=755)
+			/dev/disk/by-uuid/dc20348c-5eca-4793-b12c-0ab0c41c6651 on / type ext4 (rw,relatime,errors=remount-ro,user_xattr,barrier=1,data=ordered)
+			tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+			tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=626120k)
+			rpc_pipefs on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+			fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+			/dev/sdb1 on /media/28D4C64ED4C61DC6 type fuseblk (rw,nosuid,nodev,relatime,user_id=0,group_id=0,allow_other,blksize=4096)
+			rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw,relatime)
+
+	挂载分区sda5到/mnt/sda5目录下
+		mkdir /mnt/sda5 			#创建一个挂载目录
+
+		mount /dev/sda5 /mnt/sda5/ 	#把分区挂载到新建的目录里面
+
+		mount | grep "/dev/sda5" 	#查看分区是否挂载
+
+			/dev/sda5 on /mnt/sda5 type ext3 (rw) #显示分区已经挂载
+
+		umount /dev/sda5 			#卸载分区
+
+			mount | grep "/dev/sda5" 	#发现分区已经被卸载
+
+		blkid 						#显示设备的UUID及文件系统类型,及卷标
+		
+			/dev/sdb1: UUID="28D4C64ED4C61DC6" TYPE="ntfs"
+			/dev/sda1: UUID="dc20348c-5eca-4793-b12c-0ab0c41c6651" TYPE="ext4"
+			/dev/sda5: UUID="07b78dab-c049-4b51-94b8-2c14c0baa6cb" TYPE="swap"
+			/dev/sdb2: UUID="53f191ba-c643-4a9d-adad-f6d14fce7aa7" TYPE="ext4"
+			===================================
+
+			/dev/mapper/vol0-home: UUID="d1aeef77-bb47-4718-a91c-d4870b536440" TYPE="ext3"
+			/dev/sda3: LABEL="SWAP-sda3" TYPE="swap"
+			/dev/sda1: LABEL="/boot" UUID="5e5eaaac-cc56-42da-81eb-9adebff0fa2e" TYPE="ext3"
+			/dev/vol0/root: UUID="4302a528-e88e-43d3-b3cc-1c2b29cda656" TYPE="ext3"
+			/dev/sda5: LABEL="DATE" UUID="8f4f9b53-0bf0-4ce9-9665-bd4c7ae9ce59" TYPE="ext3"
+
+		mount LABEL="DATE" /mnt/sda5/ 	#可以查到到分区5的标签为DATE，通过挂载标签来挂载分区
+
+		mount UUID="8f4f9b53-0bf0-4ce9-9665-bd4c7ae9ce59" /mnt/sda5/	#通过挂载UUID来挂载分区
+
+		mount | grep "/dev/sda5"
+			/dev/sda5 on /mnt/sda5 type ext3 (rw)
+
+	用mount命令挂载的文件在系统开机的时候是不能自动挂载的，想要系统开机就挂载写到配置文件即可/etc/fstab
+
+		echo "LABEL=DATE /mnt/sde5 ext3 defaults 0 0" >> /etc/fstab
+
+	/etc/fstab文件的格式
+
+		cat /etc/fstab
+
+			/dev/vol0/root / ext3 defaults 1 1
+
+			/dev/vol0/home /home ext3 defaults 1 2
+
+			LABEL=/boot /boot ext3 defaults 1 2
+
+			tmpfs /dev/shm tmpfs defaults 0 0
+
+	字段以空格分隔
+
+	1、挂载的设备:设备文件、卷标、UUID
+
+	2、挂载点： 与跟相关联的目录
+
+	3、文件系统类型：ext3，ext4
+
+	4、挂载选项：defaults表示使用默认选项，多个选项彼此间逗号分隔
+
+	5、转储频率:0:从不备份、1:每日备份、2:每隔一日备份
+
+	6、自检次序:0:不检测、1：第一个检测，一般只能为根文件系统第一个检测 2 ...9
