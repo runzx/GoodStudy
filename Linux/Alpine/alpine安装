@@ -46,6 +46,13 @@
     目录、文件名中文显示乱码
     ntfs分区 安装ntfs-3g 
         /dev/sdb1 /data/sdb1 ntfs-3g defaults 2 2
+    格式化：（要安装）
+        dosfstools
+        reiserfsprogs
+        e2fsprogs
+        xfsprogs
+        jfsutils
+        ntfsprogs
         
 3. 开始服务
     是Gentoo一样的OpenRC init系统.
