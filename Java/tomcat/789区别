@@ -1,0 +1,40 @@
+
+1. Tomcat 9.0.0.M1 (alpha) 版本的主要特点:
+    2015年11月19日,tomcat团队宣布，Tomcat 9.0.0.M1 (alpha) 版本发布。
+    tomcat9 和tomcat8 相比有以下新特性：
+        1、Adding support for HTTP/2, and TLS virtual hosting
+        2、An implementation of the current draft of the Servlet 4.0 specification
+        3、The BIO connectors, support for Windows Itanium and support for Comet have been removed
+        4、Tomcat 9.0 is designed to run on Java SE 8 and later.
+2， tomcat 8的主要特点:
+        1、Tomcat 8 is aligned with Java EE 7
+        2、Implement JSR 340 ，Implement JSR 245，Implement JSR 341，Implement JSR 356。Support for Java Servlet 3.1(JSR 340), JavaServer Pages 2.3(JSR 245), Java Unified Expression Language 3.0 (JSR 341)and Java WebSocket 1.0(JSR 356).
+        2、The default connector implementation is now the Java non-blocking implementation (NIO) for both HTTP and AJP.
+        3、A new resources implementation that replaces Aliases, VirtualLoader, VirtualDirContext, JAR resources and external repositories with a single, consistent approach for configuring additional web application resources. The new resources implementation can also be used to implement overlays (using a master WAR as the basis for multiple web applications that each have their own customizations).
+3. 
+4.
+5. 我们可以来看看Tomcat最近几个版本分别支持的JavaEE规范。
+    －－－－－－－－－－－－－－－－－－－－－－－－
+    Tomcat 6：		Servlet 2.5、JSP 2.1、EL 2.1
+    Tomcat7：		Servlet 3.0、JSP 2.2、EL 2.2
+    Tomcat8：		Servlet 3.1、JSP 2.3、EL 3.0
+
+    Servlet 3.1介绍
+        Servlet 3.1最大的改进是实现了非阻塞式的I/O通信。这使得性能得到巨大的改进，数据可以通过ReadListener和WriteListener接口以异步的方式进行管理。
+        Servlet 3.1的第二大改进是HTTP协议的升级。它允许客户端指定双方通信所使用的协议。比如说，服务器和客户端原本使用HTTP通信协议，能够升级成WebSockets通信。
+    EL 3.0介绍
+    EL 3.0较之前的版本有很大的改进和增强。主要有：
+        1）EL可以以"独立模式"的方式运行，即运行于Servlets和JSP页面之外。
+            简而言之，此增强可以使用ELProcessor类在Servlet容器内或容器外进行直接调用。
+        2）EL表达式还支持Lambda表达式，这一点与Java 8相似，这些表达式可以简化代码。
+            表达式包括：参数集、Lambda操作符、函数体。
+        3）集合操作符允许构造Set、List和Map等集合类型。
+        4）Java EL流式API包含了forEach、reduce、filter、map等过滤器。
+            这里可以获得集合或列表List，调用字符串夫妇，或者在列表List运行外部的过滤器或聚合函数。比如，你可以对字符串求和。
+        5）通过EL上下文的导入，开发者能够直接访问任何类的静态字段和方法。
+    WebSocket 1.0介绍
+        Tomcat 8正式支持WebSocket 1.0这个标准的API。尽管Tomcat 7也提供了支持，但是它只是部分支持，因为在Tomcat 7的时代，标准还未正式制定。目前，大多数网站还以半双工模式运行HTTP通信，这意味着通信在两端都可能发生，但是在同一时间点，只能有1个方向的通信。这有点像对讲机。
+        WebSockets协议是一个全双工协议，它意味着在同一时间点，通信是双向传输数据的。WebSockets也是HTML5的规范之一。
+
+6、Tomcat 8内部的改进
+    Tomcat 8最大的变化是资源Resource。Tomcat 8的资源进行了重构，可以更好地支持外部资源。原先的别名Aliases、VirtualLoader、VirtualDirContext、JAR资源和外部仓库等，现在都以单个的、一致的方法进行配置。这个新的资源的实现也可以用于主WAR包，并作为其它多个Web应用程序的基础。

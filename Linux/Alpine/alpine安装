@@ -53,7 +53,9 @@
         xfsprogs
         jfsutils
         ntfsprogs
-        
+        例：
+            apk add e2fsprogs
+            mkfs.ext3 /dev/sda1
 3. 开始服务
     是Gentoo一样的OpenRC init系统.
     使用实例
@@ -74,7 +76,14 @@
     reboot      #重启系统，类似于shutdown -r now。
     halt        #关机，类似于shutdown -h now。
     poweroff    #关机
-
+4. docker
+    安装
+        apk add docker
+        rc-update add docker boot
+        service docker start
+    compose
+        apk add py-pip
+        pip install docker-compose
 =====================================================================
 官方安装流程：
     以下是一个绝对的新手指南

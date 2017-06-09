@@ -48,6 +48,8 @@ Docker安装
             docker stop 1e35
         4) 查看状态
             docker ps
+        5）进入（访问）容器
+            docker exec -it CONTAINER COMMAND
     6. 制作镜像
         下载jpress.io *war包   jpress/wars/jpress-web-newest.war
         下载tomcat 

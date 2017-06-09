@@ -1,0 +1,77 @@
+
+
+Compose file format	    Docker Engine release
+3.0 ; 3.1	            1.13.0+
+2.1	                    1.12.0+
+2.0	                    1.10.0+
+1.0	                    1.9.1.+
+
+版本1
+    撰写不声明版本的文件被认为是“版本1”。在这些文件中，所有的服务都在文档的根目录下声明。
+    版本1文件无法声明命名 卷，网络或 构建参数。volumes, networks or build arguments.
+    每个容器放置在默认的bridge网络，并且从它的IP地址，所有其他容器到达。您将需要使用 链接来启用容器之间的发现。
+    您将需要使用 链接来启用容器之间的发现。
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        links:
+            - redis
+    redis:
+        image: redis
+版本2
+    使用版本2语法编写文件必须在文档根目录中指定版本号。所有服务 必须在services密钥下声明。
+    版本2文件由Compose 1.6.0+支持
+    命名卷可以在volumes密钥下声明 ，网络可以在networks密钥下声明。
+    默认情况下，每个容器都加入一个应用程序范围的默认网络，并且可以在与服务名称相同的主机名中进行发现。这意味着 链接在很大程度上是不必要的。
+    version: '2'
+    services:
+        web:
+            build: .
+            ports:
+                - "5000:5000"
+            volumes:
+                - .:/code
+            networks:
+                - front-tier
+                - back-tier
+        redis:
+            image: redis
+            volumes:
+                - redis-data:/var/lib/redis
+            networks:
+                - back-tier
+    volumes:
+        redis-data:
+            driver: local
+    networks:
+        front-tier:
+            driver: bridge
+        back-tier:
+            driver: bridge
+    还添加了几个其他选项来支持网络，如：
+        aliases
+    该depends_on选项可以用于代替链接来指示服务和启动顺序之间的依赖关系。
+    版本2中也添加了变量替换（Variable substitution ）。
+
+版本2.1
+    版本2的升级引入了新的参数，仅适用于Docker Engine 1.12.0+版本
+    推出以下附加参数：
+        link_local_ips
+        isolation
+        labels用于卷和 网络
+        userns_mode
+        healthcheck
+        sysctls
+        pids_limit
+版本2.2
+    升级版本2.1，引入新参数仅适用于Docker Engine 1.13.0+版本。此版本还允许在服务配置中指定默认比例编号。
+    推出以下附加参数：
+        init
+        scale
+版本3
+    设计为在Compose和Docker Engine的群组模式之间是交叉兼容的 ，版本3可以删除多个选项，并添加更多。
+    删除：volume_driver，volumes_from，cpu_shares，cpu_quota，cpuset， mem_limit，memswap_limit，extends，group_add。请参阅升级 指南，了解如何迁移。
+    已添加：部署（deploy）

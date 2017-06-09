@@ -1,0 +1,78 @@
+
+
+fx160:/home/zhaixiang# apk add py-pip
+(1/6) Installing gdbm (1.12-r0)
+(2/6) Installing readline (6.3.008-r5)
+(3/6) Installing sqlite-libs (3.18.0-r0)
+(4/6) Installing python2 (2.7.13-r1)
+(5/6) Installing py-setuptools (33.1.1-r1)
+(6/6) Installing py2-pip (9.0.1-r1)
+Executing busybox-1.26.2-r4.trigger
+OK: 513 MiB in 109 packages
+fx160:/home/zhaixiang# pip install docker-compose
+Collecting docker-compose
+  Downloading docker_compose-1.13.0-py2.py3-none-any.whl (94kB)
+    100% |████████████████████████████████| 102kB 829kB/s
+Collecting jsonschema<3,>=2.5.1 (from docker-compose)
+  Downloading jsonschema-2.6.0-py2.py3-none-any.whl
+Collecting backports.ssl-match-hostname>=3.5; python_version < "3.5" (from docker-compose)
+  Downloading backports.ssl_match_hostname-3.5.0.1.tar.gz
+Collecting texttable<0.9,>=0.8.1 (from docker-compose)
+  Downloading texttable-0.8.8.tar.gz
+Collecting ipaddress>=1.0.16; python_version < "3.3" (from docker-compose)
+  Downloading ipaddress-1.0.18-py2-none-any.whl
+Collecting cached-property<2,>=1.2.0 (from docker-compose)
+  Downloading cached_property-1.3.0-py2.py3-none-any.whl
+Collecting dockerpty<0.5,>=0.4.1 (from docker-compose)
+  Downloading dockerpty-0.4.1.tar.gz
+Collecting websocket-client<1.0,>=0.32.0 (from docker-compose)
+  Downloading websocket_client-0.40.0.tar.gz (196kB)
+    100% |████████████████████████████████| 204kB 971kB/s
+Collecting six<2,>=1.3.0 (from docker-compose)
+  Downloading six-1.10.0-py2.py3-none-any.whl
+Collecting enum34<2,>=1.0.4; python_version < "3.4" (from docker-compose)
+  Downloading enum34-1.1.6-py2-none-any.whl
+Collecting docopt<0.7,>=0.6.1 (from docker-compose)
+  Downloading docopt-0.6.2.tar.gz
+Collecting docker<3.0,>=2.2.1 (from docker-compose)
+  Downloading docker-2.3.0-py2.py3-none-any.whl (108kB)
+    100% |████████████████████████████████| 112kB 377kB/s
+Collecting PyYAML<4,>=3.10 (from docker-compose)
+  Downloading PyYAML-3.12.tar.gz (253kB)
+    100% |████████████████████████████████| 256kB 810kB/s
+Collecting colorama<0.4,>=0.3.7 (from docker-compose)
+  Downloading colorama-0.3.9-py2.py3-none-any.whl
+Collecting requests!=2.11.0,<2.12,>=2.6.1 (from docker-compose)
+  Downloading requests-2.11.1-py2.py3-none-any.whl (514kB)
+    100% |████████████████████████████████| 522kB 459kB/s
+Collecting functools32; python_version == "2.7" (from jsonschema<3,>=2.5.1->docker-compose)
+  Downloading functools32-3.2.3-2.zip
+Collecting docker-pycreds>=0.2.1 (from docker<3.0,>=2.2.1->docker-compose)
+  Downloading docker_pycreds-0.2.1-py2.py3-none-any.whl
+Installing collected packages: functools32, jsonschema, backports.ssl-match-hostname, texttable, ipaddress, cached-property, six, dockerpty, websocket-client, enum34, docopt, requests, docker-pycreds, docker, PyYAML, colorama, docker-compose
+  Running setup.py install for functools32 ... done
+  Running setup.py install for backports.ssl-match-hostname ... done
+  Running setup.py install for texttable ... done
+  Running setup.py install for dockerpty ... done
+  Running setup.py install for websocket-client ... done
+  Running setup.py install for docopt ... done
+  Running setup.py install for PyYAML ... done
+Successfully installed PyYAML-3.12 backports.ssl-match-hostname-3.5.0.1 cached-property-1.3.0 colorama-0.3.9 docker-2.3.0 docker-compose-1.13.0 docker-pycreds-0.2.1 dockerpty-0.4.1 docopt-0.6.2 enum34-1.1.6 functools32-3.2.3.post2 ipaddress-1.0.18 jsonschema-2.6.0 requests-2.11.1 six-1.10.0 texttable-0.8.8 websocket-client-0.40.0
+
+===========================================
+
+
+fx160:/home/zhaixiang# docker images
+REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+php                           5.6.30-alpine       c3e3b16dcac4        5 days ago          42.5MB
+php                           7-alpine            aa4ff2b80e6c        5 days ago          56.9MB
+node                          8-alpine            5a45e2e1049e        7 days ago          63.7MB
+memcached                     1.4-alpine          e36e3b0dc88c        8 days ago          6.91MB
+python                        2.7-alpine          3dd614730c9c        12 days ago         72MB
+alpine                        latest              a41a7446062d        13 days ago         3.97MB
+redis                         3.0-alpine          bd87c973dd1a        2 weeks ago         12.6MB
+tomcat                        8-alpine            c6051dfc4083        3 weeks ago         111MB
+nginx                         1.13.0-alpine       f00ab1b3ac6d        4 weeks ago         15.5MB
+mysql                         5.7                 e799c7f9ae9c        4 weeks ago         407MB
+hub.c.163.com/library/nginx   1.13.0-alpine       5a35015d93e9        6 weeks ago         15.5MB
+

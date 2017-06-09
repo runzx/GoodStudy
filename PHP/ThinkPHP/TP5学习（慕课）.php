@@ -189,6 +189,10 @@
             $user->profile->save();
             // 或者
             $user->profile->save(['email' => 'thinkphp']);
+        时间戳
+            // 定义时间戳字段名
+                protected $createTime = 'create_at';
+                protected $updateTime = 'update_at';
 12。用户自定义配置文件
     特定目录：application/extra/ tp5自动加载
         例：setting.php :
@@ -272,4 +276,7 @@
         在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。
         事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。
         事务用来管理 insert,update,delete 语句
+24. Wx SDK
+    https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1
+    1. 类没有命名空间， 不能用use 导入类
 

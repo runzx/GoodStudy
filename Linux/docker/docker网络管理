@@ -1,0 +1,19 @@
+
+
+如早期版本支持的最常见的三种场景,
+    1.使用NAT方式连接外部网络;
+    2.映射容器和宿主机的端口, 使外部可以访问容器中的应用;
+    3.容器间网络互联.
+网络基本配置
+    Docker服务启动时会自动创建一个docker0的虚拟网桥，后续新创建的容器都会有个虚拟接口连接到这个网桥,
+    Docker网桥会设置为NAT模式, 自动分配一个网段, 从上面看docker0的地址是172.17.0.1, 每个容器都会自动分配的到一个IP地址,
+
+
+容器互联
+ --link参数，完美支持容器间互联。
+    要保证dockerd启动时, --icc=true设置或者不设置这个参数, 
+
+没有ifconfig, ping命令 
+    apt-get update 
+    apt install net-tools    # ifconfig
+    apt install iputils-ping # ping

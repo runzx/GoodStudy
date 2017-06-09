@@ -49,3 +49,5 @@
         # 这个 -p 的属性是很重要的，尤其是当您要保留原本档案的属性时！
 
     http://www.cnblogs.com/52linux/archive/2012/03/04/2379738.html
+.tar.xz   xz 是一个使用 LZMA压缩算法的无损数据压缩文件格式。
+    直接使用 tar -xvJf  ***.tar.xz来解压
