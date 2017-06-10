@@ -1,7 +1,7 @@
 
 1. 安装设置,base,networking
     setup-alpine
-        安装到硬盘： 选sys
+        安装到硬盘： 先选sda(可用?查看有哪些硬盘可安装），然后再选sys
     
     issus:
         它采用了musl libc和busybox以减小系统的体积和运行时资源消耗，同时还提供了自己的包管理工具apk。

@@ -1,0 +1,30 @@
+
+1. CentOS Linux release 7.3.1611 (Core)
+    2017-0610: yum info docker
+    名称    ：docker
+    架构    ：x86_64
+    时期       ：2
+    版本    ：1.12.6
+    发布    ：28.git1398f24.el7.centos
+    大小    ：14 M
+2. 从docker官网安装最新版docker-centos
+    Docker CE is supported on CentOS 7.3 64-bit.
+    1. Set up the repository
+        sudo yum install -y yum-utils   //安装 yum-utils，它提供了 yum-config-manager，可用来管理yum源
+        sudo yum-config-manager \
+            --add-repo \
+            https://download.docker.com/linux/centos/docker-ce.repo     //添加yum源
+        sudo yum makecache fast     //更新yum索引
+    2. Get Docker CE
+        Install the latest version of Docker CE on CentOS:
+            sudo yum -y install docker-ce
+        Start Docker:
+            sudo systemctl start docker
+
+-----------------------------
+
+导入 GPG key 0x621E9F35:
+ 用户ID     : "Docker Release (CE rpm) <docker@docker.com>"
+ 指纹       : 060a 61c5 1b55 8a7f 742b 77aa c52f eb6b 621e 9f35
+ 来自       : https://download.docker.com/linux/centos/gpg
+

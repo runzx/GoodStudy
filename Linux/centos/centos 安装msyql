@@ -1,0 +1,50 @@
+
+1. CentOS 7 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了
+    yum install mariadb-server mariadb 
+    启动数据库
+        # systemctl start mariadb
+2. mysql 官网下载
+    # wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+    # rpm -ivh mysql-community-release-el7-5.noarch.rpm
+    # yum install mysql-community-server
+    2017-0610
+        wget http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+        rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+        2017-610：
+        可安装的软件包
+        名称    ：mysql-community-server
+        架构    ：x86_64
+        版本    ：5.7.18
+        发布    ：1.el7
+        大小    ：162 M
+        源    ：mysql57-community/x86_64
+3. 编码
+    mysql配置文件为/etc/my.cnf
+    最后加上编码配置
+    [mysql]
+    default-character-set =utf8
+4. 启动MySQL服务
+        systemctl start mysqld
+    MySQL的启动状态
+        systemctl status mysqld
+    重新启动
+        systemctl restart mysqld
+    开机启动
+        systemctl enable mysqld
+         systemctl daemon-reload
+5、修改root默认密码
+    mysql安装完成之后，在/var/log/mysqld.log文件中给root生成了一个默认密码。通过下面的方式找到root默认密码，然后登录mysql进行修改：
+        grep 'temporary password' /var/log/mysqld.log
+    mysql -uroot -p
+        mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!'; 
+    或者
+        mysql> set password for 'root'@'localhost'=password('MyNewPass4!'); 
+    mysql5.7默认安装了密码安全检查插件（validate_password），默认密码检查策略要求
+        密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位
+6、添加远程登录用户
+    mysql> GRANT ALL PRIVILEGES ON *.* TO 'yangxin'@'%' IDENTIFIED BY 'Yangxin0917!' WITH GRANT OPTION;
+7、配置默认编码为utf8
+    修改/etc/my.cnf配置文件，在[mysqld]下添加编码配置，如下所示：
+        [mysqld]
+        character_set_server=utf8
+        init_connect='SET NAMES utf8'

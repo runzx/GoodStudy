@@ -1,0 +1,6 @@
+
+CentOs 7 安装php源和epel扩展源：
+    rpm -ivh https://mirror.webtatic.com/yum/el7/epel-release.rpm
+    rpm -ivh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+安装php5.6的基本安装包：
+    yum install php56w php55w-gd php56w-mbstring php56w-mysql php56w-fpm 

@@ -1,0 +1,62 @@
+Systemd 
+
+1. 是 Linux 下的一款系统和服务管理器，兼容 SysV 和 LSB 的启动脚本。systemd 的特性有：
+    支持并行化任务；
+    同时采用 socket 式与 D-Bus 总线式激活服务；
+    按需启动守护进程（daemon）；
+    利用 Linux 的 cgroups 监视进程；
+    支持快照和系统恢复；
+    维护挂载点和自动挂载点；
+    各服务间基于依赖关系进行精密控制。
+2. 目前绝大多数的Linux发行版都已采用systemd代替原来的System V。
+    systemd在LGPL 2.1及其后续版本许可证下开源发布[1][2]。
+3. 与System V风格init相比，systemd采用了以下新技术：
+    将service（服务）、target（运行模式，类似于运行档次）、mount、timer、snapshot、path、socket、swap等称为Unit。比如，一个auditd服务（就是auditd.service）就是一个Unit，一个multi-user.target运行模式也是一个Unit。
+    采用Socket激活式与D-Bus激活式服务，以提高相互依赖的各服务的并行运行性能；
+    用cgroups代替进程ID来追踪进程，以此即使是两次fork之后生成的守护进程也不会脱离systemd的控制。
+    用target代替System V的运行级别（Runlevel），比如，SystemD的graphical.target相当于System V的init 5，multi-user.target相当于System V的init 3。
+    内置新的journald 日志管理系统。
+    引入localectl、timedatectl等新命令，系统配置更方便。
+4. 默认init程序为systemd的发行版
+    Fedora 15及后续版本[8][注 1]
+    Mageia 2[10]
+    Mandriva 2011[11]
+    openSUSE 12.1及后续版本[12]
+    Red Hat Enterprise Linux 7及后续版本，包括其派生品CentOS、Scientific Linux、Oracle Linux等
+    Arch Linux在2012年10月13日将systemd-sysvcompat纳入base软件组，自此Arch Linux默认安装完即以systemd为init程序[13]，同时也提供了与Arch自带启动脚本兼容用的systemd启动脚本包以方便用户，使用户能“开箱即用”[14]
+    Chakra GNU/Linux，在2012.10的光盘映像档发布后默认使用systemd。[15]
+    Debian GNU/Linux，Debian 8“Jessie”中以Linux为核心的版本转换到systemd[16]。
+    Ubuntu 15.04及后续版本[17]
+    可以使用systemd的发行版
+    Gentoo，同OpenRC一起被Gentoo官方支持[18][19][20]
+    除此以外，systemd已由Lennart Poettering提请纳入GNOME 3.2的外部依赖关系列表[21]，而这意味着所有使用GNOME的发行版都应该使用systemd，最低限度来说也必须将其作为配置选项之一。
+5. 主要命令
+    systemctl
+    显示 系统状态：
+        $ systemctl status
+    立即激活单元：
+        # systemctl start <单元>
+    立即停止单元：
+        # systemctl stop <单元>
+    重启单元：
+        # systemctl restart <单元>
+    重新加载配置：
+        # systemctl reload <单元>
+    输出单元运行状态：
+        $ systemctl status <单元>
+    检查单元是否配置为自动启动：
+        $ systemctl is-enabled <单元>
+    开机自动激活单元：
+        # systemctl enable <单元>
+    取消开机自动激活单元：
+        # systemctl disable <单元>
+    禁用一个单元（禁用后，间接启动也是不可能的）：
+        # systemctl mask <单元>
+    取消禁用一个单元：
+        # systemctl unmask <单元>
+    待机：
+        $ systemctl suspend
+    休眠：
+        $ systemctl hibernate
+    混合休眠模式（同时休眠到硬盘并待机）：
+        $ systemctl hybrid-sleep

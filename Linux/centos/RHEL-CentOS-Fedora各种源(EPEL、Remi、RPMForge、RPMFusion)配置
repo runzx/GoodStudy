@@ -1,0 +1,44 @@
+RHEL/CentOS/Fedora各种源(EPEL、Remi、RPMForge、RPMFusion)配置
+
+EPEL源
+    EPEL,即Extra Packages for Enterprise Linux,是由 Fedora 社区创建维护，为 RHEL 及衍生发行版如 CentOS、Scientific Linux 等提供高质量软件包的项目。EPEL中含有大量的软件，对官方标准源是一个很好的补充。
+    wiki:http://fedoraproject.org/wiki/EPEL
+    Fedora EPEL 下载：http://mirrors.fedoraproject.org/publiclist/EPEL/
+    EPEL 下载地址：http://download.fedora.redhat.com/pub/epel/
+    例如CentOS6.5添加阿里云的EPEL源
+        yum localinstall --nogpgcheck http://mirrors.aliyun.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    CentOS 7.0添加阿里云的EPEL源
+        yum localinstall --nogpgcheck http://mirrors.aliyun.com/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+Remi源
+    Remi源大家或许很少听说，不过Remi源GoFace强烈推荐，尤其对于不想编译最新版的linux使用者，因为Remi源中的软件几乎都是最新稳定版。或许您会怀疑稳定不？放心吧，这些都是Linux骨灰级的玩家编译好放进源里的，他们对于系统环境和软件编译参数的熟悉程度毋庸置疑。
+    Remi下载地址：http://rpms.famillecollet.com/
+    CentOS 6.5添加官方的Remi源
+        yum localinstall --nogpgcheck http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    CentOS 7添加官方的Remi源
+        yum localinstall --nogpgcheck http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+        yum localinstall --nogpgcheck https://mirrors.tuna.tsinghua.edu.cn/remi/enterprise/remi-release-7.rpm
+RPMForge源
+    RPMForge是CentOS系统下的软件仓库，拥有4000多种的软件包，被CentOS社区认为是最安全也是最稳定的一个软件仓库。
+    RPMForge官方网站：http://repoforge.org/
+    RPMForge下载地址：
+        32位：http://apt.sw.be/redhat/el6/en/i386/rpmforge/RPMS/
+        64位：http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/
+    CentOS6.5添加官方的RPMForge源
+        yum localinstall --nogpgcheck http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+    CentOS 7.0添加官方的RPMForge源
+        yum localinstall --nogpgcheck http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+
+安装Remi ,修改/etc/yum.repos.d/remi.repo :
+    [remi-php56]
+    enabled=1
+
+    yum info php :
+    名称    ：php
+    架构    ：x86_64
+    版本    ：5.6.30
+    发布    ：1.el7.remi
+    大小    ：2.6 M
+    源    ：remi-php56
+
+    安装php5.6---php-opcache及php-pecl-apcu会有效的提高php执行速度???
+    
