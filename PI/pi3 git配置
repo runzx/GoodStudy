@@ -33,6 +33,8 @@
     git init --bare /home/git/zyb.git
     git init --bare /home/git/lumen.git
     chown -R git:git /home/git/lumen.git
+    git init --bare /home/git/pd123.git
+    chown -R git:git /home/git/pd123.git
 
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
     20170523    zyb.git 小程序前端，用七月老师的框架改写

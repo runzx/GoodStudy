@@ -279,4 +279,14 @@
 24. Wx SDK
     https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1
     1. 类没有命名空间， 不能用use 导入类
+25. 为调试微信回调加XDEBUG_SESSION_START，采用转发方式：
+    $xmlData=file_get_contents('php://input');      //取微信返回的xml数据
+    $result=curl_post_raw('http://api.zx.com/api/v2/pay/re_notify?XDEBUG_SESSION_START=1323233'，
+        $xmlData);
 
+    但这情况， 返回微信的的信息微信得在这个转发模块里发微信才收得到
+26. 小程序 真机请求限制
+    1） 要https ssl证书
+    2） 接口地址要加入小程序合法域名中
+27. 小程序 数据绑定：
+    1）setData({})
