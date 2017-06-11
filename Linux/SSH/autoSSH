@@ -8,3 +8,94 @@
     动态代理
         autossh -f -M 监听端口 -ND 本地绑定端口 服务器用户名@服务器
     监听端口随意指定不冲突就可以了，注意端口号小于1024仍需要root权限，另外如果多次绑定的话，监听端口需要不同，否则命令将无法执行。
+    SSH 参数解释
+        -f 后台运行
+        -C 允许压缩数据
+        -N 不执行任何命令
+        -R 将端口绑定到远程服务器，反向代理
+        -L 将端口绑定到本地客户端，正向代理
+3. 服务器配置
+    修改Nginx配置，添加一个虚拟主机（目的就是可以共享80端口），并将请求转发到其他端口，本次测试使用的是7000端口，详细配置如下：
+        server {
+            listen 80;
+            server_name ngrok.ianhe.me;
+            access_log /data/wwwlogs/ngrok.ianhe.me_nginx.log combined;
+            location / {
+                    proxy_pass http://127.0.0.1:7000;
+            }
+        }
+    修改sshd配置，位置为/etc/ssh/sshd_config，将GatewayPorts设置为yes即可，这一步也比较简单，保存并重启sshd服务。
+4. 客户端
+    执行ssh连接.
+        ssh -R 7000:localhost:8080 <user>@<remote_ip>
+        7000为服务器监听的端口，8080为本地端口，localhost就不需要解释了，user代表ssh连接用户，remote_ip代表远程主机ip。
+    为了更方便还可以写成脚本文件：
+            #!/usr/bin/expect -f
+            set user ihelin
+            set host x.x.x.x
+            set password xxxxxx
+
+            spawn autossh -M 5678 -NR :7000:localhost:8080 $user@$host
+            expect "*password*"
+            send "$password\r"
+            interact
+            expect eof
+    然后再写一个执行脚本：
+        #!/bin/zsh
+        expect -f  ~/.ssh/shell/autongrok
+    最后可以建一个软连接或指定一个别名方便执行，连接成功后可以查看服务器端口占用情况：
+
+--------------------------------------
+
+GatewayPorts指定是否允许远程主机连接到为客户端转发的端口。 
+    默认情况下，sshd（8）将远程端口转发绑定到环回地址。 这样可以防止其他远程主机连接到转发端口。 
+    GatewayPorts可用于指定sshd应允许远程端口转发绑定到非环回地址，从而允许其他主机连接。 
+        no :  “否”强制远程端口转发仅对本地主机可用，
+        yes : “是”强制远程端口转发绑定到通配符地址，
+        clientspecified : 或“客户端指定”允许客户端选择其中的地址 转发是绑定的。 默认值为“否”。
+
+nginx 反向代理和负载均衡
+    我的部署方案是这样的，在www.domain.com上面部署了一个Nginx服务器，一个8989端口的php-fpm。我在内网做开发的主机上部署了一个9090端口的php-fpm。
+    nginx做前端，而两个php-fpm做后端的负载均衡。
+        而且当内网的开发主机开启的时候，要求nginx把请求发送到开发主机上来。
+        当内网的开发主机不开启的时候，nginx就把请求代理到公网服务器上的php-fpm上，即8989端口。
+
+    upstream weixin { 
+        server weixin.domain.com:8989 backup; 
+        server weixin.domain.com:9090; 
+    }
+         添加一个均衡负载器，**注意上面的*backup*关键字**。
+    server { 
+        listen 80; 
+        server_name weixin.domain.com; 
+        location / { 
+            proxy_pass http://weixin; 
+            include proxy.conf;
+        } 
+        ...
+    } 
+    upstream 模块负责负载均衡模块，通过一个简单的调度算法来实现客户端IP到后端服务器的负载均衡。
+        4种调度算法：
+            weight 轮询（默认）。每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某台服务器宕机，故障系统被自动剔除，使用户访问不受影响。weight。指定轮询权值，weight值越大，分配到的访问机率越高，主要用于后端每个服务器性能不均的情况下。
+            ip_hash。每个请求按访问IP的hash结果分配，这样来自同一个IP的访客固定访问一个后端服务器，有效解决了动态网页存在的session共享问题。
+            fair（第三方）。比上面两个更加智能的负载均衡算法。此种算法可以依据页面大小和加载时间长短智能地进行负载均衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。Nginx本身是不支持fair的，如果需要使用这种调度算法，必须下载Nginx的upstream_fair模块。
+            url_hash（第三方）。按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，可以进一步提高后端缓存服务器的效率。Nginx本身是不支持url_hash的，如果需要使用这种调度算法，必须安装Nginx的hash软件包。
+        常用的状态有：
+            down，表示当前的server暂时不参与负载均衡。
+            backup，预留的备份机器。当其他所有的非backup机器出现故障或者忙的时候，才会请求backup机器，因此这台机器的压力最轻。
+            max_fails，允许请求失败的次数，默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误。
+            fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。
+        例：
+            upstream webservers{
+                server 192.168.33.11 down;          //台机器暂时不参与负载均衡。相当于注释掉了。
+                server 192.168.33.12 weight=10 max_fails=2 fail_timeout=30s;
+                server 192.168.33.13 backup;        //表示这台机器是备用机器，是其他的机器不能用的时候，这台机器才会被使用，俗称备胎
+            }
+    使用反向代理后，后端的apache就不能直接取得访客真实IP了，在代理服务器nginx的proxy.conf可见如下内容：
+        proxy_set_header    X-Real-IP $remote_addr
+        proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header :  默认情况下，反向代理不会转发原始请求中的 Host 头部，如果需要转发，就需要加上这句：
+        proxy_set_header    Host                $host;
+        proxy_set_header    X-Real-IP           $remote_addr;
+        proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+        除了上面提到的常用配置项，还有 proxy_redirect、proxy_set_body、proxy_limit_rate 等参数，具体用法可以到Nginx 官网查看。
