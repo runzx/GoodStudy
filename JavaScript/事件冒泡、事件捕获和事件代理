@@ -1,0 +1,22 @@
+JS 事件冒泡、事件捕获和事件代理
+
+1. 在处理事件代理的时候，事件 event 有两个比较特殊的属性，event.target 和 event.currentTarget，这两个属性又有什么区别呢？
+    event.target 是触发事件的元素，而 event.currentTarget 是事件绑定的元素。
+    也就是说，大部分情况下，当使用事件代理时，event.target 是子元素，而 event.currentTarget 是父级元素。
+    <view id="box" catchtap="onSwiperTap" data-id="这里是currentTarget获取的数据">
+        <view id="red" data-id="这里是Target获取的数据">red</view>
+        <view id="yellow" data-id="这里是Target获取的数据">yellow</view>
+        <view id="blue" data-id="这里是Target获取的数据">blue</view>
+    </view>
+    而当处于捕获和冒泡阶段的时候，target指向被单击的对象而currentTarget指向当前事件活动的对象（一般为父级）。
+
+2. 事件冒泡
+    子元素嵌套在父元素内部，点击子元素的时候一定同时表示点击了父元素，这个时候，
+        先触发子元素的事件处理器，然后再触发父元素的事件处理器，
+            如果父元素的父元素还有处理器，就一直向上触发，一直到 body 元素。就像鱼吐泡泡一样，从水下向水面走，
+            每向上走一层就会查看这一层有没有事件处理器，如果有的话就会触发，如果没有的话就继续向上寻找，
+            直到顶层的 body，才结束寻找事件。
+3. 事件捕获则和事件冒泡正好相反，点击的时候从 body 往下找，
+    如果父级元素有事件处理器就先触发父级元素的事件处理器，再向下一层，如果子级元素有的话就触发子级元素的事件处理器，
+    直到这个点击位置的最底层，也就是我们通常所说的 target。
+
