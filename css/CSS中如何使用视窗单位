@@ -1,0 +1,28 @@
+CSS中如何使用视窗单位
+
+1. 比方说我们有一个1000px（宽）和800px（高）的视窗(Viewport)
+    vw      代表视窗(Viewport)的宽度为1%，在我们的例子里50vw = 500px。
+    vh      窗口高度的百分比 50vh = 400px。
+    vmin    vmin的值是当前vw和vh中较小的值。在我们的例子里因为是横向模式，所以50vim = 400px。
+    vmax    大尺寸的百分比。50vmax = 500px。
+ 
+    那它将永远都是你窗口的高度。
+        #elem{
+            height: 100vh;
+        }
+    如果我们用vw来设置子元素，那么它会简单的溢出并采取网页的全宽：
+        #parent{ 
+            width: 400px; 
+        } 
+        #child{ 
+            /* This is equal to 100% of the parent width, not the whole page. */ 
+            width: 100%; 
+        }
+        ----------------------------------
+        #parent{
+            width: 400px;
+        }
+        #child{
+            /* This is equal to 100% of page, regardless of the parent size. */
+            width: 100vw;
+        }
