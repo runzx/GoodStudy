@@ -1,0 +1,33 @@
+
+1. mongoDB shell 自带JavaScript shell
+    mongo [host:port/myDB]      //运行
+    >           //JavaScript解释器
+        //可用JS标准库， 定义、调用JS函数
+        //可用多行命令， 连续3次按回车退回>
+    db          //查看当前数据库， db 是 变量， db.baz 返回当前数据库的baz集合
+    use         //选择数据库
+    db.blog.insert(post)    //把post对象变量内容插入
+    db.blog.find()          //最多显示20个匹配文档
+    db.blog.findOne()
+    db.blog.update({...,...},post)  //更新
+    db.blog.remove({})              //删除
+    db.foobar.batchInsert({})       //批量插入
+
+2. mongo文档类似JS的JSON对象（6类型：null,bloon,int,string,array,obj）
+    多加了其它数据类型
+        日期：         {"x":new Date()}        //要加new 
+        正则表达式：   {"x":/foobar/i}
+        内嵌文档：     {"x":{}}
+        对象id:        {"x":ObjectId()}       //12字节ID
+        代码：         {"x":function(){}}
+3. 函数连接
+    >conn=new Mongo("host:port")
+    >db=conn.getDB("myDB")
+
+4. 帮助
+    >help
+5. 自动运行角本
+    mongorc.js 
+
+
+
