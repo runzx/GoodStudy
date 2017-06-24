@@ -1,0 +1,11 @@
+优化 上线前准备， 以缓存为主，CDN
+
+1. app_debug => false
+2. 模型：
+    1）每次SQL前，TP5会去动态查询表的字段
+    2）上线前把数据库表的字段生成缓存信息（文件）
+        命令行：php think optimize:schema
+            存放在： runtime/schema/...
+3. 路由
+    返回缓存结果（提高速度）
+    php think optimize:route
