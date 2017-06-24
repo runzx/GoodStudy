@@ -8,3 +8,20 @@
     项目布署、发布（docker）
 
 npm --registry=https://registry.npm.taobao.org install mongose
+
+2. dns 更改根服务器
+    dnspod.cn   //这家技术好， 稳定
+        用CNAME 把要加速的图片储存域名指向七牛对应
+    七牛 对象存储 把图片、小文件放这提速
+        其中存储空间免费10GB、下载流量20GB、10万次PUT请求和100万次GET请求。
+        存储流量。在50TB以内，每GB需要0.165元。如果你的下载流量超出了10GB，在100TB以内，每GB需要0.29元。
+    下载网址PING 
+        华南 七牛 iovip-z2.qbox.me 30-31ms ttl=51
+            qclud   bucketname-APPID.cosgz.myqcloud.com 39-42 52
+            ali     oss-cn-shenzhen.aliyuncs.com    34-35 103
+
+3. mongodb 
+    mongodump -h 127.0.0.1:27017  -d indust-app -o indust-app0backup    //备份
+    tar zcvf indust-app.tar.gz indust
+    scp -P 15822 ./indust-app-backup.tar.gz root@bosstg.cn:/home/....
+    mongorestore -p 27017 -d indust-app ./dbbackup/indust-app-back/indust-app
