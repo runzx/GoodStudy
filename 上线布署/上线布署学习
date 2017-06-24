@@ -1,0 +1,10 @@
+
+1. 生产环境
+    域名
+    服务器
+    域名备案
+    服务器配置
+    数据库配置
+    项目布署、发布（docker）
+
+npm --registry=https://registry.npm.taobao.org install mongose

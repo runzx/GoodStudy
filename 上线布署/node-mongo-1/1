@@ -1,0 +1,66 @@
+
+1. 域名
+    www.22.cn
+    万网（阿里云））
+    dnspod.cn
+    goDaddy(国外)
+    尽量不用混合（英文+数字）
+    ubuntu 14.04 x64
+
+2. root 权限帐号
+    adduser zx 
+    gpasswd -a zx sudo      分给root权限
+    sudo visudo
+        zx ALL=(ALL:ALL) ALL 
+        重启ssh
+    无密码登录：
+        ssh-keygen -t -rsa -b 4096 -C "zx@qq.com"
+        eval "(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+        chmod 600 authorized_keys
+
+        sshd_config
+
+            allowuser zx
+            PermitRootLogin no          //关闭root远程登录
+            PasswordAuthentication no   //不用密码
+            PermitEmptyPasswords no
+3. iptables 
+    sudo vi /etc/iptables.up.rules
+        *filter
+        # allow all connections
+        -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+        #allow out traffic
+        -A OUTPUT -j ACCEPT 
+        #allow http
+        -A INPUT -p tcp --dport 443 -j ACCEPT
+        -A INPUT -p tcp --dport 80 -j ACCEPT
+        #allow ssh
+        -A INPUT -p tcp -m state --state NEW --dport 39999 -j ACCEPT
+        # ping
+        -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+        #log denied calls
+        -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied:" --log-level 7
+        #drop incoming sensitive connections
+        -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --sensitive
+        -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 150 -j DROP 
+
+        #reject all other inbound
+        -A INPUT -j REJECT
+        -A FORWARD -j REJECT
+    sudo iptables-restore < /etc/iptables.up.rules
+    sudo ufw status 
+    sudo ufw enable     激活
+    自启动：
+        vi /etc/network/if-up.d/iptables
+        #！/bin/sh
+        iptables-restore /etc/iptables-up.rules
+
+        chmod =X /etc/network/if-up.d/iptables
+4. Fail2Ban
+    apt install fail2ban 
+    vi /etc/fail2ban/jail.conf
+        destemail= 收提醒邮箱
+        action=%(action_mw)s 
+
+

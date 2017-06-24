@@ -1,0 +1,34 @@
+
+1. 标记预览
+    VS代码支持开箱即用的Markdown文件。您只需开始编写Markdown文本，使用.md扩展名保存文件，然后可以在代码和Markdown文件的预览之间切换编辑器的可视化; 显然，您也可以打开一个现有的Markdown文件，并开始使用它。
+    要在视图之间切换，请在编辑器中按Ctrl + Shift + V。您可以使用要编辑的文件并行查看预览（Ctrl + KV），并在编辑时看到实时更改。
+
+2. 编辑和预览同步
+        markdown.preview.scrollPreviewWithEditorSelection 设置禁用此行为。
+    当Markdown预览滚动时，编辑器将随之滚动：
+        markdown.preview.scrollEditorWithPreview 设置禁用
+    使用自己的CSS
+        请使用逗号分隔的样式表URL列表更新"markdown.styles": [] 设置
+        使用文件 > 首选项 > 工作区设置来启动工作区settings.json文件并进行此更新：
+            // Place your settings in this file to overwrite default and user settings.
+            {
+                "markdown.styles": [
+                    "Style.css"
+                ]
+            }
+3. 将Markdown编译成HTML     https://code.visualstudio.com/docs/languages/markdown
+    VS代码通过集成的任务运行器与Markdown编译器集成。我们可以使用它将.md文件编译成.html文件。我们来编写一个简单的Markdown文档。
+    步骤1：安装Markdown编译器
+       对于本演练，我们使用流行的Node.js模块，markdown-it。
+            npm install -g markdown-it
+        注意：有许多Markdown编译器可以从超越标记中选择。选择最适合您的需求和环境的。
+    步骤2：创建一个简单的MD文件
+        在空文件夹上打开VS代码并创建一个sample.md文件。
+        注意：您可以通过选择与文件夹中打开与VS代码文件夹文件 > 打开文件夹...或导航到该文件夹，输入“代码”。在命令行
+    步骤3：创建tasks.json
+        下一步是设置任务配置文件tasks.json。要执行此操作，请使用Ctrl + Shift + P打开命令面板，然后键入Configure Task Runner，按Enter键选择它。
+        VS代码然后提供tasks.json可供选择的可能模板的列表。选择，Others因为我们要运行一个外部命令。
+        这将tasks.json在您的工作区.vscode文件夹中生成一个包含以下内容的文件：
+    步骤4：运行构建任务
+        由于这是文件中唯一的命令，您可以通过按Ctrl + Shift + B（运行构建任务）来执行。此时，您应该会在文件列表中看到一个附加文件sample.html。
+        示例Markdown文件没有任何编译问题，因此通过运行任务，发生的一切sample.html都是创建了一个相应的文件。
