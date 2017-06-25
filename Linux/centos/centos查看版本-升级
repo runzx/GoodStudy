@@ -1,3 +1,22 @@
 
 1. centos 系统版本为
     cat /etc/redhat-release 
+
+2. yum 命令
+    yum常用的命令
+        # yum install xxx            安装xxx软件
+        # yum info xxx                查看xxx软件的信息
+        # yum remove xxx        删除软件包
+        # yum list                        列出软件包
+        # yum clean                    清除缓冲和就的包
+        # yum provides xxx        以xxx为关键字搜索包（提供的信息为关键字）
+        # yum search xxx           搜索软件包（以名字为关键字）
+        # yum groupupdate xxx
+        # yum grouplist xxx
+        # yum groupremove xxx
+        这三个都是一组为单位进行升级 列表和删除的操作。。比如 "MySQL Database"就是一个组会同时操作相关的所有软件包；
+        # yum update                系统升级
+        # yum list available        列出所有升级源上的包；
+        # yum list updates         列出所有升级源上的可以更新包；
+        # yum list installed         列出已经安装的包；
+        # yun update kernel       升级内核；

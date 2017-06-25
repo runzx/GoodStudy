@@ -1,0 +1,21 @@
+
+1. 创建普通用户
+    # 创建一个名为chris的用户
+        adduser chris
+    # 给chris创建登录密码
+        passwd chris
+2. 编辑sudoers文件给chris赋权
+    visudo
+    这个命令使用vi打开了sudoers文件，我们可以通过vi来对这个文件进行编辑。在sudoers的最后一行加入：
+        chris    ALL=(ALL)       ALL
+    如果对vi不熟悉，可以按下面的步骤进行操作：
+        按G键，跳转到文件末尾；
+        按o键，新插入一行并进入编辑模式；
+        输入chris ALL=(ALL) ALL；
+        依次按下Esc，:，x，Enter键保存。
+3. 安全加固
+    vi /etc/ssh/sshd_config
+        在打开的配置文件末尾输入以下内容，其中Port您可以自行设置：
+        Port 10022
+        Protocol 2
+        PermitRootLogin no
