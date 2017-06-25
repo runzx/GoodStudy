@@ -63,4 +63,9 @@
         destemail= 收提醒邮箱
         action=%(action_mw)s 
 
-
+5. mongoDB
+    默认没有管理员
+        use admin
+        db.createUser({use:'zhaix',pwd:'xxx',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})
+        db.auth('zhaix','xxx')
+        

@@ -19,9 +19,54 @@ npm --registry=https://registry.npm.taobao.org install mongose
         华南 七牛 iovip-z2.qbox.me 30-31ms ttl=51
             qclud   bucketname-APPID.cosgz.myqcloud.com 39-42 52
             ali     oss-cn-shenzhen.aliyuncs.com    34-35 103
+    
+    国外牛的DNS服务商 godaddy
+        https://sg.godaddy.com/zh/
 
 3. mongodb 
     mongodump -h 127.0.0.1:27017  -d indust-app -o indust-app0backup    //备份
     tar zcvf indust-app.tar.gz indust
     scp -P 15822 ./indust-app-backup.tar.gz root@bosstg.cn:/home/....
     mongorestore -p 27017 -d indust-app ./dbbackup/indust-app-back/indust-app
+
+4. https ssl 证书
+    域名级 DV 等级一般， 有免费（沃通WoSign 和 StartCom， 不要用）
+    企业级 OV 审核严
+    增强   EV 全球 访问是绿色 
+
+5. qcloud.com免费申请
+    手动验证域名所属： 加一条TXT记录， 在主机记录处填写@即可，记录值为qcloud系统提供的文本验证内容
+        例如DNS服务器为万网的服务器，则在腾讯云云解析添加了TXT解析是无法生效的。 
+            改成主机记录填写api 就OK了
+    如/usr/local/nginx/conf目录下
+6. aliyun 申请
+    1） 要实名认证
+        支付宝或阿里云APP， 扫脸，扫身份证
+    2） DNS 通过TXT认定值来验证
+    3）安装证书 nginx
+        在Nginx的安装目录下创建cert目录，并且将下载的全部文件拷贝到cert目录中
+
+7. 基于服务器名称（name-based）的 HTTPS 服务器
+    常见的问题就是当使用同一个 IP 地址去配置两个或更多的 HTTPS 服务器的时候，出现证书不匹配的情況：
+    官方还介绍了两个解决方法：泛域证书和域名指示（SNI）
+8. http 自动转https
+    1）
+        server{
+            listen 80;
+            server_name api.bosstg.cn;
+            rewrite ^(.*)  https://$host$1 permanent;
+        }
+    2)
+        server{
+            listen 80;
+            server_name api.bosstg.cn;
+            return 301 https://api.bosstg.cn$request_uri;
+        }
+    3) 443里再次检查：
+        if($ssl_protocol = ""){
+            rewrite ^(.*)  https://$host$1 permanent;
+        }
+    4) 同时，如果是全站 HTTPS 并且不考虑 HTTP 的话，可以加入 HSTS 告诉你的浏览器本网站全站加密，并且强制用 HTTPS 访问
+        add_header Strict-Transport-Security max-age=63072000;
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;

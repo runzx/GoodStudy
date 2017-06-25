@@ -1,0 +1,19 @@
+github怎么绑定自己的域名
+
+1. GitHub页面旨在使用两种类型的自定义域：顶点域和子域。
+    向你的 Github Pages 仓库添加一个CNAME(一定要*大写*)文件
+    其中只能包含一个顶级域名，像这样：
+        example.com
+2. 向你的 DNS 配置中添加 1条记录
+    blog      CNAME    username.github.io.
+    设置顶点域
+        要建立一个顶点域，比如example.com，你必须配置ALIAS，ANAME或A与您的DNS提供商记录。
+    设置自定义子域
+        您可以设置自定义子域，例如通过DNS提供程序blog.example.com创建CNAME记录。
+
+3. github上捆绑自己域名
+    1.On GitHub, navigate to your GitHub Pages site's repository.
+    2.Repository settings buttonUnder your repository name, click  Settings.
+        Under "Custom domain", add or remove your custom domain and click Save.
+        Tip: To check if your custom domain is supported, see "About supported custom domains."
+    3.Set up your custom domain with your DNS provider. For an overview of the next steps, see "Quick start: Setting up a custom domain."

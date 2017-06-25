@@ -1,0 +1,17 @@
+HTTPS服务器优化
+
+1. 减少 CPU 运算量
+    激活 keepalive 长连接，一个连接发送更多个请求
+    复用 SSL 会话参数，在并行并发的连接数中避免进行多次 SSL『握手』
+        这些会话会存储在一个 SSL 会话缓存里面，通过命令 ssl_session_cache 配置，可以使缓存在机器间共享，然后利用客戶端在『握手』阶段使用的 seesion id 去查询服务端的 session cathe(如果服务端设置有的话)，简化『握手』阶段。
+        1M 的会话缓存大概包含 4000 個会话，默认的缓存超时时间为 5 分钟，可以通过使用 ssl_session_timeout 命令设置缓存超时时间。下面是一個拥有 10M 共享会话缓存的多核系统优化配置例子：
+            http {
+                #配置共享会话缓存大小
+                ssl_session_cache   shared:SSL:10m;
+                #配置会话超时时间
+                ssl_session_timeout 10m;
+                server {
+                    listen              443 ssl;
+                    server_name         www.example.com;
+                    #设置长连接
+                    keepalive_timeout   70;
