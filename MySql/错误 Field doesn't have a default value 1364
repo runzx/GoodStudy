@@ -1,0 +1,26 @@
+错误 Field doesn't have a default value 1364
+1. details字段没有默认的数值；也就是说我们没有为其分配数值，而表中此字段也没有设置默认值。
+这是MySQL5出来后搞出来的东东，认真看一下my.ini文件中有这样一段：
+    my.ini中相关代码
+    # Set the SQL mode to strict
+    # sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+
+2. centOS 里 /etc/my.cnf
+    sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    直接改：
+        sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    STRICT_TRANS_TABLES(存储引擎启用严格模式，非法数据值被拒绝)。
+
+3. 解决办法有两种：
+    第一种：数据库设计时，为可能没有数据的字段设置默认值。
+    第二种：设置SQL的模式，此有两种方法：
+        （1），配置my.ini(my.cnf)，去掉：STRICT_TRANS_TABLES  重新启动mysql服务
+            my.ini配置代码
+            # Set the SQL mode to strict
+            # sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+            sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+
+        （2），运行SQL命令。注：此命令需要权限！
+            SQL代码
+            SET @@GLOBAL.sql_mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";

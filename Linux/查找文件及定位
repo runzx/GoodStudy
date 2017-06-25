@@ -1,0 +1,9 @@
+查找文件及定位
+
+1. find path -name 文件名
+
+2. 查看文件安装路径
+    whereis mysql
+
+3. 查询运行文件所在路径
+    which mysql
