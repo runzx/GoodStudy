@@ -1,0 +1,6 @@
+使用 PyCharm 进行调试
+    PyCharm 是由 JetBrains 打造的一款 Python IDE，
+        具有语法高亮、Project 管理、代码跳转、智能提示、自动完成、单元测试、版本控制等功能，
+        同时提供了对 Django 开发以及 Google App Engine 的支持。
+        支持多线程，远程调试等，可以支持断点设置，单步模式，表达式求值，变量查看等一系列功能。
+        PyCharm IDE 的调试窗口布局如图 1 所示。

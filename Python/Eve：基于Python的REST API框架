@@ -1,0 +1,38 @@
+Eve：基于Python的REST API框架
+
+1. 网址
+    https://github.com/pyeve/eve
+    http://python-eve.org/index.html
+
+    Eve是为人类设计的开源 Python REST API框架。它允许轻松构建和部署高度可定制的，全功能的RESTful Web服务。
+    Eve由Flask和Cerberus提供支持，并为MongoDB数据存储提供本机支持。支持SQL，Elasticsearch和Neo4js后端由社区扩展提供。
+    代码库经过Python 2.6-3.6和PyPy的彻底测试。
+2. 特色
+    强调REST
+        非常全面的CRUD操作
+        可自定义的资源端点
+        自定义多个项目端点
+        筛选和排序
+        分页
+        HATEOAS
+        JSON和XML渲染
+        条件请求
+        数据完整性和并发控制
+        多个添加操作
+        数据验证
+        可扩展的数据验证
+        资源级缓存控制
+        版本
+        验证
+        CORS跨地资源共享
+        默认情况下只读
+        默认值
+        预定义的数据库过滤器
+        预测
+        事件关联
+        速率限制
+        MongoDB支持
+    相关资料：
+        详情查看官网： http://python-eve.org/index.html
+        安装地址： http://python-eve.org/install.html
+        教程： http://python-eve.org/tutorials/index.html
