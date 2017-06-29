@@ -1,0 +1,7 @@
+
+1. that == null  
+    undefined   :   true
+
+2. that ==""
+    ""          :   true
+    undefined   :   false
