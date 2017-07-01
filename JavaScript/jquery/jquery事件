@@ -1,0 +1,12 @@
+jquery 事件
+
+1. keydown() 方法
+    与 keydown 事件相关的事件顺序：
+        keydown - 键按下的过程
+        keypress - 键被按下
+        keyup - 键被松开
+    提示：请使用 event.which 属性来返回哪个键盘键被按下。
+    触发被选元素的 keydown 事件：
+        $(selector).keydown() 尝试一下
+    添加函数到 keydown 事件：
+        $(selector).keydown(function)

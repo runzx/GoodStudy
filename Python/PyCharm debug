@@ -1,6 +1,20 @@
-使用 PyCharm 进行调试
+1. 使用 PyCharm 进行调试
     PyCharm 是由 JetBrains 打造的一款 Python IDE，
         具有语法高亮、Project 管理、代码跳转、智能提示、自动完成、单元测试、版本控制等功能，
         同时提供了对 Django 开发以及 Google App Engine 的支持。
         支持多线程，远程调试等，可以支持断点设置，单步模式，表达式求值，变量查看等一系列功能。
         PyCharm IDE 的调试窗口布局如图 1 所示。
+
+    表达式求值：在调试过程中有的时候需要追踪一些表达式的值来发现程序中的问题，Pycharm 支持表达式求值，可以通过
+        选中该表达式，然后选择“Run”->”Evaluate Expression”，在出现的窗口中直接选择 Evaluate 便可以查看。
+        Variables 和 Watches 窗口，其中调试步骤中所涉及的具体变量的值可以直接在 variable 一栏中查看。
+    动态的监测某个变量
+        选中该变量并选择菜单”Run”->”Add Watch”添加到 watches 栏中。当调试进行到该变量所在的语句时，在该窗口中可以直接看到该变量的具体值。
+
+     多线程调试：
+        Pycharm 中在主线程启动子线程的时候会自动产生一个 Dummy 开头的名字的虚拟线程，每一个 frame 对应各自的调试帧。
+        当调试进入到各个线程的子程序时，Frame 会自动切换到其所对应的 frame，相应的变量栏中也会显示与该过程对应的相关变量，
+
+2. 配置debug 控制台
+    点击运行旁边的黑色倒三角，进入【Run/Debug Configurations】配置界面。（或者点击Run --> Edit Configurations 也一样）
+    点击绿色的加号，新建一个配置项，并选择Python。

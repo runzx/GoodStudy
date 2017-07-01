@@ -1,0 +1,30 @@
+
+1. Web Storage
+    localStorage 是 HTML5 标准中新加入的技术
+        除非被清除，否则永久保存。一般为5MB，仅在客户端（即浏览器）中保存，不参与和服务器的通信
+    sessionStorage
+        sessionStorage 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。
+        做过后端开发的同学应该知道 Session 这个词的意思，直译过来是“会话”。而 sessionStorage 是一个前端的概念，它只是可以将一部分数据在当前会话中保存下来，刷新页面数据依旧存在。但当页面关闭后，sessionStorage 中的数据就会被清空。
+    localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等
+        用法：.setItem( key, value)
+        代码示例：
+            sessionStorage.setItem("key", "value");
+            localStorage.setItem("site", "js8.in");
+    clear清除所有的key/value用途：清除所有的key/value
+        用法：.clear()
+    value 尽量使用 string
+        // before
+        function store(key, val) {
+            localStorage.setItem(key, JSON.stringify(val));
+        }
+        store('num', 1);
+        store('on', true);
+        store('name', 'pamela');
+
+        // after
+        function store(key, val) {
+            localStorage.setItem(key, val);
+        }
+        store('num', '1');
+        store('on', 'true');
+        store('name', 'pamela');

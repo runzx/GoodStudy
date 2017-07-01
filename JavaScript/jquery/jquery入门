@@ -1,0 +1,135 @@
+jquery 入门
+
+1. 基础语法： $(selector).action()
+    美元符号定义 jQuery
+    选择符（selector）"查询"和"查找" HTML 元素
+    jQuery 的 action() 执行对元素的操作
+    例：
+        $(this).hide() - 隐藏当前元素
+        $("p").hide() - 隐藏所有 <p> 元素
+        $("p.test").hide() - 隐藏所有 class="test" 的 <p> 元素
+        $("#test").hide() - 隐藏所有 id="test" 的元素
+2. 文档就绪事件，为了防止文档在完全加载（就绪）之前运行 jQuery 代码。
+    所有 jQuery 函数位于一个 document ready 函数中：
+        $(document).ready(function(){
+        
+        // 开始写 jQuery 代码...
+        
+        });
+    简洁写法（与以上写法效果相同）:
+        $(function(){
+        
+        // 开始写 jQuery 代码...
+        
+        });
+3. jQuery 选择器
+    jQuery 选择器允许您对 HTML 元素组或单个元素进行操作。
+    jQuery 选择器基于元素的 id、类、类型、属性、属性值等"查找"（或选择）HTML 元素。 它基于已经存在的 CSS 选择器，除此之外，它还有一些自定义的选择器。
+    jQuery 中所有选择器都以美元符号开头：$()。
+    1） 元素选择器
+        jQuery 元素选择器基于元素名选取元素。
+        在页面中选取所有 <p> 元素:
+            $("p")
+    2）#id 选择器
+        jQuery #id 选择器通过 HTML 元素的 id 属性选取指定的元素。
+        页面中元素的 id 应该是唯一的，所以您要在页面中选取唯一的元素需要通过 #id 选择器。
+        通过 id 选取元素语法如下：
+            $("#test")
+    3）.class 选择器
+        jQuery 类选择器可以通过指定的 class 查找元素。
+        语法如下：
+            $(".test")
+    4）更多实例
+        语法          描述	            
+        $("*")          选取所有元素 
+        $(this)	        选取当前 HTML 元素 
+        $("p.intro")	选取 class 为 intro 的 <p> 元素 
+        $("p:first")	选取第一个 <p> 元素 
+        $("ul li:first")	        选取第一个 <ul> 元素的第一个 <li> 元素	 
+        $("ul li:first-child")	    选取每个 <ul> 元素的第一个 <li> 元素	 
+        $("[href]")	                选取带有 href 属性的元素	 
+        $("a[target='_blank']")	    选取所有 target 属性值等于 "_blank" 的 <a> 元素	 
+        $("a[target!='_blank']")	选取所有 target 属性值不等于 "_blank" 的 <a> 元素	 
+        $(":button")	选取所有 type="button" 的 <input> 元素 和 <button> 元素	 
+        $("tr:even")	选取偶数位置的 <tr> 元素	 
+        $("tr:odd")	    选取奇数位置的 <tr> 元素
+4. jQuery 事件方法语法
+    在 jQuery 中，大多数 DOM 事件都有一个等效的 jQuery 方法。
+    页面中指定一个点击事件：
+    $("p").click();
+
+    click()     当按钮点击事件被触发时会调用一个函数。
+    dblclick()  当双击元素时，会发生 dblclick 事件。
+    mouseenter()    当鼠标指针穿过元素时，会发生 mouseenter 事件。
+    mouseleave()    当鼠标指针离开元素时，会发生 mouseleave 事件。
+    mousedown()     当鼠标指针移动到元素上方，并按下鼠标按键时，会发生 mousedown 事件。
+    mouseup()       当在元素上松开鼠标按钮时，会发生 mouseup 事件。
+    hover()     用于模拟光标悬停事件。
+    focus()     当元素获得焦点时，发生 focus 事件。
+                当通过鼠标点击选中元素或通过 tab 键定位到元素时，该元素就会获得焦点。
+    blur()      当元素失去焦点时，发生 blur 事件
+
+    on()        方法在被选元素及子元素上添加一个或多个事件处理程序。
+                自 jQuery 版本 1.7 起，on() 方法是 bind()、live() 和 delegate() 方法的新的替代品
+                语法
+                $(selector).on(event,childSelector,data,function,map)
+                    参数	        描述
+                    event	        必需。规定要从被选元素移除的一个或多个事件或命名空间。
+                                    由空格分隔多个事件值。必须是有效的事件。
+                    childSelector	可选。规定只能添加到指定的子元素上的事件处理程序（且不是选择器本身，比如已废弃的 delegate() 方法）。
+                    data	        可选。规定传递到函数的额外数据。
+                    function	    可选。规定当事件发生时运行的函数。
+                    map	            规定事件映射 ({event:function, event:function, ...})，包含要添加到元素的一个或多个事件，以及当事件发生时运行的函数。
+                提示：如需移除事件处理程序，请使用 off() 方法。
+                提示：如需添加只运行一次的事件然后移除，请使用 one() 方法。
+5. jQuery - 获取内容和属性
+    获得内容 - text()、html() 以及 val()
+    三个简单实用的用于 DOM 操作的 jQuery 方法：
+        text() - 设置或返回所选元素的文本内容
+        html() - 设置或返回所选元素的内容（包括 HTML 标记）
+        val() - 设置或返回表单字段的值
+    获取属性 - attr()
+        jQuery attr() 方法用于获取属性值。
+6. AJAX 简介
+    1) load() 方法
+        load() 方法从服务器加载数据，并把返回的数据放入被选元素中。
+            $(selector).load(URL,data,callback);
+                必需的 URL 参数规定您希望加载的 URL。
+                可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。
+                可选的 callback 参数是 load() 方法完成后所执行的函数名称。
+                 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
+                    responseTxt - 包含调用成功时的结果内容
+                    statusTXT - 包含调用的状态
+                    xhr - 包含 XMLHttpRequest 对象
+    2) AJAX get() 和 post() 方法
+        jQuery get() 和 post() 方法用于通过 HTTP GET 或 POST 请求从服务器请求数据。
+        $.get(URL,callback);
+            必需的 URL 参数规定您希望请求的 URL。
+            可选的 callback 参数是请求成功后所执行的函数名。
+                第二个参数是回调函数。第一个回调参数存有被请求页面的内容，第二个回调参数存有请求的状态。
+        $.post(URL,data,callback);
+            必需的 URL 参数规定您希望请求的 URL。
+            可选的 data 参数规定连同请求发送的数据。
+            可选的 callback 参数是请求成功后所执行的函数名。
+                第三个参数是回调函数。第一个回调参数存有被请求页面的内容，而第二个参数存有请求的状态。
+            实例:
+                $("button").click(function(){
+                    $.post("/try/ajax/demo_test_post.php",
+                    {
+                        name:"菜鸟教程",
+                        url:"http://www.runoob.com"
+                    },
+                        function(data,status){
+                        alert("数据: \n" + data + "\n状态: " + status);
+                    });
+                }); 
+                然后我们连同请求（name 和 url）一起发送数据。
+                "demo_test_post.php" 中的 PHP 脚本读取这些参数，对它们进行处理，然后返回结果。
+                demo_test_post.php 文件代码:
+                    <?php
+                    $name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
+                    $url = isset($_POST['url']) ? htmlspecialchars($_POST['url']) : '';
+                    echo '网站名: ' . $name;
+                    echo "\n";
+                    echo 'URL 地址: ' .$url;
+                    ?>
