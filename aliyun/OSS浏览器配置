@@ -1,0 +1,34 @@
+浏览器中使用OSS JavaScript SDK来访问OSS服务，包括上传/下载文件和查看文件列表。
+
+1. Bucket设置
+    从浏览器中直接访问OSS需要开通Bucket的CORS设置：
+        将allowed origins设置成’*’
+        将allowed methods设置成’PUT, GET, POST, DELETE, HEAD’
+        将allowed headers设置成’*’
+        将expose headers设置成’ETag’
+2. 使用SDK
+    首先在html文件的<head>中包含如下标签：
+        <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+    通过new OSS.Wapper()来创建client，OSS.Wrapper提供了异步的接口，类似于callback的方式，
+        在.then()中处理返回的结果，在.catch()中处理错误。
+
+    查看文件列表
+        <script type="text/javascript">
+        var client = new OSS.Wrapper({
+            region: '<oss region>',             // oss-us-east-1
+            accessKeyId: '<Your accessKeyId>',
+            accessKeySecret: '<Your accessKeySecret>',
+            bucket: '<Your bucket name>'        //zx-tjs
+        });
+        client.list({
+            'max-keys': 10
+        }).then(function (result) {
+            console.log(result);
+        }).catch(function (err) {
+            console.log(err);
+        });
+        </script>
+
+    注意：
+        浏览器是不受信任的环境，如果把AccessKeyId和AccessKeySecret直接保存在浏览器端，存在极高的风险。
+            建议只在测试时使用明文设置，业务应用中请使用 STS鉴权模式 和 自签名模式 ,详细说明请参考访问控制、移动端直传。

@@ -25,5 +25,6 @@ php中$this、static、final、const、self的用法
         }
 5. final
     //final 关键字来修饰了，那么这个被修饰的类或者方法将不能被扩展或者继承。
+    //PHP 5 新增。如果父类中的方法被声明为 final，则子类无法覆盖该方法。如果一个类被声明为 final，则不能被继承。
         final class MyClass{}           //此类将不允许被继承
         final function fun1(){......}   //此方法将不允许被重写

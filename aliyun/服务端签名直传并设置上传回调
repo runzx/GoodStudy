@@ -1,0 +1,59 @@
+服务端签名直传并设置上传回调
+
+1. 用户的请求逻辑(见图 practice-post-callback-7)
+    用户向应用服务器取到上传policy和回调设置。
+    应用服务器返回上传policy和回调。
+    用户直接向OSS发送文件上传请求。
+    等文件数据上传完，OSS给用户Response前，OSS会根据用户的回调设置，请求用户的服务器。
+    如果应用服务器返回成功，那么就返回用户成功，如果应用服务器返回失败，那么OSS也返回给用户失败。这样确保了用户上传成功的照片，应用服务器都已经收到通知了。
+    应用服务器给OSS返回。
+    OSS将应用服务器返回的内容返回给用户。
+
+    用户要上载一个文件到OSS服务器，而且希望上载完毕的时候自己的应用服务能够知道这件事，这时就需要设置一个回调函数，把这件事告知用户的应用服务器。这样当OSS收到用户的上传请求之后，开始上传，传完之后不会直接给用户返回结果，而是先通知用户的应用服务器：“我上传完毕了”，然后应用服务器告诉OSS：“我知道啦，你帮我转达给我的主人吧”，于是OSS就把结果转达给用户了。
+
+2. 快速使用
+    只要以下三步，就能实现文件快速通过网页上传到OSS，并且OSS会回调通知到用户设置的应用服务器。
+        1）设置成自己的 id、key、bucket。
+            设置方法：修改php/get.php，将变量$id设成AccessKeyId，$key设置成AccessKeySecret，$host设置成 bucket+endpoint。
+                $id= 'xxxxxx';
+                $key= 'xxxxx';
+                $host = 'http://post-test.oss-cn-hangzhou.aliyuncs.com
+        2）为了浏览安全，必须为bucket设置Cors, 参照下文。
+
+        3）设置自己的回调URL，如http://abc.com/test.html (必须公网访问得通),即自己的回调服务器地址，OSS会在文件上传完成后，把文件上传信息，通过自己设置的回调URL(http://abc.com/test.html)发送给应用服务器。
+            设置方法：修改php/get.php，（这个回调服务端代码实例参考下文）
+                $callbackUrl = "http://abc.com/test.html";
+
+3. 核心代码解析
+    代码要添加的内容如下：
+        new_multipart_params = {
+            'key' : key + '${filename}',
+            'policy': policyBase64,
+            'OSSAccessKeyId': accessid,
+            'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+            'callback': 　callbackbody,
+            'signature': signature,
+        };
+        上述的callbackbody 是php服务端返回的。在本例中，从后端php取到的内容如下：
+
+        {"accessid":"6MKOqxGiGU4AUk44",
+        "host":"http://post-test.oss-cn-hangzhou.aliyuncs.com",
+        "policy":"eyJleHBpcmF0aW9uIjoiMjAxNS0xMS0wNVQyMDo1MjoyOVoiLCJjdb25kaXRpb25zIjpbWyJjdb250ZW50LWxlbmd0aC1yYW5nZSIsMCwxMDQ4NTc2MDAwXSxbInN0YXJ0cy13aXRoIiwiJGtleSIsInVzZXItZGlyXC8iXV19",
+        "signature":"VsxOcOudxDbtNSvz93CLaXPz+4s=",
+        "expire":1446727949,
+        "callback":"eyJjYWxsYmFja1VybCI6Imh0dHA6Ly9vc3MtZGVtby5hbGl5dW5jcy5jdb206MjM0NTAiLCJjYWxsYmFja0hvc3QiOiJvc3MtZGVtby5hbGl5dW5jcy5jdb20iLCJjYWxsYmFja0JvZHkiOiJmaWxlbmFtZT0ke29iamVjdH0mc2l6ZT0ke3NpemV9Jm1pbWVUeXBlPSR7bWltZVR5cGV9JmhlaWdodD0ke2ltYWdlSW5mby5oZWlnaHR9JndpZHRoPSR7aW1hZ2VJdbmZvLndpZHRofSIsImNhbGxiYWNrQm9keVR5cGUiOiJhcHBsaWNhdGlvbi94LXd3dy1mb3JtLXVybGVuY29kZWQifQ==",
+        "dir":"user-dirs/"}
+        上面提到callbackbody，就是上述返回结果里面的callback内容，经过base64编码后生成的。
+
+        解码后的内容如下：
+
+        {"callbackUrl":"http://oss-demo.aliyuncs.com:23450",
+        "callbackHost":"oss-demo.aliyuncs.com",
+        "callbackBody":"filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}",
+        "callbackBodyType":"application/x-www-form-urlencoded"}
+        内容的解析如下：
+
+        CallbackUrl:    OSS往这个机器发送的url请求。
+        callbackHost:   OSS发送这个请求时，请求头部所带的Host头。
+        callbackBody:   OSS请求时，发送给应用服务器的内容，可以包括文件的名字、大小、类型，如果是图片可以是图片的高度、宽度。
+        callbackBodyType: 请求发送的Content-Type。

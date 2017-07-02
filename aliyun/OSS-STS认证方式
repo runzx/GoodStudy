@@ -1,0 +1,91 @@
+OSS STS访问控制
+
+1. 两种依赖于您的业务Server的鉴权模式： STS鉴权模式 和 自签名模式 。
+    OSS可以通过阿里云STS服务，临时进行授权访问。阿里云STS (Security Token Service) 是为云计算用户提供临时访问令牌的Web服务。通过STS，您可以为第三方应用或联邦用户（用户身份由您自己管理）颁发一个自定义时效和权限的访问凭证，App端称为FederationToken。第三方应用或联邦用户可以使用该访问凭证直接调用阿里云产品API，或者使用阿里云产品提供的SDK来访问云产品API。
+        您不需要透露您的长期密钥(AccessKey)给第三方应用，只需要生成一个访问令牌并将令牌交给第三方应用即可。这个令牌的访问权限及有效期限都可以由您自定义。
+        您不需要关心权限撤销问题，访问令牌过期后就自动失效。
+    方案的详细描述如下：
+        App用户登录。App用户身份是客户自己管理。客户可以自定义身份管理系统，也可以使用外部Web账号或OpenID。对于每个有效的App用户来说，AppServer可以确切地定义出每个App用户的最小访问权限。
+        AppServer请求STS服务获取一个安全令牌(SecurityToken)。在调用STS之前，AppServer需要确定App用户的最小访问权限（用Policy语法描述）以及授权的过期时间。然后通过调用STS的AssumeRole(扮演角色)接口来获取安全令牌。角色管理与使用相关内容请参考RAM使用指南中的角色管理。
+        STS返回给AppServer一个有效的访问凭证，App端称为FederationToken，包括一个安全令牌(SecurityToken)、临时访问密钥(AccessKeyId, AccessKeySecret)以及过期时间。
+        AppServer将FederationToken返回给ClientApp。ClientApp可以缓存这个凭证。当凭证失效时，ClientApp需要向AppServer申请新的有效访问凭证。比如，访问凭证有效期为1小时，那么ClientApp可以每30分钟向AppServer请求更新访问凭证。
+        ClientApp使用本地缓存的FederationToken去请求Aliyun Service API。云服务会感知STS访问凭证，并会依赖STS服务来验证访问凭证，并正确响应用户请求。
+    STS安全令牌详情，请参考《RAM使用指南》中的角色管理。关键是调用STS服务接口AssumeRole来获取有效访问凭证即可。也可以直接使用STS SDK来调用该方法，点击查看。
+        使用这种模式授权需要先开通阿里云RAM服务。
+
+2. 访问点
+    STS的默认访问点地址是: https://sts.aliyuncs.com ，用户必须使用https接入访问点。
+    术语表
+    术语	        中文	    说明
+    Federated   identity	联盟用户身份	联盟用户的身份认证由客户自己管理
+    Policy	    访问策略	用来描述授权策略的一种描述语言
+    Grantor	    授权者	     授权令牌的颁发者(云账号或RAM用户)
+    Name	    被授权者	授权令牌的使用者(即联盟用户)
+
+    字符编码
+　　  请求及返回结果都使用UTF-8字符集进行编码。
+    请求示例
+        https://sts.aliyuncs.com/
+        ?Format=xml                         //xml默认， JSON
+        &Version=2015-04-01
+        &Signature=Pc5WB8gokVn0xfeu%2FZV%2BiNM1dgI%3D
+        &SignatureMethod=HMAC-SHA1
+        &SignatureNonce=15215528852396
+        &SignatureVersion=1.0
+        &AccessKeyId=key-test
+        &Timestamp=2012-06-01T12:00:00Z
+        …
+    Version
+        名称: Version
+        类型: String
+        必须: 是
+        说明: API版本号，为日期形式：YYYY-MM-DD，本版本对应为2015-04-01。
+    AccessKeyId
+        名称: AccessKeyId
+        类型: String
+        必须: 是
+        说明: 阿里云颁发给用户的访问服务所用的密钥ID。
+    Signature
+        名称: Signature
+        类型: String
+        必须: 是
+        说明: 签名结果串，关于签名的计算方法，请参见签名机制。
+    SignatureMethod
+        名称: SignatureMethod
+        类型: String
+        必须: 是
+        说明: 签名方式，目前仅支持HMAC-SHA1。
+    SignatureVersion
+        名称: SignatureVersion
+        类型: String
+        必须: 是
+        说明: 签名算法版本，目前版本是1.0
+    SignatureNonce
+        名称: SignatureNonce
+        类型: String
+        必须: 是
+        说明: 唯一随机数，用于防止网络重放攻击。用户在不同请求间要使用不同的随机数值。
+    Timestamp
+        名称: Timestamp
+        类型: String
+        必须: 是
+        说明: 请求的时间戳。日期格式按照ISO8601标准表示，并需要使用UTC时间。格式为： YYYY-MM-DDThh:mm:ssZ 例如，2013-01-10T12:00:00Z（为北京时间2013年1月10日20点0分0秒）
+
+    公共返回参数
+    　　用户发送的每次接口调用请求，无论成功与否，系统都会返回一个唯一识别码RequestId给用户。
+        返回的HTTP状态码为2xx，代表调用成功；
+            返回4xx或5xx的HTTP状态码代表调用失败。
+            调用成功返回的数据格式主要有XML和JSON两种，外部系统可以在请求时传入参数来制定返回的数据格式，默认为XML格式。
+
+        JSON示例
+            {
+                "RequestId": "4C467B38-3910-447D-87BC-AC049166F216"
+                /* 返回结果数据 */
+            }
+        出错： HTTP请求返回一个4xx或5xx的HTTP状态码。
+            {
+                "RequestId": "7463B73D-35CC-4D19-A010-6B8D65D242EF",
+                "HostId": "sts.aliyuncs.com",
+                "Code": "InvalidParameter",
+                "Message": "The specified parameter \"Action or Version\" is not valid."
+            }

@@ -1,0 +1,31 @@
+STS 应用服务器示例的配置
+
+1.代码示例的运行方法
+    对于PHP版本，将包下载解压后，修改config.json这个文件，直接运行php sts.php 即能生成Token，将程序部署到指定的地址。
+
+2.
+
+3. 返回的格式解析:
+    {
+        "status":200,
+        "AccessKeyId":"STS.3pYjsdgdgagdasdg",
+        "AccessKeySecret":"rpnwO9kvEgetGdrddgsR2YrTtI",
+        "Security":"CAES+wMIARKAAZhjH0EUOIhJMQBMjRywXq7MQ/cjLYg80Aho1ek0Jm63XMhr9Oc5s˙∂˙∂3qaPer8p1YaX1NTDiCFZWFkvlHf1pQhuxfKBc+mRR9KAbHUefqH+rdjZqjTF7p2m1wJXP8S6k+G2MpHrUe6TYBkJ43GhhTVFMuM3BZajY3VjZWOXBIODRIR1FKZjIiEjMzMzE0MjY0NzM5MTE4NjkxMSoLY2xpZGSSDgSDGAGESGTETqOio6c2RrLWRlbW8vKgoUYWNzOm9zczoqOio6c2RrLWRlbW9KEDExNDg5MzAxMDcyNDY4MThSBTI2ODQyWg9Bc3N1bWVkUm9sZVVzZXJgAGoSMzMzMTQyNjQ3MzkxMTg2OTExcglzZGstZGVtbzI=",
+    "Expiration":"2015-12-12T07:49:09Z",
+    }
+    status:             表示获取Token的状态，获取成功时，返回值是200。
+    AccessKeyId:        表示Android/iOS应用初始化OSSClient获取的 AccessKeyId。
+    AccessKeySecret:    表示Android/iOS应用初始化OSSClient获取AccessKeySecret。
+    SecurityToken：     表示Android/iOS应用初始化的Token。
+    Expiration:         表示该Token失效的时间。主要在Android SDK会自动判断是否失效，自动获取Token。注意上述这四个变量将构成了一个Token。
+
+4. 临时凭证(STS)上传和下载
+    使用STS凭证创建OssClient
+        用户的client端拿到STS临时凭证后，通过其中安全令牌(SecurityToken)以及临时访问密钥(AccessKeyId, AccessKeySecret)生成OssClient。
+        通过下面代码可以使用STS临时凭证创建一个OssClient：
+            <?php
+            $accessKeyId = "<accessKeyId>";
+            $accessKeySecret = "<accessKeySecret>";
+            $securityToken = "<securityToken>";
+            $endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
+            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint, false, $securityToken);
