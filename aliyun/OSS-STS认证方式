@@ -89,3 +89,10 @@ OSS STS访问控制
                 "Code": "InvalidParameter",
                 "Message": "The specified parameter \"Action or Version\" is not valid."
             }
+3. 签名
+    用Access Key ID和Access Key Secret进行对称加密
+    计算签名的字符串：
+        StringToSign=
+            HTTPMethod + “&” +
+            percentEncode(“/”) + ”&” +
+            percentEncode(CanonicalizedQueryString)
