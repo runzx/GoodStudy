@@ -1,0 +1,46 @@
+PhpStorm功能 - HTML / CSS / JavaScript编辑器
+
+1. 实时编辑
+    实时编辑预览可节省大量时间和按键。在编辑器和浏览器中打开一个页面，以便您可以同时看到它们，并在运行JavaScript调试会话时激活实时编辑功能。
+    开始编辑代码，并在浏览器中立即查看更改，即使您正在浏览代码完成弹出窗口中的列表选项。
+    PhpStorm自动保存您的更改，浏览器可以即时更新页面，显示您的修改。
+2. JavaScript调试器
+    借助JetBrains PhpStorm，您可以调试JavaScript，同时充分利用各种智能功能：
+        HTML和JavaScript中的断点
+        可定制的断点属性：暂停模式，条件，通过计数等
+        JavaScript调试器UI中的框架，变量和手表视图
+        JavaScript表达式的运行时评估
+        JavaScript中的单元测试
+
+3. Node.js的
+    PhpStorm完全支持Node.js，它具有可从存储库中获取的免费插件。
+    它提供代码完成，突出显示，导航，错误检查，调试，使用npm管理软件包等等。
+
+4. JSLint / JSHint
+    JavaScript代码质量工具集成在JavaScript编辑器中，以便在编辑代码时检查代码。
+    打开设置，键入JSLint / JSHint，启用检查，您将在输入时对这些检查进行检查。
+5. ECMAScript和声支持
+    对于那些喜欢保持领先一步的人，PhpStorm提供对ECMAScript Harmony的支持。
+    要尝试新功能，请将ECMAScript Harmony设置为IDE设置中的JavaScript语言版本。
+6. JavaScript模板和Web组件支持
+    PhpStorm支持EJS模板引擎（语法高亮，输入帮助，格式化等），并为Handlebars和Mustache模板提供格式化和语法高亮显示，以及自动标签关闭。
+    还有对Web Components的初始支持。
+7. TSLint
+    PhpStorm提供与TSLint集成，一个用于TypeScript代码的linter。
+    在编辑器中，使其能够在TSLint中键入时查看警告和错误。
+8. Vue.js
+    享受Vue模板语言的编码协助和您选择的语言，在.vue文件的脚本和样式块中。
+    IDE自动完成Vue组件，并为其添加所需的导入。
+9. 基于DOM，浏览器特定的完成
+    标签，关键字，标签，变量，参数和函数的JavaScript，HTML和CSS代码完成是基于DOM的，并支持流行浏览器（如Firefox和Chrome）的详细信息。
+    完成可用于* .js文件，HTML事件处理程序和所有其他适当上下文中的标准和用户定义的函数。
+    支持Sass，SCSS，Less，Stylus，Compass，CoffeeScript，TypeScript，Dart等先进的Web开发技术。
+10. 文件监视器
+    利用文件监视器将JavaScript（从CoffeeScript，TypeScript，Dart等）自动编译/传播到CSS（来自Sass，SCSS，Less，Stylus，Compass等）。
+11. 验证和快速修复
+    PhpStorm检测并建议自动修复，例如：缺少必需属性，无效属性或非法值，对链接中的文件引用错误，重复属性，无效的CSS选择器格式，无效的CSS属性，未使用的CSS类定义，无效的本地锚点和更多。
+12. 高速编码
+    编辑器允许您利用Emmet（原禅编码）的所有功能。
+    使用Live Templates定义您自己的缩写（片段），或者使用预定义的PHP，HTML，CSS，JS和其他语言。
+13. Angular 支持
+    PhpStorm中的角度支持包括指令和绑定的代码完成和导航，以及对于TypeScript或ECMAScript 2015的新事件属性。

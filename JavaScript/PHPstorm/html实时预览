@@ -1,0 +1,13 @@
+Phpstorm&Webstorm 实时预览的实现live edit
+
+为了开发的方便，需要在编辑器里修改，然后实时同步到浏览器进行查看，这里phpstorm和webstorm的配置相类似。
+    https://www.jetbrains.com/help/phpstorm/2017.1/live-editing-of-html-css-and-javascript.html?utm_medium=help_link&utm_source=from_product&utm_campaign=PS&utm_content=2017.1&search=live%20edit
+
+1. 安装
+    setting->plugins->liveEdit
+    安装浏览器插件
+        https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji
+
+2. 实时预览右键Debug即可
+    在需要实时预览的页面，点击右键，选择Debug 就可以了。实时预览的效果：源码窗口修改，浏览器窗口无刷新修改，是不是写代码很爽！
+    记得预览的时候不要关闭浏览器顶部的黄色窗口，否则就实时预览无效了

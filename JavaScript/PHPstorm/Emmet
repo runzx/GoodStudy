@@ -1,0 +1,64 @@
+Emmet 
+
+    使用PhpStorm，您可以通过应用更快地编辑HTML和CSS代码 Emmet功能。只需输入一个Emmet缩写在HTML和新闻Tab 将其展开为标记。 Emmet也在工作CSS和JSX上下文。
+        PhpStorm提供两种类型 Emmet支持。
+            本地人 Native
+            支持额外的模板 Support of additional templates
+1. 启用Emmet支持
+    PhpStorm支持基本功能Emmet和 Emmet 1.1版功能，如：
+        编写RGBA颜色的新语法。
+        隐含属性。
+        默认属性。
+        布尔属性。
+        该 更新标签操作。   //基于XML / HTML，JavaScript（JSX Harmony）和CSS结构 缩写
+2. 在HTML或XML上下文中启用和配置本机Emmet支持
+    Ctrl+Alt+S setting-->Editor node-->XML under-->Emmet 
+
+    Enable abbreviation preview check box.  //要使PhpStorm显示一个弹出窗口，并在实际展开之前预览输入的缩写
+    Enable automatic URL recognition while wrapping text with <a> tag check box.    //指定PhpStorm中的Emmet如何通过选择或清除URL地址 在使用<a>标签复
+        并尝试使用<a>标签包裹URL地址，PhpStorm href会将双引号内的URL地址作为属性的值插入，并包含该URL <a href="<wrapped URL>"></a>
+
+3. IntelliJ IDEA 自带 Emmet 功能，使用的快捷键是 Tab
+
+4. 快速编写HTML代码
+    1)生成 HTML 文档初始结构  !或html:5，然后按 Tab 键
+    2)生成带有 id 、class 的 HTML 标签(Emmet 默认的标签为 div)
+        同时指定标签的 id 和 class，如生成 id 为 navigation，class 为 nav 的 ul 标签：
+            ul#navigation.nav
+        指定多个 class，如上例中还需要给 ul 指定一个 class 为 dropdown：
+            ul#navigation.nav.dropdown
+    3) 兄弟：+ //标签的兄弟标签，即平级元素，使用指令 +
+        div+ul+bq
+    4) 后代：>
+        例如我要生成一个无序列表，而且被 class 为 nav 的 div 包裹，那么可以使用下面指令：
+           div.nav>ul>li
+    5) 上级元素：^
+        div.nav>ul>li^span
+    6) 重复多份：*
+        ul>li*5
+    7) 分组：()
+        表示一个代码块，分组内部的嵌套和层级关系和分组外部无关，例如：
+            div>(header>ul>li*2>a)+footer>p
+    8) 属性：[attr]
+        a 标签中往往需要附带 href 属性和 title 属性，如果我们想生成一个 href 为 “http://bubkoo.com” ，title 为“bubkoo’s blog”的 a 标签，可以这样写：
+            a[href="http://bubkoo.com" title="bubkoo's blog"]
+    9) 编号：$
+        例如无序列表，我想为五个个 li 增加一个 class 属性值 item1 ，然后依次递增从 1-5，那么就需要使用 $ 符号：
+            ul>li.item$*5
+             $ 后面增加 @- 来实现倒序排列
+             使用 @N 指定开始的序号
+    10) 文本内容：{}
+        生成超链接一般要加上可点击的文本内容
+            a[href="http://bubkoo.com" title="bubkoo's blog"]{猛击这里}
+                	<a href="http://bubkoo.com" title="bubkoo's blog">猛击这里</a>
+
+5. HTML 简写规则简单总结
+　　1. E 代表HTML标签。
+　　2. E#id 代表id属性。
+　　3. E.class 代表class属性。
+　　4. E[attr=foo] 代表某一个特定属性。
+　　5. E{foo} 代表标签包含的内容是foo。
+　　6. E>N 代表N是E的子元素。
+　　7. E+N 代表N是E的同级元素。
+　　8. E^N 代表N是E的上级元素。
+
