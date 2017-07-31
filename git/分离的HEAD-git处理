@@ -1,0 +1,48 @@
+分离的HEAD （detached HEAD state）
+
+HEAD通常是对分支的[尖端]的象征性引用。
+    例如，如果您cat .git/HEAD在全新的存储库中进行操作，那么您将得到回复ref: refs/heads/master。当您添加提交时，git实际上会更新“主”，因为这是HEAD指向的地方。你可以cat .git/refs/heads/master在做出提交之前和之后做到这一点。HEAD没有改变（这只是一个象征性的参考），但是'master'是。
+    当您执行此操作时git checkout branchname，HEAD现在将成为“分支名称”的符号引用。这意味着现在cat .git/HEAD回来 ref: refs/heads/branchname新提交的内容现在将变成“分支名称”而不是主，相应地，内容.git/refs/heads/branchname将改变。
+    但是，当您检出任何不是正确的本地分支名称的东西时，HEAD不再是任何东西的符号参考。相反，它实际上包含要切换到的提交的SHA-1哈希（提交ID）。
+
+这被称为分离的HEAD。下面导至分离的HEAD：
+    git checkout master^        # parent of master
+    git checkout HEAD~2         # grandparent of current HEAD
+    git checkout origin/master  # a non-local branch
+    git checkout tagname        # since you cant commit to a tag!
+
+    .git/HEAD 文件内容
+        ref: refs/heads/master
+    分离的HEAD 文件内容， （40-hex-digit）散列
+        3bd719854d9c0e5b5ebedc6cda18dad55dbdac01
+
+
+要从您的情况中恢复，您应该创建一个指向分离的HEAD指向的提交的分支：
+    git branch temp
+    git checkout temp
+    （这两个命令可以简写为git checkout -b temp）
+
+    这将重新连接您的HEAD到新的temp分支。
+
+    接下来，您应该将当前的提交（及其历史记录）与您期望工作的正常分支进行比较：
+
+    git log --graph --decorate --pretty=oneline --abbrev-commit master origin/master temp
+    git diff master temp
+    git diff origin/master temp
+    （您可能想要尝试日志选项：添加-p，离开--pretty=…查看整个日志消息等）
+
+    如果您的新temp分支看起来不错，您可能需要更新（例如）master来指向它：
+
+    git branch -f master temp
+    git checkout master
+    （这两个命令可以简写为git checkout -B master temp）
+
+    然后可以删除临时分支：
+
+    git branch -d temp
+    最后，你可能想推动重建的历史：
+
+    git push origin master
+    --force如果远程分支不能“快速转发”到新的提交（即删除或重新编写一些现有的提交，或以其他方式重写了一些历史记录），则可能需要添加到该命令的末尾。
+
+    如果你在一个rebase操作的中间，你应该清理它。您可以通过查找目录来检查rebase是否在进行中.git/rebase-merge/。您可以通过删除该目录来手动清除进行中的rebase（例如，如果您不再记住活动rebase操作的目的和上下文）。通常你会使用git rebase --abort，但是你可能想避免一些额外的重置（它将HEAD移回原始分支并将其重置为原始提交，这将撤消我们上面所做的一些工作）。

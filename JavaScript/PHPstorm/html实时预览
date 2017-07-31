@@ -4,7 +4,7 @@ Phpstorm&Webstorm 实时预览的实现live edit
     https://www.jetbrains.com/help/phpstorm/2017.1/live-editing-of-html-css-and-javascript.html?utm_medium=help_link&utm_source=from_product&utm_campaign=PS&utm_content=2017.1&search=live%20edit
 
 1. 安装
-    setting->plugins->liveEdit
+    setting->plugins->liveEdit  //Ctrl+Alt+S ->
     安装浏览器插件
         https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji
 

@@ -7,6 +7,15 @@
     /sbin/chkconfig --level 2345 iptables off
 重启iptables:
     /etc/init.d/iptables restart
+    
+    # 查看iptables防火墙规则
+        iptables -L
+    # 清空iptables防火墙规则
+        iptables -F
+    # 添加iptables防火墙开放端口规则
+        -A INPUT -p tcp -m tcp --dport 端口 -j ACCEPT
+    # 关闭防火墙
+        /etc/init.d/iptables stop
 
 在文件
 /etc/sysconfig/iptables
