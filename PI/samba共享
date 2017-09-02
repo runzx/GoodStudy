@@ -36,6 +36,36 @@
 4. 重启
     sudo /etc/init.d/samba restart
     sudo service smbd restart
+
+    ------------------------------------------
+        [global]
+                workgroup = WORKGROUP
+                server string = Samba Server %v
+                netbios name = pi3
+                security = user
+                map to guest = bad user
+                dns proxy = no
+        [downloads]
+                path = /home/pi/Downloads
+                force group = users
+                create mask = 0660
+                directory mask = 0771
+                browsable =yes
+                writable = yes
+                guest ok = yes
+
+                journalctl -xn
+
+    执行命令： dpkg-reconfigure locales
+    后选择（空格选择，Tab切换到确认和取消按钮上）
+    en_US.ISO-8859-1
+    en_US.UTF-8
+    zh_CN.GBK
+    zh_CN.UTF-8
+    之后确认，再选择zh_CN.GBK为默认编码。不能选zh_CN.UTF-8为默认编码，否则mysql启动时就会报编码错误。
+
+    ----------------------------------------------
+
 5. 安装信息 jessie 20170413
 Setting up samba-libs:armhf (2:4.2.14+dfsg-0+deb8u5) ...
 Setting up libsmbclient:armhf (2:4.2.14+dfsg-0+deb8u5) ...
