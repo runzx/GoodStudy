@@ -1,0 +1,25 @@
+
+
+1. 20170830开始学习。
+    flask 果壳网站
+    django 
+    tornado 豆瓣网 、facebook
+    flask:
+        WSGI：
+        微内核： extension增加功能
+    开发环境“”
+        win7 
+        python 3.6
+        mysql 5.7
+        pycharm
+        安装虚拟化工具
+            pip install virtualenv
+        豆瓣源是pypi的镜像源，使用“pip install -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com 库名”就可以进行快速下载！
+        
+        安装flask 
+            pip3 freeze查看安装内容
+            pip3 install flask
+                pip3 install -i http://pypi.douban.com/simple/ --trusted-jpst pypi.douban.com flask
+        Flask 用 蓝图（blueprints） 的概念来在一个应用中或跨应用制作应用组件和支持通用的模式。
+        flask-sqlalchemy
+            
