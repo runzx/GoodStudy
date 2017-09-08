@@ -38,6 +38,8 @@
     sudo service smbd restart
 
     ------------------------------------------
+    utf8'codeccan'tdecodebyte0xe4inposition1
+    
         [global]
                 workgroup = WORKGROUP
                 server string = Samba Server %v
