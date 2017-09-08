@@ -1,0 +1,70 @@
+
+
+1. 
+    apt install deluged deluge-console deluge-web
+2. 启动
+    deluged
+    或 web的 deluge-web 
+        http://pi3:8112   密码  deluge
+
+    deluge-web (1.3.10-3+deb8u1) ...
+    deluged (1.3.10-3+deb8u1) ...
+
+    'utf8' codec can't decode byte 0xe4 in position 1: invalid continuation byte
+
+3. 安装Transmisson实现下载功能
+    sudo apt-get install transmission-daemon
+    sudo usermod -a -G pi debian-transmission
+    sudo vim /etc/transmission-daemon/settings.json
+    sudo service transmission-daemon reload
+
+    /etc/rc.loca文件l中加入service transmission-daemon start
+
+    http://pi3:9091
+
+4. arir2
+    aria2c -–conf-path=/root/.aria2/aria2.conf
+
+    /home/zhaix/aria2/aria2.session
+
+
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          aria2
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Aria2 Downloader
+### END INIT INFO
+ 
+case "$1" in
+start)
+ 
+echo -n "Starting aria2c"
+sudo -u root aria2c --conf-path=/root/.aria2/aria2.conf -D
+#sudo -u后面的是你正在使用的用户名，因为我用的XBian，用debian的是pi（没改用户的话）
+;;
+stop)
+ 
+echo -n "Shutting down aria2c "
+killall aria2c
+;;
+restart)
+ 
+killall aria2c
+sudo -u xbian aria2c --conf-path=/home/xbian/.aria2/aria2.conf -D
+#同上面的一样，根据自己的用户名改xbian。
+;;
+esac
+exit
+
+然后设置这个文件的权限。
+    sudo chmod 755 /etc/init.d/aria2
+测试服务是否可以启动：
+    sudo service aria2c start
+如果只显示Starting aria2c，没有其他错误提示的话就成功了。
+添加aria2c服务自动运行：
+    sudo update-rc.d aria2c defaults
+
+'utf8'codeccan'tdecodebyte0xe4inposition1

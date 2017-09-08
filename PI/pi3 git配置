@@ -10,7 +10,7 @@
     sudo git init --bare /home/git/o2o73.git
     sudo chown -R git:git /home/git/o2o73.git
 
-    git remote add origin git@ip3:o2o73.git
+    git remote add origin git@pi3:o2o73.git
     git push -u origin master
     
 4. 
@@ -35,6 +35,11 @@
     chown -R git:git /home/git/lumen.git
     git init --bare /home/git/pd123.git
     chown -R git:git /home/git/pd123.git
+	
+	git init --bare /home/git/nuomi.git			//糯米学习 20170908
+	chown -R git:git /home/git/nuomi.git
+	git remote add pi3 git@pi3:nuomi.git
+    git push -u origin master
 
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
     20170523    zyb.git 小程序前端，用七月老师的框架改写

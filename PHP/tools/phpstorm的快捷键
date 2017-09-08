@@ -163,10 +163,11 @@ PhpStorm中的快捷键共分为9大类：
     Alt + Delete 安全删除。会自动检查被删除的内容是否应用到其他地方。
     Shift + F6 为所选文件重命名。需要光标定位到文件名上。
 8.版本控制/本地历史记录
+    Ctrl + K            提交代码到svn。
+    Ctrl + T            更新代码到本地。
+    Ctrl + Shift + k    Push项目
+    Alt + Shift + C     浏览最近更改记录。
     Alt + BackQuote (`) 打开版本操作控制台。BackQuote (`) 为ESC下面的那个键。
-    Ctrl + K 提交代码到svn。
-    Ctrl + T 更新代码到本地。
-    Alt + Shift + C 浏览最近更改记录。
 9.普通操作
     Ctrl + Shift + A 查找操作。必须系统的keymap设置不知道在哪，点击组合后属于keymap即可搜索到。常用。
     Alt + #[0-9] 打开对应的工具窗口。例如Alt + 6打开TODO工具窗口。

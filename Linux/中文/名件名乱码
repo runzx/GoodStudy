@@ -1,0 +1,15 @@
+
+
+1. 借助inode编号
+    ls -i   //找到节点号
+    find . -inum 510133 -exec mv   {} yy \;     //{} 与\;间是第2个参数 
+        把找到的文件改名为 yy
+        找到的目录直接打包
+            find . -inum 510132 -exec tar -cf all.tar  {}  \;
+
+2. 查看
+    convmv -f GBK -t zh_CN.UTF-8 -r the/directory
+3. 转码
+    convmv -f GBK -t zh_CN.UTF-8 -r --notest .      //当前目录
+
+4. linux 
