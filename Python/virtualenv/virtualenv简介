@@ -1,0 +1,14 @@
+
+1. 为一个应用创建一套“隔离”的Python运行环境。
+2. 安装
+    pip3 install virtualenv
+    在项目目录下：
+        virtualenv --no-site-packages venv
+            参数--no-site-packages 已经安装到系统Python环境中的所有第三方包都不会复制过来，这样，我们就得到了一个不带任何第三方包的“干净”的Python运行环境。
+            这在 virtualenv 1.7及之后是默认行为
+3. 使用
+        // cd venv
+        source venv/bin/activate    linux下 或：
+            source venv/Scripts/activate
+    退出虚拟环境：
+        deactivate
