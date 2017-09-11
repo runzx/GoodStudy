@@ -1,0 +1,51 @@
+thinkPHP5 跨域处理 CORS
+
+1. 浏览器跨域请求
+    1）先发option请求， 返回正常后
+        分成2类：简单请求（simple request）不发option
+            简单请求：
+    2）真正的get...请求
+
+    注： 浏览器对跨域支持：
+        $.support.cors == true, 支持
+2. 这是一个真正AOP处理
+    THINKPHP5 行为            //python叫中间件
+    application/tags.php    :
+        // 应用行为扩展定义文件
+        return [
+            // 应用初始化
+            'app_init'     => [
+                'app\\api\\behavior\\CORS'
+            ],
+
+    api/behavior/CROS.php   :
+
+        namespace app\api\behavior;
+        use think\Response;
+        class CORS
+        {
+            public function appInit(&$params)
+            {
+                header('Access-Control-Allow-Origin: *');
+                header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
+                header('Access-Control-Allow-Methods: POST,GET');
+                if(request()->isOptions()){
+                    exit();
+                }
+            }
+        }
+
+如果multipart选项设置为false或启用分块文件上传，则还需要设置Access-Control-Allow-Headers以允许插件使用的自定义标头来传输文件元信息：
+    Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition, Content-Description
+如果您需要发送cookies（例如用于身份验证），请将withCredentials $ .ajax（）设置设置为fileupload小部件选项：
+    $（' #fileupload '）。fileupload（' option '，{
+        xhrFields ： {
+            withCredentials ： true
+        }
+    }）;
+在服务器端，您需要将标题Access-Control-Allow-Credentials设置为true：
+    Access-Control-Allow-Origin: http://example.org
+    Access-Control-Allow-Credentials: true
+注意：响应凭证请求时，服务器必须指定一个域，并且不能使用通配符（*）。
+
+通过在服务器端设置相应的标头，跨域XHR文件上传的工作就像文件上传到同一个域。

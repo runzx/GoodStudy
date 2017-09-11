@@ -1,0 +1,10 @@
+
+height, width：(integer) 控件的宽和高
+buttonText:设置按钮文字，替换上图“SELECT FILES”
+buttonClass：给按钮添加的类。然后可以在 CSS 中自定义样式
+auto：(boolean) 默认 true，选择文件以后自动开始上传。false 则不自动，需要自己调用方法上传
+checkExisting：(string) 如果需要在后端检测文件是否已存在，将此值设为 check-exists.php 的路径
+fileObjName：默认是 "Filedata"，即后端需要通过 $_FILES['Filedata']
+progressData：默认 "percentage"，即显示进度百分比，也可以设为 "speed" 显示上传速度
+formData：(Object) 可以向后端传入额外的数据，如 formData: {"someKey": "someValue"}。后端可以通过 $_POST['someKey'] 读取
+onUploadSuccess：回调函数 function(file, data, response)，file 是一个文件对象，可以读取 file.name 等属性，data 为后端返回的数据（即 echo 的内容），response 是一个布尔值，后端如果有数据返回就是 true

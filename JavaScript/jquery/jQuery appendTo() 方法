@@ -1,0 +1,25 @@
+jQuery appendTo() 方法
+
+语法
+    $(content).appendTo(selector)
+    参数	    描述
+    content	    必需。规定要插入的内容（必须包含 HTML 标签）。
+                注意：如果 content 是已存在的元素，它将从当前位置被移除，并在被选元素的结尾被插入。
+    selector    必需。规定把内容追加到哪个元素上。
+
+例1
+    HTML代码：
+        <b>I love china </b><p></p>
+        把标签b追加到p元素中，写法为$("b").appendTo("p");
+    结果为：
+        <p><b>I love china </b></p>
+例2
+    HTML代码：
+        <div id="files" class="files"></div>
+    写法：
+        $('<div/>').appendTo('#files');     // $('<div>').appendTo('#files'); 同样效果！
+    结果：
+        <div id="files" class="files">
+            <div></div>
+        </div>
+
