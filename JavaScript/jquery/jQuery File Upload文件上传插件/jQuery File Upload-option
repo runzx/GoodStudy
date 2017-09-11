@@ -1,0 +1,25 @@
+
+Options :
+    1: url：请求发送的目标url
+        Type: string
+        Example: '/path/to/upload/handler.json'
+    2.Type: 文件上传HTTP请求方式，可以选择“POST”，“PUT”或者"PATCH",
+        默认"POST"
+        Type: string
+        Example: 'PUT'
+    3. dataType:希望从服务器返回的数据类型，默认"json"
+        Type: string
+        Example: 'json'
+    4. autoUpload:默认情况下，只要用户点击了开始按钮被添加至组件的文件会立即上传。将autoUpload值设为true可以自动上传。
+        Type: boolean
+        Default: true
+    5. acceptFileTypes：允许上传的的文件类型
+        Example: /(\.|\/)(gif|jpe?g|png|xlsx)$/i
+    6. maxFileSize: 最大上传文件大小
+        Example: 999000 (999KB) //单位：B
+    7. minFileSize:最小上传文件大小
+        Example: 100000 (100KB) //单位：B
+    8. previewMaxWidth : 图片预览区域最大宽度
+        Example: 100 //单位：px
+       previewMaxHeight: 100,
+       previewCrop: true

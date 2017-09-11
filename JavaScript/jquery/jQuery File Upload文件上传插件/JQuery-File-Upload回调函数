@@ -1,0 +1,29 @@
+常用的回调函数：
+    每个事件名称都添加前缀：”fileupload”;
+    1. add: 当文件被添加到上传组件时被触发
+        $('#fileupload').bind('fileuploadadd', function (e, data) {/* ... */});
+        或者$('#fileupload').on('fileuploadadd', function (e, data) {/* ... */});
+        例：
+        .on('fileuploadadd', function (e, data) {
+            data.context = $('<div/>').appendTo('#files');
+            $.each(data.files, function (index, file) {
+                var node = $('<p/>')
+                        .append($('<span/>').text(file.name));
+                if (!index) {
+                    node
+                        .append('<br>')
+                        .append(uploadButton.clone(true).data(data));
+                }
+                node.appendTo(data.context);
+            });
+        });
+    2. processalways: 当一个单独的文件处理队列结束（完成或失败时）触发
+    3. progressall: 全局上传处理事件的回调函数
+        Example:
+            $('#fileupload').on('fileuploadprogressall', function (e, data) { //进度条显示
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css('width', progress + '%');
+            });
+    4. fail : 上传请求失败时触发的回调函数，如果服务器返回一个带有error属性的json响应这个函数将不会被触发。
+    5. done : 上传请求成功时触发的回调函数，如果服务器返回一个带有error属性的json响应这个函数也会被触发。
+    6. always : 上传请求结束时（成功，错误或者中止）都会被触发。

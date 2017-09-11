@@ -1,0 +1,13 @@
+jQuery-File-Upload 上传进度条
+
+1 显示上传进度条：　
+    $('#fileupload').fileupload({
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css('width',progress + '%');
+        }
+    });
+2 需要一个<div>容器用来显示进：
+    <div id="progress">
+        <div class="bar" style="width: 0%;"></div>
+    </div>
