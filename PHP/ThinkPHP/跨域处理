@@ -49,3 +49,17 @@ thinkPHP5 跨域处理 CORS
 注意：响应凭证请求时，服务器必须指定一个域，并且不能使用通配符（*）。
 
 通过在服务器端设置相应的标头，跨域XHR文件上传的工作就像文件上传到同一个域。
+
+跨域报错：
+XMLHttpRequest cannot load http://localhost/php1/index.php?fields=food,batching.
+    No 'Access-Control-Allow-Origin' header is present on the requested resource.
+    Origin 'http://localhost:63344' is therefore not allowed access.
+
+jquery File UPload 加：
+    $('#fileupload').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+                    /\/[^\/]*$/,
+                    '/cors/result.html?%s'
+    );

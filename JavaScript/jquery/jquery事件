@@ -10,3 +10,32 @@ jquery 事件
         $(selector).keydown() 尝试一下
     添加函数到 keydown 事件：
         $(selector).keydown(function)
+
+2. javascript绑定一个事件很简单，只需要在HTML中设置onxxx属性
+    jquery : .click(<function>)等效于.bind('click', <function>)
+        .on()才是jQuery事件的提供者。其他的事件绑定方法都是通过.on()来实现的
+        请看jQuery1.8.2的源码:
+            bind: function( types, data, fn ) {
+                return this.on( types, null, data, fn );
+            },
+
+    1：bind()：为每个匹配元素的特定事件绑定事件处理函数。
+    　　bind(type,[data],fn)
+    　　type: 含有一个或多个事件类型的字符串，由空格分隔多个事件。
+    　　比如"click"或"submit"，还可以是自定义事件名。
+    　　data:作为event.data属性值传递给事件对象的额外数据对象
+    　　fn:绑定到每个匹配元素的事件上面的处理函数
+
+    2：on()在选择元素上绑定一个或多个事件的事件处理函数。
+    　　on(events,[selector],[data],fn)
+    　　events:一个或多个用空格分隔的事件类型和可选的命名空间，  如"click"或"keydown.myPlugin" 。
+    　　selector:一个选择器字符串用于过滤器的触发事件的选择器元素的后代。如果选择的< null或省略，当它到达选定的元素，事件总是触发。
+    　　data:当一个事件被触发时要传递event.data给事件处理函数。
+    　　fn:该事件被触发时执行的函数。 false 值也可以做一个函数的简写，返回false。
+
+    1. bind只能这样写
+        $('a').bind('click', function() {})
+    2. on 有两种写法
+        1 $('a').on('click', function() {})
+        2 $(document).on('click', 'a', function() {})
+    所以 on 可以动态的绑定事件 ，即 页面上所有的a，包括后来添加的都有效

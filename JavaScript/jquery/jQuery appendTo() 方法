@@ -7,6 +7,8 @@ jQuery appendTo() 方法
                 注意：如果 content 是已存在的元素，它将从当前位置被移除，并在被选元素的结尾被插入。
     selector    必需。规定把内容追加到哪个元素上。
 
+    语法
+    $(selector).append(content)
 例1
     HTML代码：
         <b>I love china </b><p></p>
