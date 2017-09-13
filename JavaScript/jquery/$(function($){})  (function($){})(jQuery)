@@ -1,0 +1,41 @@
+$(function($){}) 和 (function($){})(jQuery);用法 区别
+
+1. jQuery(function(){ });
+
+      全写为
+           jQuery(document).ready(function(){
+
+           });
+      用于存放操作DOM对象的代码，执行其中代码时DOM对象已存在。
+      不可用于存放开发插件的代码，因为jQuery对象没有得到传递，
+      外部通过jQuery.method也调用不了其中的方法（函数）。
+
+2. (function(){ })(jQuery)；
+   其实际上是执行()(para)匿名方法,只不过是传递了jQuery对象。
+           用于存放开发插件的代码，执行其中代码时DOM不一定存在，
+           所以直接自动执行DOM操作的代码请小心使用。
+
+3. 在web开发中可能会同时使用多个javascript库。除了jQuery之外，其他javascript也可能会使用$别名来创建对象。
+   若要确保jQuery不会与其他库的$对象发生冲突，可以通过运行noConflict函数将变量$的控制权让渡给第一个实现它的那个javascript库。
+    jQuery.noConflict();
+   那如何恢复在jQuery中使用别名$呢？
+    方法是创建并执行一个函数，在这个函数的作用域中仍将$作为jQuery的别名来使用。
+        具体代码如下：
+            jQuery.noConflict();
+
+           (function($){
+               $(function(){
+                //使用$作为jQuery别名的代码
+               });
+           })(jQuery);
+   //所以最后面的(jQuery)不能去掉，去掉的话，代码里面的$可能会成为其他js库的别名。
+
+   实际执行：
+   (funtion(){})()；
+   立即执行函数；
+   相当于先申明一个函数，声明完后直接调用；
+   如果参数如：
+    (funtion(str){alert(str)})("output"))；
+   相当于：
+       funtion OutPutFun(str){alert(str);};
+       OutPutFun("output");

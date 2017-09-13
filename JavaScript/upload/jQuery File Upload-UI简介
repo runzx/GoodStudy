@@ -1,0 +1,17 @@
+1. 关键js: jquery.fileupload-ui.js
+    框架定义：
+        $.blueimp.fileupload.prototype._specialOptions.push(
+                'filesContainer',
+                'uploadTemplateId',
+                'downloadTemplateId'
+        );
+    参数设定：
+        $.widget('blueimp.fileupload'。。。内
+            option定义：
+                autoUpload: false,
+                uploadTemplateId: 'template-upload',
+                downloadTemplateId: 'template-download',
+                // The container for the list of files. If undefined, it is set to
+                // an element with class "files" inside of the widget element:
+                filesContainer: undefined,
+                各个事件： add, send, done, fail, progress...

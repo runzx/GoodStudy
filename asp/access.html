@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <TITLE> New Document </TITLE>
+    <META NAME="Generator" CONTENT="EditPlus">
+    <META NAME="Author" CONTENT="">
+    <META NAME="Keywords" CONTENT="">
+    <META NAME="Description" CONTENT="">
+    <SCRIPT LANGUAGE="JavaScript">
+        <!--
+        function getCountFromDB() {
+            //以当前页面文件为基础，找到文件所在的绝对路径。
+            var filePath = location.href.substring(0, location.href.indexOf("Cnt.htm"));
+            var path = filePath + "MyData.mdb";
+            //去掉字符串中最前面的"files://"这8个字符。
+            pathpath = path.substring(8);
+            var updateCnt = 0;
+
+            //生成查询和更新用的sql语句。
+            var sqlSelCnt = "SELECT COUNT FROM [COUNT] WHERE ID = 'count'";
+            var sqlUpdCnt = "UPDATE [COUNT] SET [COUNT] = '";
+
+            //建立连接，并生成相关字符串 www.knowsky.com。
+            var con = new ActiveXObject("ADODB.Connection");
+            con.Provider = "Microsoft.Jet.OLEDB.4.0";
+            con.ConnectionString = "Data Source=" + path;
+
+            con.open;
+            var rs = new ActiveXObject("ADODB.Recordset");
+            rs.open(sqlSelCnt, con);
+            while (!rs.eof) {
+                var cnt = rs.Fields("COUNT");
+                document.write(cnt);
+                //将取得结果加1后更新数据库。
+                updateCnt = cnt * 1 + 1;
+                rs.moveNext;
+            }
+            rs.close();
+            rs = null;
+
+            sqlUpdCntsqlUpdCnt = sqlUpdCnt + updateCnt + "'";
+            con.execute(sqlUpdCnt);
+
+            con.close();
+            con = null;
+        }
+
+        function getCountFromTxt() {
+            var filePath = location.href.substring(0, location.href.indexOf("Cnt.htm"));
+            var path = filePath + "count.txt";
+            pathpath = path.substring(8);
+            var nextCnt = 0;
+
+            var fso, f1, ts, s;
+            //以只读方式打开文本文件。
+            var ForReading = 1;
+            //以读写方式打开文本文件。
+            var ForWriting = 2;
+
+            fso = new ActiveXObject("Scripting.FileSystemObject");
+            f1 = fso.GetFile(path);
+            ts = f1.OpenAsTextStream(ForReading, true);
+            s = ts.ReadLine();
+            nextCnt = eval(s) + 1;
+            document.write("now count is :" + s);
+            ts.Close();
+
+            ts = f1.OpenAsTextStream(ForWriting, true);
+            ts.WriteLine(nextCnt);
+            ts.close();
+        }
+        //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+    <!--
+    getCountFromTxt();
+    //-->
+</SCRIPT>
+</BODY>
+</HTML>

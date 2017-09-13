@@ -1,0 +1,102 @@
+编写jQueryUI插件(widget)
+
+1. 使用jQueryUI的widget来写插件，相比于基本的jquery插件有一些好处：
+   * 方便实现继承，代码重用
+   * 默认是单例
+   * widget已经给你实现好的一些常用方法，例如destroy
+2. 模板如下：
+   (function ($) {
+       // utility functions (won’t be inherited)
+       function foo() {}
+
+       $.widget('命名空间.插件名', $.继承插件的命名空间.插件名,{ /* snip */ });
+   })(jQuery);
+   其中命名空间是可选的，要不要继承别的widget也是可选的。
+
+   一般来说工具函数写在widget外面比较合适，但如果你想要这些工具函数被子类继承，则需要写在widget里面。
+
+   写在widget里面的，就有public和private之分，规则是：
+       public方法首字符不是_
+       private方法首字符是_
+3. 在widget内
+    this是一个$.widget.$.(anonymous function).(anonymous function)
+    this.element是变成widget的那个jQuery对象，如果要用jquery的方法，往往首先要取到jquery对象。
+    this.options是插件的选项，下文会详解。
+    this.__proto__包含了插件中定义的所有public和private函数，以及继承过来的方法。
+        这里简单介绍一下__proto__：每个对象都会在其内部初始化一个属性，就是__proto__，当我们访问一个对象的属性 时，如果这个对象内部不存在这个属性，那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样 一直找下去，也就是我们平时所说的原型链的概念。
+
+    _create  _init    destroy
+    widget factory实现了一种单例模式，即不允许在同一个jQuery对象上多次实例化。
+
+    _create: 生成HTML，事件绑定。
+    _init: 执行默认的初始化动作，例如把页面变成初始状态。
+    destory: 调用$.Widget.prototype.destroy.call(this)，删除HTML。
+        注意：绑定事件要注意给事件名加命名空间后缀：例如 .bind('mouseenter.mywidget', this._hover)
+
+    options
+    选项，在widget中的定义是options，而在调用时是option，注意定义的时候有s，调用的时候没s。
+        调用：
+        $('#test').mywidget('option', 'field1', 2);
+        widget默认实现了两个函数：_setOptions和_setOption，_setOptions的实现就是对每个要修改的option调用_setOption，
+            也就是说真正修改的动作在_setOption里。因此，如果要重写_setOption函数，则一定不要忘记写：
+                $.Widget.prototype._setOption.apply(this, arguments);
+            何时会调用_setOption的结论：
+                1. 像instance.mywidget('option', 'field1', 2); 这样显式设置option时。
+                2. 带着options初始化时：
+                    如果实例不存在，即需要调用_create，则不调用_setOption；
+                    如果实例已存在，仅需要调用_init，则会在调用_init之前调用_setOption。
+        _trigger
+        注意这个_trigger是jQueryUI widget factory里的，和jQuery里$.fn命名空间下的trigger函数不是一个东西（后者不带下划线）
+            _trigger一般用来回调用户传入options的callback。
+            在插件内部调用_trigger(‘myEvent’)即相当于调用options里面的myEvent这个回调函数。
+            要改动options里的event handler应该怎么做呢？不要使用bind/unbind，而是去修改options：
+                // bind (overwrite, not add event handler)
+                mw.myWidget('option', 'myEvent', function (event, ui) {
+                    console.log('new implement');
+                });
+                // unbind
+                mw.myWidget('option', 'myEvent', null);
+            总结一下：
+              this._trigger(‘eventName’)是widget特有的，用于调用options里定义的callback。
+4. 框架代码
+    $.widget("myns.myplugin", {
+        //默认参数
+        options: {
+        },
+        //初始化，控件生命周期内只运行一次
+        _init: function () {
+        },
+        //创建控件，控件生命周期内会运行多次
+        _create: function () {
+        },
+        //设置参数
+        _setOption: function (key, value) {
+            // In jQuery UI 1.8及以前用法
+            $.Widget.prototype._setOption.apply(this, arguments);
+            // In jQuery UI 1.9及以后用法
+            this._super("_setOption", key, value);
+        },
+        // 释放控件
+        destroy: function () {
+            // In jQuery UI 1.8及以前用法
+            $.Widget.prototype.destroy.call(this);
+            // In jQuery UI 1.9及以后<br>                }
+    });
+
+    为了支持扩展，$.widget() 可选性地接受作为父部件使用的小部件的构造函数。当指定一个父部件时，把它作为第二个参数进行传递，放在小部件名称后面，在小部件原型对象前面。
+        例： $.widget( "custom.superDialog", $.ui.dialog, {} );
+    使用 _super() 和 _superApply() 来访问父部件
+
+    一旦你调用jQuery.widget，它会在jQuery prototype ( jQuery.fn )上生成一个新的可用方法对应于widget的名字，
+    比如我们这个例子jQuery.fn.multi。 .fn方法是包含Dom元素的jquery对象和你生成的 widget prototyp实例的接口，为每一个jQuery对象生成一个新的widget的实例。
+
+5. 运行周期
+    1）//插件实例化时调用
+          _create: function() {}
+    2）//插件销毁时调用
+          destroy: function() {
+              $.Widget.prototype.destroy.call(this);
+          },
+    3）//调整参数时调用
+           _setOption: function(key, value) {
+               switch (key) {。。。。

@@ -1,0 +1,20 @@
+JavaScript笔记：CMD模块定义规范
+
+1.  CMD（Common Module Definition） 模块定义规范。该规范明确了模块的基本书写格式和基本交互规则。
+    在 CMD 规范中，一个模块就是一个文件。代码的书写格式如下：
+        define(factory);
+    define Function
+        define 是一个全局函数，用来定义模块。
+    define define(factory)
+        define 接受 factory 参数，factory 可以是一个函数，也可以是一个对象或字符串。
+        factory 为对象、字符串时，表示模块的接口就是该对象、字符串。
+        比如可以如下定义一个JSON 数据模块：
+            define({ "foo": "bar" });
+        也可以通过字符串定义模板模块：
+            define('I am a template. My name is {{name}}.');
+    factory 为函数时，表示是模块的构造方法。执行该构造方法，可以得到模块向外提供的接口。
+        factory方法在执行时，默认会传入三个参数：require、exports 和 module：
+
+        define(function(require, exports, module) {
+          // 模块代码
+        });
