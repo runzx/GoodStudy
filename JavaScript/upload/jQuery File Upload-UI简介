@@ -15,3 +15,32 @@
                 // an element with class "files" inside of the widget element:
                 filesContainer: undefined,
                 各个事件： add, send, done, fail, progress...
+2. 多个上传区设定关键：jquery-File-Upload-UI
+    1）程序设定：class=".zx-fileupload"
+            $(".zx-fileupload").each(function () {
+                $(this).fileupload({
+                    dropZone: $(this),
+                    url: zxUrl,
+                });
+            });
+    2) "zx-fileupload" 这类标签要放在（'files','input name="files[]""'类标签）上层
+        <!--zx-这是上传区最外层-->
+        <div class="zx-fileupload">
+            <!-- input表单输入，为提交文件名 -->
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择文件...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input type="file" name="files[]" multiple>
+            </span>
+
+            <br>
+            <br>
+            <!-- The container for the uploaded files -->
+            <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+            </table>
+        </div>
+    3）上传和下载临时区
+        <script id="template-upload" type="text/x-tmpl">
+        <script id="template-download" type="text/x-tmpl">

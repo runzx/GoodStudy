@@ -5,3 +5,42 @@ ASP 不同于脚本语言，它有自己特定的语法，
         如： < % test="English" %>，
     ASP 通过包含在 < % 和 %>中的表达式将执行结果输出到客户浏览器 ,
         如： < % =test %>就是将前面赋给变量 test 的值 English 发送到客户浏览器中
+
+2. ASP 是什么？
+    ASP 代表 Active Server Pages （动态服务器页面）
+    ASP 是一项微软公司的技术
+    ASP 是在 IIS 中运行的程序
+3. ASP 基本语法规则
+    1）向浏览器写输出
+        response.write("Hello World!")，简写方法：
+        <% ="Hello World!" %>
+    2）可以在 ASP 中使用若干种脚本语言。然而，默认的脚本语言是 VBScript：
+    与 VBScript 不同，JavaScript 对大小写敏感！
+    如果需要设置 JavaScript 为某个特定页面的默认脚本语言，您必须在页面的顶部插入一行语言说明：
+        <%@ language="javascript"%>
+        <!DOCTYPE html>
+        <html>
+        <body>
+    3） ASP 引用文件
+        如需在 ASP 页面中引用文件，请把 #include 指令放在注释标签中：
+            <!--#include virtual="somefilename"-->
+            or
+            <!--#include file ="somefilename"-->
+        关键词 virtual 来指示以虚拟目录开始的路径。
+        关键词 file 来指示一个相对路径。相对路径是以含有引用文件的目录开始的。
+4. ADO 是什么？
+    ADO 是一项微软公司的技术
+    ADO 代表 ActiveX Data Objects
+    ADO 是一个微软的 Active-X 组件
+    ADO 会随着微软 IIS 自动安装
+    ADO 是一个访问数据库中数据的编程接口
+
+    从 ASP 页面访问数据库
+        从 ASP 页面内部访问数据库的通常方式是：
+            1.创建至数据库的 ADO 连接
+            2.打开数据库连接
+            3.创建 ADO 记录集
+            4.打开记录集
+            5.从数据集中提取您需要的数据
+            6.关闭数据集
+            7.关闭连接
