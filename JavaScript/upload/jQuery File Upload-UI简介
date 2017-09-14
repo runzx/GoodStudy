@@ -44,3 +44,8 @@
     3）上传和下载临时区
         <script id="template-upload" type="text/x-tmpl">
         <script id="template-download" type="text/x-tmpl">
+    4) input name=files[n]   这个在$_FILES里显示是files 返回时又变回files[n], 这样可以用n来区分不同的上传区
+    5）原来的全部上传或取消键无效， 还没找到原因
+    解决！原因
+        <div class="row fileupload-buttonbar">
+                <div class="col-lg-7">
