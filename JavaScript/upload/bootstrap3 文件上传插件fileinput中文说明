@@ -1,0 +1,54 @@
+bootstrap3 文件上传插件fileinput中文说明
+
+1. previewSettings
+   object the CSS style settings for rendering each preview file type set above. This is by default setup as following:
+   {
+       image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
+       html: {width: "213px", height: "160px"},
+       text: {width: "213px", height: "160px"},
+       video: {width: "213px", height: "160px"},
+       audio: {width: "100%", height: "30px"},
+       flash: {width: "213px", height: "160px"},
+       object: {width: "213px", height: "160px"},
+       pdf: {width: "213px", height: "160px"},
+       other: {width: "213px", height: "160px"}
+   }
+2. 声音配置
+    $("#files-voice").fileinput({
+        'showUpload':true,
+        'previewFileType':'any',
+        'maxFileCount': 1,
+        'language':'zh',
+        'enctype':'multipart/form-data',
+        'allowedFileTypes':['audio'] ,//['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
+        'allowedFileExtensions':['mp3', 'wav', 'ogg'],
+        'uploadUrl':"{:url('api/upload/uploadVoice')}",
+        'showUploadedThumbs':true,
+        'allowedPreviewTypes':['audio'] ,
+        'previewTemplates':['audio'] ,
+        // for image files
+        'initialPreview' : [
+            {notempty name="article.voice"}
+                {notempty name="article.voice"}
+                '<div class="file-preview-audio" >' +
+                '   <audio class="kv-preview-data" controls="">' +
+                '       <source src="{$article.voice}" type="audio/mpeg">' +
+                '       <div class="file-preview-other">' +
+                '           <span class="file-other-icon"><i class="glyphicon glyphicon-file"></i></span></div>'+
+                '   </audio></div>',
+            {/notempty}
+        ],
+3. 回显配置：
+    'initialPreviewConfig' : [
+        {notempty name="article.voice"}
+            {
+                type:'audio',       //文件模板类型在预览设置中的键内配置。这将覆盖initialPreviewFileType设置。
+                caption: '语音',  //标题
+                width: '120px',
+                url: "{:url('api/upload/removeVoice')}", // server delete action
+                key: "{$article.voice}",    //TP5的变量
+                extra: {id: {$article.id}, model: 'article'}
+            //可以配置更多
+            },
+        {/notempty} //TP5 kitecms变量
+    ],

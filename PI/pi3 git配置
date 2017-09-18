@@ -39,6 +39,11 @@
 	git init --bare /home/git/nuomi.git			//糯米学习 20170908
 	chown -R git:git /home/git/nuomi.git
 	git remote add pi3 git@pi3:nuomi.git
+    git push -u pi3 master
+
+	git init --bare /home/git/tjs.git			//tjs学习 20170918
+	chown -R git:git /home/git/tjs.git          // https://git.oschina.net/kitesky/kitecms.git
+	git remote add pi3 git@pi3:tjs.git
     git push -u origin master
 
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
