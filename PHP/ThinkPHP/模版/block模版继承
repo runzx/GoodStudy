@@ -1,0 +1,18 @@
+模板继承
+模板继承是一项更加灵活的模板布局方式，模板继承不同于模板布局，甚至来说，应该在模板布局的上层。模板继承其实并不难理解，
+    就好比类的继承一样，模板也可以定义一个基础模板（或者是布局），并且其中定义相关的区块（block），然后继承（extend）该基础模板的子模板中就可以对基础模板中定义的区块进行重载。
+
+1. 每个区块由<block></block>标签组成。
+    block标签必须指定name属性来标识当前区块的名称，
+    这个标识在当前模板中应该是唯一的，
+    block标签中可以包含任何模板内容，包括其他标签和变量，
+2. 子模板（其实是当前操作的入口模板）中使用继承：
+   <extend name="base" />
+   <block name="title"><title>{$title}</title></block>
+   <block name="menu">
+   。。。
+
+   extend标签的用法和include标签一样，你也可以加载其他模板：
+   <extend name="Public:base" />
+   或者使用绝对文件路径加载
+   <extend name="./Template/Public/base.html" />
