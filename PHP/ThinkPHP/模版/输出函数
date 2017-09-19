@@ -1,0 +1,15 @@
+
+
+我们往往需要对模板输出变量使用函数，可以使用：
+
+    {$data.name|md5}
+    编译后的结果是：
+        <?php echo (md5($data['name'])); ?>
+    如果函数有多个参数需要调用，则使用：
+    {$create_time|date="y-m-d",###}
+        表示date函数传入两个参数，每个参数用逗号分割，这里第一个参数是y-m-d，第二个参数是前面要输出的create_time变量，因为该变量是第二个参数，因此需要用###标识变量位置，编译后的结果是：
+        <?php echo (date("y-m-d",$create_time)); ?>
+    如果前面输出的变量在后面定义的函数的第一个参数，则可以直接使用：
+        {$data.name|substr=0,3}
+    表示输出
+        <?php echo (substr($data['name'],0,3)); ?>

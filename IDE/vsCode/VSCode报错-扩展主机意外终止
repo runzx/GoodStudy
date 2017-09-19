@@ -1,0 +1,16 @@
+VSCode报错:扩展主机意外终止
+
+找解决方案的期间我还发现这个问题已经存在很久了，至少1.12版就出现过，期间VSCode官方修复过一次，但是至今仍然存在(我安装的是1.14 Insider版)，官方也一直在跟进，但目前对这个问题也无能为力。
+    最后，我在一个Github Issue中找到了解决方案：
+    删除D:\Program Files (x86)\Microsoft VS Code\resources\app\extensions\git这个文件夹(根据每个人安装目录的不同而不同)
+    问题的起因貌似是git没有安装在C盘就会导致VSCode找不到git.exe的路径，从而报错。
+    http://blog.xiaofeixu.cn/2017/07/6/
+
+本以为没什么大不了的，信心满满地就去Google了，结果没成想这样一个小小的问题，花了我半天时间，试来试去，网上的方案没一个靠谱的，我试过的方案包括：
+    更改配置文件中的git部分(来自Github的Issue)
+    删除Code文件夹(来自百度贴吧)
+    更新到最新版insider(来自Github的Issue)
+    回退到1.10.2版本(结果出现另一个问题)
+    卸载重装
+    删注册表
+    删所有相关文件
