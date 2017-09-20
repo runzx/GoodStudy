@@ -1,0 +1,39 @@
+
+1. 如果安装过程出现执行策略错误，以管理员权限打开PowerShell，使用命令设置策略即可：
+   Set-ExecutionPolicy RemoteSigned
+        错误提示：
+            PS G:\zx\test\python\quokka_venv> venv/scripts/activate
+            venv/scripts/activate : 无法加载文件 G:\zx\test\python\quokka_venv\venv\scripts\Activate.ps1，因为在此系统上禁止运行脚
+            本。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies。
+            所在位置 行:1 字符: 1
+            + venv/scripts/activate
+            + ~~~~~~~~~~~~~~~~~~~~~
+                + CategoryInfo          : SecurityError: (:) []，PSSecurityException
+                + FullyQualifiedErrorId : UnauthorizedAccess
+2. 正常：
+    PS G:\zx\test\python\quokka_venv> Set-ExecutionPolicy RemoteSigned
+    执行策略更改
+    执行策略可帮助你防止执行不信任的脚本。更改执行策略可能会产生安全风险，如 http://go.microsoft.com/fwlink/?LinkID=135170
+    中的 about_Execution_Policies 帮助主题所述。是否要更改执行策略?
+    [Y] 是(Y)  [A] 全是(A)  [N] 否(N)  [L] 全否(L)  [S] 暂停(S)  [?] 帮助 (默认值为“N”): y
+
+    PS G:\zx\test\python\quokka_venv> venv/scripts/activate
+    (venv) PS G:\zx\test\python\quokka_venv>
+
+3. 使用
+    我们要开发一个新的项目，需要一套独立的Python运行环境，可以这么做：
+    第一步，创建目录：
+        mkdir myproject
+        cd myproject
+    第二步，创建一个独立的Python运行环境，命名为venv：
+        virtualenv --no-site-packages venv      //参数--no-site-packages，这样，已经安装到系统Python环境中的所有第三方包都不会复制过来
+
+    3. 新建的Python环境被放到当前目录下的venv目录
+        source venv/bin/activate    //linux 激活
+        venv/Scripts/activate       //windwos
+            命令提示符变了，有个(venv)前缀，表示当前环境是一个名为venv的Python环境。
+            在venv环境下，用pip安装的包都被安装到venv这个环境下，系统Python环境不受任何影响。
+
+    4. 退出当前的venv环境，使用deactivate命令
+        deactivate
+        回到了正常的环境，现在pip或python均是在系统Python环境下执行。

@@ -1,0 +1,44 @@
+git https://github.com/xpleaf/Blog_mini.git
+
+1. 安装virtualenv
+    easy_install -i http://pypi.douban.com/simple virtualenv
+   创建虚拟环境venv,Blog_mini目录下执行下面的命令：
+       [root@leaf Blog_mini]# virtualenv venv
+       可以在Blog_mini下看到生成了一个venv目录：
+   激活虚拟环境venv
+        source venv/bin/activate
+        (venv) [root@leaf Blog_mini]#
+    安装Blog_mini需求文件
+        (venv) [root@leaf Blog_mini]# pip install -r requirements/common.txt
+2. 使用sqlite作为默认数据库来运行Blog_mini
+       Python本身就自带了sqlite数据库，因此如果你要使用sqlite来作为默认数据库，你不需要做任何配置。
+       接下来要做的就是运行Blog_mini了。
+            生成Blog_mini所需要的系统默认数据，请在Blog_mini目录下执行下面的命令：
+               (venv) [root@leaf Blog_mini]# python manage.py deploy product
+               INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+               INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+               INFO  [alembic.runtime.migration] Running upgrade  -> 051691f120e6, fit to MySQL
+                       如果出现上面的提示就说明成功了！
+           可以看到多了一个data.sqlite文件，这个文件就是sqlite数据库文件！
+        部署完Blog_mini后，里面是没有任何数据的，如果你需要一定的数据来测试Blog_mini的功能，可以在完成上面的操作后执行下面的命令：
+            (venv) [root@leaf Blog_mini]# python manage.py deploy test_data
+            会生成100篇博文和700条评论，同时还有博文分类和系统导航，以方便你验证Blog_mini的功能。
+
+3. 运行Blog_mini：
+        (venv) [root@leaf Blog_mini]# gunicorn manage:app
+   以80端口运行Blog_mini：
+        (venv) [root@leaf Blog_mini]# gunicorn -b 0.0.0.0:80 manage:app
+
+4. 使用MySQL作为默认数据库来运行Blog_mini
+   1)创建了名为`blog_mini`的数据库，同时指定编码和字符集分别为utf8和utf8_general_ic。
+   2)设定系统环境变量：
+     [root@leaf ~]# export DATABASE_URL=mysql://root:123456@127.0.0.1/blog_mini
+   3)初始化Blog_mini系统默认数据：
+      (venv) [root@leaf Blog_mini]# python manage.py deploy product
+5. 后台
+    /auth/login      http://localhost/admin/account/
+    blog_mini@163.com   blog_mini
+6. debug
+    admin/views.py
+    # reload(sys)
+    # sys.setdefaultencoding('utf-8')
