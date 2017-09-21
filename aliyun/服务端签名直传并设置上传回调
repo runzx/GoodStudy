@@ -57,3 +57,9 @@
         callbackHost:   OSS发送这个请求时，请求头部所带的Host头。
         callbackBody:   OSS请求时，发送给应用服务器的内容，可以包括文件的名字、大小、类型，如果是图片可以是图片的高度、宽度。
         callbackBodyType: 请求发送的Content-Type。
+
+对于验证的Post请求，HTML表单中必须包含policy和Signature信息。
+    policy控制请求中那些值是允许的。计算Signature的具体流程为：
+        创建一个 UTF-8 编码的 policy。
+        将 policy 进行 base64 编码，其值即为 policy 表单域该填入的值，将该值作为将要签名的字符串。
+        使用 AccessKeySecret 对要签名的字符串进行签名，签名方法与Head中签名的计算方法相同（将要签名的字符串替换为 policy 即可）

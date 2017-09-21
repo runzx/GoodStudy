@@ -1,0 +1,46 @@
+
+
+插件支持事件(亲自测试过的):
+    fileuploaded(event,data , previewId , index):上传并完成时触发(无论是点击的哪个按钮)
+    filebatchuploadsuccess(event,data,previewId,index):当点击input的上传时(多文件上传),触发此事件   所以文件上传成功时触发(只在同步上传时,且所有文件上传成功)
+    filebatchuploadcomplete(event,files,extra):当点击input的上传时(无论是否是多文件上传),触发此事件 (亲测不对 多文件上传结束后触发,无论异步还是同步)
+    filesuccessremove(event,id)  :点击删除预览框中的删除按钮前触发( 已上传成功的文件 )
+    filepreremove(event,id,index):点击删除预览框中的删除按钮前触发( initialPreview中的文件除外,只针对于还未上传的文件 )  //id=文件容器的id  , index=文件容器的index
+    fileuploaderror(event,data,msg):选中文件后未通过验证时触发及取消正在上传的文件,可用于限制文件大小类型等
+
+  注:a. filepreajax > filepreupload > fileuploaded> filebatchuploadcomplete
+     b.(多文件) filepreajax(多次触发) > filepreupload > fileuploaded(多次触发) > filebatchuploadcomplete
+    例：
+        $(“#uploadfile”).on(“fileuploaded”, function (event, data, previewId, index) {})
+
+常用函数配置(和jquery的回调函数很像，推荐使用插件的回调函数):
+    change          文件选中后的事件
+    fileselect      文件选中事件
+    filereset       input框重置事件
+    fileclear       当input框中的remove按钮或预览窗口的关闭按钮按下时的事件
+    filecleared     文件在预览框被清除事件
+    fileloaded      文件上传成功的事件:(参数较多,有function(event, file, previewId, index, reader)
+    fileerror       上传时验证失败的函数
+
+提交方式有两种 ;表单提交和基于ajax的提交
+    若想要使用ajax上传文件,必须设置uploadUrl属性,否则将默认使用form表单提交:
+
+上传类型:上传异步还是同步(默认是异步):
+    uploadAsync :true 异步时每个文件发送一次ajax;同步上传时,ajax只触发一次
+
+传递参数的方法:传递参数,有两种方式:
+    a.初始化时就确定数据:uploadExtraData:{id:1}
+    b.动态获取参数并传递:
+
+        第一步,方法外定义参数:
+            var  mydata
+        第二步,配置中:
+            uploadExtraData: function () {
+                    return mydata
+                },
+        第三步,
+            $(".fileinput").on("filepreajax", function (event, data) {
+               uploadExtraData ={
+                     id:$(".someInput").val()   //此时可以动态获取
+                 };
+            })
