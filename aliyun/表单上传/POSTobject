@@ -61,7 +61,9 @@ Post Object使用HTML表单上传文件到指定bucket。
         policy又是啥呢？Post请求的policy表单域用于验证请求的合法性。 policy为一段经过UTF-8和base64编码的JSON文本，声明了Post请求必须满足的条件（文件大小、一些http头等，还有该条件的过期时间）。
         虽然对于public-read-write的bucket上传时，post表单域为可选项（其它情况，因为需要签名验证，所以是必选项），也强烈建议使用该域来限制Post请求。
             so，第一步，构造Post条件，对于不同bucket，可以有不同的条件，可以写在web.config中，如果经常变动，也可以写在数据库中方便管理。
-
+    zx:
+        Content-Disposition: form-data; name="file"; filename="song.mp3"
+        必须是name="file" ！！！
 
 {
     "Version": "1",
