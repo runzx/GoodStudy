@@ -35,3 +35,12 @@ Configuring Xdebug for Web Application Debugging    //http://files.zend.com/help
         Xdebug is set as the default PHP debugger for debugging on your server.
         You can now debug your files and application as a Web application using Xdebug. For more information on debugging, see Debugging PHP in Zend Studio..
         
+1. 20170923 XAMPP
+    [XDebug]
+    zend_extension = E:\xampp\php\ext\php_xdebug-2.5.4-5.6-vc11.dll
+    xdebug.profiler_output_dir="E:\xampp\Log\xdebug"
+    xdebug.trace_output_dir="E:\xampp\Log\xdebug"
+    xdebug.remote_port=9009
+    xdebug.remote_enable=true
+    xdebug.remote_autostart = 1
+    xdebug.idekey="PHPSTORM"

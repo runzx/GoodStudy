@@ -1,0 +1,61 @@
+Apache 虚拟主机配置
+
+1. 目录权限
+    <Directory "E:\WWW\kitecms">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+    Require all granted
+    </Directory>
+2. 主机配置
+    <VirtualHost *:80>
+    ##ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "E:\WWW\kitecms"
+    ServerName kitecms.zx.com
+    ErrorLog "logs/kitecms.zx.com-error.log"
+    CustomLog "logs/kitecms.zx.com-access.log" common
+    </VirtualHost>
+
+3. 
+    # Server-pool management (MPM specific)
+    Include conf/extra/httpd-mpm.conf
+
+    # Multi-language error messages
+    Include conf/extra/httpd-multilang-errordoc.conf
+
+    # Fancy directory listings
+    Include conf/extra/httpd-autoindex.conf
+
+    # Language settings
+    Include conf/extra/httpd-languages.conf
+
+    # User home directories
+    Include conf/extra/httpd-userdir.conf
+
+    # Real-time info on requests and configuration
+    Include conf/extra/httpd-info.conf
+
+    # Virtual hosts
+    Include conf/extra/httpd-vhosts.conf
+
+    # Local access to the Apache HTTP Server Manual
+    #Include conf/extra/httpd-manual.conf
+
+    # Distributed authoring and versioning (WebDAV)
+    #Attention! WEB_DAV is a security risk without a new userspecific configuration for a secure authentifcation 
+    #Include conf/extra/httpd-dav.conf
+
+    # Various default settings
+    #Include conf/extra/httpd-default.conf
+    # Implements a proxy/gateway for Apache.
+    Include "conf/extra/httpd-proxy.conf"
+    # Various default settings
+    Include "conf/extra/httpd-default.conf"
+    # XAMPP settings
+    Include "conf/extra/httpd-xampp.conf"
+
+    # Configure mod_proxy_html to understand HTML4/XHTML1
+    <IfModule proxy_html_module>
+    Include conf/extra/proxy-html.conf
+    </IfModule>
