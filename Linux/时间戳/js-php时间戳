@@ -1,0 +1,36 @@
+
+javascript日期类型(Date)与php日期类型详解
+
+时间戳
+    时间戳是从格林威治时间1970年1月1日(00:00:00 GMT)至今的总秒数。它也被称为Unix时间戳。多数系统将时间戳以一个32位的整数来存储。
+
+在JavaScript中表示时间戳的单位为毫秒(ms)、在PHP中表示时间戳的单位是秒(s)。s和ms的转换刚好是10的三次方，javascript中的时间戳(现在)一般用13位表示，PHP中的时间戳(现在)一般用10位表示。
+    因此记得PHP的时间戳传递到JavaScript中使用的使用记得要*1000。
+JS
+    创建Date对象
+    //使用指定的年月日[时分秒]进行初始化
+        new Date(2017,8,17); //年月日
+        new Date(2017,8,17,19,20,20); //年月日时分秒
+    //注意：月份是从0~11，因此想设置为9月，参数应该写8
+        new Date('2017/9/17'); //把String转换为Date
+    //初始化为系统时间
+        new Date();
+        new Date;
+        Date();
+    //初始化为距离计算机元年指定毫秒数的时间
+        new Date(0);
+        new Date(3600*24) //距离计算机元年 3600*24s 一个小时3600s 一天24小时 3600*24刚好是一天      
+    日期对象的API
+        单位: 
+        FullYear 年 Month 月 Date 日 Day 星期 //年月日星期 无s结尾
+        Hours 小时 Minutes 分钟 Seconds 秒 MilliSeconds 毫秒 //小时分钟秒毫秒 有s结尾
+        API：
+        setFullYear()、getFullYear()、setMonth()、getMonth()、setDate()、getDate()、getDay()
+        setHours()、getHours()、setMinutes()、getMinutes()、setSeconds()、getSeconds()、setMilliSeconds()、getMilliSeconds()
+        注意：Day星期只有get方法没有set方法 因为年月日确定了之后星期已经确定了
+    格式化API
+        toString() //当地标准时间的完整格式
+        toLocaleString() //当地时间简化版格式
+        toLocaleDateString() //当地时间简化版格式日期部分
+        toLocaleTimeString() //当地时间简化版格式时间部分
+        toGMTString() //国际标准时间（0时区）
