@@ -1,0 +1,71 @@
+
+Download Composer
+
+Windows Installer
+
+The installer will download composer for you and set up your PATH environment variable so you can simply call composer from any directory.
+
+Download and run Composer-Setup.exe - it will install the latest composer version whenever it is executed.
+
+Command-line installation
+
+Run this in your terminal to get the latest Composer version:
+
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+
+镜像用法
+
+有两种方式启用本镜像服务：
+
+系统全局配置： 即将配置信息添加到 Composer 的全局配置文件 config.json 中。见“方法一”
+单个项目配置： 将配置信息添加到某个项目的 composer.json 文件中。见“方法二”
+
+方法一： 修改 composer 的全局配置文件（推荐方式）
+
+打开命令行窗口（windows用户）或控制台（Linux、Mac 用户）并执行如下命令：
+
+复制
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+方法二： 修改当前项目的 composer.json 配置文件：
+
+打开命令行窗口（windows用户）或控制台（Linux、Mac 用户），进入你的项目的根目录（也就是 composer.json 文件所在目录），执行如下命令：
+
+复制
+composer config repo.packagist composer https://packagist.phpcomposer.com
+上述命令将会在当前项目中的 composer.json 文件的末尾自动添加镜像的配置信息（你也可以自己手工添加）：
+
+复制
+"repositories": {
+    "packagist": {
+        "type": "composer",
+        "url": "https://packagist.phpcomposer.com"
+    }
+}
+以 laravel 项目的 composer.json 配置文件为例，执行上述命令后如下所示（注意最后几行）：
+
+复制
+{
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.2.*"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}

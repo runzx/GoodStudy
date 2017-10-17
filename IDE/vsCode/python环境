@@ -1,0 +1,65 @@
+python环境安装
+
+1.  Ctrl+p
+    输入 "ext install python"，
+
+2. 默认按F5后需要再按一次F5程序才会运行，如果要按F5马上运行需要将launch.json文件的 "stopOnEntry": true,改为 "stopOnEntry": false。
+
+3. 配置flake8
+    安装flake8之后写代码的时候编辑器就会提示哪里出错，代码格式不规范也会提示
+    打开命令行
+    输入 "pip install flake8"
+    安装flake8成功后，打开VScode，文件->首选项->用户设置，在settings.json文件中输入"python.linting.flake8Enabled": true
+4. 配置yapf
+    安装yapf之后在VSCode中按Alt+Shift+F即可自动格式化代码
+        打开命令行
+        输入 "pip install yapf"
+        安装yapf成功后，打开VSCode，文件->首选项->用户设置，在settings.json文件中输入"python.formatting.provider": "yapf"
+5. 几个小技巧
+    查看函数或者类的定义
+        Ctrl+鼠标左键点击函数名或者类名即可跳转到定义处，在函数名或者类名上按F12也可以实现同样功能
+
+    更改变量名
+        在变量名上按F2即可实现重命名变量
+
+    python断点调试
+        在行号的左边点击即可设置断点，在左边的调试界面可以查看变量的变化
+
+
+    debug.png
+    隐藏菜单栏
+        这个属于个人习惯，如果你也感觉菜单栏很碍眼，可以点击查看->切换菜单栏，即可隐藏菜单栏。需要菜单栏的时候按Alt键即可查看
+
+    设置快捷键
+        文件->首选项->键盘快捷方式，将需要的修改的快捷键的整个大括号里面的内容复制到右边keybindings.json文件中，然后修改“key”的值为你需要的快捷键即可。我这边只修改了复制一行和删除一行的快捷键。
+
+6. 安装 
+    F5后要安装pylint
+        系统自动运行：
+        "C:\Program Files\Python36\python" -m pip install pylint
+        在windows powerShell里报错，改为运行
+            pip install pylint
+
+            PS D:\zx\github\runzx\GoodStudy>  pip install pylint
+            Collecting pylint
+            Downloading pylint-1.7.4-py2.py3-none-any.whl (640kB)
+                100% |████████████████████████████████| 645kB 653kB/s
+            Requirement already satisfied: six in c:\program files\python36\lib\site-packages (from pylint)
+            Collecting astroid>=1.5.1 (from pylint)
+            Downloading astroid-1.5.3-py2.py3-none-any.whl (269kB)
+                100% |████████████████████████████████| 276kB 716kB/s
+            Collecting colorama; sys_platform == "win32" (from pylint)
+            Downloading colorama-0.3.9-py2.py3-none-any.whl
+            Collecting isort>=4.2.5 (from pylint)
+            Downloading isort-4.2.15-py2.py3-none-any.whl (43kB)
+                100% |████████████████████████████████| 51kB 1.2MB/s
+            Collecting mccabe (from pylint)
+            Downloading mccabe-0.6.1-py2.py3-none-any.whl
+            Collecting lazy-object-proxy (from astroid>=1.5.1->pylint)
+            Downloading lazy_object_proxy-1.3.1-cp36-cp36m-win_amd64.whl
+            Collecting wrapt (from astroid>=1.5.1->pylint)
+            Downloading wrapt-1.10.11.tar.gz
+            Installing collected packages: lazy-object-proxy, wrapt, astroid, colorama, isort, mccabe, pylint
+            Running setup.py install for wrapt ... done
+            Successfully installed astroid-1.5.3 colorama-0.3.9 isort-4.2.15 lazy-object-proxy-1.3.1 mccabe-0.6.1 pylint-1.7.4 wr
+            apt-1.10.11
