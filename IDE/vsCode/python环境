@@ -2,6 +2,7 @@ python环境安装
 
 1.  Ctrl+p
     输入 "ext install python"，
+    或： https://marketplace.visualstudio.com/items?itemName=donjayamanne.python
 
 2. 默认按F5后需要再按一次F5程序才会运行，如果要按F5马上运行需要将launch.json文件的 "stopOnEntry": true,改为 "stopOnEntry": false。
 
@@ -18,20 +19,19 @@ python环境安装
 5. 几个小技巧
     查看函数或者类的定义
         Ctrl+鼠标左键点击函数名或者类名即可跳转到定义处，在函数名或者类名上按F12也可以实现同样功能
-
     更改变量名
         在变量名上按F2即可实现重命名变量
-
     python断点调试
         在行号的左边点击即可设置断点，在左边的调试界面可以查看变量的变化
-
-
-    debug.png
     隐藏菜单栏
         这个属于个人习惯，如果你也感觉菜单栏很碍眼，可以点击查看->切换菜单栏，即可隐藏菜单栏。需要菜单栏的时候按Alt键即可查看
-
     设置快捷键
         文件->首选项->键盘快捷方式，将需要的修改的快捷键的整个大括号里面的内容复制到右边keybindings.json文件中，然后修改“key”的值为你需要的快捷键即可。我这边只修改了复制一行和删除一行的快捷键。
+5.5 配置Python运行环境
+    VS Code有task的概念，具体看官网，在.vscode文件夹下有三个文件：
+        tasks.json就是配置运行环境的，
+        settings.json下的配置能够覆盖VS Code的默认配置，
+        launch.json配置调试环境。
 
 6. 安装 
     F5后要安装pylint
