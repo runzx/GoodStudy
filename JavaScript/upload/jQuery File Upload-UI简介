@@ -15,3 +15,59 @@
                 // an element with class "files" inside of the widget element:
                 filesContainer: undefined,
                 各个事件： add, send, done, fail, progress...
+2. 多个上传区设定关键：jquery-File-Upload-UI
+    1）程序设定：class=".zx-fileupload"
+            $(".zx-fileupload").each(function () {
+                $(this).fileupload({
+                    dropZone: $(this),
+                    url: zxUrl,
+                });
+            });
+    2) "zx-fileupload" 这类标签要放在（'files','input name="files[]""'类标签）上层
+        <!--zx-这是上传区最外层-->
+        <div class="zx-fileupload">
+            <!-- input表单输入，为提交文件名 -->
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择文件...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input type="file" name="files[]" multiple>
+            </span>
+
+            <br>
+            <br>
+            <!-- The container for the uploaded files -->
+            <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+            </table>
+        </div>
+    3）上传和下载临时区
+        <script id="template-upload" type="text/x-tmpl">
+        <script id="template-download" type="text/x-tmpl">
+    4) input name=files[n]   这个在$_FILES里显示是files 返回时又变回files[n], 这样可以用n来区分不同的上传区
+    5）原来的全部上传或取消键无效， 还没找到原因
+    解决！原因
+        <div class="row fileupload-buttonbar">
+                <div class="col-lg-7">
+3. option ：
+    一次请求上传多个文件
+        singleFileUploads：false.不然选择10个文件上传，后台将会收到10次请求
+    上传文件设置参数
+        formData 属性，formData 的赋值，有两种方式，一种是{name:name} 键值对方式，另一种是使用serializeArray()方法
+    最大/最小文件限定
+        Options.maxFileSize / Options.mixFileSize
+    文件类型限定，通过正则表达式检测文件名实现
+        Options.acceptFileTypes
+    选择文件后自动上传
+        Options.autoUpload
+    上传文件数量限制，通过上传后将选择文件按钮置为Disabled实现
+        Options.maxNumberOfFiles
+    上传模板，就是选择文件后显示预览的html代码
+        Options.uploadTemplate
+    下载模板，当文件上传完毕后显示的html代码
+        Options.downloadTemplate
+4. 表单提交方法
+    1） 在zx-fileupload最外层下加：
+        <input type="hidden" name="uploadFiles[]" value="">
+        每个上传区的input name都为uploadFiles,后台按数组序列转换
+    2）submit提交时激活clickSubmi(),把下载区的文件信息存入"uploadFiles[]" value=""中。

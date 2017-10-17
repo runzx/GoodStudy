@@ -1,0 +1,47 @@
+
+Install quokka
+    python3 -m venv venv
+    . venv/bin/activate
+    pip install quokka
+    NOTE: QuokkaCMS runs only in Python 3.6+
+Start a project
+    $ quokka init NewWebsite --theme=flex --modules=gitpages,heroku
+
+    🐹 Quokka project created 🐹
+    📝 Name: NewWebsite
+    📁 Location: /tmp/newwebsite
+    📚 Template: default
+    🎨 Themes: flex theme installed
+    🚚 Modules: [gitpages, heroku] installed
+    🔧 Config: Config file written in /tmp/newwebsite/quokka.yml
+    ➡ Go to /tmp/newwebsite
+    ⚙ run `quokka runserver` to start!
+    📄 Check the documentation on http://quokkaproject.org
+    🐹 Happy Quokka! 🐹
+
+    ├── databases        # TinyDB database files (gitignored)
+    ├── modules          # Custom modules to load on EXTRA_EXTENSIONS
+    ├── static_build     # output static site
+    ├── themes           # Front-end Themes (Pelican and Quokka Themes supported)
+    ├── uploads          # Media uploaded via admin
+    ├── .gitignore       # gitignore to exclude sensitive files
+    ├── quokka.yml       # Project settings
+    ├── .secrets.yml     # To store keys, tokens and passwords (gitignored)
+    └── wsgi.py          # To deploy `gunicorn wsgi:app`
+
+You can optionally pass arguments:
+    Choose existing theme (the default is Flex)选择现有主题
+        quokka init mywebsite --theme http://github.com/user/theme
+    Install modules安装模块
+        quokka init mywebsite --theme http://github.com/user/theme --modules="commerce,foo"
+    the above looks for quokka_commerce and quokka_foo in PyPI and installs it
+    Set important configurations设置重要配置
+        quokka init mywebsite --theme http://github.com/user/theme --config="auth_enabled=false"
+        That is optional, you have to edit quokka.yml to tune your settings.
+    Run your website
+        cd newWebsite
+        quokka runserver --port 5000
+    Access admin interface
+        http://localhost:5000/admin
+    Access your site
+        http://localhost:5000

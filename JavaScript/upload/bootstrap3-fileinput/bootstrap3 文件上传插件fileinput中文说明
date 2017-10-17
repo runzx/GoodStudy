@@ -1,0 +1,106 @@
+bootstrap3 文件上传插件fileinput中文说明
+
+1. previewSettings
+   object the CSS style settings for rendering each preview file type set above. This is by default setup as following:
+   {
+       image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
+       html: {width: "213px", height: "160px"},
+       text: {width: "213px", height: "160px"},
+       video: {width: "213px", height: "160px"},
+       audio: {width: "100%", height: "30px"},
+       flash: {width: "213px", height: "160px"},
+       object: {width: "213px", height: "160px"},
+       pdf: {width: "213px", height: "160px"},
+       other: {width: "213px", height: "160px"}
+   }
+2. 声音配置
+    $("#files-voice").fileinput({
+        'showUpload':true,
+        'previewFileType':'any',
+        'maxFileCount': 1,
+        'language':'zh',
+        'enctype':'multipart/form-data',
+        'allowedFileTypes':['audio'] ,//['image', 'html', 'text', 'video', 'audio', 'flash', 'object']
+        'allowedFileExtensions':['mp3', 'wav', 'ogg'],
+        'uploadUrl':"{:url('api/upload/uploadVoice')}",
+        'showUploadedThumbs':true,
+        'allowedPreviewTypes':['audio'] ,
+        'previewTemplates':['audio'] ,
+        // for image files
+        'initialPreview' : [
+            {notempty name="article.voice"}
+                {notempty name="article.voice"}
+                '<div class="file-preview-audio" >' +
+                '   <audio class="kv-preview-data" controls="">' +
+                '       <source src="{$article.voice}" type="audio/mpeg">' +
+                '       <div class="file-preview-other">' +
+                '           <span class="file-other-icon"><i class="glyphicon glyphicon-file"></i></span></div>'+
+                '   </audio></div>',
+            {/notempty}
+        ],
+3. 回显配置：
+    'initialPreviewConfig' : [
+        {notempty name="article.voice"}
+            {
+                type:'audio',       //文件模板类型在预览设置中的键内配置。这将覆盖initialPreviewFileType设置。
+                caption: '语音',  //标题
+                width: '120px',
+                url: "{:url('api/upload/removeVoice')}", // server delete action
+                key: "{$article.voice}",    //TP5的变量
+                extra: {id: {$article.id}, model: 'article'}
+            //可以配置更多
+            },
+        {/notempty} //TP5 kitecms变量
+    ],
+4. 我们在初始化bootstrap-fileinput（下称fileinput）时可以传入一个uploadExtraData配置项（函数或对象），
+    在上传每个文件时，fileinput会调用uploadExtraData，将获取到的数据附加到文件数据后一起上传。
+    然而这就存在一个问题了，OSS文档中说“文件或文本内容，必须是表单中的最后一个域。”，否则会返回“The bucket POST must contain the specified 'key'. If it is specified, please check the order of the fields”的错误信息。
+        于是只能去看fileinput的源码了，幸好它是开源的，我们只需要改动一下_uploadSingle函数的末尾：
+            self._uploadExtra(previewId, i); //新加
+            formdata.append(self.uploadFileAttr, files[i], self.filenames[i]); //文件数据
+            formdata.append('file_id', i);
+            self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i, true); //也要改造下_ajaxSubmit，传入true表示额外数据不再附加
+
+            _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
+                        var self = this, settings;
+                        if (!self._raise('filepreajax', [previewId, index])) {
+                            return;
+                        }
+                        if(!isPrependExtra)         //加：见图 ：_ajaxSubmit改造
+                        self._uploadExtra(previewId, index);
+                        self._mergeAjaxCallback('beforeSend', fnBefore);
+
+previewTemplates
+    对象，用于渲染每个预览文件类型的模板配置。以下文件类型被识别：
+    audio :  ' <div class="file-preview-frame" id="{previewId}" data-fileindex="{fileindex}" data-template="{template}" title="{caption}" '
+                 +  STYLE_SETTING  +  ' > \n '  +
+            '    <div class="kv-file-content"> '  +
+            '         <audio class="kv-preview-data" controls> \n '  +
+            '             <source src="{data}" type ="{type}"> \n '  +  DEFAULT_PREVIEW  +  ' \n ' +
+            '         </audio> \n '  +
+            '   </div> \n '  +
+            '    {footer} \n '  +
+            ' </div> \n ' ,
+
+uploadExtraData
+    对象或函数
+    将作为数据传递给url / AJAX服务器的额外数据通过POST调用。
+        此属性仅适用于ajax上传，并且为uploadUrl设置了一个值。
+    在上传每个文件时，fileinput会调用uploadExtraData，将获取到的数据附加到文件数据后一起上传。
+    例：
+         1） {id：100，value：'100 Details'}
+         2）  请注意，通过缩略图上传单个文件，回调也可以接收缩略图previewId和索引作为参数。 这些描述如下：
+            previewId：预览文件容器的标识符（仅在上载每个缩略图文件时可用）
+            index：预览列表中加载文件的从零开始的顺序索引（仅在上载每个缩略图文件时可用）
+            // previewId和index仅适用于通过缩略图单独上传文件
+            function ( previewId , index ) {
+                 var obj = {};
+                 $ ( ' .your-form-class ' ). find ( ' input ' ). each ( function () {
+                     var id =  $ ( this ). attr ( ' id ' ), val =  $ ( this ). val();
+                    obj[id] = val;
+                });
+                return obj;
+            }
+initialPreviewAsData
+    布尔值，是否将初始预览内容集解析为数据而不是原始标记语言。
+        为了向下兼容性（v4.3.2版本之前），一般默认为false。

@@ -1,0 +1,107 @@
+Post Object
+    https://help.aliyun.com/document_detail/31988.html?spm=5176.doc31849.2.4.8k1bGc
+
+
+Post Object使用HTML表单上传文件到指定bucket。
+    Post作为Put的替代品，使得基于浏览器上传文件到bucket成为可能。
+    Post Object的消息实体通过多重表单格式（multipart/form-data）编码，
+    在Put Object操作中参数通过HTTP请求头传递，在Post操作中参数则作为消息实体中的表单域传递。
+
+表单域
+
+    名称	        描述	                                    必须
+    file	    文件或文本内容，必须是表单中的最后一个域。
+                浏览器会自动根据文件类型来设置Content-Type，会覆盖用户的设置。
+                OSS一次只能上传一个文件。
+                类型：字符串
+                默认值：无	                                    必须
+    key	        上传文件的object名称。 如果需要使用用户上传的文件名称作为object名，使用${filename}变量。
+                例如：如果用户上传了文件b.jpg，而key域的值设置为/user/a/${filename}，最终的object名为/user/a/b.jpg。
+                如果文件名包含路径，则去除文件名中的路径，
+                例如用户上传了文件a/b/c/b.jpg，则取文件名为b.jpg，若key域的值设置为/user/a/${filename}，最终的object名为/user/a/b.jpg
+                类型：字符串
+                默认值：无	                                    必须
+
+    OSSAccessKeyId	Bucket 拥有者的Access Key Id。
+                    类型：字符串
+                    默认值：无
+                    限制：当bucket非public-read-write或者提供了policy（或Signature）表单域时，必须提供该表单域。	有条件的
+    policy	        规定了请求的表单域的合法性。不包含policy表单域的请求被认为是匿名请求，并且只能访问public-read-write的bucket。更详细描述请参考下文 Post Policy。
+                    类型：字符串
+                    默认值：无
+                    限制：当bucket非public-read-write或者提供了OSSAccessKeyId（或Signature）表单域时，必须提供该表单域。	有条件的
+    Signature	    根据Access Key Secret和policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性。更详细描述请参考下文 Post Signature。
+                    类型：字符串
+                    默认值：无
+                    限制：当bucket非public-read-write或者提供了OSSAccessKeyId（或policy）表单域时，必须提供该表单域。	有条件的
+    success_action_status
+                    未指定success_action_redirect表单域时，该表单域指定了上传成功后返回给客户端的状态码。
+                    接受值为200, 201, 204（默认）。 如果该域的值为200或者204，OSS返回一个空文档和相应的状态码。 如果该域的值设置为201，OSS返回一个XML文件和201状态码。
+                    如果其值未设置或者设置成一个非法值，OSS返回一个空文档和204状态码。
+                    类型：字符串
+                    默认值：无
+注意：
+    进行Post操作要求对bucket有写权限，如果bucket为public-read-write，可以不上传签名信息，否则要求对该操作进行签名验证。
+        与Put操作不同，Post操作使用AccessKeySecret对policy进行签名计算出签名字符串作为Signature表单域的值，OSS会验证该值从而判断签名的合法性。
+    无论bucket是否为public-read-write，一旦上传OSSAccessKeyId, policy, Signature表单域中的任意一个，则另两个表单域为必选项，缺失时OSS会返回错误码：InvalidArgument。
+    post操作提交表单编码必须为“multipart/form-data”，即header中Content-Type为multipart/form-data; boundary=xxxxxx这样的形式，boundary为边界字符串。
+    提交表单的URL为bucket域名即可，不需要在URL中指定object。即请求行是POST / HTTP/1.1，不能写成POST /ObjectName HTTP/1.1
+    policy规定了该次Post请求中表单域的合法值，OSS会根据policy判断请求的合法性，如果不合法会返回错误码：AccessDenied。在检查policy合法性时，policy中不涉及的表单域不进行检查。
+    表单和policy必须使用UTF-8编码，policy为经过UTF-8编码和base64编码的JSON。
+    Post请求中可以包含额外的表单域，OSS会根据policy对这些表单域检查合法性。
+    如果用户上传了Content-MD5请求头，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回InvalidDigest错误码。
+    如果POST请求中包含Header签名信息或URL签名信息，OSS不会对它们做检查。
+    如果请求中携带以x-oss-meta-为前缀的表单域，则视为user meta，比如x-oss-meta-location。一个Object可以有多个类似的参数，但所有的user meta总大小不能超过8k。
+    Post请求的body总长度不允许超过5G。若文件长度过大，会返回错误码：EntityTooLarge。
+    如果上传指定了x-oss-server-side-encryption Header请求域，则必须设置其值为AES256，否则会返回400和错误码：InvalidEncryptionAlgorithmError。指定该Header后，在响应头中也会返回该Header，OSS会对上传的Object进行加密编码存储，当这个Object被下载时，响应头中会包含x-oss-server-side-encryption，值被设置成该Object的加密算法。
+    表单域为大小写不敏感的，但是表单域的值为大小写敏感的。
+
+    与Put操作不同，Post操作使用AccessKeySecret对policy进行签名计算出签名字符串作为Signature表单域的值，
+        OSS会验证该值从而判断签名的合法性（不需要遵循用户签名验证（Authentication）的规定，另外在header或url中加上签名）。
+        policy又是啥呢？Post请求的policy表单域用于验证请求的合法性。 policy为一段经过UTF-8和base64编码的JSON文本，声明了Post请求必须满足的条件（文件大小、一些http头等，还有该条件的过期时间）。
+        虽然对于public-read-write的bucket上传时，post表单域为可选项（其它情况，因为需要签名验证，所以是必选项），也强烈建议使用该域来限制Post请求。
+            so，第一步，构造Post条件，对于不同bucket，可以有不同的条件，可以写在web.config中，如果经常变动，也可以写在数据库中方便管理。
+    zx:
+        Content-Disposition: form-data; name="file"; filename="song.mp3"
+        必须是name="file" ！！！
+
+{
+    "Version": "1",
+    "Statement": [
+        {
+            "Action": [
+                "oss:GetBucketAcl",
+                "oss:ListObjects"
+            ],
+            "Resource": [
+                "acs:oss:*:1775305056529849:mybucket"
+            ],
+            "Effect": "Allow",
+            "Condition": {
+                "StringEquals": {
+                    "acs:UserAgent": "java-sdk",
+                    "oss:Prefix": "foo"
+                },
+                "IpAddress": {
+                    "acs:SourceIp": "192.168.0.1"
+                }
+            }
+        },
+        {
+            "Action": [
+                "oss:PutObject",
+                "oss:GetObject",
+                "oss:DeleteObject"
+            ],
+            "Resource": [
+                "acs:oss:*:1775305056529849:mybucket/file*"
+            ],
+            "Effect": "Allow",
+            "Condition": {
+                "IpAddress": {
+                    "acs:SourceIp": "192.168.0.1"
+                }
+            }
+        }
+    ]
+}

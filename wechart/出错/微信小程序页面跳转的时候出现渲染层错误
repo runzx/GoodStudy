@@ -1,0 +1,30 @@
+
+微信小程序页面跳转的时候出现渲染层错误
+
+1. JS
+    把图片地址放在data里，并设置为空字符串
+    onLoad的时候去设置图片字段
+    一开始图片地址为空，所以会报错。
+        Page({
+            data: {
+                imageUrl:""
+            },
+            onLoad(options) {
+                let that = this
+                
+                //post data
+                wx.request({
+                    ..., 
+                    success(res){
+                        that.setData({
+                            imageUrl
+                        })
+                    }
+                })
+            }
+        })
+2. wxml
+    <image url="{{imageUrl}}"></image>
+    因为我在onLoad里这里我是请求了服务器，所以setData是服务器返回成功后设置的。
+    在服务器返回之前imageUrl为空，所以报了这个错。
+
