@@ -1,13 +1,402 @@
 Pylint 规范
 
-Pylint 是一个 Python 代码分析工具，它分析 Python 代码中的错误，查找不符合代码风格标准（Pylint 默认使用的代码风格是 PEP 8，具体信息，请参阅参考资料）和有潜在问题的代码。
+Pylint 是一个 Python 代码分析工具，它分析 Python 代码中的错误，查找不符合代码风格标准(Pylint 默认使用的代码风格是 PEP 8，具体信息，请参阅参考资料)和有潜在问题的代码。
 
-源代码分析部分：
-    对于每一个 Python 模块，Pylint 的结果中首先显示一些"*"字符 , 后面紧跟模块的名字，然后是一系列的 message, message 的格式如下：
+源代码分析部分:
+    对于每一个 Python 模块，Pylint 的结果中首先显示一些"*"字符 , 后面紧跟模块的名字，然后是一系列的 message, message 的格式如下:
         MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
-    MESSAGE_TYPE 有如下几种：
+    MESSAGE_TYPE 有如下几种:
     (C) 惯例。违反了编码风格标准
     (R) 重构。写得非常糟糕的代码。
     (W) 警告。某些 Python 特定的问题。
     (E) 错误。很可能是代码中的错误。
     (F) 致命错误。阻止 Pylint 进一步运行的错误。
+
+此页面列出了按消息代码排序的PyLint 1.1.0支持的所有消息。
+    C0102:黑色上市名称为"%s"    (Black listed name "%s")
+    C0103:无效 %s 的名称为"%s"   (Invalid %s name "%s")
+    C0111:缺少 %s 的文档字符串
+    C0112:空 %s 的文档字符串
+    C0121:缺少所需的属性"%s" 
+    C0202:类方法 %s 应该有CLS作为第一个参数
+    C0203:元类方法 %s 应该有mcs作为第一个参数
+    C0204:Metaclass类方法 %s 应该有 %s 作为第一个参数
+    C0301:行太长( %s  / %s )
+    C0302:太多行模块( %s )
+    C0303:结尾的空白
+    C0304:最后的换行符缺少
+    C0321:在一行多条语句
+    C0322:老:运营商不前空格
+    C0323:旧:运算符后面没有空格
+    C0324:旧:逗号后面没有空格
+    C0325: %r 后的不必要的括号关键字
+    C0326: %s 空格 %s   %s   %s \ n  %s  
+    C1001:定义旧式类。
+    E0001:(上调的模块语法错误;消息而异)
+    E0011:无法识别文件选项 %r  
+    E0012:坏选项值 %r                 (Bad option value %r)
+    E0100:__init__方法是发电机
+    E0101:在显式回报__init__ 
+    E0102: %s 的已定义线 %s  
+    E0103: %r 不正确循环
+    E0104:返回外部功能
+    E0105:外部功能产生
+    E0106:发生器内部参数返回
+    E0107:使用不存在的 %s 运算符
+    E0108:功能定义中的重复参数名称 %s  
+    E0202:以 %s 行 %s 影响的属性隐藏此方法
+    E0203:在其定义行 %s 之前访问成员 %r  
+    E0211:方法没有参数
+    E0213:方法应该有"self"作为第一个参数
+    E0221:解析为 %s 的接口不是类
+    E0222:从 %s 接口缺少方法 %r  
+    E0235:__exit__必须接受3个参数:类型，值，回溯
+    E0501:旧:发现非ASCII字符，但没有指定编码(PEP 263)
+    E0502:旧:错误的编码指定( %s )
+    E0503:旧:指定了未知的编码( %s )
+    E0601:使用变量 %r 转让前
+    E0602:未定义变量 %r  
+    E0603: 未定义的变量名: %r 在__all__ 
+    E0604:无效的对象 %r 在__all__，必须只包含字符串
+    E0611:模块 %r 中没有名称 %r  
+    E0701:不良条件顺序( %s )
+    E0702:只允许使用类，实例或字符串时提高 %s  
+    E0710:提升不从BaseException继承的新样式类
+    E0711: NotImplemented raise - 应该引发NotImplementedError 
+    E0712:捕获不从BaseException继承的异常: %s  
+    E1001:在旧样式类上使用__slots__ 
+    E1002:在旧样式类上使用super 
+    E1003:坏第一个参数 %r 给予super()
+    E1004:缺少参数super()
+    E1101: %s   %r 没有 %r 成员
+    E1102: %s 不可调用
+    E1103: %s   %r 没有 %r 成员(但某些类型不能被推断)
+    E1111:分配给函数调用不返回
+    E1120:没有找到传入参数值 %s 在函数调用
+    E1121的函数调用太多位置参数:
+    E1122:老:重复的关键字参数 %r 在函数调用
+    E1123:在函数调用
+    E1124: 中传递意外的关键字参数 %r :参数 %r 作为位置和关键字参数传递
+    E1125:旧:缺少必需关键字参数 %r  
+    E1200:不支持的记录格式字符 %r (%#02x)在索引%d 
+            (Unsupported logging format character %r (%#02x) at index %d)
+    E1201:记录格式字符串结束于转换说明符
+    E1205:参数过多for记录格式字符串
+            (Too many arguments for logging format string)
+    E1206:记录格式字符串 参数不够
+            (Not enough arguments for logging format string)
+    E1300:不支持格式字符 %r (%#02x)索引%d 
+    E1301:格式字符串结束于转换说明符
+    E1302的中间:以格式字符串
+    E1303混合命名和未命名的转换说明符:格式字符串的预期映射，而不是 %s  
+    E1304:格式字符串字典中缺少密钥 %r  
+    E1305:格式字符串
+    E1306: 的参数过多:格式字符串E1310的参数不足: %s 中的可疑参数。 %s 调用
+    F0001:(错误阻止分析;消息不同)
+    F0002: %s : %s  (消息不同)
+    F0003:忽略内置模块 %s  
+    F0004:意外推断值 %s  
+    F0010:代码解析时出现错误: %s  
+    F0202:无法检查方法签名( %s  /  %s )
+    F0220:解析由% s( %s )
+    F0321:旧:格式检测错误 %r  
+    F0401:无法导入 %s  
+    I0001:无法在内置模块 %s 上运行原始检查器
+    I0010:无法考虑内联选项 %r 
+    I0011:本地禁用 %s  
+    I0012:本地启用 %s  
+    I0013:忽略整个文件
+    I0014:已废弃的指令"pylint:disable-all"或"pylint:disable = all" 
+    I0020:被禁止的 %s (从行%d)
+    I0021:无效抑制 %s  
+    I0022:弃用的pragma"pylint:disable-msg"或"pylint:enable-msg" 
+    R0201:方法可以是一个函数
+    R0401:循环导入( %s )
+    R0801: %s 文件中类似的行
+    R0901:Too许多祖先( %s  / %s )
+    R0902:太多的实例属性( %s  / %s )
+    R0903:公共方法太少( %s  / %s )
+    R0904:太多的公共方法( %s  / %s )
+    R0911:太多的返回语句( %s  / s)
+    R0912:太多分支( %s  / %s )
+    R0913:太多的参数( %s  / %s )
+    R0914:太多的局部变量( %s  / %s )
+    R0915:太多的语句( %s  / %s ))
+    R0921:抽象类没有引用
+    R0922:抽象类是仅参考 %s 的时间
+    R0923:接口没有实现
+    W0101:无法访问的代码
+    W0102危险默认值: %s 作为参数
+    W0104:语句似乎没有任何效果
+    W0105:字符串声明没有影响
+    W0106:表达式"%s"被分配给无
+    W0107:不必要的传递语句
+    W0108:Lambda可能不是必需的
+    W0109:字典中的重复key %r
+            (Duplicate key %r in dictionary)
+    W0110:lambda上的map / filter可以被理解替换
+            (map/filter on lambda could be replaced by comprehension)
+    W0120:没有break语句的循环中的Else子句
+    W0121:使用raise ErrorClass(args)而不是raise ErrorClass，args。
+    W0122:使用exec 
+    W0141:使用的内置函数 %r  
+    W0142:使用*或**魔术
+    W0150:finally块中的 %s 语句可能会吞下异常
+    W0199:在2-uple上调用Assert。你的意思是"断言x，y"?
+            (Assert called on a 2-uple. Did you mean \'assert x,y\'?)
+    W0201:__init__之外定义的属性 %r  
+    W0211: %r 作为第一个参数的静态方法
+    W0212:访问客户端类的受保护成员 %s  
+    W0221:参数编号与 %s 方法不同
+    W0222:签名与 %s 方法不同
+    W0223:方法 %r 在类 %r 中是抽象的，但不会被覆盖
+    W0231:__init__方法类 %r 不被称为
+    W0232:类没有__init__方法
+    W0233:__init__方法来自非直接基类 %r 称为
+    W0234:iter返回非迭代器
+    W0301:不必要的分号
+    W0311:错误的缩进。发现 %s   %s ，预期 %s  
+    W0312:使用 %ss 而不是 %ss 找到缩进
+            (Found indentation with %ss instead of %ss)
+    W0331:使用<>操作符
+    W0332:使用"l"作为长整型标识符
+    W0333:使用``操作符
+            (Use of the `` operator)
+    W0401:通配符导入 %s  
+    W0402:使用已弃用的模块 %r  
+    W0403:相对导入 %r 应为 %r  
+    W0404:Reimport  %r (imported line %s )
+            (Reimport %r (imported line %s))
+    W0406:模块导入本身
+    W0410:__future__导入不是第一个非docstring语句
+    W0511:(代码注释中的警告注释;消息不同)
+    W0512:无法使用编码"%s"进行解码，位置%d 
+    W0601:全局变量 %r 在模块级别未定义
+    W0602:对于 %r 使用全局，但没有分配完成
+    W0603:使用全局语句
+    W0604:在模块级别使用全局语句
+    W0611:未使用的导入 %s  
+    W0612:未使用的变量 %r  
+    W0613:未使用的参数 %r  
+    W0614:通配符导入未使用的导入 %s  
+    W0621:从外部范围重新定义名称 %r (行 %s )
+    W0622:重新定义内置的 %r  
+    W0623:重新定义名称% r来自异常处理程序中的 %s  
+    W0631:使用可能未定义的循环变量 %r  
+    W0632:可能的不平衡元组解码与序列 %s :... 
+    W0633:尝试解包非序列 %s 
+    W0701:提高字符串异常
+    W0702:未指定异常类型
+    W0703:捕获太常规异常 %s  
+    W0704:除了不做任何事情
+    W0710:异常不会从标准"异常"类继承
+    W0711:异常捕获是二进制"  %s  "操作的结果
+    W0712:在Python 3中不支持异常的隐式拆包3 
+    W1001:在旧样式类上使用"属性" 
+    W1111:分配给仅返回None的函数调用
+    W1201:指定字符串格式参数作为记录功能参数
+    W1300:格式字符串字典键应为字符串，而不是 %s  
+    W1301:格式字符串字典中的未使用的键 %r  
+    W1401:字符串中的异常反斜杠:\'  %s  \'。字符串常量可能缺少r前缀。
+    W1402:字节字符串中的异常Unicode转义:\'  %s  \'。字符串常量可能缺少r或u前缀。
+    W1501:"  %s  "不是打开的有效模式。
+
+    RP0001:消息按类别
+    RP0002:%错误/按模块警告
+    RP0003:消息
+    RP0004:全球评估
+    RP0101:按类型统计
+    RP0401:外部依赖
+    RP0402:模块的依赖关系图
+    RP0701:原始指标
+    RP0801:复制
+==============================================================
+    C0102: Black listed name "%s"
+    C0103: Invalid %s name "%s"
+    C0111: Missing %s docstring
+    C0112: Empty %s docstring
+    C0121: Missing required attribute "%s"
+    C0202: Class method %s should have cls as first argument
+    C0203: Metaclass method %s should have mcs as first argument
+    C0204: Metaclass class method %s should have %s as first argument
+    C0301: Line too long (%s/%s)
+    C0302: Too many lines in module (%s)
+    C0303: Trailing whitespace
+    C0304: Final newline missing
+    C0321: More than one statement on a single line
+    C0322: Old: Operator not preceded by a space
+    C0323: Old: Operator not followed by a space
+    C0324: Old: Comma not followed by a space
+    C0325: Unnecessary parens after %r keyword
+    C0326: %s space %s %s %s\n%s
+    C1001: Old-style class defined.
+    E0001: (syntax error raised for a module; message varies)
+    E0011: Unrecognized file option %r
+    E0012: Bad option value %r
+    E0100: __init__ method is a generator
+    E0101: Explicit return in __init__
+    E0102: %s already defined line %s
+    E0103: %r not properly in loop
+    E0104: Return outside function
+    E0105: Yield outside function
+    E0106: Return with argument inside generator
+    E0107: Use of the non-existent %s operator
+    E0108: Duplicate argument name %s in function definition
+    E0202: An attribute affected in %s line %s hide this method
+    E0203: Access to member %r before its definition line %s
+    E0211: Method has no argument
+    E0213: Method should have "self" as first argument
+    E0221: Interface resolved to %s is not a class
+    E0222: Missing method %r from %s interface
+    E0235: __exit__ must accept 3 arguments: type, value, traceback
+    E0501: Old: Non ascii characters found but no encoding specified (PEP 263)
+    E0502: Old: Wrong encoding specified (%s)
+    E0503: Old: Unknown encoding specified (%s)
+    E0601: Using variable %r before assignment
+    E0602: Undefined variable %r
+    E0603: Undefined variable name %r in __all__
+    E0604: Invalid object %r in __all__, must contain only strings
+    E0611: No name %r in module %r
+    E0701: Bad except clauses order (%s)
+    E0702: Raising %s while only classes, instances or string are allowed
+    E0710: Raising a new style class which doesn't inherit from BaseException
+    E0711: NotImplemented raised - should raise NotImplementedError
+    E0712: Catching an exception which doesn\'t inherit from BaseException: %s
+    E1001: Use of __slots__ on an old style class
+    E1002: Use of super on an old style class
+    E1003: Bad first argument %r given to super()
+    E1004: Missing argument to super()
+    E1101: %s %r has no %r member
+    E1102: %s is not callable
+    E1103: %s %r has no %r member (but some types could not be inferred)
+    E1111: Assigning to function call which doesn't return
+    E1120: No value passed for parameter %s in function call
+    E1121: Too many positional arguments for function call
+    E1122: Old: Duplicate keyword argument %r in function call
+    E1123: Passing unexpected keyword argument %r in function call
+    E1124: Parameter %r passed as both positional and keyword argument
+    E1125: Old: Missing mandatory keyword argument %r
+    E1200: Unsupported logging format character %r (%#02x) at index %d
+    E1201: Logging format string ends in middle of conversion specifier
+    E1205: Too many arguments for logging format string
+    E1206: Not enough arguments for logging format string
+    E1300: Unsupported format character %r (%#02x) at index %d
+    E1301: Format string ends in middle of conversion specifier
+    E1302: Mixing named and unnamed conversion specifiers in format string
+    E1303: Expected mapping for format string, not %s
+    E1304: Missing key %r in format string dictionary
+    E1305: Too many arguments for format string
+    E1306: Not enough arguments for format string
+    E1310: Suspicious argument in %s.%s call
+    F0001: (error prevented analysis; message varies)
+    F0002: %s: %s (message varies)
+    F0003: ignored builtin module %s
+    F0004: unexpected inferred value %s
+    F0010: error while code parsing: %s
+    F0202: Unable to check methods signature (%s / %s)
+    F0220: failed to resolve interfaces implemented by %s (%s)
+    F0321: Old: Format detection error in %r
+    F0401: Unable to import %s
+    I0001: Unable to run raw checkers on built-in module %s
+    I0010: Unable to consider inline option %r
+    I0011: Locally disabling %s
+    I0012: Locally enabling %s
+    I0013: Ignoring entire file
+    I0014: Used deprecated directive "pylint:disable-all" or "pylint:disable=all"
+    I0020: Suppressed %s (from line %d)
+    I0021: Useless suppression of %s
+    I0022: Deprecated pragma "pylint:disable-msg" or "pylint:enable-msg"
+    R0201: Method could be a function
+    R0401: Cyclic import (%s)
+    R0801: Similar lines in %s files
+    R0901: Too many ancestors (%s/%s)
+    R0902: Too many instance attributes (%s/%s)
+    R0903: Too few public methods (%s/%s)
+    R0904: Too many public methods (%s/%s)
+    R0911: Too many return statements (%s/%s)
+    R0912: Too many branches (%s/%s)
+    R0913: Too many arguments (%s/%s)
+    R0914: Too many local variables (%s/%s)
+    R0915: Too many statements (%s/%s)
+    R0921: Abstract class not referenced
+    R0922: Abstract class is only referenced %s times
+    R0923: Interface not implemented
+    W0101: Unreachable code
+    W0102: Dangerous default value %s as argument
+    W0104: Statement seems to have no effect
+    W0105: String statement has no effect
+    W0106: Expression "%s" is assigned to nothing
+    W0107: Unnecessary pass statement
+    W0108: Lambda may not be necessary
+    W0109: Duplicate key %r in dictionary
+    W0110: map/filter on lambda could be replaced by comprehension
+    W0120: Else clause on loop without a break statement
+    W0121: Use raise ErrorClass(args) instead of raise ErrorClass, args.
+    W0122: Use of exec
+    W0141: Used builtin function %r
+    W0142: Used * or ** magic
+    W0150: %s statement in finally block may swallow exception
+    W0199: Assert called on a 2-uple. Did you mean \'assert x,y\'?
+    W0201: Attribute %r defined outside __init__
+    W0211: Static method with %r as first argument
+    W0212: Access to a protected member %s of a client class
+    W0221: Arguments number differs from %s method
+    W0222: Signature differs from %s method
+    W0223: Method %r is abstract in class %r but is not overridden
+    W0231: __init__ method from base class %r is not called
+    W0232: Class has no __init__ method
+    W0233: __init__ method from a non direct base class %r is called
+    W0234: iter returns non-iterator
+    W0301: Unnecessary semicolon
+    W0311: Bad indentation. Found %s %s, expected %s
+    W0312: Found indentation with %ss instead of %ss
+    W0331: Use of the <> operator
+    W0332: Use of "l" as long integer identifier
+    W0333: Use of the `` operator
+    W0401: Wildcard import %s
+    W0402: Uses of a deprecated module %r
+    W0403: Relative import %r, should be %r
+    W0404: Reimport %r (imported line %s)
+    W0406: Module import itself
+    W0410: __future__ import is not the first non docstring statement
+    W0511: (warning notes in code comments; message varies)
+    W0512: Cannot decode using encoding "%s", unexpected byte at position %d
+    W0601: Global variable %r undefined at the module level
+    W0602: Using global for %r but no assigment is done
+    W0603: Using the global statement
+    W0604: Using the global statement at the module level
+    W0611: Unused import %s
+    W0612: Unused variable %r
+    W0613: Unused argument %r
+    W0614: Unused import %s from wildcard import
+    W0621: Redefining name %r from outer scope (line %s)
+    W0622: Redefining built-in %r
+    W0623: Redefining name %r from %s in exception handler
+    W0631: Using possibly undefined loop variable %r
+    W0632: Possible unbalanced tuple unpacking with sequence%s: …
+    W0633: Attempting to unpack a non-sequence%s
+    W0701: Raising a string exception
+    W0702: No exception type(s) specified
+    W0703: Catching too general exception %s
+    W0704: Except doesn't do anything
+    W0710: Exception doesn't inherit from standard "Exception" class
+    W0711: Exception to catch is the result of a binary "%s" operation
+    W0712: Implicit unpacking of exceptions is not supported in Python 3
+    W1001: Use of "property" on an old style class
+    W1111: Assigning to function call which only returns None
+    W1201: Specify string format arguments as logging function parameters
+    W1300: Format string dictionary key should be a string, not %s
+    W1301: Unused key %r in format string dictionary
+    W1401: Anomalous backslash in string: \'%s\'. String constant might be missing an r prefix.
+    W1402: Anomalous Unicode escape in byte string: \'%s\'. String constant might be missing an r or u prefix.
+    W1501: "%s" is not a valid mode for open.
+
+    RP0001: Messages by category
+    RP0002: % errors / warnings by module
+    RP0003: Messages
+    RP0004: Global evaluation
+    RP0101: Statistics by type
+    RP0401: External dependencies
+    RP0402: Modules dependencies graph
+    RP0701: Raw metrics
+    RP0801: Duplication
