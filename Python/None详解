@@ -9,3 +9,7 @@ None 空
 3. None Fales
     None 表示不存在
     Fales 表示真假
+4. 对象存在不一定是True
+    2个方法决定
+        __len__(self)     return 0      对象就成Fales
+        __bool__(self)    return Fales  对象就成Fales  
