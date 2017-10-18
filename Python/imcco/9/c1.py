@@ -35,6 +35,10 @@ class Student():
         cls.sum += 1 
         print(cls.sum)
 
+    #静态方法
+    @staticmethod
+    def add(x,y):
+        pass
 '''
 class Printer():
 
