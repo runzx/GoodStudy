@@ -9,23 +9,31 @@
 '''
 
 class Student():
-    name='zhax'     #类变量，name,age在这定义不好
+    name='zhax'     #类变量，name,age在这定义不好，应改成实例变量
     age=0
     #一个班级的学生人数总合
     sum = 0
 
-    #
+    #实例方法 ，要第一参数：self
     def __init__(self,name,age):
         #构造函数
         #初始化对象
         #self.xx 实例变量（python独特处！） self可以用别的字符串如：this,that,...
         self.name = name    
         self.age = age
-        print('student name: '+ name + ',  age: '+str(age))
-        pass
-    #行为
+        self.__class__.sum += 1
+        print('当前班级总人数：'+str(self.__class__.sum))
+        # print(Student.sum1)
+        # print('student name: '+ name + ',  age: '+str(age))
+    #行为 与 特征
     def do_homework(self ):
         print('homework')
+    
+    #类方法 
+    @classmethod
+    def plus_sum(cls):
+        cls.sum += 1 
+        print(cls.sum)
 
 '''
 class Printer():
@@ -38,11 +46,14 @@ class Printer():
 '''
 
 student1 = Student('zhaixiang',20)
+Student.plus_sum()
 student2 = Student('mm',7)
-
+Student.plus_sum()
 #实例变量
-print(student1.name)
-#类变量
-print(Student.name)
+# print(student1.name)
+# print(student1.__dict__)
+# print(Student.__dict__)
+# #类变量
+# print(Student.name)
 # print(id(student1))
 # print(id(student2))
