@@ -82,11 +82,19 @@ python3入门与进阶
 
     序列： 字符串、元组、列表
         共有操作：
-           xxx [n]
-        序号
-        切片 例：[1,2,3,4,5][0:2]
-        in / not in
-        len() max()  min()
+            xxx [n] 下标索引访问index
+            序号
+            切片 例：[1,2,3,4,5][0:2]
+            in / not in
+            len() max()  min()
+        不可变： 字符串、元组
+    set 集合： 无序、不重复, {1,2}
+        操作： len() ,in / not in , - 差集， & 交集， ｜并集，
+        空集合： set()
+    dict 字典： key -> value , key不重复
+        key 只能是不可变类型
+        多个key的集合， {key1:value1, key2:value2}, 键值对！
+        访问： 通过{}[key]
 
 
 8. 
