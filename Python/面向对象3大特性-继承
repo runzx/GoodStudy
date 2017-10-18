@@ -1,3 +1,9 @@
 面向对象3大特性： 继承性
 
 1. 避免复杂、
+
+2. python 多个父类
+
+3. 调用父类 ,2方法
+    super(父类名, self).__init__(name,age)     #这个最好
+    Human.__init__(self,name,age)
