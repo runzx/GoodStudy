@@ -9,8 +9,10 @@
 '''
 
 class Student():
-    name='zhax'     #类变量
+    name='zhax'     #类变量，name,age在这定义不好
     age=0
+    #一个班级的学生人数总合
+    sum = 0
 
     #
     def __init__(self,name,age):
@@ -38,7 +40,9 @@ class Printer():
 student1 = Student('zhaixiang',20)
 student2 = Student('mm',7)
 
+#实例变量
 print(student1.name)
+#类变量
 print(Student.name)
 # print(id(student1))
 # print(id(student2))
