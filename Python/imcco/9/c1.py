@@ -28,6 +28,9 @@ class Student():
     #行为 与 特征
     def do_homework(self ):
         print('homework')
+
+    def do_english_homework(self, parameter_list):
+        raise NotImplementedError
     
     #类方法 
     @classmethod
