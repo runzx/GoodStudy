@@ -1,0 +1,13 @@
+Pylint 规范
+
+Pylint 是一个 Python 代码分析工具，它分析 Python 代码中的错误，查找不符合代码风格标准（Pylint 默认使用的代码风格是 PEP 8，具体信息，请参阅参考资料）和有潜在问题的代码。
+
+源代码分析部分：
+    对于每一个 Python 模块，Pylint 的结果中首先显示一些"*"字符 , 后面紧跟模块的名字，然后是一系列的 message, message 的格式如下：
+        MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
+    MESSAGE_TYPE 有如下几种：
+    (C) 惯例。违反了编码风格标准
+    (R) 重构。写得非常糟糕的代码。
+    (W) 警告。某些 Python 特定的问题。
+    (E) 错误。很可能是代码中的错误。
+    (F) 致命错误。阻止 Pylint 进一步运行的错误。

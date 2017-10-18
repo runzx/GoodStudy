@@ -12,5 +12,21 @@ class Student():
     name=''
     age=0
 
+    #行为
+    def do_homework(self ):
+        print('homework')
+
+class Printer():
+    '''
+    打印档案主体不应是学生对象
+    '''
+    
+    #行为 与 特征
     def print_file(self, parameter_list):
         raise NotImplementedError
+
+student1 = Student()
+student2 = Student()
+
+print(id(student1))
+print(id(student2))
