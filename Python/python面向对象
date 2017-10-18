@@ -22,3 +22,5 @@ Python 面向对象
     def __init__(self):
     实例化时自动执行
     不能return 除None外的值！
+6. 类变量 实例变量
+    

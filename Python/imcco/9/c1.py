@@ -9,15 +9,16 @@
 '''
 
 class Student():
-    name=''
+    name='zhax'     #类变量
     age=0
 
     #
     def __init__(self,name,age):
         #构造函数
         #初始化对象
-        name = name
-        age = age
+        #self.xx 实例变量（python独特处！） self可以用别的字符串如：this,that,...
+        self.name = name    
+        self.age = age
         print('student name: '+ name + ',  age: '+str(age))
         pass
     #行为
@@ -37,5 +38,7 @@ class Printer():
 student1 = Student('zhaixiang',20)
 student2 = Student('mm',7)
 
+print(student1.name)
+print(Student.name)
 # print(id(student1))
 # print(id(student2))

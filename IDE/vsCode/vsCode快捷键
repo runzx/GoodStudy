@@ -22,6 +22,16 @@ vscode 基本配置和使用
         Fold All (Ctrl+K Ctrl+0)    折叠当前编辑文件的所有可折叠部分
         Unfold All (Ctrl+K Ctrl+J)  取消当当前文件所有折叠
         Fold Level X (Ctrl+K Ctrl+2 for level 2) 折叠所有level x（还可以用 ctrl+3、ctrl+4等）的缩进去（除了当前编辑位置所在的）
+    格式调整
+        代码行缩进Ctrl+[ Ctrl+]
+        Ctrl+C Ctrl+V如果不选中，默认复制或剪切一整行
+        代码格式化：Shift+Alt+F，或Ctrl+Shift+P后输入format code
+        上下移动一行： Alt+Up 或 Alt+Down
+        向上向下复制一行： Shift+Alt+Up或Shift+Alt+Down
+        在当前行下边插入一行Ctrl+Enter
+        在当前行上方插入一行Ctrl+Shift+Enter
+
+        Ctrl+Shift+K    删除行
 
 php
 
@@ -29,3 +39,4 @@ php
         需要在setting.json里设置"php.validate.executablePath": "/usr/bin/php"
     php IntelliSense Crane  补全超级牛
     PHP IntelliSense        另一个，能搜索函数、格式化代码
+
