@@ -12,4 +12,4 @@ None 空
 4. 对象存在不一定是True
     2个方法决定
         __len__(self)     return 0      对象就成Fales
-        __bool__(self)    return Fales  对象就成Fales  
+        __bool__(self)    return Fales  对象就成Fales  ,优先于__len__(有__bool__时， 不再运行__len__)
