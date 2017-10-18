@@ -1,0 +1,11 @@
+None 空 
+    类型： NoneType
+
+1. 不同于
+    空字符串， 空的列表， 0， Fales
+2. 判空
+    if not a        #这方式相对好！
+    if a is None
+3. None Fales
+    None 表示不存在
+    Fales 表示真假
