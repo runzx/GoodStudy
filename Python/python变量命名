@@ -22,4 +22,13 @@ python变量命名
         int float 0 是 False, 非0是True
         字符串 ： 空字符串 是 False
         列表： [] False
+    成员运算符
         in , not in  字符串、元组、列表、集合。 字典 是针对key
+    身份运算符
+        is , is not 
+        1)两变量值相等， 返回True
+        2)身份 （内存地址id() ）
+    判断变量类型
+        isinstance(a,str) , isinstance(a,(str,int))
+        type(a) == int 
+        
