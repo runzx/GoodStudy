@@ -31,4 +31,6 @@ python变量命名
     判断变量类型
         isinstance(a,str) , isinstance(a,(str,int))
         type(a) == int 
+    位运算符
+        & 与， ｜或， ^异或， ~取反， <<左移， >>右移
         

@@ -1,0 +1,36 @@
+python 表达式
+
+表达式Expression 是运算符operator和操作数operand所构成的序列
+
+
+优先级
+    and > or 
+    同级 从左到右
+
+    表1-2 运算符优先级
+    运算符	        描述
+    lambda	        Lambda表达式
+    or	            布尔“或”
+    and	            布尔“与”
+    not x	        布尔“非”
+    in，not in	    成员测试
+    is，is not	    同一性测试
+    <，<=，>，>=，!=，==	比较
+    |	            按位或
+    ^	            按位异或
+    &	            按位与
+    <<，>>	        移位
+    +，-	            加法与减法
+    *，/，%	        乘法、除法与取余
+    +x，-x	        正负号
+    ~x	            按位翻转
+    **	            指数
+    x.attribute	    属性参考
+    x[index]	    下标
+    x[index:index]	寻址段
+    f(arguments...)	函数调用
+    (experession,...)	绑定或元组显示
+    [expression,...]	列表显示
+    {key:datum,...}	字典显示
+    'expression,...'	字符串转换
+
