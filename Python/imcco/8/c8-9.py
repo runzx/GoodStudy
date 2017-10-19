@@ -9,4 +9,4 @@ def city_demo(**parameter_list):
 
 a = {'bj':'32c','km':'20c','sh':'31c'}
 # city_demo(bj='32c',km='20c',sh='31c')
-city_demo(*a)
+city_demo(**a)
