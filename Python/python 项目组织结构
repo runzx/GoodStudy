@@ -45,4 +45,15 @@ python 项目组织结构
         用from 
         . 当前， ..上一级， ...上上级
     python3 新增加的包命名空间，没有__init__.py也可以导入
+        确保顶级目录中没有__init__.py来作为共同的命名空间。
+        package1/spam/xx1.py
+        package2/spam/xx2.py    #任何一个目录里都没有__init__.py文件。
+
+        import sys
+        sys.path.extend(['package1','package2'])
+        import spam.xx1
+        import spam.xx2     #2个不同包目录被合并。
+
+        一个包是否被作为一个包命名空间， 检查__file__,没有则是个命名空间。
     
+
