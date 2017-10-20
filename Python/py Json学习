@@ -15,4 +15,18 @@ JSON 学习
 4. 规范
     "" 用双引号
 5. 反序列化
-    把SJON字符串转换成别的类型： 列表、字典
+    把JSON字符串转换成别的类型： 列表、字典
+6. 序列化
+    转成JSON字符串的 过程
+    
+    JSON    python
+    Object  dict
+    array   list
+    string  string
+    number  int
+    number  float
+    true    True
+    false   False 
+    null    None
+
+7. 大部分语言 是C和C++ 的 语法糖！  （类C）
