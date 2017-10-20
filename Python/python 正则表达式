@@ -45,3 +45,6 @@ python 正则表达式
     python 常规字符串替换
         string = 'abcefg'
         res = string.replace('ab', 'newstr')
+7. 把函数当作参数传递
+    def convert(value):
+        return '结果'
