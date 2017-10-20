@@ -37,4 +37,11 @@ python 正则表达式
     re.I 忽略大小写
     re.S 让.可以匹配\n       
     re.findall('reExpress', str, re.I | re.S)   # re.I | re.S 可以写一起为and关系。
-    
+6. 正则替换
+    re.sub(pattern, repl, string, count=0, flage=0)    
+        count为0时无限替换
+        flage 匹配模式
+        repl 字符串 或 函数
+    python 常规字符串替换
+        string = 'abcefg'
+        res = string.replace('ab', 'newstr')
