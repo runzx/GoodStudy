@@ -16,3 +16,7 @@ python 进阶
     global a
     a = xxx
     否则直接给a 赋值，python会认为是局部变量
+4. 闭包 里修改环境变量
+    nonlocal (同global一样)
+5. lambda 表达式
+    匿名函数    lambda x,y:x+y
