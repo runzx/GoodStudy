@@ -1,0 +1,31 @@
+枚举 其实是一个类
+
+1. Python3 新增的类
+    enum
+
+    定义的常量 ， 可用VIP.YELLOW, VIP.RED 增加可读性
+    所以print(VIP.BLACK)  输出是‘VIP.BLACK’！
+2. 特点
+    不可修改值
+    不会有重复的枚举名， 防止有相同的标签！
+    如果值一样， 后面的会成为前面的别名！遍历时不操作此别名标签（要全部遍历：for v in VIP.__members__:）
+3. 操作
+    取值：     VIP.RED.value
+    标签名：   VIP.RED.name
+                VIP['GREEN']
+    可遍历
+            for v in VIP
+4. 枚举 间 比较
+    可 == is 
+    不可 > <
+5. 枚举 转换
+    1）数据库里类型存储 最好 用 数字 （不占空间）
+    2）数字转枚举
+        a = 1
+        VIP(a)
+6.  强制 值为数字
+        from enum import IntEnum
+    强制 值不能相同
+        from enum import IntEnum，unique
+        @unique
+        class VIP(IntEnum):
