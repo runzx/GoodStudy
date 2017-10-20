@@ -18,7 +18,7 @@ JSON 学习
     把JSON字符串转换成别的类型： 列表、字典
 6. 序列化
     转成JSON字符串的 过程
-    
+
     JSON    python
     Object  dict
     array   list
@@ -30,3 +30,12 @@ JSON 学习
     null    None
 
 7. 大部分语言 是C和C++ 的 语法糖！  （类C）
+
+8. 
+    JSON对象  
+        只在JavaScript里成立， python里就没有JSON对象
+    JSON
+        可理解ECMASCRIPT标准 的一种实现
+        中间数据类型， 它和JS的数据类型有些相似
+        REST服务 标准格式为JSON
+    JSON字符串
