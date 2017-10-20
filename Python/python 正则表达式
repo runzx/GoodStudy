@@ -48,3 +48,9 @@ python 正则表达式
 7. 把函数当作参数传递
     def convert(value):
         return '结果'
+8. 下面2个只匹配一次， re.findall()匹配多次
+    re.search()     # 搜整串，找到就返回 对象
+    re.match()      # 从首字母开始匹配， 返回是对象
+        返回对象操作
+            res.group()     #匹配的串
+            res.span()      #位置
