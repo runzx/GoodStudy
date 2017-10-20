@@ -29,3 +29,4 @@
         from enum import IntEnum，unique
         @unique
         class VIP(IntEnum):
+    枚举 是单例模式，不用实例化
