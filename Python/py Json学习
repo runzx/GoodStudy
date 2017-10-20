@@ -1,0 +1,14 @@
+JSON 学习
+
+1. JavaScript Object Notation
+    是一种轻量级的数据 交换格式  （和XML比较）
+    是一种 数据格式！
+    字符串 是 JSON 的表现形式
+        {'abc':'xxx'}   # python 的字典
+2. 优势
+    易于阅读
+    易于解析        易于跨语言交换数据
+    网络传输效率 高
+3. 场境
+    网站：ajax JSON数据
+    API服务： APP、单页面、小程序
