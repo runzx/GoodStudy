@@ -1,0 +1,42 @@
+Flask-SQLAlchemy 连接 mysql 的大坑
+
+1. DBAPI Support
+    The following dialect/DBAPI options are available. Please refer to individual DBAPI sections for connect information.
+        MySQL-Python            mysql+mysqldb://<user>:<password>@<host>[:<port>]/<dbname>
+        PyMySQL                 mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
+        MySQL Connector/Python  mysql+mysqlconnector://<user>:<password>@<host>[:<port>]/<dbname>
+        CyMySQL
+        OurSQL
+        Google Cloud SQL
+        PyODBC
+        zxjdbc for Jython
+    常用的MySQL驱动
+        MySQL-python：封装的是MySQL的C驱动
+        MySQL Connector：MySQL官方的Python驱动
+        PyMySQL：纯Python的MySQL驱动
+2. 
+    pip install flask-mysqldb
+        出错：   raise EnvironmentError("%s not found" % (mysql_config.path,))
+                OSError: mysql_config not found
+        解决：   sudo apt-get install libmysqlclient-dev
+                如果你使用mariadb，则替换掉mysql，然后运行
+                    sudo apt-get install libmariadbclient-dev 
+
+    或：  pip install mysql-python
+    
+3. 数据库配置 db.conf
+    [DB]
+    DB_USER: root
+    DB_PASSWORD:
+    DB_DB: flaskblog
+    DB_HOST: 127.0.0.1
+
+    在主程序(users.py)中拿到上面数据库配置文件（db.conf）中的信息。使用的是python的configparser配置解析模块。在主程序(users.py)中加入：
+        import configparser
+        my_config = configparser.ConfigParser()
+        my_config.read('db.conf')
+        上面的代码将读取到db.conf中配置的信息，并通过my_config.get(‘DB’, ‘DB_USER’)获取到配置文件中变量的值。
+
+    连接数据库
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://' + my_config.get('DB', 'DB_USER') + ':' + my_config.get('DB', 'DB_PASSWORD') + '@' + my_config.get('DB', 'DB_HOST') + '/' + my_config.get('DB', 'DB_DB')
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
