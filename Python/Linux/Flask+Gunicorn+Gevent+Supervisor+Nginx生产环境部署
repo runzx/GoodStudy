@@ -1,0 +1,90 @@
+Flask+Gunicorn+Gevent+Supervisor+Nginx生产环境部署
+
+1. 每个组件的作用：
+    1）. nginx：高性能Web服务器+负责反向代理；
+    2）. gunicorn：高性能WSGI服务器；
+    3）. gevent：把Python同步代码变成异步协程的库；
+    4）. supervisor：监控服务进程的工具；
+
+2. 启动
+    1）"myproject.py":
+        # -*- coding:utf-8 -*-
+        # test code
+        from flask import Flask
+        application = Flask(__name__)
+        
+        @application.route("/")
+        def hello():
+            return "<h1 style='color:blue'>Hello There!</h1>"
+        
+        if __name__ == "__main__":
+            application.run(host='0.0.0.0')
+    2) 创建WSGI文件
+        # vim ~/myproject/wsgi.py
+        导入flask app，然后run即可：
+            from myproject import application
+            
+            if __name__ == "__main__":
+                application.run()
+    3）用gunicorn启动：
+        gunicorn -w 4 -b 127.0.0.1:8000 -k gevent wsgi:application
+        参数解释：
+            -w: 指定worker的数量（根据实际情况设定）
+            -b：指定绑定的地址和端口号
+            -k: 指定worker-class模式，默认为sync，这里用gevent使之变为异步协程，提高性能。
+            最后指定app的位置。
+            启动成功后，用ps看一下会看到有四个进程已经在工作了。
+
+        将gunicorn后台运行有多种方式：
+            使用supervisor管理之，这时gunicorn一定不是守护进程
+            使用nohup gunicorn wsgi:application&不挂起地执行
+            使用gunicorn的--deamon参数，使之作为deamon来运行
+            将gunicorn设置成一个服务
+        安装 gunicorn
+            pip install gunicorn
+    4）配置supervisor
+        web服务跑起来之后，为了保证服务的稳定性，需要加一个收获进程。supervisor非常好用，配置也简单方便，它是一个用 Python 写的进程管理工具，可以很方便的用来启动、重启、关闭进程（不仅仅是 Python 进程）。除了对单个进程的控制，还可以同时启动、关闭多个进程，比如很不幸的服务器出问题导致所有应用程序都被杀死，此时可以用 supervisor 同时启动所有应用程序而不是一个一个地敲命令启动。
+        自己在conf.d目录下写一个gunicorn的配置：
+                # vim /etc/supervisor/conf.d/gunicorn.conf
+            [program:gunicorn]
+            command = /usr/bin/gunicorn -w 4 -b 127.0.0.1:8000 -k gevent wsgi:application
+            directory = /data/get_vm_info/
+            autorestart = true
+            startsecs = 5
+            startretries = 3
+            user = root
+            nodaemon = false
+            需要注意的一点是directory的设置，否则会报错“Import Error”。
+            配置完成之后,重新加载下配置文件即可：
+                # supervisorctl  reload
+        查看状态：
+            root@localhost:~# supervisorctl  status
+            gunicorn    RUNNING    pid 32505, uptime 5:21:30
+
+        安装  pip install supervisor
+        在 supervisor.conf 配置文件底部添加 (注意我的工作路径是/var/www/server)
+            [program:myapp]
+            command=/var/www/server/venv/bin/gunicorn -w4 -b0.0.0.0:2170 myapp:app    ; supervisor启动命令
+            directory=/var/www/server                                                ; 项目的文件夹路径
+            startsecs=0                                                                             ; 启动时间
+            stopwaitsecs=0                                                                          ; 终止等待时间
+            autostart=false                                                                         ; 是否自动启动
+            autorestart=false                                                                       ; 是否自动重启
+            stdout_logfile=/var/www/server/log/gunicorn.log                           ; log 日志
+            stderr_logfile=var/www/server/log/gunicorn.err  
+
+    5)配置Nginx反向代理    
+    root@localhost:~# cat /etc/nginx/sites-enabled/default
+        server {
+            listen 8001;
+            server_name localhost;
+            access_log  /var/log/nginx/access.log;
+        
+            location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP   $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            }
+        }
+    配置完成后重启Nginx即可。
