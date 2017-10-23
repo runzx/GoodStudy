@@ -1,0 +1,62 @@
+
+简单说说PHP、Python的异常(错误)处理  
+
+    PHP和Python都有一个基本的内置的异常处理类：Exception(用户自己定义的异常类都应从此类继承)。
+    Python中还内建立了其它的异常处理类：
+        LookupError(索引或者键超出),
+        EOFError(对内建input函数无法读到任何数据(EOF)触发，注：file.read() 和file.readline()读到文件EOF时，返回空字符串),
+        IOError(I/O操作错误时触发如：文件找不到)等等
+
+1. PHP 
+    1) try..catch...
+        try {
+        //试运行PHP代码
+        } catch (Exception $e) {        
+            //捕获异常，这里Exception是内建的异常类，变量$e是该异常类的一个对象
+            //处理异常代码
+        }   
+    2) 抛出(触发)异常
+        throw new Exception('Uncaught Exception'); 
+    3) set_exception_handler
+        set_exception_handler(callback $exception_handler)
+        // 来设置自己异常处理方法。
+        // 当有异常被抛出时并且没有被 try/catch捕获，则会执行 exception_handler()方法后程序停止运行。
+2. python 
+    1) try..except...[else]...[finally]....
+        else从句与finally从句都不是必须的。
+        else:当没有异常发生的时候，else从句将被执行。
+        finally:无论异常发生与否的情况下都执行finally里的语句.
+
+        try:
+            # 试运行python代码
+        except Exception as e:   
+            # 捕获异常 注意这里用到as关键字，在3.1版本中使用as来得到对象而非","
+            # 捕获异常,Exception是内建的异常类，变量e是该异常类的一个对象
+            # 处理异常错误
+        else:
+            # 处理没有异常的情况
+        finally:
+            # 始终都被执行的语句
+    2) 抛出(触发)异常
+        在Python中你可以这样来抛出(触发)异常：
+            raise Exception('err'); 
+            # 抛出异常 raise关键字
+    3) 例：
+        try:
+            s = [1,2,3]
+            print(s[3])     
+            # 用于触发IndexError
+            raise Exception('wewr') 
+            # 当抛出一个异常时，必须有一个except与之对应，否则最终抛给python
+        except EOFError: # 当到达一个文件的末尾时引起
+            print('EOF')
+        except IndexError: # 超出序列的范围
+            print('Not INDEX')
+        except Exception as e:
+            print(e)
+        else: 
+            # 还可以让try..catch块关联上一个else从句。当没有异常发生的时候，else从句将被执行
+            print('没有任何异常')
+        finally:
+            # 无论异常发生与否的情况下都会执行的语句
+            print('ok')

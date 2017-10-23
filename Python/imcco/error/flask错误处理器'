@@ -1,0 +1,11 @@
+错误处理器
+
+1. 错误处理器和要捕捉的错误代码使用 errorhandler() 装饰器注册。 
+    请记住 Flask 不会 替您设置错误代码，
+    所以请确保在返回 response 对象时，提供了对应的 HTTP 状态代码。
+    例：
+        from flask import render_template
+
+        @app.errorhandler(404)
+        def page_not_found(e):
+            return render_template('404.html'), 404
