@@ -30,21 +30,21 @@ l4_to_l6_vit = 10
 DIAMOND = 0.05
 VIT = 1
 
-def l1_cost(quantity):
+def l1_cost(quantity=1):
     '''
     # 计算1级石头成本
     '''
     cost = l1_value  + l1_value_diamond  * DIAMOND
     return cost * quantity
 
-def l3_cost(quantity):
+def l3_cost(quantity=1):
     '''
     计算1级合成3级石头的成本
     '''
     cost = l1_cost(l1_to_l3 + 1)  + l1_to_l3_gold + l1_to_l3_vit * VIT
     return cost * quantity
 
-def l4_cost(quantity):
+def l4_cost(quantity=1):
     '''
     计算3级合成4级石头的成本
     '''
@@ -52,19 +52,20 @@ def l4_cost(quantity):
             + l3_to_l4_vit * VIT
     return cost *quantity
 
-def l6_cost(quantity):
+def l6_cost(quantity=1):
     '''
     计算4级合成6级石头成本
     '''
     cost = l4_cost(1+l4_to_l6) + l4_to_l6_gold + l4_to_l6_vit * VIT
     return cost * quantity
+
 if l6_cost(1) < 750:
-    print('自己购买1颗1级五行石的成本是:', l1_cost(1), '金。')
-    print('自己合成1颗3级五行石的成本是:', l3_cost(1), '金。')
-    print('自己合成1颗4级五行石的成本是:', l4_cost(1), '金。')
-    print('自己合成1颗6级五行石的成本是:', l6_cost(1), '金, 划算！')
+    print('自己购买1颗1级五行石的成本是:', l1_cost(), '金。')
+    print('自己合成1颗3级五行石的成本是:', l3_cost(), '金。')
+    print('自己合成1颗4级五行石的成本是:', l4_cost(), '金。')
+    print('自己合成1颗6级五行石的成本是:', l6_cost(), '金, 划算！')
 else:
-    print('自己购买1颗1级五行石的成本是:', l1_cost(1), '金。')
-    print('自己合成1颗3级五行石的成本是:', l3_cost(1), '金。')
-    print('自己合成1颗4级五行石的成本是:', l4_cost(1), '金。')
-    print('自己合成1颗6级五行石的成本是:', l6_cost(1), '金, 不划算！')
+    print('自己购买1颗1级五行石的成本是:', l1_cost(), '金。')
+    print('自己合成1颗3级五行石的成本是:', l3_cost(), '金。')
+    print('自己合成1颗4级五行石的成本是:', l4_cost(), '金。')
+    print('自己合成1颗6级五行石的成本是:', l6_cost(), '金, 不划算！')
