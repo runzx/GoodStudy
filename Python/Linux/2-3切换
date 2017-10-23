@@ -1,0 +1,39 @@
+alternatives这么好的机制用起来呀。
+
+shell里执行：
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 150
+
+如果要切换到Python2，执行：
+    sudo update-alternatives --config python
+    按照提示输入选择数字回车即可。
+
+这样你甚至可以将自己喜欢的任意版本python安装到任意位置，然后使用update-alternatives将其设置为系统默认python。
+--------------------------------------------------------------------
+
+    install选项的功能就是增加一组新的系统命令链接符了，使用语法为：
+        update-alternatives --install link name path priority [--slave link name path]... 
+            其中link为系统中功能相同软件的公共链接目录，比如/usr/bin/java(需绝对目录); 
+            name为命令链接符名称,如java； path为你所要使用新命令、新软件的所在目录； 
+            priority为优先级，当命令链接已存在时，需高于当前值，因为当alternative为自动模式时,系统默认启用priority高的链接; 
+            --slave为从alternative。
+        alternative有两种模式：auto和manual，默认都为auto模式，因为大多数情况下update-alternatives命令都被postinst (configure) or prerm (install)调用的，如果将其更改成手动的话安装脚本将不会更新它了。
+    remove选项的功能是删除一个alternative及相关从alternative,使用语法为:
+        update-alternatives --remove name path
+            其中name与path与install中的一致，如果所删除的链接组中还有其他链接的话，系统将会自动从其他中选择一个priority高的链接作为默认为链接。
+    config选项功能为在现有的命令链接选择一个作为系统默认的，使用语法为：
+        update-alternatives --config name
+            如执行：sudo update-alternatives --config java，将会有类似以下信息：
+                There are 2 choices for the alternative java (providing /usr/bin/java).
+            
+                Selection    Path                                      Priority   Status
+                ------------------------------------------------------------
+                * 0            /opt/java/jdk1.6.0_27/bin/java             1062      auto mode
+                1            /opt/java/jdk1.6.0_27/bin/java             1062      manual mode
+                2            /usr/lib/jvm/java-6-openjdk/jre/bin/java   1061      manual mode
+            
+                Press enter to keep the current choice[*], or type selection number: 
+            
+    若是想将manual改回自动模式的话，执行命令: update-alternatives --auto name即可，如
+        update-alternatives --config  java
+ 

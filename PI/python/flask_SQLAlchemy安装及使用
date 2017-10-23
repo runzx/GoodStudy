@@ -1,0 +1,47 @@
+Flask_SQLAlchemy 安装
+
+1. 安装
+    (venv) $ pip install flask-sqlalchemy
+
+2.
+    from flask_sqlalchemy import SQLAlchemy
+    app = Flask(__name__)
+    # 如果要用flask主配置文件 
+    # app.config.from_pyfile('config.py')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+    db = SQLAlchemy(app)
+
+3. 创建数据库
+    >>> from hello import db
+    >>> db.create_all()
+
+    插入数据 
+    >>> from hello import User
+    >>> admin = User(username='admin', email='admin@example.com')
+    >>> guest = User(username='guest', email='guest@example.com')
+
+    写入数据库
+    >>> db.session.add(admin)
+    >>> db.session.add(guest)
+    或：
+        >>> db.session.add_all([admin_role, mod_role, user_role,
+            ...   user_john, user_susan, user_david])
+
+    >>> db.session.commit()
+
+    访问数据库中的数据也是十分简单的:
+    >>> users = User.query.all()
+    [<User u'admin'>, <User u'guest'>]
+    >>> admin = User.query.filter_by(username='admin').first()
+    <User u'admin'>
+4. 
+    User类把我们刚刚创建的几个字段定义为类变量。字段使用db.Column类创建实例，字段的类型作为参数，另外还提供一些其他可选参数。例如，标识字段唯一性和索引的参数.
+
+    __repr__方法告诉Python如何打印class对象，方便我们调试使用。
+
+5. 
+    因为外键(ForeignKey)始终定义在多的一方.如果relationship定义在多的一方,那就是多对一,
+    一对多与多对一的区别在于其关联(relationship)的属性在多的一方还是一的一方，如果relationship定义在一的一方那就是一对多.
+
+    一对一 是多对一和一对多的一个特例,只需在relationship加上一个参数
+        uselist=False   替换多的一端就是一对一

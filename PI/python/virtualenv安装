@@ -1,0 +1,7 @@
+
+1. sudo apt install python-virtualenv
+    sudo pip install virtualenv
+        virtualenv --version
+        1.11.6
+
+2. 

@@ -1,0 +1,24 @@
+
+
+1.
+7. 本地化日期和时间 
+    pip install flask-Moment
+    from flask_moment import Moment
+8. 使用其他CDN
+    换成cdn.bootcss.com提供的资源：
+        bootstrap = lwrap(
+            WebCDN('//cdn.bootcss.com/bootstrap/%s/' % BOOTSTRAP_VERSION), local)
+        jquery = lwrap(
+            WebCDN('//cdn.bootcss.com/jquery/%s/' % JQUERY_VERSION), local)
+        html5shiv = lwrap(
+            WebCDN('//cdn.bootcss.com/html5shiv/%s/' % HTML5SHIV_VERSION))
+        respondjs = lwrap(
+            WebCDN('//cdn.bootcss.com/respond.js/%s/' % RESPONDJS_VERSION))
+    加载本地资源
+        app = Flask(__name__)
+        app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+9. error
+    1) jinja2.exceptions.UndefinedError: 'bootstrap_find_resource' is undefined
+        old: from flask.ext.bootstrap import Bootstrap
+        改成：from flask_bootstrap import Bootstrap
+
