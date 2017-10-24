@@ -1,0 +1,6 @@
+python如何查看某一个包中的某一个函数的使用方法
+
+import xxx
+
+1. >>>help(xxx)
+2. >>>print(xxx.__doc__)
