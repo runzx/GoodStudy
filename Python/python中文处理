@@ -1,3 +1,12 @@
+python3 b <--> str
+
+1. b -> str
+    b'abc'.decode("utf-8")
+2. str -> b
+    buffer.encode(encoding="utf-8") # 把utf8编码的转为byte格式
+    'abc'.encode("utf-8")
+
+
 GB2312是中国规定的汉字编码，也可以说是简体中文的字符集编码
 
 　　GBK 是 GB2312的扩展 ,除了兼容GB2312外，它还能显示繁体中文，还有日文的假名
