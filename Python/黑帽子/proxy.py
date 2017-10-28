@@ -26,16 +26,22 @@ def hexdump(src, length=16):
     # python3 取消了xrange, 它返回迭代对象
     for i in xrange(0, len(src), length):
         s = src[i:i+length]
-        hexa = ' '.join(['%0*X' % (digits, ord(x)) for x in s])
-        # zx 加入or ord(x) > 0xff , 为了显示汉字
-        text = ''.join([x if 0x20 <= ord(x) <0x7f or ord(x) > 0xff else '.' for x in s])
+        if digits == 2:
+            # python3中，单个b''返回ASCII数值，不用ord()
+            hexa = ' '.join(['%0*X' % (digits, x) for x in s])
+            # zx 加入or ord(x) > 0xff , 为了显示汉字, x 要通过chr()转成unicode字符
+            text = ''.join([chr(x) if 0x20 <= x <0x7f or x > 0xff else '.' for x in s])
+        else:
+            hexa = ' '.join(['%0*X' % (digits, ord(x)) for x in s])
+            # zx 加入or ord(x) > 0xff , 为了显示汉字
+            text = ''.join([x if 0x20 <= ord(x) <0x7f or ord(x) > 0xff else '.' for x in s])
         result.append('%04X %-*s %s' % (i, length*(digits+1), hexa, text))
     print('\n'.join(result))
 
 def receive_from(Connection):
     '''套接字对象实现数据接收'''
-    buffer = ''
-    Connection.settimeout(10)
+    buffer = b''
+    Connection.settimeout(1)
     try:
         while True:
             data = Connection.recv(4096)
@@ -68,32 +74,32 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
         if len(remote_buffer):
             print('[<==] Sending %d bytes to localhost.' % len(remote_buffer))
             client_socket.send(remote_buffer)
-        while True:
-            local_buffer = receive_from(client_socket)
+    while True:
+        local_buffer = receive_from(client_socket)
 
-            if len(local_buffer):
-                print('[==>] Received %d bytes from localhost.' % len(local_buffer))
-                hexdump(local_buffer)
-                local_buffer = request_handler(local_buffer)
+        if len(local_buffer):
+            print('[==>] Received %d bytes from localhost.' % len(local_buffer))
+            hexdump(local_buffer)
+            local_buffer = request_handler(local_buffer)
 
-                remote_socket.send(local_buffer)
-                print('[==>] Sent to remote')
+            remote_socket.send(local_buffer)
+            print('[==>] Sent to remote')
 
-            remote_buffer = receive_from(remote_socket)
-            if len(remote_buffer):
-                print('[<==] Received %d bytes from remote.' % len(remote_buffer))
-                hexdump(remote_buffer)
+        remote_buffer = receive_from(remote_socket)
+        if len(remote_buffer):
+            print('[<==] Received %d bytes from remote.' % len(remote_buffer))
+            hexdump(remote_buffer)
 
-                remote_buffer = response_handler(remote_buffer)
+            remote_buffer = response_handler(remote_buffer)
 
-                client_socket.send(remote_buffer)
-                print('[<==] Sent to localhost.')
-            if not len(local_buffer) or not len(remote_buffer):
-                client_socket.close()
-                remote_socket.close()
-                print('[*] No more data. Closing connectioms.')
+            client_socket.send(remote_buffer)
+            print('[<==] Sent to localhost.')
+        if not len(local_buffer) or not len(remote_buffer):
+            client_socket.close()
+            remote_socket.close()
+            print('[*] No more data. Closing connectioms.')
 
-                break
+            break
 
 
 def server_loop(local_host, local_port, remote_host, remote_port, receive_first):
@@ -125,7 +131,7 @@ def main():
     local_host = sys.argv[1]
     local_port = int(sys.argv[2])
     remote_host = sys.argv[3]
-    remote_port = sys.argv[4]
+    remote_port = int(sys.argv[4])
     receive_first = sys.argv[5]
 
     if 'True' in receive_first:
@@ -135,12 +141,12 @@ def main():
     
     server_loop(local_host, local_port, remote_host, remote_port, receive_first)
 
-# main()
+main()
 
 def test():
     '''测试用
     '''
-    hexdump('this is str for test 你好！')
+    hexdump(b'this is str for test')
     # print(a)
 
-test()
+# test()
