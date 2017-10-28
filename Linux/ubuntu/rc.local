@@ -1,0 +1,16 @@
+ubuntu下/etc/rc.local和/etc/init.d/rc.local的区别
+
+1. /etc/init.d/rc.local
+    脚本运行在2 3 4 5的启动级别，只能处理start的参数，然后执行start，
+    如果有/etc/rc.local文件的话则执行/etc/rc.local。
+    如果要把开机启动的程序放/etc/init.d/rc.local文件里，记住千万别一股脑写文件最后面就行了，因为在case语句块里脚本就会退出。
+
+2. /etc/rc.local
+    个模板让你放开机自启动程序的。把你的程序写在exit 0行的前面就行了。
+    ubuntu的启动级别： 
+　　0　　　关机 
+　　1　　　单用户 
+　　2-5　　多用户图形界面 
+　　6　　　重启 
+
+    对应每个启动级别，/etc/目录下都对应一个像/etc/rc5.d/这样的目录，下面是一些脚本，这些脚本基本都是对应/etc/init.d/目录下的软链接，命名里面的数字代表优先级，启动时这些脚本都会执行一遍。 
