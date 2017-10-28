@@ -1,0 +1,58 @@
+ubtunu 16.4 VNC server 
+
+1. 启动 
+    vncserver :1
+    杀
+    vncserver -kill :1
+
+2. 安装
+    sudo apt-get install ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal​
+
+    sudo apt-get install vnc4server​
+3.
+    xstartup配置： vi ~/.vnc/xstartup。修改为以下内容。修改之前最好先备份原始xstartup文件（mv xstartup xstartup.bk）
+    =========================================
+    export XKL_XMODMAP_DISABLE=1
+    /etc/X11/Xsession
+
+    # zx
+    gnome-panel &
+    gnome-settings-daemon &
+    metacity &
+    nautilus &
+    gnome-terminal &
+                    
+    ​-----------------分割线-------------------
+
+    #!/bin/sh 
+    export XKL_XMODMAP_DISABLE=1  
+    unset SESSION_MANAGER  
+    unset DBUS_SESSION_BUS_ADDRESS  
+    
+    [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup  
+    [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources  
+    xsetroot -solid grey  
+    vncconfig -iconic &  
+    # 将最后一行“x-window-manager &”改为我们自己的Ubuntu图形界面服务
+    # 最上面模的 菜单栏 ？
+    gnome-panel &  
+    gnome-settings-daemon &  
+    metacity &  
+    nautilus &  
+    # 这是终端
+    gnome-terminal &
+
+    ​----------------分割线------------------
+
+4.  配置开机启动：
+    首先输入 crontab 命令。
+        会提示选择默认的编辑器。推荐使用 vim，选择 vim.basic 就可以了。
+            Select an editor. To change later, run ‘select-editor’.
+            1. /bin/ed
+            2. /bin/nano <---- easiest 3. /usr/bin/vim.basic 4. /usr/bin/vim.tiny Choose 1-4 [2]: 在末尾另起一行输入如下命令：
+
+            @reboot /usr/bin/vncserver :1
+        提示：
+        切换英文输入法，按 i 改为插入模式，粘贴完毕后，按 Esc 退出插入模式，然后按 shift 和 : 键，出现“:”后，输入 wq 保存，回车退出。
+
+        重启服务器。

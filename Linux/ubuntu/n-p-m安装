@@ -1,0 +1,21 @@
+
+1. apt-get -y install mysql-server mysql-client
+    要输入root密码 
+    创建新用户，且远程
+        create user zhaix identified by '明文密码';
+    给所有权限
+        GRANT UPDATE ON *.* TO 'zhaix'@'%';
+    MySQL报错ERROR 2003
+        Mysql数据库的默认配置文件my.cnf（linux下）中的bind-address默认为127.0.0.1
+        sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+2. sudo apt install nginx
+    sudo systemctl start nginx
+
+3. sudo apt-get -y install php7.0-fpm php-fpm php-mysql php-mbstring
+
+    或 sudo apt-get install php7.1 php-fpm php-mysql php-mbstring
+    sudo apt-get -y install php7.1-mysql php7.1-curl php7.1-intl php-pear php-imagick php7.1-imap php7.1-mcrypt php-memcache php7.1-recode php7.1-sqlite3 php7.1-tidy php7.1-xmlrpc php7.1-xsl php7.1-mbstring php-gettext 
+
+4. 
+    nano /etc/nginx/nginx.conf

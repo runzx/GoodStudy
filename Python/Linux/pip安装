@@ -1,0 +1,12 @@
+
+1. download get-pip.py
+    wget https://bootstrap.pypa.io/get-pip.py
+
+2. sudo python get-pip.py
+
+    Upgrading pip
+    On Linux or macOS:
+        pip install -U pip
+    On Windows:
+        python -m pip install -U pip
+3. sudo pip install virtualenv

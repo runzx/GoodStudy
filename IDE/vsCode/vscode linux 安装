@@ -31,4 +31,4 @@ Then update the package cache and install the package using dnf (Fedora 22 and a
     sudo dnf install code
 Or on older versions using yum:
     yum check-update
-    sudo yum install code
+    sudo yum install code   
