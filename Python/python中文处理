@@ -6,6 +6,16 @@ python3 b <--> str
     buffer.encode(encoding="utf-8") # 把utf8编码的转为byte格式
     'abc'.encode("utf-8")
 
+3.  python3:
+         decode              encode
+
+    bytes ------> str(unicode)------>bytes
+4. 自动识别 chardet
+    >>> import urllib
+    >>> rawdata = urllib.urlopen('http://yahoo.co.jp/').read()
+    >>> import chardet
+    >>> chardet.detect(rawdata)
+    {'encoding': 'EUC-JP', 'confidence': 0.99}
 
     GB2312是中国规定的汉字编码，也可以说是简体中文的字符集编码
 
