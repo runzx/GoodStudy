@@ -21,8 +21,7 @@ The repository and key can also be installed manually with the following script:
 Then update the package cache and install the package using:
     sudo apt-get update
     sudo apt-get install code # or code-insiders
-R
-HEL, Fedora and CentOS based distributions
+RHEL, Fedora and CentOS based distributions
 We currently ship the stable 64-bit VS Code in a yum repository, the following script will install the key and repository:
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
@@ -32,3 +31,8 @@ Then update the package cache and install the package using dnf (Fedora 22 and a
 Or on older versions using yum:
     yum check-update
     sudo yum install code   
+------------------------------------------------------
+kali 2
+    sudo apt install gdebi
+    sudo gdebi code.1.17.2.deb
+    

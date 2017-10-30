@@ -1,0 +1,18 @@
+WINDOWS安装 SCAPY 支持 PYTHON3
+
+1. 安装python3   官网下载最新版安装即可
+
+2. 在 http://www.lfd.uci.edu/~gohlke/pythonlibs/ 下载lxml 及twist ,并通过pip install xxx 安装。
+
+3. pip install scrapy -i https://pypi.douban.com/simple/ 安装scrapy 
+
+4. 测试 python import scrapy 不报错
+
+5. zx 测试有问题 , 
+    try_or_die: 装了个npcap，好像可以了。多谢。
+...
+  File "D:\zx\github\python\zzy\black hat python\venv\lib\site-packages\scapy\arch\winpcapy.py", line 26, in <module>
+    _lib=CDLL('wpcap.dll')
+  File "c:\program files\python36\Lib\ctypes\__init__.py", line 348, in __init__
+    self._handle = _dlopen(self._name, mode)
+    OSError: [WinError 126] 找不到指定的模块。
