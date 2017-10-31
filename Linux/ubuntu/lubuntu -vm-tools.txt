@@ -1,0 +1,3 @@
+
+Lubuntu 16.4 °²×°vm-tools
+sudo apt install open-vm-tools-desktop -y

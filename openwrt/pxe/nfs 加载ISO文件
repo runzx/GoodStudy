@@ -49,4 +49,17 @@
                     no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；
 六。 启动NFS服务器
     为了使NFS服务器能正常工作，需要启动portmap和nfs两个服务，并且portmap一定要先于nfs启动。
-    
+    /etc/exports
+    /home/work 192.168.0.*（rw,sync,no_root_squash）
+        添加的内容表示：允许ip 地址范围在192.168.0.*的计算机以读写的权限来访问/home/work 目录。 
+        /home/work 也称为服务器输出共享目录。 
+        括号内的参数意义描述如下： 
+        rw：读/写权限，只读权限的参数为ro； 
+        sync：数据同步写入内存和硬盘，也可以使用async，此时数据会先暂存于内存中，而不立即写入硬盘。 
+        no_root_squash：NFS 服务器共享目录用户的属性，如果用户是 root，那么对于这个共享目录来说就具有 root 的权限。 
+    接着执行如下命令，启动端口映射：
+       # /etc/init.d/portmap start
+    最后执行如下命令启动NFS 服务，此时NFS 会激活守护进程，然后就开始监听 Client 端的请求：
+       # /etc/init.d/nfs start
+
+       mount: mounting nfsd on /proc/fs/nfsd failed: No such device

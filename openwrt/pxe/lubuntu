@@ -1,0 +1,50 @@
+lubuntu
+
+lubuntu:
+menu label ^Install Lubuntu
+  kernel /casper/vmlinuz
+  append  file=/cdrom/preseed/lubuntu.seed boot=casper only-ubiquity initrd=/casper/initrd.lz quiet splash ---
+
+ubuntu 17:  # netboot
+	menu label ^Install
+	menu default
+	kernel ubuntu-installer/i386/linux      # 类似其它的vmlinuz
+	append vga=788 initrd=ubuntu-installer/i386/initrd.gz --- quiet 
+
+PXE : https://blog.stdio.io/?p=612
+
+vim /mnt/PXEboot/pxelinux.cfg/default
+    # 新建文件，写入以下内容
+
+    DEFAULT vesamenu.c32
+    MENU TITLE My PXEboot Server
+    PROMPT 0
+    TIMEOUT 100
+
+    label  Ubuntu 14.04 amd64
+        KERNEL OS/ubuntu14.04/casper/vmlinuz
+        INITRD OS/ubuntu14.04/casper/initrd.lz
+        APPEND netboot=nfs nfsroot=192.168.2.1:/mnt/PXEboot/OS/ubuntu14.04 boot=casper quiet splash --
+
+PXe2:
+    DEFAULT vesamenu.c32
+    PROMPT 0
+    MENU TITLE OpenWRT PXE-Boot Menu
+
+    label Ubuntu
+            MENU LABEL Ubuntu Live 13.10 64-Bit
+            KERNEL disks/ubuntu/casper/vmlinuz.efi
+            APPEND boot=casper ide=nodma netboot=nfs nfsroot=192.168.1.1:/mnt/extstorage/tftp/disks/ubuntu1310-64/ initrd=disks/ubuntu/casper/initrd.lz
+            TEXT HELP
+                    Starts the Ubuntu Live-CD - Version 13.10 64-Bit
+            ENDTEXT
+PXE-zx:
+    APPEND netboot=nfs nfsroot=192.168.0.1:/mnt boot=casper initrd=/casper/initrd.lz quiet splash --
+1. 试试 只改 txt.cfg 把 启动目录单独成lpxe
+
+配置nfs服务器：
+    修改/etc/exports，这将会控制那些目录可以被访问，例如新增这段（根据上面pxelinnux的配置）：
+        /mnt/extstorage/tftp/disks/ubuntu1310-64/ 192.168.1.0/24(ro,fsid=0,no_subtree_check)
+        
+        systemctl enable nfsd.service rpc-idmapd.service rpc-mountd.service rpcbind.service
+        systemctl start nfsd.service rpc-idmapd.service rpc-mountd.service rpcbind.service

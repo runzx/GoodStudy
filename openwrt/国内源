@@ -1,0 +1,8 @@
+
+执行 vi /etc/opkg/distfeeds.conf  
+
+中科大 反向代理
+http://openwrt.proxy.ustclug.org
+
+清华
+https://mirrors.tuna.tsinghua.edu.cn/openwrt/chaos_calmer/
