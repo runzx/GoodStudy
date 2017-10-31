@@ -1,0 +1,25 @@
+openwrt u盘
+
+1. 添加“基本USB支持”
+    opkg update
+    opkg install kmod-usb-storage block-mount kmod-fs-ext4
+2. 添加“扩展USB支持”，FAT、Ext3 及 NTFS 文件系统支持
+    opkg install kmod-fs-vfat kmod-fs-ext3 ntfs-3g kmod-nls-cp437 kmod-nls-iso8859-1 kmod-nls-utf8
+3. 添加“扩展工具”，挂载卸载工具及lsusb命令
+    opkg install fdisk usbutils
+
+4. 编辑自动挂载脚本 /etc/hotplug.d/block/10-mount
+    添加运行权限
+        chmod 777 /etc/hotplug.d/block/10-mount
+
+5. 手工挂载分区(将sda1修改为实际的设备)
+    mkdir /mnt/sda1
+    mount /dev/sda1 /mnt/sda1
+    手工挂载FAT分区(将sda1修改为实际的设备)
+        mkdir /mnt/sda1
+        mount -t vfat -o iocharset=utf8,rw,sync,umask=000,dmask=000,fmask=000 /dev/sda1 /mnt/sda1
+    手工挂载NTFS分区(将sda1修改为实际的设备)
+        mkdir /mnt/sda1
+        ntfs-3g -o nls=utf8 /dev/sda1 /mnt/sda1
+    卸载分区(将sda1修改为实际的挂载点)
+        unmount /mnt/sda1

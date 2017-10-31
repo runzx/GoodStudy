@@ -1,0 +1,26 @@
+
+
+1. 创建一个文件夹如D:/PXE_BOOT/，解压syslinux源码包，在源码包中搜索找到
+    ldlinux.c32、lpxelinux.0、pxelinux.0并拷贝到D:/PXE_BOOT/目录中。
+
+2、在D:/PXE_BOOT/下创建一个pxelinux.cfg文件夹，这里要放类似于isolinux.cfg的配置文件，其实完全可以拷贝系统镜像中的isolinux.cfg过来，重命名为default即可。
+
+3. 启动文件可以是pxelinux.0或lpxelinux.0，
+    区别在lpxelinux.0支持从ftp或http服务器下载内核文件vmlinuz和initrd文件。
+
+5、修改D:/PXE_BOOT/pxelinux.cfg/default文件中的启动项，
+    主要是修改kernel参数指定vmlinuz、append参数initrd的FTP地址，具体如下所示。
+        display boot.msg
+        prompt 1
+        timeout 5
+        default install
+        label quit
+                localboot 0
+        label install
+                kernel 
+                append initrd=ftp://10.0.0.2/INITRD.LZ
+        label rescue
+                kernel vmlinuz
+                append rescue initrd=initrd.img
+    上面的boot.msg是一个文本文件，在启动时会显示在屏幕上，不是必须的，
+        boot.msg应该放在D:/PXE_BOOT/下面。

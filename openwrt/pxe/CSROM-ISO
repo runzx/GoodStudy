@@ -1,0 +1,49 @@
+
+mount -t iso9660 /dev/cdrom /mnt/cdrom
+
+    如果你的windows98目录里有中文文件名，使用上面的命令挂载后，显示的是一堆乱码。
+    这就要用到 -o 参数里的codepage iocharset选项。
+        codepage指定文件系统的代码页，简体中文中文代码是936；
+        iocharset指定字符集，简体中文一般用cp936或 gb2312,
+        现在的新发行版一般都需要多加一个参数 utf8=0。当
+        挂载的文件系统linux不支持时，mount一定报错，如windows2000的ntfs文件系统。
+
+    挂载光驱，支持中文
+        mount -t iso9660 -o codepage=936,iocharset=cp936 /dev/cdrom /mnt/cdrom
+    挂载 ISO 文件
+        mount -o loop /abc.iso /mnt/cdrom
+
+    显示挂载的文件系统
+        mount
+        cat /etc/fstab开机自动加载的FS
+        cat /etc/mtab当前已经加载的FS
+
+        /dev/device mount point   type    rules   dump  fsck_order
+        3> type 是指文件系统类形。
+        4>rules 是指挂载时的规则。下面列举几个常用的：
+            auto 开机自动挂载
+            default 按照大多数永久文件系统的缺省值设置挂载定义
+            noauto 开机不自动挂载
+            nouser 只有超级用户可以挂载
+            ro 按只读权限挂载
+            rw 按可读可写权限挂载
+            user 任何用户都可以挂载
+        5>dump 是指dump系统备份工具。这一项为0，就表示从不备份。如果上次用dump备份，将显示备份至今的天数。
+        6>fsck_order 指fsck（启动时fsck检查的顺序）。为0就表示不检查，（/）分区永远都是1，其它的分区只能从2开始，当数字相同就同时检查（但不能有两1）。
+
+    mount [-t vfstype] [-o options] device dir
+
+    1.-t vfstype 指定文件系统的类型，通常不必指定。mount 会自动选择正确的类型。常用类型有：
+    　　光盘或光盘镜像：iso9660。
+    　　DOS fat16文件系统：msdos。
+    　　Windows 9x fat32文件系统：vfat。
+    　　Windows NT ntfs文件系统：ntfs。
+    　　Mount Windows文件网络共享：smbfs。
+    　　UNIX(LINUX) 文件网络共享：nfs。
+    2.-o options 主要用来描述设备或档案的挂接方式。常用的参数有：
+        loop：用来把一个文件当成硬盘分区挂接上系统。
+    　　ro：采用只读方式挂接设备。
+    　　rw：采用读写方式挂接设备。
+    　　iocharset：指定访问文件系统所用字符集。
+　　3.device 要挂接(mount)的设备。
+　　4.dir设备在系统上的挂接点(mount point)。

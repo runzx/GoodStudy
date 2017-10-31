@@ -1,0 +1,10 @@
+
+挂接Windows文件共享
+　　Windows网络共享的核心是SMB/CIFS，在linux下要挂接(mount)windows的磁盘共享，就必须安装和使用samba软件包。现在流行的linux发行版绝大多数已经包含了samba软件包，如果安装linux系统时未安装samba请首先安装samba。当然也可以到www.samba.org网站下载samba软件包，现在最新的版本是3.0.10版。
+　　当windows系统共享设置好以后，就可以在linux客户端挂接(mount)了，具体操作如下：
+    　　  # mkdir –p /mnt/samba
+　　      注：建立一个目录用来作挂接点(mount point)
+　　# mount -t smbfs -o username=administrator,password=pldy123 //10.140.133.23/c$ /mnt/samba
+　　      注：administrator 和 pldy123 是ip地址为10.140.133.23 windows计算机的一个用户名和密码，
+            c$是这台计算机的一个磁盘共享
+　　如此就可以在linux系统上通过/mnt/samba来访问windows系统磁盘上的文件了。以上操作在redhat as server 3、redflag server 4.1、suse server 9以及windows NT 4.0、windows 2000、windows xp、windows 2003环境下测试通过。
