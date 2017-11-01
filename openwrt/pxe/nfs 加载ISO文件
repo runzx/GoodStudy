@@ -63,3 +63,10 @@
        # /etc/init.d/nfs start
 
        mount: mounting nfsd on /proc/fs/nfsd failed: No such device
+
+	option enable_tftp '1'
+	#enable_tftp
+	option tftp_root '/mnt/lpex'
+	option dhcp_boot 'ldlinux.sys'
+#'pxelinux.0'
+	

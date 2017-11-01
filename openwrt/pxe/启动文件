@@ -24,3 +24,12 @@
                 append rescue initrd=initrd.img
     上面的boot.msg是一个文本文件，在启动时会显示在屏幕上，不是必须的，
         boot.msg应该放在D:/PXE_BOOT/下面。
+
+
+ label  Lubuntu 17.10 i386
+        KERNEL /casper/vmlinuz
+        #INITRD OS/ubuntu14.04/casper/initrd.lz
+	APPEND netboot=nfs nfsroot=192.168.0.1:/mnt boot=casper initrd=/casper/initrd.lz quiet splash --
+
+        #APPEND netboot=nfs nfsroot=192.168.2.1:/mnt/PXEboot/OS/ubuntu14.04 boot=casper quiet splash --
+	

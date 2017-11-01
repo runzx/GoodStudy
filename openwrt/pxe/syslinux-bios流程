@@ -1,0 +1,60 @@
+
+1. syslinux-BIOS 系统 启动流程
+    1） 电脑启动时，BIOS 会先加载磁盘开始的 440 字节 MBR 启动代码(/usr/lib/syslinux/bios/mbr.bin 或 /usr/lib/syslinux/bios/gptmbr.bin)
+    2）MBR 寻找活动分区（设置了 boot 标记的 MBR 分区），假设是 /boot 分区。
+        找到这个分区后， MBR 启动代码会执行卷启动记录程序（VBR=volume boot record）。对于 Syslinux 来说，VBR 就是 /boot/syslinux/ldlinux.sys 开始扇区的代码， 由 extlinux --install 命令创建。
+    3）VBR 会加载剩余的 ldlinux.sys。ldlinux.sys开始扇区是被写死进卷启动记录程序里的。对于 btrfs 来说，因为文件不断移动导致ldlinux.sys扇区的位置不断变化，而让上面方法失效。从而使得整个syslinux需要被存储在文件系统之外。程序将被存储在卷启动记录程序之后。
+    4）ldlinux.sys 会接着加载 /boot/syslinux/ldlinux.c32 核心模块，这个模块包含因为文件大小限制，无法放入 ldlinux.sys 的代码。
+    5）当 syslinux 完全加载完毕，它将自动查找配置文件，配置文件名是 
+        /boot/syslinux/syslinux.cfg 或 /boot/syslinux/extlinux.conf
+        /syslinux/syslinux.cfg
+        /syslinux.cfg
+    6） 找到之后，将加载整个配置文件，否则，将进入命令行窗口，显示 boot: 提示。
+
+2. 配置
+    1） syslinux的配置文件 syslinux.cfg 必须和syslinux放在同一个目录下，在我们的例子中，是 '/boot/syslinux/'
+        启动器将自动寻找这两个配置文件：syslinux.cfg (优先) 或者 extlinux.conf
+    2） TIMEOUT 的值是1/10秒，也就是50代表5秒
+        若不想看到提示，设置PROMPT（显示时间）为0.
+        模块menu COM32复制到syslinux目录中，即可使用文本菜单：
+            # cp /usr/lib/syslinux/menu.c32 /boot/syslinux/
+            例：
+                UI menu.c32
+                PROMPT 0
+
+                MENU TITLE Boot Menu
+                TIMEOUT 50
+                DEFAULT arch
+
+                LABEL arch
+                        MENU LABEL Arch Linux
+                        LINUX ../vmlinuz-linux
+                        APPEND root=/dev/sda2 ro
+                        INITRD ../initramfs-linux.img
+
+                LABEL archfallback
+                        MENU LABEL Arch Linux Fallback
+                        LINUX /vmlinuz-linux
+                        APPEND root=/dev/sda2 ro
+                        INITRD /initramfs-linux-fallback.img
+        若没有给/boot单独分区，且和/usr同一分区，那么，也可以仅使用一个软链接:
+            # ln -s /usr/lib/syslinux/menu.c32 /boot/syslinux/
+        把vesamenu COM32移入到syslinux目录中，可使用图形启动界面:
+            # cp /usr/lib/syslinux/vesamenu.c32 /boot/syslinux/
+        同上，软链接: :
+            # ln -s /usr/lib/syslinux/vesamenu.c32 /boot/syslinux/
+        注释行。# 后面的空格是必须的。
+        INCLUDE filename 
+            在此处插入其他文件的内容。
+        DEFAULT kernel options...
+            设置默认的命令行。如果 SYSLINUX 自动启动，就像在 "boot:" 提示符后输入一样执行 DEFAULT 后的内容。
+            如果不存在配置文件，或者文件中没有 "DEFAULT" 项，默认 "linux auto"
+        APPEND options...
+            为内核命令行添加一或多个选项，在自动和手动引导中都有效。
+            这些选项被添加到内核命令行的最前面，通常明确地允许被输入的选项覆盖。这与 LILO 的 "append" 选项相同。
+        CONFIG 
+            表示使用另外一个配置文件重启引导器。
+    代码:
+    label mylabel
+        kernel mykernel
+        append myoptions注意，"kernel" 并不一定是 Linux 内核，可以是引导扇区或 COMBOOT 文件
