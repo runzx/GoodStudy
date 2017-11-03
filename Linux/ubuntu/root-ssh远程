@@ -1,0 +1,14 @@
+
+1、默认不带ssh，所以需要安装一下ssh
+sudo apt install openssh-server
+ 
+2、设置root密码，ubuntu默认root密码是随机的，需要重置一下
+sudo passwd root
+ 
+3、允许root用户登录，编辑sshd_config
+sudo vim /etc/ssh/sshd_config
+找到# Authentication项下的
+PermitRootLogin prohibit-password改成PermitRootLogin yes
+ 
+4、最后当然是选择原谅ubuntu啦，重启ssh搞定
+sudo systemctl restart sshd
