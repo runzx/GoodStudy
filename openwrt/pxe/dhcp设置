@@ -1,0 +1,13 @@
+
+
+ /etc/dhcp/dhcpd.conf 
+    subnet 192.168.42.0 netmask 255.255.255.0 {
+            range 192.168.42.101 192.168.42.200;
+            option subnet-mask      255.255.255.0;
+            option domain-name      "i4502.dic.ksu";
+                                                <==上面的資料是前一章的內容！
+            next-server     192.168.42.254;    <==就是 TFTP 的位址所在處
+            filename        "pxelinux.0";      <==告知得從 TFTP 根目錄下載的 boot loader 檔名
+
+    ....(中間省略)....
+    }                                          <==別忘記最後的這玩意！
