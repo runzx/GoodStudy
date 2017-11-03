@@ -1,0 +1,22 @@
+
+
+1. 去查看要下载的版本：
+    http://files.zend.com/help/Zend-Studio/content/installing_xdebug.htm
+
+2. ubuntn 16后可以直接：
+    sudo apt install php-xdebug
+
+3. php7.1 目录结构：
+    配置文件：
+        /etc/php/7.1/fpm/php.ini    // 我们用这个
+        /etc/php/7.1/cli/php.ini
+
+        /usr/lib/php/20160303/xdebug.so 
+
+4. php7.1 php.ini增加：
+    zend_extension = /usr/lib/php/20160303/xdebug.so
+    xdebug.profiler_enable = 1
+    xdebug.profiler_output_dir = "/tmp"
+    xdebug.remote_enable = 1
+    xdebug.remote_port=9009
+    xdebug.remote_host = "127.0.0.1"
