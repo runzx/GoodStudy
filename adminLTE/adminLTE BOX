@@ -1,0 +1,18 @@
+box算是它样式中最主要的部分
+
+<div class="info-box bg-red">
+	<span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+    <!-- 进度条 -->
+	<div class="info-box-content">
+		<span class="info-box-text">Downloads</span>
+		<span class="info-box-number">114,381</span>
+
+		<div class="progress">
+			<div class="progress-bar" style="width: 70%"></div>
+		</div>
+		<span class="progress-description">
+			70% Increase in 30 Days
+		</span>
+	</div>
+	<!-- /.info-box-content -->
+</div>
