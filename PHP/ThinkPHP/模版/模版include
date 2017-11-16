@@ -1,0 +1,16 @@
+包含文件 include
+
+在当前模版文件中包含其他的模版文件使用include标签，标签用法：
+    {include file='模版文件1,模版文件2,...' /}
+    包含的模板文件中不能再使用模板布局或者模板继承。
+    路径以 项目目录/public/ 路径下为起点
+    Include标签支持在包含文件的同时传入参数，例如，
+        下面的例子我们在包含header模板的时候传入了title和keywords参数：
+            {include file="Public/header" title="$title" keywords="开源WEB开发框架" /}
+        就可以在包含的header.html文件里面使用title和keywords变量，如下：
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+            <title>[title]</title>
+            <meta name="keywords" content="[keywords]" />
+            </head>
+    包含文件中可以再使用include标签包含别的文件
