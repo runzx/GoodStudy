@@ -1,0 +1,45 @@
+kimteCMS 用jquery validate
+
+1. jQuery Validate提供了中文信息提示包，位于下载包的 dist/localization/messages_zh.js
+
+2. 使用方式
+    1、将校验规则写到控件中
+        <script>
+            $.validator.setDefaults({
+                submitHandler: function() {
+                    alert("提交事件!");
+                }
+            });
+            $().ready(function() {
+                $("#commentForm").validate();
+            });
+        </script>
+
+        <form class="cmxform" id="commentForm" method="get" action="">
+            <fieldset>
+                <legend>输入您的名字，邮箱，URL，备注。</legend>
+                <p>
+                <label for="cname">Name (必需, 最小两个字母)</label>
+                <input id="cname" name="name" minlength="2" type="text" required>
+                </p>
+                <p>
+                <label for="cemail">E-Mail (必需)</label>
+                <input id="cemail" type="email" name="email" required>
+                </p>
+                ...
+    2、将校验规则写到 js 代码中
+        $().ready(function() {
+            // 在键盘按下并释放及提交后验证提交表单
+            $("#signupForm").validate({
+                rules: {
+                firstname: "required",
+                lastname: "required",
+                username: {
+                    required: true,
+                    minlength: 2
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                ...
