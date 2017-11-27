@@ -3,6 +3,9 @@
 	arr.push(temp)
 	在头上增加
 	arr.unshift()
+	
+	当temp也是数组时（二维）， push会把temp当成arr的一个元素。
+	arr.push.apply(arr, temp)2 个二维数组合并
 2. 新增对象
 	obj[key]=value;	//键值为变量Key的值。 例key='red' obj[key]='abc'  就是加一个 obj.red='abc';
 	

@@ -23,3 +23,10 @@
     在router.php处用:version, 动态使用版本号
 5. 多对多关系， 最好用3张表来
     第3张表TP5框架内会处理
+
+6. 关联闭包查询
+    $res = self::with(['article'=>function($query) use($id){
+                $query->field('category_id')->where('category_id','=',$id);
+                }])
+            ->where('id','=',$id)
+            ->select();

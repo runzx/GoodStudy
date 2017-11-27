@@ -1,0 +1,71 @@
+
+
+1. 在你的web服务器上建立git裸仓库、编写hooks、导入用户公钥、设置目录权限
+    在服务器上建立一个用户，这里命名为git，修改git的密码，并禁用shell登录
+
+    $ sudo useradd  git
+    # 修改git的密码
+    $ passwd git
+    # 禁用shell登录
+    $ sudo vi /etc/passwd
+    修改
+    git:x:1001:1001:,,,:/home/git:/bin/bash
+    为
+    git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+
+2. $ sudo git init --bare demosite.git
+    # 文件夹权限
+        $ sudo chown -R git:git demosite.git
+        $ cd /demosite.git/hooks
+        $ sudo vi post-receive
+    写入以下内容
+        #!/bin/sh
+        GIT_WORK_TREE=/home/wwwroot/www.demosite.com  git checkout -f
+    # 写入权限
+        $ chmod +x post-receive
+    # 建立web目录，如果目录不存在，git不会创建目录的
+        $ mkdir /home/wwwroot/www.demosite.com  -p
+    # web目录的文件夹权限
+        $ sudo chown -R git:git /home/wwwroot/www.demosite.com 
+
+三　实现自动部署
+    post-receive
+        这个hook在git服务器受到push请求，并且接受完代码提交时触发。
+        具体代码体现：
+        在git远端仓库的hooks目录下新建post-receive文件：
+            #!/bin/sh  
+            
+            #author: embbnux  
+            #Blog of Embbnux: http://www.embbnux.com  
+            
+            #判断是不是远端仓库  
+            IS_BARE=$(git rev-parse --is-bare-repository)  
+            if [ -z "$IS_BARE" ]; then  
+            echo >&2 "fatal: post-receive: IS_NOT_BARE"  
+            exit 1  
+            fi  
+            
+            unset GIT_DIR  
+            DeployPath="/var/web"  
+            
+            echo "==============================================="  
+            cd $DeployPath  
+            echo "deploying the test web"  
+            
+            ＃git stash  
+            #git pull origin master  
+            git fetch --all  
+            git reset --hard origin/master  
+            
+            time=`date`  
+            echo "web server pull at webserver at time: $time."  
+            echo "================================================"  
+        保存后赋予可执行权限：
+            chmod +x hooks/post-receive
+    这样在开发者提交代码的时候，就会自动部署。
+    在这里补充说明下： 因为我建立git仓库时用的是git用户 但是在自动部署时站点服务器采用的是nginx服务器的  git用户属于git组 nginx属于nginx组  
+        所以在这里就是把post-receive设置成nginx组 如果不设置的话在站点目录下是没有办法更新文件的（会提示没有权限操作）
+    这里使用的是git fetch，也可以使用git pull实现，这里两个的区别主要是pull事先fetch后然后再用merge，来合并本地和远端的代码。
+        但是有个问题，如果开发者在提交过程出现失误，使用git reset复位后，现在远端的代码版本低于web端的代码版本，再使用pull的时候就不能实现和开发者本地的代码的同步。
+        所以这里使用fetch后，在强制使用reset实现web端的代码版本指针和git服务端的一致。
+        由于没有使用merge，所以以后web端的代码就不能在服务器上直接更改了，对web端代码的各种改变都应该使用开发者电脑进行代码提交，不然会报错。

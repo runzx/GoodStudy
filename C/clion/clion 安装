@@ -1,0 +1,17 @@
+
+1、安装配置cygwin
+    官网https://cygwin.com/install.html 
+    下载https://cygwin.com/setup-x86_64.exe
+
+    （2）安装 
+        下一步->install from Internet -> 设置下载安装路径 -> direct connection -> 选择下载源
+            （可以选mirrors.ustc.edu.com[东北大学镜像站]，
+            或者添加网易镜像站：http://mirrors.163.com/cygwin/ [参考http://mirrors.163.com/.help/cygwin.html]） 
+        接来下选择安装的模块，分别搜索 gcc-core、gcc-g++、make、gdb、binutils，以上所有项目都在 devel 文件夹下。 
+            有个search的搜索框，搜上面几个出来结果后点一下前面那个skip，把skip切换成版本号，意思是原来skip（跳过）的模块现在安装。 
+    （3）安装完后将安装目录下的 bin目录 添加到 Path 环境变量。
+
+2. (两选一)安装MinGW，官网地址http://www.mingw.org/。MinGW安装步骤不再赘述，只是要注意安装路径不要使用中文和空格即可。安装完成后，需要下载开发包和gcc，选择最小安装即可：
+
+3、clion配置cygwin
+    setting -> Build... -> Toolchain ->
