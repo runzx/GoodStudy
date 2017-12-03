@@ -1,0 +1,42 @@
+adminLTE 教程
+
+adminLTE是基于bootstrap3的前端框架，并且将bootstrap3进行修改来适应自身的样式。
+    js是基于jquery2。
+    使用adminLTE样式，只需要在项目演示中按F12打开调试窗口，使用箭头选中控件，复制粘贴即可
+    基础模板页面starter.html，再此基础上做开发会快速很多
+
+dminLTE给的index2.php代码中，有几点需要注意：
+    一、body样式：
+        1、类hold-transition是对IE的transition做了一些修复，在body引用即可，没什么深层含义
+        2、皮肤的样式  
+        3、布局
+            默认侧边栏隐藏，标题不移动
+    二、body构造
+        <div class="wrapper">
+            <!-- 顶部导航栏 -->
+            <header class="main-header">
+
+            </header>
+
+            <!-- 左侧菜单栏 -->
+            <aside class="main-sidebar">
+
+            </aside>
+
+            <!-- 中间内容 -->
+            <div class="content-wrapper">
+
+            </div>
+
+            <!-- 底部标注 -->
+            <footer class="main-footer">
+
+            </footer>
+
+            <!-- 右侧菜单栏 -->
+            <aside class="control-sidebar control-sidebar-dark">
+            </aside>
+            <!-- 右侧菜单栏的样式，底部距离为0等 -->
+            <div class="control-sidebar-bg"></div>
+
+        </div>

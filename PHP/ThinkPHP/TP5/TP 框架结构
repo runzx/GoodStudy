@@ -1,0 +1,22 @@
+
+
+1. 模块、分类定义
+    http://tjs.zx.com/api/v2/Article/lecture
+    $request->module(), $request->controller(), $request->action()
+        module = 'api'
+        controller = 'v2.article'
+        cation = 'getlecture'
+
+    模块: app下的，如admin, index, api
+
+    行为标签位   （类似python的 中间件 ）
+        在定义行为之前，我们先来了解下系统有哪些标签位，系统核心提供的标签位置包括下面几个（按照执行顺序排列）：	
+        标签位	            描述
+        app_init	    应用初始化标签位
+        app_begin	    应用开始标签位
+        module_init	    模块初始化标签位
+        action_begin	控制器开始标签位
+        view_filter	    视图输出过滤标签位
+        app_end	        应用结束标签位
+        log_write	    日志write方法标签位
+        response_end	输出结束标签位 
