@@ -1,0 +1,86 @@
+php-resque 是轻量级后台任务系统，基于Redis，功能设计简单，配置灵活。相比MQ系统大而全的MQ系统，这个显得小而美。
+
+    基于Redis的比较不错的消息队列 Resque https://github.com/resque/resque 而此消息队列则是使用ruby语言实现的.我更不想一个项目中使用多种语言了,幸好,马上又发现了基于resque的PHP实现, 
+        php-resque https://github.com/chrisboulton/php-resque
+        Resque还包括很多其他插件以及其他语言的实现,详细列表请看官方列表 https://github.com/resque/resque/wiki/Alternate-Implementations
+        phpredis扩展. php-resque使用Redis Client是 Credis, https://github.com/colinmollenhour/credis ,而Credis的API完全是基于phpredis来封装的,即API一样,前者是C扩展,后者是PHP实现.
+
+    Job | 任务 ： 一个Job就是一个需要在后台完成的任务，比如发送邮件，就可以抽象为一个Job。在Resque中一个Job就是一个Class。
+    Queue | 队列 ： 也就是上文的消息队列，在Resque中，队列则是由Redis实现的。Resque还提供了一个简单的队列管理器，可以实现将Job插入/取出队列等功能。
+    Worker | 执行者 ： 负责从队列中取出Job并执行，可以以守护进程的方式运行在后台。
+
+php-resque
+
+    后台任务在Resque下的基本流程是这样的：
+        1、将一个后台任务编写为一个独立的Class，这个Class就是一个Job。
+        2、在需要使用后台程序的地方，系统将Job Class的名称以及所需参数放入队列。
+        3、以命令行方式开启一个Worker，并通过参数指定Worker所需要处理的队列。
+        4、Worker作为守护进程运行，并且定时检查队列。
+        5、当队列中有Job时，Worker取出Job并运行，即实例化Job Class并执行Class中的方法。
+
+安装Redis
+    apt-get install redis-server
+安装Composer
+    apt-get install curl
+    cd /usr/local/bin
+    curl -s http://getcomposer.org/installer | php
+    chmod a+x composer.phar
+    alias composer='/usr/local/bin/composer.phar'
+使用Composer安装php-resque 
+    假设web目录在/opt/htdocs
+        apt-get install git git-core
+        cd /opt/htdocs
+        git clone git://github.com/chrisboulton/php-resque.git
+        cd php-resque
+        composer install
+    至此php-resque即可完成，可以进行其使用。
+
+步骤二：php-resque的使用
+    首先需要运行Worker
+        技术上讲一个Worker就是一个不断运行的PHP进程，并且不断监视新的任务并运行。
+    创建一个Worker，php-resque需要以下参数：
+        QUEUE: 需要执行的队列的名字
+        INTERVAL：在队列中循环的间隔时间，即完成一个任务后的等待时间，默认是5秒
+        APP_INCLUDE：需要自动载入PHP文件路径，Worker需要知道你的Job的位置并载入Job
+        COUNT：需要创建的Worker的数量。所有的Worker都具有相同的属性。默认是创建1个Worker
+        REDIS_BACKEND：Redis服务器的地址，使用 hostname:port 的格式，如127.0.0.1:6379，或localhost:6379。默认是localhost:6379
+        REDIS_BACKEND_DB：使用的Redis数据库的名称，默认是0
+        VERBOSE：啰嗦模式，设置“1”为启用，会输出基本的调试信息
+        VVERBOSE：设置“1”启用更啰嗦模式，会输出详细的调试信息
+        PREFIX：前缀。在Redis数据库中为队列的KEY添加前缀，以方便多个Worker运行在同一个Redis数据库中方便区分。默认为空
+        PIDFILE：手动指定PID文件的位置，适用于单Worker运行方式
+    以上参数中只有QUEUE是必须的。如果让Worker监视执行多个队列，可以用逗号隔开多个队列的名称，
+        如：”queue1,queue2,queue3”，队列执行是有顺序的，如上queue2和queue3总是会在queue1后面被执行。
+    Worker 必须以CLI方式启动。
+
+    3、后台运行Worker
+        可以在命令后面添加一个&来使其后台运行。
+            QUEUE=notification php resque.php &;
+        可以使用nohup来保持resque后台运行，即使是在用户登出后。
+            nohup QUEUE=notification php resque.php &amp;
+        查看系统进程的方法确认Worker是否正在运行。
+            ps -ef|grep resque.php
+
+1、php-resque不区分明显的客户端和服务端，beanstalkd区分，较符合我们常用的思维方式。 
+2、php-resque只需安装redis并运行，而beanstalkd是自己写的服务端与其他软件无关，也不需要。 
+3、php-resque不能持久化，而beanstalkd可以，但实际不用为好，因为太慢。 
+4、php-resque和beanstalkd都很轻量级，都很容易使用。 
+5、最重要的php-resque不能使用延时队列（或者说需要其他组件补充），而beanstalkd可以。 
+6、php-resque许久不更新了，而beanstalkd在composer上次更新是2015年，好不少。 
+7、php-resque没有优先级，而beanstalkd有优先级，但我也不用。 
+8、为了防止某个consumer长时间占用任务但不能处理的情况，Beanstalkd为reserve操作设置了timeout时间，如果该consumer不能在指定时间内完成job，job将被迁移回READY状态，供其他consumer执行。 
+
+使用 Database
+
+创建如下数据表
+    CREATE TABLE `prefix_jobs` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `queue` varchar(255) NOT NULL,
+    `payload` longtext NOT NULL,
+    `attempts` tinyint(3) unsigned NOT NULL,
+    `reserved` tinyint(3) unsigned NOT NULL,
+    `reserved_at` int(10) unsigned DEFAULT NULL,
+    `available_at` int(10) unsigned NOT NULL,
+    `created_at` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

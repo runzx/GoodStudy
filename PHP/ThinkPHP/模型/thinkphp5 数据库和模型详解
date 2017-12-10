@@ -1,0 +1,371 @@
+ thinkphp5 数据库和模型详解
+
+ 1、Db和模型的存在只是ThinkPHP5.0架构设计中的职责和定位不同，Db负责的只是数据（表）访问，模型负责的是业务数据和业务逻辑。
+ 2、Db和模型最明显的一个区别就是
+    Db查询返回的数据类型为-数组（对于一个没有业务逻辑的数据而言，数组已经足够），
+    模型的查询返回类型的是模型-对象-实例。
+ 3、总而言之，想要掌握模型，必须明白和理解下面几个原则：
+     模型和数据库层的定位和职责不同；
+     不要因为性能而放弃使用模型，那是得不偿失的；
+     用面向对象的方式来使用和设计模型；
+     模型的数据底层操作仍然是数据库抽象访问层，而且是自动的
+
+ 4、模型定义有几个要素：
+     通常会继承think\Model（或者子类），虚拟模型除外；
+     一个模型并不总是对应一个数据表（可能会有多个），虽然默认如此；
+     模型名和数据表名也不是直接对应关系；
+     尽管一个空模型和使用Db类无异，但意义不同；
+
+ 5、模型定义阶段要达成的目的：
+     定义数据表      （默认就是模型类名）
+     定义数据表主键    （默认会自动获取）
+     定义数据库连接    （默认使用数据库配置）
+     定义数据处理逻辑   （包括属性和方法）
+     定义业务逻辑     （方法）
+
+ 6、下面的定义是不需要或者不支持的：
+     数据表字段（不需要，会自动获取，并支持缓存机制）
+     数据表前缀（不支持，模型不关心前缀）
+
+ 7、大多数情况下，数据表和数据库连接是不需要定义的，数据处理逻辑和业务逻辑才是模型定义的重点
+
+ 8、在新版框架的架构设计规范中，我们建议数据表的命名不使用前缀设计，表前缀其实已经是一种过时的设计了，很多时候跨库的设计比表前缀的设计来的更灵活和实用，而且前缀设计（尤其是在混合用的情况下）带来的一些困惑和问题却是很多新手最大的苦恼，所以何必自寻烦恼（如果你一定要采用前缀设计，那么请用name方法替代table方法，并且在数据库配置文件中配置prefix参数，我也不拦着你，哭的时候别找我^_^）
+
+ 9、关于模型的连接对象和查询对象，要清楚下面这些事实：
+     模型可以单独设置数据库连接；
+     模型的数据库连接是惰性的（因为连接本身就是惰性）；
+     如果使用统一的数据库配置，模型使用的连接对象是相同的；
+     模型使用的查询对象是独立的；
+     模型可以使用自定义的查询对象；
+
+ 10、模型类实现了ArrayAccess接口，因此一样可以使用数组方式操作对象
+
+ 11、因为模型基本上是内部处理业务逻辑，所以会出现内部调用的时候
+     以name属性为例，获取模型数据的方式有下列三种：
+         场景                     方法
+         外部获取模型数据           $model->name
+         内部获取模型数据           $this->getAttr('name')
+         内部获取（原始）模型数据    $this->getData('name')
+         getData和getAttr方法的区别前者是原始数据，后者是经过读取器处理的数据，如果没有定义数据读取器的话，两个方法的结果是相同的。
+
+     对应的设置模型数据的方式也有三种：
+         场景                         方法
+         外部设置模型数据               $model->name='thinkphp'
+         内部设置模型数据（经过修改器）   $this->setAttr('name','thinkphp')
+         内部设置模型数据               $this->data('name','thinkphp')
+         data和setAttr方法的区别前者是赋值最终数据，后者赋值的数据还会经过修改器处理，如果没有定义修改器的话，两个方法的结果是相同的。
+
+
+ 12、CURL
+     模型的CURD操作最终调用的还是Db类的操作，区别在于使用了ActiveRecord模式和单独做了一层封装而已
+     除了模型自己的方法操作外，还可以调用Db类的所有查询方法，也就是说Db类的CURD操作方法都可以在模型类中被调用。
+     //创建
+         //动态
+             $user        = new User;
+             $user->name  = 'thinkphp';
+             $user->email = 'thinkphp@qq.com';
+             $user->save();
+         // 获取用户的主键数据
+            echo $user->id;
+         //静态
+             $user = User::create([
+                 'name'  => 'thinkphp',
+                 'email' => 'thinkphp@qq.com',
+             ]);
+             echo $user->id;
+     //读取
+         $user = User::get(1);
+         echo $user->id;
+     // 查询用户数据集
+         $users = User::all([1, 2, 3]);
+         $users = User::where('id', '>', 1)
+             ->limit(5)
+             ->select();
+         // 遍历读取用户数据
+         foreach ($users as $user) {
+             echo $user->id;
+             echo $user->name;
+         }
+     //更新
+         //动态 返回影响的记录数
+             $user = User::get(1);
+             $user->save([
+                 'name'  => 'topthink',
+                 'email' => 'topthink@qq.com',
+             ]);
+         //静态 返回模型对象实例
+             User::update([
+                 'name'  => 'topthink',
+                 'email' => 'topthink@qq.com',
+             ], ['id' => 1]);
+     //删除
+             $user = User::get(1);
+             $user->delete();
+         //静态实现
+            User::destroy(1);
+     现在我们已经掌握了模型的基本CURD操作，我们来总结下方法区别：
+         用法     Db类     模型（动态）  模型（静态）
+         创建     insert    save          create
+         更新     update    save          update
+         读取单个 find      find            get
+         读取多个 select    select          all
+         删除     delete    delete        destroy
+     然后要注意几个注意事项：
+         模型类可以直接调用Db类的所有方法；
+         模型类和Db类的查询返回类型是完全不同的，即便是调用同一个方法查询；
+         模型类封装的静态方法本质上还是调用的动态方法，只是为了方便不同的需求场景；
+         模型对象的查询操作尽量使用静态方法调用；
+ 13、查询构造器
+    查询构造器的用法在模型类中没有变化，并且还做了一些增强来支持模型的CURD封装方法。
+    所有的链式方法都可以直接被模型类静态调用，而且一样不分先后次序，你只要掌握了数据库的查询构造器用法，就能掌握模型的查询用法，而且模型类不需要调用table方法来指定数据表名称，因为模型已经有自己的对应数据表规则，从这一点来说，模型的查询操作应该比Db类的查询操作用法简单
+    模型可以直接调用Db类（确切的说是查询类）的方法，无论是静态还是动态调用，也就是说你可以把模型类当成Db类一样使用（虽然用法一样，但其实区别很大，可能查询条件、查询结果和返回类型都不同）
+ 14、数据集
+     // 设置数据集返回类型 database.php中
+        'resultset_type'  => 'collection',
+     // 设置模型的数据集返回类型 模型中
+        protected $resultSetType = 'collection';
+     数据集的优势：
+         数据更对象化；
+         关联操作更方便；
+         数据集本身可以单独定义独立的业务方法；
+ 15、业务逻辑
+    业务逻辑应当封装到具体模型中，并由控制器来调用；
+
+=============================================================
+
+1、ThinkPHP5的数据访问层是基于PHP内置的PDO对象实现
+2、数据库入口类Db 主要就是一个connect方法
+    理论上来说，框架并不依赖Db类，该类的存在只是为了简化数据库抽象层的操作而提供的一个工厂类
+    所有的数据库操作都是经过Db类调用，并且Db类是一个-静态类-，但Db类自身只有一个公共方法connect
+3、连接器类Connection  连接类的基类是   think\db\Connection
+4、数据库连接都是惰性的，只有最终执行SQL的时候才会进行连接。
+5、查询器类Query 数据访问层核心只有一个唯一的查询类：think\db\Query
+    所有的数据库查询都使用了PDO的预处理和参数绑定机制
+    虽然我们始终使用Db类操作数据库，而实际上大部分方法都是由查询器类提供的方法
+6、生成器类Builder  生成类一般不需要自己调用，而是由查询类自动调用的
+7、数据库的调试模式和应用的调试模式是两个不同的概念。
+8、Db类的方法都是-静态调用-（不需要去实例化think\Db类）
+9、一般来说并不建议在控制器的操作方法中直接操作数据库Db类
+10、对数据表的CURD操作，除了select和存储过程调用使用query方法之外，其它的操作都使用execute方法
+11、数据访问层支持分布式数据库，包括读写分离，要启用分布式数据库，需要开启数据库配置文件中的deploy参数
+12、事务的支持由连接器类来完成，但查询器类中也对事务进行了封装调用，mysql需要使用InnoDB引擎。
+13、事务模型、Db类都可以使用，使用方法一样。
+===================================================================================
+    查询构造器及高级技巧
+
+1、掌握查询构造器对于掌握数据库和模型的查询操作非常关键
+2、使用查询构造器一般都是自动实例化查询类，Db类的任何方法都会自动调用connect方法返回连接对象实例，然后调用连接对象的查询构造器方法会自动实例化查询类。
+3、db助手函数默认每次调用都会重新连接数据库（目的是确保你的每次db函数调用不会相互影响），你可以使用db('data',[],false)方式解决。
+4、CURL关键方法
+    查询方法 作用描述
+    table   指定查询数据表     辅助方法
+    field   指定查询字段
+    where   指定查询条件
+    order   指定结果排序
+    limit   指定查询结果数
+    find    查询一条记录       真正的查询方法
+    select  查询数据集
+    insert  写入数据
+    update  更新数据
+    delete  删除数据
+    辅助方法（辅助查询用的，也称为链式方法，例如table、field、where、order和limit等方法），一个是真正的查询方法（find、select、insert、update和delete方法），查询方法是必须的，而辅助方法是可选的，并且辅助方法必须在查询方法之前被调用，并且在查询调用之后自动失效。
+5、在新版框架的架构设计规范中，我们建议数据表的命名不使用前缀设计，表前缀其实已经是一种过时的设计了，很多时候跨库的设计比表前缀的设计来的更灵活和实用，而且前缀设计（尤其是在混合用的情况下）带来的一些困惑和问题却是很多新手最大的苦恼，所以何必自寻烦恼（如果你一定要采用前缀设计，那么请用name方法替代table方法，并且在数据库配置文件中配置prefix参数，我也不拦着你，哭的时候别找我^_^）
+6、新增   返回值也是影响（新增）的记录数
+    //如果主键自增则不需要写入id。
+    // 插入单个记录
+        Db::table('data') ->insert(['id' => 8, 'name' => 'thinkphp']);
+    // 插入多个记录
+        Db::table('data')->insertAll([
+        ['id' => 9, 'name' => 'thinkphp'],
+        ['id' => 10, 'name' => 'topthink'],
+        ]);
+    // 获取上次写入的自增Id
+        $id = Db::getLastInsID();
+    // 插入单个记录 并返回自增Id
+        $id = Db::table('data')->insertGetId(['name' => 'kancloud']);
+    // strict(false)方法忽略错误继续执行
+        $id = Db::table('data')->strict(false)->insertGetId(['name' => 'kancloud']);
+7、更新
+    // 更新记录
+        Db::table('data')->where('id', 8)->update(['name' => "framework"]);
+    //主键更新
+        Db::table('data')->update(['id' => 8, 'name' => "framework"]);
+    //过滤 即使谢了name和email，但是 field 指定只更新name
+        Db::table('data')->field(['name'])->where('id', 8)->update([
+                    'name' => 'framework',
+                    'email' => 'thinkphp@qq.com'
+                ]);
+    //指定字段更新 setField 其实最终也是调用update
+        Db::table('data')->where('id', 8)->setField('name','framework');
+8、对于数字类型的字段的步长更新，框架提供了两个专门的方法用于递增和递减操作
+9、读取 查询
+    //column的返回类型永远都是数组，不受resultset_type参数的影响。
+        //单数据
+            $data = Db::table('data'->where('id', 8)->find();
+            $data = Db::table('data')->find(8)
+        //多数据查询
+            $list = Db::table('data')->where('id','in', [1, 5, 8])->select();
+            $list = Db::table('data')->select([1,5,8]);
+            foreach ($list as $data) {
+                echo $data['name'];
+            }
+    // 返回某个字段的值
+        Db::table('data')->where('id', 1)->value('name');
+    // 获取name列的数组
+        Db::table('data')->where('status', 1)->column('name');
+    // 指定索引
+        Db::table('data')->where('status', 1)->column('name', 'id');
+10、数据集
+    // 数据集返回类型
+        'resultset_type'  => 'collection',
+    二维数组和数据集对象的区别在于，数据集对象提供了更多的内置数据处理方法，但在基本使用上，这两种方式没有不同
+11、删除
+    // 删除数据
+        Db::name('data')->where('id', 18)->delete();
+    // 主键删除
+        Db::name('data')->delete(18);
+        Db::name('data')->delete([1, 5, 8]);
+    // 删除所有数据
+        Db::name('data')->delete(true);
+12、事实上，对于业务数据表，基本上不建议使用删除操作，而是使用软删除（逻辑删除，其实执行的是数据表的更新操作）替代实际的物理删除。软删除属于模型的功能设计
+13、链式方法
+    //辨别一个方法是否属于链式方法的一个显著特征就是看这个方法是否返回当前的对象实例
+    //下面两个语句生成的sql一样，完全等效
+        $list = Db::table('data')->where('id', '>', 1)->limit(8)->select();
+        $list = Db::limit(8)->where('id', '>', 1)->table('data')->select();
+    //多个where方法和order方法的调用顺序最终影响了生成的SQL语句
+        说明：
+        链式方法支持所有的CURD操作；
+        链式方法本身只是返回查询对象，只有执行查询后才会返回结果，而且只能在查询方法之前被调用；
+        不同链式方法的调用顺序不影响查询；
+        相同链式方法的调用顺序可能会影响查询（至少会影响SQL语句）
+        链式方法在完成查询后会自动失效；
+        同一个链式方法在CURD操作中的作用可能不同；
+        链式方法仅针对CURD方法，对原生查询无效
+14、查询语句
+    要掌握查询语言的核心，谨记：2个方法，3个用法，8个要诀。
+    2个方法是：
+        where AND条件查询
+        whereOr OR条件查询
+    3个用法就是表达式、数组和闭包用法，并且是支持混合使用的
+    8个要诀：
+        在使用查询的过程中谨记下面8个要诀，帮助你更好的完成查询。
+        查询条件的调用次序就是生成SQL的-条件顺序-；
+        查询字段用 & 分割表示对多个字段使用 AND 查询；
+        查询字段用 | 分割表示对多个字段使用 OR 查询；
+        对同一个查询字段多次调用非等查询条件会-合并-查询；
+        闭包查询和EXP查询会在生成的查询语句两边加上-括号-；
+        用闭包查询替代3.2版本的组合查询；
+        除了EXP查询外，其它查询都会自动使用参数绑定；
+        如果查询条件来自用户输入，尽量使用表达式和闭包查询，数组条件查询务必使用官方推荐的方法获取变量；
+
+    系统支持的链式操作方法有：
+    //其中带*标识的表示支持多次调用。
+        连贯操作        作用              支持的参数类型
+        where*      用于AND查询字符串、数组和对象
+        whereOr*    用于OR查询字符串、数组和对象
+        whereXor*   用于XOR查询字符串、数组和对象
+        whereTime*  用于时间日期的快捷查询字符串
+        table       用于定义要操作的数据表名称字符串和数组
+        alias       用于给当前数据表定义别名字符串和数组
+        field*      用于定义要查询的字段（支持字段排除）字符串和数组
+        order*      用于对结果排序字符串和数组
+        limit       用于限制查询结果数量字符串和数字
+        page        用于查询分页（内部会转换成limit）字符串和数字
+        group       用于对查询的group支持字符串
+        having      用于对查询的having支持字符串
+        join*       用于对查询的join支持字符串和数组
+        union*      用于对查询的union支持字符串、数组和对象
+        view*       用于视图查询  字符串、数组
+        distinct    用于查询的distinct支持布尔值
+        lock        用于数据库的锁机制布尔值
+        cache       用于查询缓存  支持多个参数
+        relation*   用于关联查询字符串
+        with*       用于关联预载入  字符串、数组
+        bind*       用于数据绑定操作数组或多个参数
+        comment     用于SQL注释字符串
+        force       用于数据集的强制索引字符串
+        master      用于设置主服务器读取数据布尔值
+        strict      用于设置是否严格检测字段名是否存在布尔值
+        sequence    用于设置Pgsql的自增序列名字符串
+        failException 用于设置没有查询到数据是否抛出异常布尔值
+        partition   用于设置分表信息数组 字符串
+        data*       用于设置写入数据（5.0.5+）数组
+        inc*        用于设置字段递增 （5.0.5+）字符串
+        dec*        用于设置字段递减（5.0.5+）字符串
+        exp*        用于设置SQL表达式（5.0.5+）字符串
+-------------------------------------------------------
+        高级查询技巧
+1、获取查询SQL
+    // 不会进行实际的查询   返回SQL字符串
+        $result = Db::table('user')
+            ->fetchSql(true)
+            ->where('id', 1)
+            ->find();
+        echo $result;
+2、聚合查询
+    方法 说明
+        count   统计数量，参数是要统计的字段名（可选）
+        max     获取最大值，参数是要统计的字段名（必须）
+        min     获取最小值，参数是要统计的字段名（必须）
+        avg     获取平均值，参数是要统计的字段名（必须）
+        sum     获取总分，参数是要统计的字段名（必须）
+    // 查询用户ID是1的用户成绩总分
+        Db::table('score')
+            ->where('user_id', 1)
+            ->sum('score');
+3、快捷查询
+    对于多个字段相同查询条件的查询，系统提供了简化写法，多个字段之间用|分割表示OR查询，用&分割表示AND查询，例如：
+        Db::table('user')
+            ->where('name|title', 'like', 'thinkphp%')
+            ->where('create_time&update_time', '>', 0)
+            ->find();
+    //要求thinkphp要5.0.5+
+        方法 作用
+        whereNull 查询字段是否为Null
+        whereNotNull 查询字段是否不为Null
+        whereIn 字段IN查询
+        whereNotIn 字段NOT IN查询
+        whereBetween 字段BETWEEN查询
+        whereNotBetween 字段NOT BETWEEN查询
+        whereLike 字段LIKE查询
+        whereNotLike 字段NOT LIKE查询
+        whereExists EXISTS条件查询
+        whereNotExists NOT EXISTS条件查询
+        whereExp 表达式查询
+        Db::table('user')
+            ->whereNotNull('name')
+            ->whereIn('id', [1, 2, 3])
+            ->whereLike('name', '%think%')
+            ->whereExists(function ($query) {
+                $query->table('profile')
+                    ->whereBetween('user_id', [1, 10]);
+            })
+            ->select();
+4、快捷更新
+    在写入操作的时候，经常需要使用函数或者运算，为此框架提供了几个快捷更新方法，包括
+    方法      描述
+    setField 更新字段值
+    setInc   递增更新字段值
+    setDec  递减更新字段值
+    data    设置数据（5.0.5+）
+    inc     递增字段值（5.0.5+）
+    dec     递减字段值（5.0.5+）
+    exp     使用SQL表达式写入字段值（5.0.5+）
+5、动态查询
+    getByFieldName 根据某个字段查询
+    getFieldByFieldName 根据某个字段获取某个值
+6、时间查询 等
+    // 查询创建时间在2016-1-1~2016-7-1的数据
+        $result = Db::name('data')
+            ->whereTime('create_time', 'between', ['2016-1-1', '2016-7-1'])
+            ->select();
+        dump($result);
+7、视图查询
+    如果需要快捷查询多个表的数据，推荐使用视图查询，相当于通过多次使用view方法在数据库创建了一个视图，例如：
+    $result = Db::view('user', 'id,name,status')
+        ->view('profile', ['name' => 'truename', 'phone', 'email'], 'profile.user_id=user.id')
+        ->where('status', 1)
+        ->order('id desc')
+        ->select();
+    dump($result);
