@@ -1,0 +1,43 @@
+
+1. pathinfo不是nginx的功能，pathinfo是php的功能。
+    通用URI的格式如下：
+        scheme:[//[user[:password]@]host[:port]][/path][?query][#fragment]
+        nginx 只处理（匹配?或#前的字符串， 也就是/path部分）
+2. php.ini中的配置参数cgi.fix_pathinfo
+    它是用来对设置cgi模式下为php是否提供绝对路径信息或PATH_INFO信息。
+    没有这个参数之前PHP设置绝对路径PATH_TRANSLATED的值为SCRIPT_FILENAME，没有PATH_INFO值。
+        cgi.fix_pathinfo=1  cgi设置完整的路径信息PATH_TRANSLATED的值为SCRIPT_FILENAME，并且设置PATH_INFO信息；
+        cgi.fix_pathinfo=0  则只设置绝对路径PATH_TRANSLATED的值为SCRIPT_FILENAME。
+    cgi.fix_pathinfo的默认值是1。
+    nginx默认是不会设置PATH_INFO环境变量的的值，需要php使用cgi.fix_pathinfo=1来完成路径信息的获取，但同时会带来安全隐患，需要把cgi.fix_pathinfo=0设置为0，这样php就获取不到PATH_INFO信息，那些依赖PATH_INFO进行URL美化的程序就失效了。
+
+    PATH_INFO是一个CGI 1.1的标准，经常用来做为传参载体。
+    http://www.test.cn/index.php/test/my.html?c=index&m=search
+        $_SERVER['PATH_INFO'] ＝ '/test/my.html'
+        $_SERVER['QUERY_STRING'] = 'c=index&m=search'
+
+3. 旧版本的nginx使用如下方式配置
+        location ~ \.php($|/) {
+            set $script $uri;
+            set $path_info "";
+        
+            if ($uri ~ "^(.+.php)(/.+)") {
+                set $script $1;
+                set $path_info $2;
+            }
+        
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$script;
+            fastcgi_param SCRIPT_NAME $script;
+            fastcgi_param PATH_INFO $path_info;
+        }
+    新版本的nginx也可以使用fastcgi_split_path_info指令来设置PATH_INFO，旧的方式不再推荐使用，在location段添加如下配置。
+        location ~ [^/]\.php($|/) {
+            (...)
+            fastcgi_split_path_info ^((?U).+.php)(/?.+)$;
+            fastcgi_param SCRIPT_FILENAME /path/to/php$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+            (...)
+        }
