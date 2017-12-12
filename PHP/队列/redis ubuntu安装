@@ -1,0 +1,79 @@
+
+
+1.安装        // http://blog.csdn.net/zstack_org/article/details/69951845
+
+    wget http://download.redis.io/releases/redis-4.0.1.tar.gz   //下载
+    tar xzvf redis-4.0.1.tar.gz     // 解压
+    cd redis-4.0.1
+
+    sudo apt-get install build-essential tcl    //依赖包 tcl >8.5
+
+    make 
+    make test       //测试结果
+        我安装tcl后，还是有2个错误：
+            Testing unit/pubsub
+                [err]: PUBLISH/SUBSCRIBE after UNSUBSCRIBE without arguments in tests/unit/pubsub.tcl
+                Expected '1' to be equal to '0'
+            Testing unit/maxmemory
+                [err]: Test HINCRBYFLOAT for correct float representation (issue #2846) in tests/unit/type/hash.tcl
+                Expected condition '[r hincrbyfloat myhash float 1.23] eq {1.23}' to be true ([r hincrbyfloat myhash float 1.23] eq {1.23})
+    二进制文件是编译完成后在src目录下，通过下面的命令启动Redis服务：
+        $ src/redis-server
+        你可以使用内置的客户端命令redis-cli进行使用：
+        $ src/redis-cli
+        redis> set foo bar
+        OK
+        redis> get foo
+        "bar"
+    安装
+    sudo make install
+        /usr/local/bin/redis-server     // which redis-server
+2. 配置Redis
+    sudo mkdir /etc/redis       //配置文件
+    sudo cp /tmp/redis-stable/redis.conf /etc/redis     //默认配置，其中daemonize no
+    sudo nano /etc/redis/redis.conf
+        supervised命令。现在其被设置为no。由于我们运行的操作系统使用systemd init系统，因此需要将其变更为systemd：
+            Systemd 是 Linux 系统中最新的初始化系统（init）， ubnutu 从15开始转用此
+                历史上，Linux 的启动一直采用init进程。
+                    sudo /etc/init.d/apache2 start
+                    # 或者
+                    $ service apache2 start
+                    一是启动时间长。init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。
+                    二是启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使得脚本变得很长。
+                根据 Linux 惯例，字母d是守护进程（daemon）的缩写。 Systemd 这个名字的含义，就是它要守护整个系统。
+                    systemctl --version     //查看版本
+                        systemctl是 Systemd 的主命令，用于管理系统。
+        下面找到dir目录。此选项指定Redis用于放置持久数据的目录。我们需要挑选合适的位置，并确保Redis有权限写入但普通用户无权查看。
+            这里我们使用/var/lib/redis目录，稍后进行创建：
+            dir /var/lib/redis
+    创建Redis systemd Unit文件
+        sudo nano /etc/systemd/system/redis.service
+            [Unit]
+            Description=Redis In-Memory Data Store
+            After=network.target
+
+            [Service]
+            User=redis
+            Group=redis
+            ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+            ExecStop=/usr/local/bin/redis-cli shutdown
+            Restart=always
+
+            [Install]WantedBy=multi-user.target
+        在[Service]部分，我们需要指定该服务的运作方式。出于安全考虑，我们不应以root方式运行服务。我们应当使用专用用户及群组，并以此调用redis。
+        我们希望Redis能够在故障情况下得到恢复，因此需要将Restart指令设定为“always”：
+        [Install]部分，我们将systemd定义为在该服务可用时始终关联（即在引导过程中即行启动）
+    创建Redis用户、群组与目录
+        sudo adduser --system --group --no-create-home redis
+        sudo mkdir /var/lib/redis
+        sudo chown redis:redis /var/lib/redis       // 为redis user与group分配此目录的所有权
+        sudo chmod 770 /var/lib/redis               // 普通用户无法访问该位置
+    启动并测试Redis
+        sudo systemctl start redis
+
+4. WSL下，团为没有systemd
+    1) redis.conf 
+        daemonize yes       //守护进程
+        supervised no       //不能用systemd 
+    2) 启动Redis
+        sudo redis-server /etc/redis/redis.conf  
