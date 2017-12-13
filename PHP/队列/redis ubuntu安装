@@ -71,9 +71,34 @@
     启动并测试Redis
         sudo systemctl start redis
 
+    确保将Linux内核过度使用内存设置为1。添加vm.overcommit_memory = 1到/etc/sysctl.conf
+    The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128
+    由于/proc/sys/net/core/somaxconn 被设置为128的较低值，所以511的TCP backlog设置不能被强制执行
+        在/etc/sysctl.conf 里设置（/proc/sys/net 里是临时数据，重启就没）
+            net.core.somaxconn = 2048
+        /sbin/sysctl –p     // 使之立即生效
 4. WSL下，团为没有systemd
     1) redis.conf 
         daemonize yes       //守护进程
         supervised no       //不能用systemd 
     2) 启动Redis
         sudo redis-server /etc/redis/redis.conf  
+
+5. php 
+    wget https://pecl.php.net/get/redis-3.1.4.tgz
+        wget https://codeload.github.com/phpredis/phpredis/zip/php7  //直接从github下载
+        
+
+    tar xzvf redis-3.1.4.tgz
+    cd redis-3.1.4 
+    phpize
+        Configuring for:
+        PHP Api Version:         20160303
+        Zend Module Api No:      20160303
+        Zend Extension Api No:   320160303
+    ./configure [--enable-redis-igbinary]       // 如果希望phpredis使用igbinary库序列化数据，加[--enable-redis-igbinary] 
+    make && sudo make install
+
+    编辑你的php.ini 或直接在 /etc/php/7.1/fpm/conf.d 加 配置文件：
+        20-redis.ini 
+            extension=redis.so
