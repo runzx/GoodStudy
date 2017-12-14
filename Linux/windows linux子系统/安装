@@ -1,0 +1,199 @@
+Windows10内置Linux子系统
+
+1.  系统升级到一周年正式版及以上(1607)
+    依次在 设置 - 更新与安全 - 针对开发人员 选项中，启用"开发人员模式"
+    在资源管理器中打开 控制面板\所有控制面板项\程序和功能 , 打开 启用或关闭 Windows功能 , 勾选 适用于Linux的Windows子系统(Beta)
+    重启电脑
+    命令行运行 lxrun /install /y 开始安装
+    安装速度取决于网络情况，下载的文件在 %localappdata%\lxss 目录下 lxss.tar.gz (181M)，解压后大概500M, rootfs 目录即为子系统根目录。
+    命令行运行 bash 进入Ubuntu
+    默认使用的 root 帐号登录，通过指令 passwd 设置密码。
+    毕竟爱折腾，难免会把子系统环境(lxss目录)玩坏掉，因此干正事前最好先备份下以便快速还原。注意，不要直接右键复制或者打包，可能会导致文件权限丢失的。
+    xcopy %localappdata%\lxss %localappdata%\lxss.bak /E
+    当然，如果你比较任性也可以不执行上一步的备份操作，通过命令行运行 lxrun /uninstall /full 轻松卸载子系统，重复上面的步骤即可重装，不过要注意下载速度时好时坏哦。
+    通过上面的步骤，已经启用了win10自带的linux子系统(WSL)，感觉逼格提升了不少。当然，怎么能满足于此呢，接下来就要做一些环境的配置和进一步的挖掘。
+
+2. 翟享：
+    1） 系统需求：
+        windows 10 >=16215.0 X64
+        我的DELL20171208升级后为 windows 10 专业版 ，1609, 16299.98.
+            更早版本安装： 命令行运行 lxrun /install /y 开始安装
+    2) Mirocoft Store 下载 Ubuntu (SUSE)
+        196M大小 ，20170830.1 build of Ubuntu 16.04LTS
+    3) 启动ubuntu 在终端运行：
+        ubuntu
+    4) Create a UNIX user
+        passwd
+        password reset.
+    5)  your Linux distribution will be located at: 
+        %localappdata%\lxss\
+            %localappdata%指的是当前用户的本地应用数据目录，也就是路径
+            C:\Users\用户名\AppData\Local 。
+    6) 查看子系统信息
+        wslconfig /list
+        wslconfig /list /all
+        2. 切换bash.exe默认使用的子系统: wslconfig /s <DistributionName>
+            其中 <DistributionName> 替换为 Ubuntu 或 Legacy , 或者其他已安装的子系统。
+        3. 卸载已安装的子系统: wslconfig /u <DistributionName>
+            同上替换 <DistributionName> 。经测试发现，此 "卸载" 并不会卸载商店中安装的  Ubuntu 应用, 即再次执行该应用又会重新安装了。
+
+    7）与Windows通讯
+        目前子系统与Windows之间通过以下两种方式进行通讯
+            通过tcp协议进行通讯（简单点说就是用网络，端口都是通的）
+                如果提示sshd error: could not load host key，则用下面的命令重新生成
+                    sudo rm /etc/ssh/ssh*key
+                    dpkg-reconfigure openssh-server
+
+                /etc/ssh/sshd_config
+                Port 23 # 端口改为23，22端口已被占用
+                ListenAddress 0.0.0.0 # 取消注释
+                #StrictModes yes # 注释
+                PasswordAuthentication yes # 允许密码登录
+
+                配置好后，关闭终端再重新运行：
+                    service ssh start
+            通过 /mnt/【盘符】/目录 的方式访问Windows目录
+        8) 在运行子系统的时候，后台其实有一个bash的进程在运行，我们每开一个命令行窗口就会多一个 bash.exe，
+            如果我们把所有的 bash.exe 都关闭则这个bash进程就关闭了（相当于是子系统关机了），跟着之前在子系统中打开的程序如nginx、sshd等也随之关闭了。为了让linux程序能够在后台继续运行，
+            这里通过 vbs 脚本在后台打开一个 bash.exe 来保证bash进程一直开着。当然，
+            还可以通过Windows的计划任务实现开机启动WSL并打开其中的程序。
+
+                # 1.新建开机启动脚本
+                    vim /usr/anyesu/boot.sh
+                # 2.编辑
+                #================================================================
+                    #!/bin/sh
+                    /usr/anyesu/nginx/sbin/nginx
+                    service ssh start
+                    $SHELL  #这句很重要，挂起当前脚本进程,进而维持base.exe一直打开
+                #================================================================
+                # 3.设置权限
+                    chmod 777 /usr/anyesu/boot.sh
+                # 4.创建vbs脚本(D:\linux\wsl.vbs)
+                #==========================================
+                    Set ws = CreateObject("Wscript.Shell") 
+                    ws.run "bash /usr/anyesu/boot.sh",vbhide
+                #==========================================
+                # 5.创建计划任务
+3. 安装php
+    // sources.list.d/ondrej-ubuntu-php-xenial.list
+    sudo apt install php php-curl php-sqlite3 php-mysql php-mcrypt php-xml php-fpm php-json php-gd php-soap
+
+    sudo apt install mysql-server   // mysql 5.7  root  zx2962
+    默认情况下PHP-FPM监听 /var/run/php/php7.0-fpm.sock.
+        nano /etc/php/7.1/fpm/pool.d/www.conf
+        修改如下：
+            [...]
+            ;listen = /var/run/php7.1-fpm.sock
+            listen = 127.0.0.1:9000
+    cgi.fix_pathinfo=1 #默认，设成1PATHINFO才正常
+        为CGI 提供真正的 PATH_INFO / PATH_TRANSLATED支持。PHP以前的行为是将PATH_TRANSLATED设置 为SCRIPT_FILENAME，并且不理解 PATH_INFO。有关PATH_INFO的更多信息 ，请参阅CGI规范。将其设置为1将导致PHP CGI修复其路径以符合规范。
+        设置为零会导致PHP像以前一样运行。它默认打开。您应该修复脚本以使用 SCRIPT_FILENAME而不是 PATH_TRANSLATED。
+
+    APCu是随PHP7 PHP Opcache模块的扩展
+
+    起动php
+        sudo service php7.1-fpm start
+        sudo service mysql start
+        sudo service nginx start
+    安装的版本信息：
+        MySQL Server: 5.7.20-0ubuntu0.16.04.1
+        nginx version: nginx/1.10.3 (Ubuntu)
+        PHP 7.1.12-2+ubuntu16.04.1+deb.sury.org+2 (cli) (built: Dec  7 2017 20:12:04) ( NTS )
+            Copyright (c) 1997-2017 The PHP Group
+            Zend Engine v3.1.0, Copyright (c) 1998-2017 Zend Technologies
+                with Zend OPcache v7.1.12-2+ubuntu16.04.1+deb.sury.org+2, Copyright (c) 1999-2017, by Zend Technologies
+                with Xdebug v2.6.0alpha1, Copyright (c) 2002-2017, by Derick Rethans
+    Xdebug:            
+    Summary
+        Xdebug installed: no
+        Server API: FPM/FastCGI
+        Windows: no
+        Zend Server: no
+        PHP Version: 7.0.22-0
+        Zend API nr: 320151012
+        PHP API nr: 20151012
+        Debug Build: no
+        Thread Safe Build: no
+        Configuration File Path: /etc/php/7.0/fpm
+        Configuration File: /etc/php/7.0/fpm/php.ini
+        Extensions directory: /usr/lib/php/20151012
+        Instructions
+
+        Download xdebug-2.6.0alpha1.tgz
+        Unpack the downloaded file with tar -xvzf xdebug-2.6.0alpha1.tgz
+        Run: cd xdebug-2.6.0alpha1
+        Run: phpize (See the FAQ if you don't have phpize.
+
+    卸载所有安装的 PHP：
+        sudo apt-get purge `dpkg -l | grep php| awk '{print $2}' |tr "\n" " "`
+    添加源：
+        sudo add-apt-repository ppa:ondrej/php
+    安装php5.6：
+        sudo apt-get update
+        sudo apt-get install php5.6
+    安装php组件：
+        sudo apt-get install php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml
+
+
+4. php7.1
+    https://xdebug.org/wizard.php
+    Summary
+        Xdebug installed: no
+        Server API: FPM/FastCGI
+        Windows: no
+        Zend Server: no
+        PHP Version: 7.1.12-2
+        Zend API nr: 320160303
+        PHP API nr: 20160303
+        Debug Build: no
+        Thread Safe Build: no
+        Configuration File Path: /etc/php/7.1/fpm
+        Configuration File: /etc/php/7.1/fpm/php.ini
+        Extensions directory: /usr/lib/php/20160303
+
+    Q: I don't have the phpize tool.
+    A: Debian and Ubuntu users need to install the PHP development package with 
+        sudo apt install php5-dev
+        sudo apt install php7.1-dev     // for PHP 7.1
+            phpize
+                Configuring for:
+                PHP Api Version:         20160303
+                Zend Module Api No:      20160303
+                Zend Extension Api No:   320160303
+
+            sudo make install
+                Installing shared extensions:     /usr/lib/php/20160303/
+
+    phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块
+        比如你想在原来编译好的php中加入memcached或者ImageMagick等扩展模块，可以使用phpize
+5. .bashrc
+    /etc/profile
+    /etc/bashrc
+
+    ~/.bashrc
+    ~/.profile
+        ubuntu 或者 debian 的话, 就不会有 /etc/bashrc 而会有 /etc/bash.bashrc 文件.
+
+    “login shell” 代表用户登入, 比如使用 “su -“ 命令, 或者用 ssh 连接到某一个服务器上, 都会使用该用户默认 shell 启动 login shell 模式.
+        shell 会去自动执行 /etc/profile 和 ~/.profile 文件, 但不会执行任何的 bashrc 文件, 
+
+    no-login shell 的情况是我们在终端下直接输入 bash 或者 bash -c “CMD” 来启动的 shell.
+        该模式下是不会自动去运行任何的 profile 文件.
+
+    普通 login shell
+        /etc/profile
+        => /etc/bash.bashrc
+
+        ~/.profile
+        => ~/.bashrc => /etc/bashrc
+    终端种直接运行 bash
+        /etc/bash.bashrc
+        ~/.bashrc => /etc/bashrc
+    1) 运行ubuntu :
+        etc profile
+        local .profile
+        local .bashrc
+    2) 
+        ./web.sh
+
