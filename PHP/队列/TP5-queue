@@ -1,0 +1,54 @@
+TP5 Queue ： think-queue
+    https://github.com/top-think/think-queue
+
+2. 安装
+    composer require topthink/think-queue
+    配置
+        配置文件位于 application/extra/queue.php
+            公共配置
+            return [
+                'connector'  => 'Redis',		// Redis 驱动
+                'expire'     => 60,				// 任务的过期时间，默认为60秒; 若要禁用，则设置为 null 
+                'default'    => 'default',		// 默认的队列名称
+                'host'       => '127.0.0.1',	// redis 主机ip
+                'port'       => 6379,			// redis 端口
+                'password'   => '',				// redis 密码
+                'select'     => 0,				// 使用哪一个 db，默认为 db0
+                'timeout'    => 0,				// redis连接的超时时间
+                'persistent' => false,          // 长联接 
+            ];		
+            驱动配置
+            各个驱动的具体可用配置项在think\queue\connector目录下各个驱动类里的options属性中，写在上面的queue配置里即可覆盖
+
+
+3. 发布任务
+        think\Queue::push($job, $data = '', $queue = null)
+            立即执行
+        think\Queue::later($delay, $job, $data = '', $queue = null) s
+            在$delay秒后执行
+
+4. 监听任务并执行
+    php think queue:listen
+         父进程 + 子进程 的处理模式
+         listen所在的父进程正常情况会一直运行，除非遇到下面两种情况：
+            1)创建的某个work子进程的执行时间超过了 listen命令行中的--timeout 参数配置，此时work子进程会被强制结束，listen所在的父进程也会抛出一个 ProcessTimeoutException 异常并退出。开发者可以选择捕获该异常，让父进程继续执行，也可以选择通过 supervisor 等监控软件重启一个新的listen命令。
+            2)listen 命令所在的父进程因某种原因存在内存泄露，则当父进程本身占用的内存超过了命令行中的 --memory 参数配置时，父子进程均会退出。正常情况下，listen进程本身占用的内存是稳定不变的。
+        处理完一个任务之后新开一个work进程，此时会重新加载框架脚本。
+        可以限制其创建的work子进程的超时时间。
+        listen命令的适用场景是：
+            任务数量较少
+            任务的执行时间较长(如生成大型的excel报表等)，
+            任务的执行时间需要有严格限制
+
+    php think queue:work --daemon（不加--daemon为执行单个任务）
+        单进程的处理模式
+        work 模式本质上既不能控制进程自身的运行时间，也无法限制执行中的任务的执行时间。
+        脚本内部做循环，框架脚本在命令执行的初期就已加载完毕；
+        work 模式的性能会比listen模式高。
+        work 命令的适用场景是：
+            任务数量较多
+            性能要求较高
+            任务的执行时间较短
+            消费者类中不存在死循环，sleep() ，exit() ,die() 等容易导致bug的逻辑
+    具体的可选参数可以输入命令加 --help 查看
+    可配合supervisor使用，保证进程常驻
