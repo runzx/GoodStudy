@@ -98,4 +98,6 @@ TP5 Queue ： think-queue
             $jobHandlerClassName  = new TestJob();
                  "{\"job\":\"think\\\\queue\\\\CallQueuedHandler@call\",\"data\":。。。。
             消息队列在执行到该任务时会自动反序列化该对象，并调用其 handle()方法。 该方式的缺点是无法传入自定义数据。
-
+    4）blpop
+        blpop(array $keys, $timeout)    返回数据 [0]key值 [1]同下面 @return  array array('listName', 'element')
+        lpop(string $key)               返回 字符串'element'
