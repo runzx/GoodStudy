@@ -1,0 +1,4 @@
+
+keys *      //查看所有key
+
+lrange key 0 -1     //查看list 所有元素
