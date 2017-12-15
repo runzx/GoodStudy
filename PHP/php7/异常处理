@@ -1,0 +1,32 @@
+
+
+PHP 7 错误处理
+
+不同于传统（PHP 5）的错误报告机制，现在大多数错误被作为 Error 异常抛出。
+    这种 Error 异常可以像 Exception 异常一样被第一个匹配的 try / catch 块所捕获。如果没有匹配的 catch 块，则调用异常处理函数（事先通过 set_exception_handler() 注册）进行处理。 如果尚未注册异常处理函数，则按照传统方式处理：被报告为一个致命错误（Fatal Error）。
+    Error 类并非继承自 Exception 类，所以不能用 catch (Exception $e) { ... } 来捕获 Error。你可以用 catch (Error $e) { ... }，或者通过注册异常处理函数（ set_exception_handler()）来捕获 Error。
+
+Error 层次结构 ¶
+    Throwable   //这不能工作在PHP5下
+        Error
+            ArithmeticError
+                DivisionByZeroError
+            AssertionError
+            ParseError
+            TypeError
+        Exception
+            ...
+
+    例：
+    try
+    {
+    // Code that may throw an Exception or Error.
+    }
+    catch (Throwable $t)
+    {
+    // Executed only in PHP 7, will not match in PHP 5
+    }
+    catch (Exception $e)
+    {
+    // Executed only in PHP 5, will not be reached in PHP 7
+    }
