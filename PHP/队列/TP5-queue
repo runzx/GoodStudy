@@ -101,3 +101,40 @@ TP5 Queue ： think-queue
     4）blpop
         blpop(array $keys, $timeout)    返回数据 [0]key值 [1]同下面 @return  array array('listName', 'element')
         lpop(string $key)               返回 字符串'element'
+    5) 阻塞 60秒后失效
+        set_exception_handler(exceptionhandler); 函数设置用户定义的异常处理函数。
+            PHP 7.0.0：传递到 exception_handler 中的参数类型从 Exception 更改为 Throwable。
+            PHP 5.5：之前，如果传递 NULL，该函数返回 TRUE。从 PHP 5.5 起返回之前的处理程序。
+        work->runNextJobForDaemon() catch! 这儿捕获到异常：
+            RedisException: read error on connection in /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/connector/Redis.php on line 81
+
+            Call Stack:
+                0.0151     349408   1. {main}() /mnt/d/phpStudy/WWW/mmb/think:0
+                0.4246     351376   2. require('/mnt/d/phpStudy/WWW/mmb/thinkphp/console.php') /mnt/d/phpStudy/WWW/mmb/think:17
+                0.5517    1216696   3. think\Console::init(???) /mnt/d/phpStudy/WWW/mmb/thinkphp/console.php:20
+                0.5709    1634568   4. think\Console->run() /mnt/d/phpStudy/WWW/mmb/thinkphp/library/think/Console.php:84
+                0.5761    1923616   5. think\Console->doRun(???, ???) /mnt/d/phpStudy/WWW/mmb/thinkphp/library/think/Console.php:125
+                0.5764    1923616   6. think\Console->doRunCommand(???, ???, ???) /mnt/d/phpStudy/WWW/mmb/thinkphp/library/think/Console.php:187
+                0.5764    1923616   7. think\queue\command\Work->run(???, ???) /mnt/d/phpStudy/WWW/mmb/thinkphp/library/think/Console.php:562
+                0.5775    1938608   8. think\queue\command\Work->execute(???, ???) /mnt/d/phpStudy/WWW/mmb/thinkphp/library/think/console/Command.php:175
+                4.3641    1941264   9. think\queue\command\Work->daemon(???, ???, ???, ???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/command/Work.php:72
+                4.3683    2022360  10. think\queue\command\Work->runNextJobForDaemon(???, ???, ???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/command/Work.php:109
+                4.3683    2022360  11. think\queue\Worker->pop(???, ???, ???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/command/Work.php:136
+                5.2600    2022360  12. think\queue\Worker->getNextJob(???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/Worker.php:32
+                5.2613    2027216  13. think\Queue::pop() /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/Worker.php:53
+                5.2613    2027272  14. think\Queue::__callStatic(???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/Worker.php:53
+                5.2654    2102800  15. call_user_func_array:{/mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/Queue.php:47}(???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/Queue.php:47
+                5.2655    2102864  16. think\queue\connector\Redis->pop(???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/Queue.php:47
+                7.6482    2111528  17. Redis->blPop(???, ???) /mnt/d/phpStudy/WWW/mmb/vendor/topthink/think-queue/src/queue/connector/Redis.php:81
+        查看 error log，发现：’RedisException’ with message ‘read error on connection’ 提示。
+        因为PHP的超时！
+            在程序中动态配置：
+                ini_set('default_socket_timeout', -1);
+            或在php.ini中（修改这， 不推荐）
+                default_socket_timeout= 60  // 默认60秒！
+    6） 长连接
+        使用 pconnect 的时候执行 close 或者 php 脚本请求结束后并不会关闭连接.
+            需要注意其实这里有个容易误解的地方: 手动 close 之后并不是不关闭当前连接,而是连接池不释放而已.
+            connect 在使用的时候会建立一个连接 脚本结束后 或者 使用 close 会销毁连接.
+            close 并不会销毁 resource … = = 只是断开连接而已… unset 变量才会销毁…
+            所以并不是使用了 pconnect 就不要 close 了,如果当前脚本执行时间很长 辣么会一直占用一个连接的.详情请看鸟哥blog
