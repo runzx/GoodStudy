@@ -1,0 +1,42 @@
+
+1. 使用DrvFs文件系统手动安装Windows驱动器。
+    为了促进与Windows的互操作性，WSL使用DrvFs文件系统。WSL自动将支持文件系统的所有固定驱动器安装在/ mnt下，例如/ mnt / c，/ mnt / d等。目前，仅支持NTFS和ReFS卷。
+
+    比如网络共享 
+    mount -t drvfs '\\ser\share' /mnt/share 
+        请注意UNC路径的单引号; 这些都是必要的，以防止需要避开反斜杠。
+            不用单引号括住UNC路径，则需要通过加倍反斜杠（例如\\\\server\\share）来避开反斜杠。
+        WSL没有任何方法来指定使用哪个凭证连接到网络共享。如果您需要使用不同的凭据连接到服务器，请在Windows中通过导航到文件资源管理器中的共享，使用Windows凭据管理器或net use命令来指定它们。
+
+    NTFS文件夹 
+    mount -t devfs 'c:\Users' /mnt/users
+
+    挂载D盘
+    sudo mount -t drvfs D: /mnt/d
+
+    现在要在WSL中挂载这样一个卷，只需使用到挂载点的路径即可：
+    $ sudo mount -t drvfs 'C:\mountpoint' /mnt/myvolume
+
+    例如，FAT文件系统不区分大小写，不支持硬链接或符号链接。
+        使用网络文件系统，DrvFs不会在文件上设置正确的Linux权限位; 
+        相反，所有文件都以完全访问（0777）报告，唯一的方法来确定您是否可以实际访问该文件是试图打开它。
+        网络文件系统也不区分大小写，不支持符号链接。
+2. 要挂载EXT2,3,4分区或设备
+    通过ext2fsd 在windows里识别ext2,3可读写，4能读（写可能会有小bug）,在WSL里再加载
+        http://www.ext2fsd.com/
+        支持的Ext3 / 4功能：
+            1，灵活的inode大小：> 128个字节，最大为块大小
+            2，dir_index：htree目录索引
+            3，文件类型：dentry中的额外文件模式
+            4，large_file：>支持4G文件
+            5，sparse_super：组描述符中的超级块备份
+            6，uninit_bg：快速fsck和组校验和
+            7，程度：充分支持与扩大和缩小。    // extent:       full support with extending and shrinking.
+            8，期刊：只支持内部期刊的重播      // journal:      only support replay for internal journal
+            9，flex_bg：第一个灵活的元数据组
+            10，符号链接和硬链接
+            11，安装为用户：指定的uid / gid支持
+        不受支持的Ext3 / 4功能：
+            1，64BIT模式（支持2 ^ 64块）
+            2，日志：基于日志的操作，外部日志
+            3，EA（扩展属性），ACL支持

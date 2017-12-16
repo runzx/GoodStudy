@@ -27,6 +27,9 @@ Windows10内置Linux子系统
         password reset.
     5)  your Linux distribution will be located at: 
         %localappdata%\lxss\
+        %localappdata%\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+        C:\Users\zhaix\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+
             %localappdata%指的是当前用户的本地应用数据目录，也就是路径
             C:\Users\用户名\AppData\Local 。
     6) 查看子系统信息
