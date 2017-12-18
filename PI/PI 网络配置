@@ -18,6 +18,37 @@
 	 sudo raspi-config
 	/boot/config.txt	文件中指定设置		// https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
     
-
+3.  Debian 9（stretch）
+    raspbian-stretch-lite中，有线网卡的名字不在是eth0，而是enx三个字母开头加上网卡地址
+先用ifconfig 查看网卡地址,加下enx开头的网卡名字, 然后修改/etc/dhcpcd.conf文件
+    enxb827eb83b982
+    方法1
+    sudo echo "interface enxb827eba16fff">>/etc/dhcpcd.conf
+    sudo echo "static ip_address=192.168.16.2/24"
+    sudo echo "static routers=192.168.16.1"
+    sudo echo "static domain_name_servers=8.8.8.8"
+    方法2
+    sudo nano /etc/dhcpcd.conf
+        # Example static IP configuration:
+        interface enxb827eb83b982
+        static ip_address=192.168.1.10/24
+        #static ip6_address=fd51:42f8:caae:d92e::ff/64
+        static routers=192.168.1.1
+        static domain_name_servers=114.114.114.114
     
+    reboot !!
 
+
+    无线网卡静态IP
+        无线网卡配置和有线网卡的配置方式一样，都是修改dhcpcd.conf 文件
+
+        sudo echo "interface wlan0">>/etc/dhcpcd.conf
+        sudo echo "static ip_address=192.168.16.2/24">>/etc/dhcpcd.conf
+        sudo echo "static routers=192.168.16.1">>/etc/dhcpcd.conf
+        sudo echo "static domain_name_servers=8.8.8.8">>/etc/dhcpcd.conf
+        无线网卡可以设定链接的无线网络SSID, 密码。这样开机就可以自动连上了
+
+        sudo echo "network={">>/etc/wpa_supplicant/wpa_supplicant.conf
+        sudo echo "  ssid=\"无线网络名\"">>/etc/wpa_supplicant/wpa_supplicant.conf
+        sudo echo "  psk=\"密码\"">>/etc/wpa_supplicant/wpa_supplicant.conf
+        sudo echo "}">>/etc/wpa_supplicant/wpa_supplicant.conf
