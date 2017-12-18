@@ -1,0 +1,23 @@
+
+https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html
+
+MySQL社区5.7服务器需要Microsoft Visual C ++ 2013可再分发软件包才能在Windows平台上运行。
+
+MariaDB为了安全起见，默认情况下绑定ip（ 127.0.0.1）。
+    （如果绑定ip地址的配置被注释掉，MariaDB只能支持一个地址（0.0.0.0 ））。
+    /etc/mysql/mariadb.conf.d/50-server.cnf
+    [mysqld]
+    ...
+    skip-networking
+    ...
+    bind-address = <some ip-address>
+    ...
+一般情况下，默认配置文件能在下面的路径找到:
+
+    * /etc/my.cnf                              (*nix/BSD)
+    * $MYSQL_HOME/my.cnf                       (*nix/BSD) 
+    * /etc/mysql/my.cnf     //Most Notably
+    * SYSCONFDIR/my.cnf                        (*nix/BSD)
+    * WINDIR\my.ini, WINDIR\my.cnf             (Windows)
+    * C:\my.ini, C:\my.cnf                     (Windows)
+    * INSTALLDIR\my.ini, INSTALLDIR\my.cnf     (Windows)

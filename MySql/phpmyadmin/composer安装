@@ -1,0 +1,48 @@
+Installing using Composer
+
+1. composer create-project phpmyadmin/phpmyadmin
+
+    用phpmyadmin的镜像库
+        composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev
+
+2. Installing from Git
+    You can clone current phpMyAdmin source from https://github.com/phpmyadmin/phpmyadmin.git:
+        git clone https://github.com/phpmyadmin/phpmyadmin.git
+    Additionally you need to install dependencies using the Composer tool:
+        composer update
+    If you do not intend to develop, you can skip the installation of developer tools by invoking:
+        composer update --no-dev
+
+3. 手工
+    wget https://files.phpmyadmin.net/phpMyAdmin/4.7.6/phpMyAdmin-4.7.6-all-languages.tar.xz
+     tar xvf phpMyAdmin-4.7.6-all-languages.tar.xz
+     mv phpMyAdmin-4.7.6-all-languages /home/www/phpMyAdmin
+
+     配置phpmyadmin
+     cd /home/www/phpmyadmin
+     cp config.sample.inc.php config.inc.php
+     设置一个内部使用的秘钥（和内部加密有关，与页面登录没有直接关系）
+        $cfg['blowfish_secret'] = ‘www.tudaxia.com';
+    配置Nignx下的站点
+        location /phpmyadmin {
+            alias /home/www/phpMyAdmin;
+            index index.php;
+        }
+    phpmyadmin加载缓慢的解决方法
+        是不让phpmyadmin检查更新，找到phpmyadmin目录下version_check.php文件，具体修改如下：
+            if (isset($_SESSION['cache']['version_check'])
+            && time() < $_SESSION['cache']['version_check']['timestamp'] + 3600 * 6
+            ) {
+            $save = false;
+            $response = $_SESSION['cache']['version_check']['response'];
+            } else {
+            //  $save = true;
+            //  $file = 'http://www.phpmyadmin.net/home_page/version.json';
+            //  if (ini_get('allow_url_fopen')) {
+            //    $response = file_get_contents($file);
+            //  } else if (function_exists('curl_init')) {
+            //    $curl_handle = curl_init($file);
+            //    curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+            //    $response = curl_exec($curl_handle);
+            //  }
+            }
