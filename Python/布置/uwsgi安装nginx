@@ -69,6 +69,24 @@
             alias /path/to/your/mysite/static;
         }
     }
+    
+3.5 uwsgi ini配置、
+    uwsgi --ini mysite_uwsgi.ini    # 通过配置文件运行
+
+ # mysite_uwsgi.ini file ：
+
+[uwsgi]
+#socket          = /path/to/your/project/mysite.sock    # the socket (use the full path to be safe
+socket          = 127.0.0.1:8000
+wsgi-file       = test.py
+callable        = app       # Flask 把它的 WSGI 函数(就是我们在之前快速入门里称作 “application” 即应用的东西)暴露成 “app”
+processes       = 4         # 4个进程
+threads         = 2         # 每个进程包含2个线程
+chdir           = /home/foobar/myproject/   # 项目路径
+stats           = 127.0.0.1:9191
+
+    一个重要的任何就是监控。知道发生了什么在生产环境中是极其重要的。
+        stats 子系统允许你 用 JSON 输出 uWSGI 的内部数据：
 
 4. uwsgi_params 文件内容：
 
