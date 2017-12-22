@@ -1,0 +1,45 @@
+
+
+1. 关键步骤：
+    $ch = curl_init('www.bosstg.cn');
+    //设置参数在此。。。
+    curl_exec($ch);
+    curl_close($ch);
+
+
+2. 参数
+    设置参数：
+        curl_setopt($ch, CURLOPT_URL, 'www.bosstg.cn');
+        ...
+    CURLOPT_URL	            需要获取的URL地址，也可以在curl_init()函数中设置。
+    CURLOPT_RETURNTRANSFER	将curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
+    CURLOPT_SSL_VERIFYPEER	禁用后cURL将终止从服务端进行验证。使用CURLOPT_CAINFO选项设置证书使用CURLOPT_CAPATH选项设置证书目录 如果CURLOPT_SSL_VERIFYPEER(默认值为2)被启用，CURLOPT_SSL_VERIFYHOST需要被设置成TRUE否则设置为FALSE。	
+        自cURL 7.10开始默认为TRUE。从cURL 7.10开始默认绑定安装。
+    CURLOPT_CONNECTTIMEOUT	在发起连接前等待的时间，如果设置为0，则无限等待
+
+    CURLOPT_HEADER	        启用时会将头文件的信息作为数据流输出。
+    CURLOPT_POST	        启用时会发送一个常规的POST请求，类型为：
+        application/x-www-form-urlencoded，就像表单提交的一样。
+    CURLOPT_POSTFIELDS	    全部数据使用HTTP协议中的"POST"操作来发送。要发送文件，在文件名前面加上@前缀并使用完整路径。
+        这个参数可以通过urlencoded后的字符串类似'para1=val1&para2=val2&...'或使用一个以字段名为键值，字段数据为值的数组。
+        如果value是一个数组，Content-Type头将会被设置成multipart/form-data。
+    CURLOPT_HTTPHEADER	    一个用来设置HTTP头字段的数组。使用如下的形式的数组进行设置： 
+        array('Content-type: text/plain', 'Content-length: 100')
+
+
+    对于下面的这些option，value应该被设置成 string：
+    选项	            设置的value	备注
+    CURLOPT_CAINFO	一个保存着1个或多个用来让服务端验证的证书的文件名。这个参数仅仅在和CURLOPT_SSL_VERIFYPEER一起使用时才有意义。 .	可能需要绝对路径。
+    CURLOPT_CAPATH	一个保存着多个CA证书的目录。这个选项是和CURLOPT_SSL_VERIFYPEER一起使用的。
+
+    https:
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,true); ;
+        curl_setopt($ch,CURLOPT_CAINFO,dirname(__FILE__).'/cacert.pem');
+
+    CURLOPT_SSLVERSION	使用的SSL版本(2 或 3)。默认情况下PHP会自己检测这个值，尽管有些情况下需要手动地进行设置。
+        微信官方要求： 为保证用户信息以及通信安全，微信公众平台将关闭掉SSLv2、SSLv3版本支持，不再支持部分使用SSLv2、 SSLv3或更低版本的客户端调用。请仍在使用这些版本的开发者于11月30日前尽快修复升级。20141029
+            curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+
+3. 访问https:
+    date_default_timezone_set('PRC');               //设置cociks
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);    //禁止从服务器端验证
