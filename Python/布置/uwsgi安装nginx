@@ -60,7 +60,7 @@
         
         location / {
             include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
-            uwsgi_pass  127.0.0.1：8000;
+            uwsgi_pass  127.0.0.1:8000;
         }
         
         client_max_body_size 75M;   # 文件上传最大 size
