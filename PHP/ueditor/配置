@@ -1,0 +1,37 @@
+
+
+1. 运行测试
+    配置好服务器之后，可以测试一下 php 代码是否正确执行，在浏览器打开 
+        ueditor/controller.php 对应的路径，看看是否有下面的返回值。
+    {
+        state: "请求地址出错"
+    }
+    再访问 ueditor/php/controller.php?action=config 是否正常返回了json格式的后端配置内容，格式大致如下。
+        http://tjs.zx.com/static/ueditor/php/controller.php?action=config
+        {
+            "imageUrl": "http://localhost/ueditor/php/controller.php?action=uploadimage",
+            "imagePath": "/ueditor/php/",
+            "imageFieldName": "upfile",
+            "imageMaxSize": 2048,
+            "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+            "其他配置项...": "其他配置值..."
+        }
+
+2 配置说明
+    UEditor 的配置项分为 前端配置项 和 后端配置项。
+    1.2 前端配置项
+        前端配置项只需要配置 serverUrl 参数，ueditor 1.4.2+ 起，推荐使用统一的请求路径，在你部署好前端代码后，你需要修改 ueditor.config.js 里的 serverUrl 参数，改成 URL + 'php/controller.php'
+    1.3 后端配置项
+        后端配置项在 php/config.json 里配置，不同的上传有各自的配置项。
+3. kitcms 里使用配置
+    接口： , serverUrl: "/api/ueditor/index" 
+        把 ueditor 自带的controller.php 拷入 \extend\ueditor\Ueditor.php
+        把配置文件/config.json写成固定的， 所以修改如下：
+            $CONFIG['imageUrlPrefix'] = config('uploadFile.ueditor')['imageUrlPrefix'];    //imagePathFormat
+            $CONFIG['imagePathFormat'] = config('uploadFile.ueditor')['imagePathFormat'];
+        zx把配置文件放到 app/extra/uploadFile.php里
+            // zx ueditor里上传图片的网址前缀
+            'ueditor' => [
+                'imageUrlPrefix' => 'http://tjs.zx.com',
+                'imagePathFormat' => '/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
+            ]

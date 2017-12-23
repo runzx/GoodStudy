@@ -1,0 +1,67 @@
+MLDonkey
+
+1. 
+    apt-get install mldonkey-server
+
+    nano /var/lib/mldonkey/downloads.ini
+        allowed_ips = ["0.0.0.0/0";]        // 任何人登录
+
+    启动MLDonkey：
+        /usr/bin/mlnet 
+        后台运行：
+             ./mlnet > /dev/null 2>&1 &
+             /usr/bin/mlnet > /dev/null 2>&1 &
+
+    默认HTTP访问端口为4080，所以可以在浏览器中访问：
+        http://http://47.93.186.86:4080
+2. 配置
+    进入配置介面：
+        telnet 127.0.0.1 4000
+        auth admin ""       // 系统默认  user admin, with an empty password,
+        useradd <user> <password>       // http://mldonkey.sourceforge.net/MultiUser
+        passwd newpasswd
+        set allowed_ips "127.0.0.1 192.168.15.255"
+
+        dllink ft://||server||192.168.1.1||1234||
+        dllink gnut://||server||192.168.1.1||1234||
+        dllink g2://||server||192.168.1.1||1234||
+        dllink <link>
+            //  where <link> can be ed2k, sig2dat, torrent or fasttrack
+        quit
+    在IE配置：
+        为admin设置一个复杂的密码，在Webgui页面的命令栏输入：
+            useradd admin xxxxxx //xxxxxx为admin的密码
+        点击后面的input按钮。
+
+        使用admin用户登陆，可以再添加一个自己的用户，比如：
+            useradd mlnetadmin 123456
+            添加一个mlnetadmin用户，密码是123456。
+    目录：
+        shared_directories = [
+        {     dirname = "<dir1>"
+            networks = [[]]
+            strategy = all_files
+            priority = 0
+        };
+        {     dirname = "<dir2>"
+            networks = [[]]
+            strategy = all_files
+            priority = 0
+        };]
+
+    ~/.mldonkey/downloads.ini 基本配置文件
+    ~/.mldonkey/users.ini 用户配置文件
+    ~/.mldonkey/servers.ini 服务器列表文件
+    ~/.mldonkey/files.ini 当前已经完成的和未完成的文件列表
+    ~/.mldonkey/friends.ini 好友列表
+    ~/.mldonkey/mlnet.log 日志文件
+
+    下载节点文件 见附件，也可以自已到网上找。复制到 ~/.mldonkey 文件夹里 
+    然后到mldonkey的web界面，在输入框中输入：
+        ov_load contact.dat             回车
+        kad_load nodes.dat          
+    server.met文件很重要，可以从别的软件（emule）中拷贝到~/.mldonkey/web_infos里，覆盖原有的。??
+    修改downloads.ini：找到web_infos，把server.met换成你要的，比如 http://www.emule.org.cn/server.met，删除 guarding.p2p", 96, "http://www.bluetack.co.uk/config/level1.gz，这个东西会封掉很多有用的尤其是国内的server。 
+        http://upd.emule-security.org/server.met
+
+    http://youfiles.net/donkey/server/serverlist.php

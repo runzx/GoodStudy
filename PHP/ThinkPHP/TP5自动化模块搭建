@@ -1,0 +1,22 @@
+
+1. build.php要放到appliction目录下。
+    默认会读取应用目录application下面的build.php 作为自动生成的定义文件，如果你的定义文件位置不同，
+        则需要使用--config参数指定如下
+
+
+2. 公共模块
+    'common' => [
+        '__dir__' => ['model'],
+        'model' =>   ['Category', 'Admin'],
+    ]
+
+    __dir__ 表示生成目录（支持多级目录）
+    __file__ 表示生成文件（不定义默认会生成 config.php 文件）
+    controller 表示生成controller类
+    model表示生成model类
+    view表示生成html文件（支持子目录）
+    
+    模块的自动生成则以 APP_PATH.'模块名/' 为起始目录。
+
+3. 项目根目录下：
+    php think build

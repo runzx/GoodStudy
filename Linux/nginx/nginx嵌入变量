@@ -1,17 +1,5 @@
 nginx 嵌入变量
 
-    Nginx HTTP核心模块（HTTP Core）指令和内置变量中文说明
-     收藏
-    山哥
-    发表于 4年前 阅读 3543 收藏 25 点赞 2 评论 1
-
-
-    摘要
-
-    Nginx处理HTTP的核心功能模块
-
-    指令
-
     aio
 
     语法：aio [on|off|sendfile]

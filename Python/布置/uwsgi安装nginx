@@ -1,0 +1,108 @@
+
+
+1.  安装uwsgi
+    sudo pip install uwsgi
+        Successfully installed uwsgi-2.0.15
+
+2. 测试
+    test.py
+        # test.py
+        def application(env, start_response):
+            start_response('200 OK', [('Content-Type','text/html')])
+            return [b"Hello World"] # python3
+            #return ["Hello World"] # python2
+    命令行直接运行：
+    uwsgi --http :8000 --wsgi-file test.py
+    通过localhost:8000访问
+3. nginx ini:
+    拷贝 https://github.com/nginx/nginx/blob/master/conf/uwsgi_params
+        到 uwsgi_params 存在项目目录下。
+    
+    下面是对django的例子配置文件：
+    # the upstream component nginx needs to connect to
+    upstream django {
+        # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+        server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+    }
+
+    # configuration of the server
+    server {
+        # the port your site will be served on
+        listen      8000;
+        # the domain name it will serve for
+        server_name .example.com; # substitute your machine's IP address or FQDN
+        charset     utf-8;
+
+        # max upload size
+        client_max_body_size 75M;   # adjust to taste
+
+        # Django media
+        location /media  {
+            alias /path/to/your/mysite/media;  # your Django project's media files - amend as required
+        }
+
+        location /static {
+            alias /path/to/your/mysite/static; # your Django project's static files - amend as required
+        }
+
+        # Finally, send all non-media requests to the Django server.
+        location / {
+            uwsgi_pass  django;
+            include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+        }
+    }
+
+    简版：
+    server {
+        listen      80;
+        server_name .example.com; 
+        charset     utf-8;
+        
+        location / {
+            include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+            uwsgi_pass  127.0.0.1:8000;
+        }
+        
+        client_max_body_size 75M;   # 文件上传最大 size
+
+        location /static {
+            alias /path/to/your/mysite/static;
+        }
+    }
+    
+3.5 uwsgi ini配置、
+    uwsgi --ini mysite_uwsgi.ini    # 通过配置文件运行
+
+ # mysite_uwsgi.ini file ：
+
+[uwsgi]
+#socket          = /path/to/your/project/mysite.sock    # the socket (use the full path to be safe
+socket          = 127.0.0.1:8000
+wsgi-file       = test.py
+callable        = app       # Flask 把它的 WSGI 函数(就是我们在之前快速入门里称作 “application” 即应用的东西)暴露成 “app”
+processes       = 4         # 4个进程
+threads         = 2         # 每个进程包含2个线程
+chdir           = /home/foobar/myproject/   # 项目路径
+stats           = 127.0.0.1:9191
+
+    一个重要的任何就是监控。知道发生了什么在生产环境中是极其重要的。
+        stats 子系统允许你 用 JSON 输出 uWSGI 的内部数据：
+
+4. uwsgi_params 文件内容：
+
+uwsgi_param  QUERY_STRING       $query_string;
+uwsgi_param  REQUEST_METHOD     $request_method;
+uwsgi_param  CONTENT_TYPE       $content_type;
+uwsgi_param  CONTENT_LENGTH     $content_length;
+
+uwsgi_param  REQUEST_URI        $request_uri;
+uwsgi_param  PATH_INFO          $document_uri;
+uwsgi_param  DOCUMENT_ROOT      $document_root;
+uwsgi_param  SERVER_PROTOCOL    $server_protocol;
+uwsgi_param  REQUEST_SCHEME     $scheme;
+uwsgi_param  HTTPS              $https if_not_empty;
+
+uwsgi_param  REMOTE_ADDR        $remote_addr;
+uwsgi_param  REMOTE_PORT        $remote_port;
+uwsgi_param  SERVER_PORT        $server_port;
+uwsgi_param  SERVER_NAME        $server_name;

@@ -1,0 +1,29 @@
+
+JavaScript Date 日期和时间对象
+
+1. 构造函数
+    new Date() ：返回当前的本地日期和时间
+        参数：无
+        返回值：
+        {Date} 返回一个表示本地日期和时间的 Date 对象。
+            示例：
+            [js] view plaincopy
+            var dt = new Date();  
+            console.log(dt); // => 返回一个表示本地日期和时间的 Date 对象
+    new Date(milliseconds) ：把毫秒数转换为 Date 对象
+        参数：
+        ①milliseconds {int} ：毫秒数；表示从 '1970/01/01 00:00:00' 为起点，开始叠加的毫秒数。
+        注意：起点的时分秒还要加上当前所在的时区，北京时间的时区为东8区，起点时间实际为：'1970/01/01 08:00:00'
+        返回值：
+        {Date} 返回一个叠加后的 Date 对象。
+     new Date(-1000 * 60 * 1)
+        // 倒退1分钟的毫秒数  
+        a = new Date();     //现在时间值
+        Date(a - 1000 * 60 * 1 * 60 * 24) //昨天的现在值
+    new Date(dateStr) ：把字符串转换为 Date 对象
+        参数：
+        ①dateStr {string} ：可转换为 Date 对象的字符串(可省略时间)；字符串的格式主要有两种：
+        1) yyyy/MM/dd HH:mm:ss （推荐）：若省略时间，返回的 Date 对象的时间为 00:00:00。
+        2) yyyy-MM-dd HH:mm:ss ：若省略时间，返回的 Date 对象的时间为 08:00:00(加上本地时区)。若不省略时间，此字符串在IE中会转换失败!
+        返回值：
+        {Date} 返回一个转换后的 Date 对象。

@@ -1,0 +1,11 @@
+
+1.在TP5配置文件设置redis
+    'cache' => [
+        'type' => '\app\driver\cache\Redis',
+        'prefix' => '',
+        // 缓存有效期 0表示永久
+        'expire' => 0
+    ],
+
+2. 在程序中
+    use think\cache\driver\Redis;

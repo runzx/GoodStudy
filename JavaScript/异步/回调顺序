@@ -1,0 +1,23 @@
+小程序 异步回调顺序
+
+1. 测试用
+    setTimeout(
+        ()=>{
+            console.log('1.0.2');
+        }, 
+        0       //设为0，就表示当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。
+    );
+
+2. 
+    onLoad()
+    onShow()
+    才是异步回调
+        '1.0.2'
+
+    如果app()延时（加630ms）
+        onLoad()
+        onShow()
+        '1.0.2'
+        home-onLoad
+        home-onShow
+        app的异步回调
