@@ -2,6 +2,15 @@ Sublime Text 3 配置和使用方法
 
 技巧
 
+快捷键
+
+Alt + Shift + 2  // 分栏显示
+Ctrl + Shift +　D // 复制一行到下一行
+Ctrl + Shift + P // 调出Package Control
+Ctrl + ` // 调出控制台
+Ctrl + /  // 单行注释
+Ctrl + Shift + /  // 多行注释
+
 -用户或-User后缀的菜单项，其对应的配置文件都保存在Packages\User文件夹下，将它们上传到Github，便于同步。
 
  对应的快捷键与分屏情况如下：
