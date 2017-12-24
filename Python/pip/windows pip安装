@@ -12,7 +12,14 @@ windows下面安装Python和pip
     添加环境变量，我们在PATH最后添加：
         C:\Python34\Scripts;
 
-
+    2)
+        python get-pip.py
+    3) upgrade
+        windows:
+        python -m pip install -U pipc
+    
+        On Linux or macOS:
+            pip install -U pip
 3. LINUX
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python get-pip.py
