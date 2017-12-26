@@ -69,7 +69,7 @@
             alias /path/to/your/mysite/static;
         }
     }
-    
+
 3.5 uwsgi ini配置、
     uwsgi --ini mysite_uwsgi.ini    # 通过配置文件运行
 
@@ -83,8 +83,8 @@ callable        = app       # Flask 把它的 WSGI 函数(就是我们在之前�
 processes       = 4         # 4个进程
 threads         = 2         # 每个进程包含2个线程
 chdir           = /home/foobar/myproject/   # 项目路径
+#virtualenv = /home/%(account)/venv         # 有虚拟环境时 或命令里： -H /xxx/venv
 stats           = 127.0.0.1:9191
-
     一个重要的任何就是监控。知道发生了什么在生产环境中是极其重要的。
         stats 子系统允许你 用 JSON 输出 uWSGI 的内部数据：
 
@@ -106,3 +106,52 @@ uwsgi_param  REMOTE_ADDR        $remote_addr;
 uwsgi_param  REMOTE_PORT        $remote_port;
 uwsgi_param  SERVER_PORT        $server_port;
 uwsgi_param  SERVER_NAME        $server_name;
+
+
+
+5. 例1：
+    virtualenv .env     //建virtualenv, 下面配置中home=对应此目录！
+
+    [uwsgi]
+    chdir=/home/gzlihao/webservice/mysite
+    home=/home/gzlihao/webservice/mysite/.env
+    module=hello
+    callable=app
+    master=true
+    processes=2
+    socket=%(chdir)/mysite.sock
+    chmod-socket=666
+    logfile-chmod=644
+    daemonize=%(chdir)/uwsgi.log
+    uid=gzlihao
+    gid=gzlihao
+    procname-prefix-spaced=mysite
+
+    hello.py的内容如下：
+        from flask import Flask
+        app = Flask(__name__)
+
+        @app.route("/")
+        def hello():
+            return "Hello World!"
+
+        if __name__ == "__main__":
+            app.run(host='0.0.0.0', port=8080)
+
+6. 比较常用的配置参数
+
+    chdir=/xxx/xxx # 指定项目目录
+    home=/xxx/xxx # 指定虚拟环境变量
+    wsgi-file=xxx # 指定加载WSGI文件
+    socket=xxx # 指定uwsgi的客户端将要连接的socket的路径（使用UNIX socket的情况）或者地址（使用网络地址的情况）。
+    callable=xxx # uWSGI加载的模块中哪个变量将被调用
+    master=true # 指定启动主进程
+    processes=4 # 设置工作进程的数量
+    threads=2 # 设置每个工作进程的线程数
+    vacuum=true # 当服务器退出时自动删除unix socket文件和pid文件
+    logfile-chmod=644 # 指定日志文件的权限
+    daemonize=%(chdir)/xxx.log # 进程在后台运行，并将日志打印到指定文件
+    pidfile=%(chdir)/xxx.pid # 在失去权限前，将主进程pid写到指定的文件
+    uid=xxx # uWSGI服务器运行时的用户id
+    gid=xxx # uWSGI服务器运行时的用户组id
+    procname-prefix-spaced=xxx # 指定工作进程名称的前缀

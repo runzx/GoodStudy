@@ -20,7 +20,7 @@
             GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'  WITH GRANT OPTION
             // 让root只能在局域网192.168.100.0/24 内用
             GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.100.%' IDENTIFIED BY 'my-new-password' WITH GRANT OPTION;
-
+            GRANT ALL PRIVILEGES ON *.* TO 'zhaixiang-db'@'%' WITH GRANT OPTION;
 3. 设置与更改用户密码
     SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
     如果是当前登陆用户用:
