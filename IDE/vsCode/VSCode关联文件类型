@@ -1,5 +1,6 @@
 VSCode关联文件类型
     配置中添加到 files.associations 里面。
         "files.associations": {
-        "*.wxml": "xml"
+        "*.wxml": "xml",
+        "*.wxss": "css"
         },
