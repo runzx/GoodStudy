@@ -51,6 +51,8 @@
 	git remote add pi3 git@pi3:fjt.git
     git push -u origin master
 
+    sudo git init --bare ele.git                //20180121 用饿了么平台的用户数据点餐
+    
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
     20170523    zyb.git 小程序前端，用七月老师的框架改写
     20170604    lumen.git   用lumen开发REST API
