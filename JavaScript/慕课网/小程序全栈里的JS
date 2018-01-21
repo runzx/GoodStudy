@@ -23,6 +23,7 @@
         var f = function(v) {
         return v;
         }; 
+    如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。
 4. 重调自己
     //http 请求类, 当noRefech为true时，不做未授权重试机制
     request(params, noRefetch) {
