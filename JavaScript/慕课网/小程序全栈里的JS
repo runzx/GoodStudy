@@ -18,6 +18,11 @@
     函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
     保持环境变量不改变
 
+    var f = v => v; 
+    上面的箭头函数等同于：
+        var f = function(v) {
+        return v;
+        }; 
 4. 重调自己
     //http 请求类, 当noRefech为true时，不做未授权重试机制
     request(params, noRefetch) {
