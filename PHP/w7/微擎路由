@@ -1,0 +1,11 @@
+
+
+1.
+
+2. #####模块URL地址路由
+    当传入的 c 值为 “site”, a 值为 “entry”时则是一个模块路由，例如：
+        http://we7.cc/web/index.php?c=site&a=entry&do=themeset&m=we7_demo
+        则会路由至 /addons/we7_demo/site.php 文件中的 doWebThemeset() 方法。
+    可以将 site.php 中大量定义的入口方法分离单独的文件中 (文件名称为小写单词, 如: sendmessage.inc.php )
+        doWebXxx 分离到 we7_demo/inc/web/xxx.inc.php
+        doMobileXxx 分离到 we7_demo/inc/mobile/xxx.inc.php
