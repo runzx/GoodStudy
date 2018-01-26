@@ -1,0 +1,8 @@
+
+1.
+    npm install -g typescript
+
+2. hello.ts 
+    tsc hello.ts
+    这时候会生成一个编译好的文件 hello.js
+    TypeScript 只会进行静态检查，如果发现有错误，编译的时候就会报错

@@ -1,0 +1,30 @@
+
+
+1. WXS脚本语言是 Weixin Script脚本的简称，是JS、JSON、WXML、WXSS之后又一大小程序内部文件类型。
+
+2. WXS的使用，有两种方式。 
+    一种是直接在WXML中编写
+        module="foo">
+        var some_msg = "hello world"; 
+        module.exports = {    msg : some_msg, }
+        {{foo.msg}} 
+    另外一种是使用单独的WXS文件，然后在WXML中引入即可
+         src="./../logic.wxs" module="logic" />    
+
+3. WXS文件的构成
+    8种数据类型：
+        number ： 数值 
+        string ：字符串 
+        boolean：布尔值 
+        object：对象 
+        function：函数 
+        array : 数组 
+        date：日期 
+        regexp：正则
+    使用var或let来定义变量
+        变量的属性constructor。 
+        typeof这种方式来判定变量的类型
+    wxs 中不能调用其他 javascript 文件中定义的函数，
+        也不能调用小程序提供的API。
+    WXS增强了wxml的功能，相当于页面中的脚本语言，我们可以将比如检查手机格式的函数放在wxs中来使用（根据是否正确来改变相应的样式），而不用跑到在js中去检查
+    
