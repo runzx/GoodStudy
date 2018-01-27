@@ -1,0 +1,90 @@
+
+1.Installing hapi
+    https://hapijs.com/tutorials
+    建项目目录
+    npm init                    // generate a package.json
+    npm install hapi --save     // saves it in your package.json 
+    安装后： V17.2.0 200个文件，1M多大小。依赖17个包。haip/ 20多文件，200+kb
+
+2. https://github.com/hapijs/hapi/issues/3658
+    hapi v17.0.0是该框架的主要新版本。它是整个因素的三大重写之一（v2.0.0和v8.0.0之后）。
+    这个版本的主要变化和动机是用完全的async/await接口来代替回调。
+    v17版本的核心是reply()用新的生命周期方法概念替换应答接口（例如传递给处理程序，扩展和认证方法的方法）。
+        其他主要变化是多连接支持和域保护的移除。
+    
+    删除所有回调，用async/await替换：
+        server.auth.test()
+        server.cache.provision()
+        server.emit()
+        server.initialize()
+        server.inject()
+        server.register()
+        server.start()
+        server.stop()
+        Plugin register()
+        Any methods that previously had reply interface argument
+        The after argument of server.dependency()
+        Server methods
+        Custom validation functions
+        Cache methods and the generateFunc option
+        The autoValue option of server.state()
+    插件和服务迁移到hapi 17时需要注意的第一件事情：您现在需要await server.register。
+
+    插件注册的主要事情是插件现在只是简单的对象而不是函数。
+        这也意味着attributes像名称和版本的插件在对象上被压扁成为所需register功能的兄弟。此外，
+        插件的register功能不再需要next回调，现在有签名async function(server, options)。
+
+    删除了对单个服务器的多个连接的支持
+        该server.connection()方法被替换为创建服务器对象时直接传递的选项。
+        connection 属性从所有对象中删除。
+        所有连接方法都移动到服务器上。
+        删除了对标签，select()方法和选项的支持。
+            const server = Hapi.server({ load: { sampleInterval: 1000 } });
+    删除了对请求request tails 的支持
+        更改了请求生命周期中错误和接管响应的处理方式：
+        onPreResponse首先跳到响应验证。
+        takeover() 在处理程序将只是响应验证（之前被忽略）。
+        身份验证凭据验证通过新的onCredentials请求扩展点和新request.auth.isAuthorized属性从访问验证中分离出来。
+            如果请求未通过验证，request.auth.isAuthenticated则会true响应验证onPreResponse（预先是false）。
+    reply()用新的生命周期方法接口替换接口：
+        删除response.hold()和response.resume()。
+        方法是async和所需的返回值是响应。
+        响应toolkit (h) 提供了帮手（而不是reply()装饰）。
+    删除节点域保护：
+        与此同时async/await，大部分抛出的异常都被内部机制所捕获。
+        抛出在内部async/await承诺链之外的其他勾号中的错误不再被处理，并且如果应用程序没有明确地处理它，将导致该过程退出。
+    移动request.id到request.info.id。
+
+回调 处理改动：
+    server.start((err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+
+    try {
+        await server.start();
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+    // Before
+    const handler = function (request, reply) {
+        return reply('ok');
+    };
+
+    // After
+    const handler = function (request, h) {
+        return 'ok';
+    };
+
+事件：
+    Replace:
+        server.on() with server.events.on().
+        request.on() with request.events.on().
+        response.on() with response.events.on().
+
+server
+    server.handler(...)             -> server.decorate('handler', ...).
+    server.decorate('reply', ...)   -> server.decorate('toolkit', ...).
