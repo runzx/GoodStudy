@@ -46,10 +46,18 @@
         takeover() 在处理程序将只是响应验证（之前被忽略）。
         身份验证凭据验证通过新的onCredentials请求扩展点和新request.auth.isAuthorized属性从访问验证中分离出来。
             如果请求未通过验证，request.auth.isAuthenticated则会true响应验证onPreResponse（预先是false）。
-    reply()用新的生命周期方法接口替换接口：
+    reply() 停用， 用新的生命周期方法接口替换接口：
         删除response.hold()和response.resume()。
         方法是async和所需的返回值是响应。
         响应toolkit (h) 提供了帮手（而不是reply()装饰）。
+            // use the "h" response toolkit to create a response
+                return h
+                .response(thisHTML)
+                .type('text/html')
+                .header('X-Custom', 'my-value')
+                .code(201)
+            // redirect to 404
+                return h.redirect('/404')
     删除节点域保护：
         与此同时async/await，大部分抛出的异常都被内部机制所捕获。
         抛出在内部async/await承诺链之外的其他勾号中的错误不再被处理，并且如果应用程序没有明确地处理它，将导致该过程退出。
@@ -69,7 +77,7 @@
         console.log(err);
     }
 
-    // Before
+    // Before  reply()
     const handler = function (request, reply) {
         return reply('ok');
     };
@@ -81,10 +89,26 @@
 
 事件：
     Replace:
-        server.on() with server.events.on().
-        request.on() with request.events.on().
-        response.on() with response.events.on().
-
+        server.on() with    server.events.on().
+        request.on() with   request.events.on().
+        response.on() with  response.events.on().
+    三个请求事件类型（request，request-interval，和request-error）已经
+        合并成一个单一的request事件
+    new onCredentials 可以在请求授权之前自定义凭据。
+        server.ext('onPreAuth', (request, h) => { … })
+        server.ext('onCredentials', (request, h) => { … })
+        server.ext('onPostAuth', (request, h) => { … }) ]
 server
     server.handler(...)             -> server.decorate('handler', ...).
     server.decorate('reply', ...)   -> server.decorate('toolkit', ...).
+路由
+    server.route({
+        method: 'POST',
+        path: '/',
+        options: { … }      // 取代 config (现在还可以用)
+    })
+插件
+    exports.register()
+    替代
+    exports.register.attributes  
+    exports.plugin = { register, name, version, multiple, dependencies, once, pkg }

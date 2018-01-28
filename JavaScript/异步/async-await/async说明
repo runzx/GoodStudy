@@ -13,7 +13,7 @@
     await是async wait的意思，wait的是resolve(data)消息，并把数据data返回。
         const a = await new Promise((resolve, reject) => {
             // async process ...
-            return resolve(data);
+            resolve(data);  //自动return data
         });
         console.log(a);
         //当Promise对象由Pending变为Resolved的时候，变量a就等于data；
