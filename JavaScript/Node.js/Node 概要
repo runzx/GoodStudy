@@ -1,4 +1,5 @@
-
+中文同步文档
+    http://nodejs.cn/api/
 
 1. 同一台机器，同时安装多个版本的node.js，就需要用到版本管理工具nvm
     git clone https://github.com/creationix/nvm.git ~/.nvm

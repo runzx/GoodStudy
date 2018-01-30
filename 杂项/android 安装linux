@@ -1,0 +1,27 @@
+
+
+1. root后，安装好Linux Deploy软件
+
+2. 配置
+    国内 armhf少
+    http://mirrors.ustc.edu.cn/ubuntu-ports/
+
+    deb http://ports.ubuntu.com/ xenial main universe multiverse
+    deb-src http://ports.ubuntu.com/ xenial main universe multiverse
+
+    deb http://mirrors.ustc.edu.cn/ubuntu-ports/  xenial main universe multiverse
+3. node 系统自带版本太低
+    node 4.2.6
+    npm 3.5.2
+    从node官网安装
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+    zx@localhost:~/tmp$ nodejs --version
+    v8.9.4
+    zx@localhost:~/tmp$ npm -v
+    5.6.0
+
+    对于Node.js 9：
+    curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+    sudo apt-get install -y nodejs

@@ -1,0 +1,48 @@
+https://github.com/balderdashy/waterline
+
+
+1.
+    官方对 MySQL / MongoDB / Redis /PostgreSQL的支持
+    Starting with v0.13, Waterline takes full advantage of ECMAScript & Node 8's await keyword.
+    npm install waterline
+    直接使用'>' '<'即可
+    支持 JavaScipt 中除了对象外的所有数据类型，还额外提供了日期、时间、二进制、JSON的支持，数字还可以区分整数和浮点数
+    
+2. 适配器
+    需要在adapters中指定具体的适配器，connections中配置连接时再指定adapters中的适配器代码。
+    在进行具体的数据集合创建时，将会要指定使用connections中的哪个连接。
+
+3. 数据集合
+    数据集合合在一起，加上一些其它的属性和方法，构成一整个models。
+    数据类型有 （指定属性的字段时，使用的是一个字符串值）
+        string/text/integer/float/date/time/datetime/boolean/binary/array/json，
+
+4. 校验器
+    Anchor 支持的验证器 
+    在创建数据集合的时候指定给具体的属性的，除了预定义的校验器，还可以自定义校验器。
+        预定义的校验器涵盖了 Mongoose 中的必须字段验证、字符串长度验证等。
+    还有针对时间、地理位置、正则表达式、布尔值、Email地址的，一共有 20 多个
+
+5. 查询
+     26 种查询方法 ——你没有看错，是 26 种。
+        除了常规的find/create/update/destory方法，
+        还有findLike/startWith/findByNameIn/nameContains之类。
+    回调方式：直接把结果处理函数以回调函数的方法传给查询方法
+    链式方式：查询方法之后，直接以链式方式依次组织各个查询接口
+    Promise：这一方式使得错误处理更漂亮，代码也更容易阅读
+    查询的接口 也很丰富，where/sort/exec，
+        还有 Mongoose 中的populate，查询翻页使用limit/skip，
+        还提供了一个集成的方法paginate，直接传入页码和每码数量即可。
+    条件修饰符 ：包括>/</>=/<=/!/like/contains/startWith/endWith，
+        大小比较的，除了常规的数字，也支持时间
+    查询选项 ：提供了limit/skip两个属性组织分页，
+        使用sort属性确定排序，排序即可以使用 SQL 语法里的DESC/ASC，
+        也可以用对象的方式来直接指定排序标准，并支持指定多个排序标准。
+        select指定查询结果所包含的字段
+6.  中间件  ：生命周期回调（Lifecycle Callbacks） 
+    create/update/destory时，均有多种回调
+        创建时：beforeValidate/afterValidate/beforeCreate/afterCreate
+        更新时：beforeValidate/afterValidate/beforeUpdate/afterUpdate
+        删除时：beforeDestroy/afterDestroy
+    这些方法，需要在初始化数据集合的时候进行定义。
+7. Waterline 还支持 自定义数据类型 、 索引 和 集合间的关联 。

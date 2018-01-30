@@ -1,0 +1,33 @@
+
+v0.13
+
+1. adapter
+    sails-mongo, sails-mysql v1.0+
+        否则出错： the `registerConnection` method must be renamed to `registerDatastore`.
+    require-dir 升级新版
+2. 模型里
+    var User = Waterline.Collection.extend({
+    identity: 'user',
+    datastore: 'myMongo',
+    autoPK: false,
+    primaryKey: 'id',   // 这个不能少！
+    attributes: {
+        id: {
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true
+        }
+3. 
+    datastores:{
+        default:{
+
+        },
+        mongoDB:{
+            adapter:'mongo-adapter',
+            user:'',
+            passwrd:'',
+            host:'',
+            port:'27017',
+            database:''     // 后面这5项可以合并写成 url:'user:passwrd@host:port/database'
+        }
+    }
