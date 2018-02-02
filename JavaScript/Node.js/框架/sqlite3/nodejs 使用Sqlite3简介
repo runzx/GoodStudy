@@ -1,0 +1,45 @@
+
+1. 
+    sqlite的第一个版本是2000年就发布了的，经过十多年的历练，显然sqlite目前已经相当成熟。sqlite最大的特点就是没有任何数据库服务器，无论是C、java、node.js，只需要相应的驱动，就可以直接对数据库进行读写，速度是相当的快。
+    由于对并发连接支持非常不好，因此在信息管理系统中用的不多。但本人由于各种原因在做一个管理系统的项目中使用了sqlite，跑在大约1000用户的环境下，数据量达到了5000万的级别，居然没有出现任何问题。看来sql不可貌相，蚂蚁有时候也能干大象干的事。
+    该sqlite3模块适用于Node.js v0.10.x，v0.12.x，v4.x，v5.x，v6.x和v7.x.
+    大多数Node版本和平台的二进制文件默认通过node-pre-gyp提供。
+2. nodejs
+    sqlite3 : Asynchronous, non-blocking SQLite3 bindings 异步，非阻塞sqlite3绑定。
+    var db = new sqlite3.Database('/tmp/1.db', cb);
+    db.run(sql, [param, ...], [callback])
+        sql语句中， 可用 ? 占位符代入对应的param. (这可以一个个参数，或数组，或name param对象)
+        如果没param参数时要传callback参数, param 用 []代替。
+        例： db.run("UPDATE tbl SET name = ? WHERE id = ?", "bar", 2);
+        name param对象 : ( prefixed with :name, @name and $name.)
+            // As an object with named parameters.
+            db.run("UPDATE tbl SET name = $name WHERE id = $id", {
+                $id: 2,
+                $name: "bar"
+            });
+    db.get(sql,[param，...], [(err, row)=>{}])
+        结果为空，则row = undefined
+    db.all(sql, [param,...], [(err, rows)=>{}])
+        rows是一个数组. 所有结果放内存里， 所以要小心使用！
+    db.each(sql, [param, ...], [cb], [complete])
+        并为每个结果行调用一次回调。该函数返回数据库对象以允许函数链接。
+        结果集成功但是为空，则不会调用回调。
+
+3. 调用sqlite3的接口
+    插入的时候使用db.run()，
+    查询的时候使用db.all()
+    由于是异步，必须在执行sql后注册回调函数
+    例：
+        var sqlite3 = require('sqlite3');  
+        var db = new sqlite3.Database('/tmp/1.db',function() {  
+        db.run("create table test(name varchar(15))",function(){  
+            db.run("insert into test values('hello,world')",function(){  
+            db.all("select * from test",function(err,res){  
+                if(!err)  
+                console.log(JSON.stringify(res));  
+                else  
+                console.log(err);  
+            });  
+            })  
+        });  
+        });  
