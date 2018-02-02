@@ -1,5 +1,51 @@
 
 
+0. 
+    重要！Mongoose缓存所有的命令，直到连接到数据库。这意味着您
+        不必等到连接到MongoDB才能定义模型，运行查询等
+    每个mongoose模型都保留对本地MongoDB驱动程序collection的引用。可以使用集合对象进行访问YourModel.collection。但是，
+        使用集合对象直接绕过所有的mongoose特征，包括钩子，验证等等。一个值得注意的例外是
+        YourModel.collection仍然缓冲命令。因此，YourModel.collection.find()将不 返回游标。
+
+    Schema  是定义数据库的结构。类似创建表时的数据定义，但比创建数据库可以做更多的定义，只是没办法通过Schema对数据库进行更改。
+    Model   是将Schema定义的结构赋予表名。但可用此名对数据库进行增删查改。
+    Entity  是将Model与具体的数据绑定，可以对具体数据自身进行操作，例如保存数据。
+
+    Model
+        var blogModel = mongoose.model('Blog', blogSchema);
+        将名为blogSchema的Schema与Blog名字绑定，即是存入数据库的名字，
+            但存入数据库中的名字是Blogs，会自动添加一个s。
+
+    比较查询运算符
+        $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小于 ／ $lte 小于等于 ／ 
+        $ne   不等于 ／ $in 在数组中 ／ $nin 不在数组中
+        .find({meta.votes: {$lt: 100}})
+        .find({title: {$in: ['Mongoose', 'Mongodb', 'Nodejs']}})
+    逻辑查询运算符
+        $or 或 ／ $and 与 ／ $nor 非   
+        .find({ $and: [
+            {meta.votes: {$gte: 50}}, 
+            {meta.votes: {$lt: 100}}
+        ]}) 
+        或：
+        blogModel.and([
+            {meta.votes: {$gte: 50}}, 
+            {meta.votes: {$lt: 100}}
+        ]); //链式
+    元素查询运算符
+        $exists　查询的字段值是否存在
+        blogModel.find({ title: {$exists: true}});
+    $regex　使用正则表达式查询数据
+        blogModel.find({ title: { $regex: "Mongoose.+","$options":"i"}});
+    $where　支持js表达式查询
+        blogModel.find({ $where: 'this.comments.length === 10 || this.name.length === 5' });
+        blogModel.where(function() { return this.comments.length === 10 || this.name.length === 5;});
+    跳过、限制、排序、计数
+        .skip(10).limit(5).sort("{ meta.votes: 1}")
+            asc为升序，-1、desc为降序。可以对一个字段进行排序，也可以是多个。
+        .count([criteria], [callback])　　
+        .select('title body')   指定的查询字段，或者排除指定的字段。+为包含，-为排除。
+        
 
 model - 文档操作
 1.构造函数, 参数1:集合名称, 参数2:Schema实例
