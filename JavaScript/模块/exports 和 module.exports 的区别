@@ -1,0 +1,66 @@
+
+exports 和 module.exports 的区别
+
+1. 
+    module.exports 初始值为一个空对象 {}
+    exports 是指向的 module.exports 的引用
+    require() 返回的是 module.exports 而不是 exports
+
+    exports = module.exports = somethings
+    上面的代码等价于:
+        module.exports = somethings
+        exports = module.exports
+    原理很简单，即 module.exports 指向新的对象时，exports 断开了与 module.exports 的引用，那么通过 exports = module.exports 让 exports 重新指向 module.exports 即可。
+
+2. 每一个node.js执行文件，都自动创建一个module对象，
+    同时，module对象会创建一个叫exports的属性，初始化的值是 {}
+        module.exports = {};
+
+    exports是引用 module.exports的值。module.exports 被改变的时候，exports不会被改变，而模块导出的时候，
+        真正导出的执行是module.exports，而不是exports
+    
+     module.exports = View;
+        只有是View的静态方法的时候，才能够被调用，
+        prototype创建的方法，则属于View的私有方法。
+
+    module.exports  我的理解是：你把什么东西赋给了module.exports，require后就会得到什么东西
+    exports已经是一个对象，你可以向这个对象里面添加属性，在require后就得到的是这个exports对象。
+        exports.show =function(){}
+        但是你不能给exports赋一个新对象，比如exports={}
+        还需要注意的是如果module.exports已经有内容了，那么exports的所有操作都会失效，切记
+
+    prototype是干什么用的呢，它是在原型中添加属性，原型就像c++中的父类一样，
+        //a.js
+        module.exports =function(){
+        }
+        module.exports.prototype.show = function(){
+        console.log('hahah~');
+        }
+
+        //b.js
+        var a= require('a');
+        var obj = new a()
+        obj.show()
+        
+        //输出hahah~
+    
+3.  exports是module.exports的一个引用
+    require引用模块后，返回给调用者的是module.exports而不是exports
+    exports.xxx，相当于在导出对象上挂属性，该属性对调用模块直接可见
+    exports =相当于给exports对象重新赋值，调用模块不能访问exports对象及其属性
+    如果此模块是一个类，就应该直接赋值module.exports，
+        这样调用者就是一个类构造器，可以直接new实例
+    exports 赋值其实是给 module.exports 这个空对象添加了属性
+        exports.a = str;
+        相当于
+        module.exports.a = str;
+
+    对于要导出的属性，可以简单直接挂到exports对象上
+    对于类，为了直接使导出的内容作为类的构造器可以让调用者使用new操作符创建实例对象，
+        应该把构造函数挂到module.exports对象上，不要和导出属性值混在一起
+
+    exports = function (str) {
+        console.log(str);
+    }   // 程序就会报错
+
+    module.exports对象不为空的时候exports对象就自动忽略
