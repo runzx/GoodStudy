@@ -1,0 +1,53 @@
+
+
+1. 安装
+    npm i --save hapi@16
+        + hapi@16.6.2
+        added 34 packages in 4.799s
+    npm install --save mysql2   //sequelize@4
+        + mysql2@1.5.1
+        added 25 packages in 4.515s
+    npm install --save mysql    //sequelize@3
+        mysql@2.15.0
+
+    npm i --save sqlite3
+        sqlite3@3.1.13 
+    yarn add suquelize@3
+        3.31.1
+    // Sequelize-Auto 工具，通过数据库反向生成模型文件（命令行方式）
+    npm install -g sequelize-auto   // 要先安装全局相应数据库包： npm install -g mysql
+        [node] sequelize-auto -h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName] -C
+        
+2. 建立连接
+    Sequelize将在初始化时设置连接池，所以如果从单个进程连接到数据库，
+        你最好每个数据库只创建一个实例。
+    // 或者你可以简单地使用 uri 连接
+    const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
+3. 你的第一个模型
+    sequelize.define('name', {attributes}, {options}) 来定义.
+
+    `users` AS `user` 不知为什么它会自己把我已有的users表当作user来处理？
+
+    要定义模型和表之间的映射，请使用define方法。 随后Sequelize将自动添加createdAt和updatedAt属性。
+    可以在每列上进行一些设置:
+4. 
+    初始化Sequelize
+        node_modules/.bin/sequelize init
+            这为我们创建了几个目录。index.js内部有一个文件的models目录，包含一个基本config.json和一个空的迁移目录的config 目录
+    创建我们的模型
+        node_modules/.bin/sequelize model:create --name Post --attributes title:string,body:string
+            在models/index.js旁边，Sequelize 创建了post.js :
+                "use strict";
+                module.exports = function(sequelize, DataTypes) {
+                var Post = sequelize.define("Post", {
+                    title: DataTypes.STRING,
+                    body: DataTypes.STRING
+                }, {
+                    classMethods: {
+                    associate: function(models) {
+                        // associations can be defined here
+                    }
+                    }
+                });
+                return Post;
+                };
