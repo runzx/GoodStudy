@@ -1,0 +1,105 @@
+js 构造函数和原型对象
+
+1. 对象创建模式   (因为此时js还没有类，所以用下面这些概念来模拟类，prototype属性类似类里的继承。。。)
+    new
+        var gf = new Object();
+        gf.name = "tangwei";
+        gf.bar = "c++";
+        gf.sayWhat = function() {
+            console.log(this.name + "said:love you forever");
+        }
+    使用字面量创建
+        var gf = {
+            name : "tangwei",
+            bar : "c++",
+            sayWhat : function() {
+                console.log(this.name + "said:love you forever");
+            }
+        }
+    工厂模式
+        function createGf(name, bar) {
+            var o = new Object();
+            o.name = name;
+            o.bar = bar;
+            o.sayWhat = function() {
+                alert(this.name + "said:love you forever");
+            }
+            return o;
+        }
+        var gf1 = createGf("bingbing","d");
+        var gf2 = createGf("mimi","a");
+    构造函数
+        function Gf(name,bar){  //照约定构造函数的首字母要大写
+            this.name = name;
+            this.bar = bar;
+            this.sayWhat = function(){
+                alert(this.name + "said:love you forever");
+            }
+        }
+        var gf1 = new Gf("vivian","f");
+        var gf2 = new Gf("vivian2","f");    
+    原型对象模式
+        创建一个函数时，该函数就会具备一个prototype属性，这个属性指向通过构造函数创建的那个函数的原型对象。
+            通俗点讲原型对象就是内存中为其他对象提供共享属性和方法的对象。
+            （我理解原型对象 就是 父类型: calss Gf extends father()）
+        function Gf(){
+            Gf.prototype.name = "vivian";
+            Gf.prototype.bar = "c++";
+            Gf.prototype.sayWhat = function(){
+                alert(this.name + "said:love you forever");
+            }
+        }
+        var gf1 = new Gf();
+        gf1.sayWhat();
+        var gf2 = new Gf();
+        和构造函数不同的是这里新对象的属性和方法是所有实例都可以共享的，
+            换句话说gf1和gf2访问的是同一份属性和方法。
+            原型对象中除了我们赋予的属性外，还有一些内置的属性，所有原型对象都具备一个constructor属性，这个属性是一个指向包含prototype属性函数的一个指针（敢不敢再绕点！）
+
+        function Gf(){}
+        Gf.prototype = {
+            name : "vivian",
+            bar : "c++",
+            sayWhat : function(){
+                alert(this.name + "said:love you forever");
+            }
+        } 
+        要特别注意下，constructor属性不再指向对象Gf，因为每定义一个函数，就会同时为其创建一个prototype对象，
+            这个对象也会自动获取一个新的constructor属性，
+            这使用Gf.prototype={}...本质上覆写了原有的prototype对象，
+            因此constructor也变成了新对象的constructor属性，不再指向Gf，而是Object:
+            Gf.prototype = {
+                constructor : Gf,
+                ...     //这样相当于ES6 里 super(); 
+    构造函数和原型组合模式
+        用构造函数来定义对象的属性，使用原型来定义共享的属性和方法, (类拟 继承基类)
+        function Gf(name,bar){
+            this.name = name;
+            this.bar = bar;
+        }
+        Gf.prototype = {
+            constructor : Gf,
+            sayWhat : function() {
+                alert(this.name + "said:love you forever");
+            }
+        }
+        var gf1 = new Gf("vivian", "f");
+        var gf2 = new Gf("vivian1", "c");
+        这在ES6里就不用这么麻烦：
+            calss Base(){
+                constructor(name) {
+                    this.name = name;   //我加的
+                }
+                sayWhat () {
+                    alert(this.name + "said:love you forever");
+                    // 如果constructor里不定义this.name ，不成了父类 调用 子类的属性？？应该在constructor里加
+                }
+            }
+            calss Gf extends Base(){
+                constructor(name, bar){
+                    super(name)             // 如果要继承父类的 constructor, super()是调用父类的constructor()
+                    this.name = name;
+                    this.bar = bar;
+                }
+
+            }
