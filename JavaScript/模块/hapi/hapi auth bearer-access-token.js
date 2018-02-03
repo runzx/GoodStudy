@@ -31,12 +31,12 @@ hapi身份验证令牌
 request可以从 validateFunc中用this访问该对象。如果你想使用这个，你必须使用function关键字，而不是箭头语法。
 
     
-    validateFunc()返回值可以在request.auth.credentials 里取到。 好象可以自己在credentials后加对象，也能从auth里取到。？？
+    validateFunc()返回值可以在request.auth.credentials, request.auth.credentials 里取到。 
         Returns an object { isValid, credentials, artifacts }
             isValid     true if token is valid
             credentials - a credentials object passed back to the application in request.auth.credentials.
             artifacts   - optional authentication related data that is not part of the user's credential.
-    如果没传token, 直接不调用validateFunc();
+    如果没传token, 系统不调用validateFunc();
 
     路由和服务器启动必须在注册后，否则报错， 下面代码会出错。
 

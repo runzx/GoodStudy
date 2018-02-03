@@ -9,6 +9,7 @@
 
     Schema  是定义数据库的结构。类似创建表时的数据定义，但比创建数据库可以做更多的定义，只是没办法通过Schema对数据库进行更改。
     Model   是将Schema定义的结构赋予表名。但可用此名对数据库进行增删查改。
+        当Model_Name为单数名词的时候，mongoose会自动给你转换成复数形式
     Entity  是将Model与具体的数据绑定，可以对具体数据自身进行操作，例如保存数据。
 
     Model
@@ -45,8 +46,45 @@
             asc为升序，-1、desc为降序。可以对一个字段进行排序，也可以是多个。
         .count([criteria], [callback])　　
         .select('title body')   指定的查询字段，或者排除指定的字段。+为包含，-为排除。
-        
-
+0.1 链式查询
+    如果不带callback，则返回query
+    Person
+      .find({ occupation: /host/ })
+      .where('name.last').equals('Ghost')
+      .where('age').gt(17).lt(66)
+      .where('likes').in(['vaporizing', 'talking'])
+      .limit(10)
+      .sort('-occupation')
+      .select('name occupation')
+      .exec(callback);
+0.2 Validation
+    验证始终定义在SchemaType中
+    验证是一个内部中间件
+    验证是在一个Document被保存时默认启用的，除非你关闭验证
+    验证是异步递归的，如果你的SubDoc验证失败，Document也将无法保存
+    验证并不关心错误类型，而通过ValidationError这个对象可以访问
+    验证器 ：
+        required 非空验证
+        min/max 范围验证（边值验证）
+        enum/match 枚举验证/匹配验证
+        validate 自定义验证规则
+    例：
+        var PersonSchema = new Schema({
+            name:{
+                type:'String',
+                required:true //姓名非空
+            },
+            age:{
+                type:'Nunmer',
+                min:18,       //年龄最小18
+                max:120     //年龄最大120
+            },
+            other:{
+                type:'String',
+                validate:[validator,err]  //validator是一个验证函数，err是验证失败的错误信息
+            }
+            ...
+    
 model - 文档操作
 1.构造函数, 参数1:集合名称, 参数2:Schema实例
 

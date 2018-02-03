@@ -1,0 +1,40 @@
+
+
+1. 前置 pre 和后置 post 两种， 也就是某种操作之前调用和之后调用
+    中间件有如下几种：
+        init
+        validate
+        save
+        remove
+    查询中间件：
+        count
+        find
+        findOne
+        findOneAndRemove
+        findOneAndUpdate
+        insertMany
+        update
+    .pre()是在执行save操作之前执行的函数
+    Serial串行
+        串行使用pre方法，执行下一个方法使用next调用
+            var schema = new Schema(…);
+            schema.pre(‘save’,function(next){
+                    //做点什么
+                    next();
+            });
+    Parallel并行
+        并行提供更细粒度的操作
+            var schema = new Schema(…);
+            schema.pre(‘save’,function(next,done){
+                    //下一个要执行的中间件并行执行
+                    next();
+                    doAsync(done);
+            });
+    .path()，其实也是一种中间件，如同xml的path解析，mongoose是针对mongodb数据库的一种orm模型，mongodb是javascript的json数据存储，有的时候，我们并不希望中间件只针对一个操作，
+        而是针对操作对象的某个属性，那么就能使用path快速定位。这个类似于2.x的get和set方法，只是3.x貌似取消了。
+2. 中间件是一些函数, 当document发生init, validate, save和remove方法的时候中间件发生. 
+    中间件都是document级别的不是model级别的.
+    更新操作直接发生在数据库上pre和post不会被调用, 
+        包含Model.update,  findByIdAndUpdate, findOneAndUpdate, 
+        findOneAndRemove, findByIdAndRemove
+    在post和find中, 是不能直接修改doc上的属性的.
