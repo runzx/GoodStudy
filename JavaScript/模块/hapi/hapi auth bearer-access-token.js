@@ -28,10 +28,10 @@ hapi身份验证令牌
 
 2. demo
 */
-request可以从 validateFunc中用this访问该对象。如果你想使用这个，你必须使用function关键字，而不是箭头语法。
+    validateFunc中可用this访问request对象。如果你想使用这个，你必须使用function关键字，而不是箭头语法。
 
     
-    validateFunc()返回值可以在request.auth.credentials, request.auth.credentials 里取到。 
+    validateFunc() cb()返回值可以在request.auth.credentials, request.auth.credentials 里取到。 
         Returns an object { isValid, credentials, artifacts }
             isValid     true if token is valid
             credentials - a credentials object passed back to the application in request.auth.credentials.
@@ -63,7 +63,7 @@ server.register(AuthBearer, (err) => {
             if (token === "1234") {
                 return callback(null, true, { token: token }, { artifact1: 'an artifact' });
             }
-            
+            // cb(err, isValid, credentials,artifacts)
             return callback(null, false, { token: token }, { artifact1: 'an artifact' });
         }
     });

@@ -1,4 +1,4 @@
-server.cache(options)
+server.cache(options)               //应用层 Policy
 在服务器缓存设施中提供一个缓存段，其中：
 
     options- catbox策略配置其中：
@@ -28,9 +28,9 @@ server.cache(options)
 
             // value === { capital: 'oslo' };
         });
-    });
+    });     //应用层 Policy
 
-3. new Server([options])
+3. new Server([options])    // 应用层 Policy
     options - 可选配置：
         app- 以后可以通过访问的应用程序特定的配置 server.settings.app。请注意，server.settings.app用于存储静态配置值和server.app用于存储运行时状态的区别。默认为{}。
         cache - 设置服务器端缓存。每个服务器都包含一个用于存储应用程序状态的默 
@@ -50,7 +50,7 @@ server.cache(options)
 4.catbox 有2个接口 v7.1.5
     https://github.com/hapijs/catbox/blob/v7.1.5/README.md
 
-    低层：clinet   设置/获取键值对
+    底层：clinet   设置/获取键值对
     应用：Policy
 
     new Client(engine, options)
