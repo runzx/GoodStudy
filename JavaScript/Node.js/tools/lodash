@@ -1,0 +1,86 @@
+lodash一开始是Underscore.js库的一个fork，因为和其他(Underscore.js的)贡献者意见相左。John-David Dalton的最初目标，是提供更多“一致的跨浏览器行为……，并改善性能”。之后，该项目在现有成功的基础之上取得了更大的成果，并于一月份发布了3.0版本。
+    v4.17
+lodash使用全局的_来提供对工具的快速访问
+
+函数模块
+    Lodash 中的每个函数在 NPM 都有一个单独的发布模块。
+        NPM: results for ‘lodash’
+    假如你只需要使用_.isEqual，那么你只需要安装lodash.isequal模块，然后按以下方式引用。
+
+    var isEqual = require('lodash.isequal')
+    // or ES6
+    import isEqual from 'lodash.isequal'
+
+全路径引用
+    在你完整安装 Lodash 后，可以按lodash/函数名的格式单独引入需要的函数模块。
+
+    var difference = require('lodash/difference')
+    // or ES6
+    import difference from 'lodash/difference'
+
+1.  Lodash 還提供了 _(value)，
+
+    建立了一个隐式链对象，可以把那些能操作并返回 
+        arrays（数组）、collections（集合）、
+        functions（函数）的”.Methods”（lodash的函数）串起来。 
+        那些能返回“唯一值(single value)”或者可能返回原生数据类型（primitive value）会自动结束链式反应。 
+        而显式链则用_.chain. 的方式实现延迟计算，即：求值操作等到 _value()被调用时再执行。
+
+    如果在 chaining 過程中出現了 _.reduce()，_.merge() 等等會處理成單一結果，
+    或是會回傳 primitive value 的函式調用，就會自動 unwrap。
+        const data = [
+            {name: 'A', usdPrice: 10},
+            {name: 'B', usdPrice: 20},
+            {name: 'C', usdPrice: 30},
+        ]
+        const twdTotal = _(data)
+                        .map('usdPrice')
+                        .map(num => num * 31)
+                        .reduce(_.add)
+
+        // 呼叫了 _.reduce() ，所以不需要呼叫 _.value() 就會回傳數值
+        // _.reduce(collection, [iteratee=_.identity], [accumulator]) 返回累加后的值
+
+2. const poData =
+    [
+        { poNumber: 'FA1234-1', designName: 'A',,,, },
+        { poNumber: 'FA1234-5', designName: 'B',,,, },
+        { poNumber: 'FB2234-1', designName: 'C',,,, },
+        { poNumber: 'FC3141-1', designName: 'D',,,, },
+    ]
+    想要拿到不重複的 poNumber 的前半段。
+        ['FA1234', 'FB2234', 'FC3141']
+    const poNumbers     = _.map(poData, 'poNumber')
+    const poNumberParts = _.map(poNumbers, num => num.split('-')[0])
+    const result        = _.unique(poNumberParts)
+
+    把函式執行的結果，當成呼叫下一個函數時的第一個參數。 而 Lodash 的 _.chain() 的功能正是如此：
+        const result = _.chain(poData)
+                        .map('poNumber')
+                        .map(num => num.split('-')[0])
+                        .unique()
+                        .value()    // _.chain() 是 lazy evaluation，所以要在最後方加上 .value() 才會開始調用
+
+3.  一种是显式调用(Explicit Chaining)，
+        let numbers = [1, 2, 3, 4, 5];
+        a = _.chain(numbers)    //注意numbers放置的位置
+            .filter(n => n % 2 === 0)
+            .map(n => n * n)
+            .sum()
+            .value();           //特别要注意结尾的那个.value()
+    一种是隐式调用(Implicit Chaining)。
+        a = _(numbers) //注意numbers的位置，不需要显式的使用chain关键字
+            .filter(n => n % 2 === 0)
+            .map(n => n * n)
+            .sum()
+        
+        let isEven = n => n % 2 === 0;
+        let square = n => n * n;
+        let sumOfEvenSquares = _(numbers).filter(isEven).map(square).sum();
+
+    为什么要多出来一个 .value()，而不是直接出结果呢？那是因为可能要等待延时(Deferred execution)数据的到来，再执行取值。
+        这就是我们常说的Lazy evaluation （延迟计算/惰性求值）
+
+    _.tap(value, interceptor, [thisArg])
+        拦截器，拿tap来干嘛？你可以在链条当中插它一下，可以对数据进行处理，可以返回值也可以不返回值，也可以仅仅是打印一下中间的过程，
+            拿tap来debug 链式反应的过程是不错的选择。
