@@ -1,0 +1,47 @@
+
+1.启动
+    sudo redis-server /etc/redis/redis.conf
+    修改/etc/redis.conf,让server以守护进程在后台执行。
+    daemonize yes  #  修改 /etc/redis.conf 中的 daemonize为yes
+
+    查看启动成功“”
+        ps -ef | grep 6379 
+
+    如果是用apt-get或者yum install安装的redis，可以直接通过下面的命令停止/启动/重启redis
+        /etc/init.d/redis-server stop
+        /etc/init.d/redis-server start
+        /etc/init.d/redis-server restart
+
+    #修改daemonize为yes，即默认以后台程序方式运行（还记得前面手动使用&号强制后台运行吗）。  
+        daemonize no  
+    #可修改默认监听端口  
+        port 6379  
+    #修改生成默认日志文件位置  
+        logfile "/home/futeng/logs/redis.log"  
+    #配置持久化文件存放位置  
+        dir /home/futeng/data/redisData  
+
+1.5 停止
+    #使用客户端  
+        redis-cli shutdown  
+    #因为Redis可以妥善处理SIGTERM信号，所以直接kill -9也是可以的  
+        kill -9 PID  
+    #检测后台进程是否存在  
+        ps -ef |grep redis  
+    #检测6379端口是否在监听  
+        netstat -lntp | grep 6379  
+    #使用`redis-cli`客户端检测连接是否正常  
+        ./redis-cli  
+2. 客户端调试
+    redis-cli
+        查看：
+            keys *
+        设置键值对 
+            set myKey abc
+        取出键值对 
+            get myKey
+        查看配置
+            CONFIG GET *
+        编辑配置
+            CONFIG SET CONFIG_SETTING_NAME NEW_CONFIG_VALUE
+            CONFIG SET bind "127.0.0.1 192.168.1.*"

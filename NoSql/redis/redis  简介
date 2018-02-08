@@ -1,0 +1,51 @@
+
+
+1. Redis 数据库其他说明
+    Redis默认支持16个数据库，编号0~15，每个数据库是独立的不能相互访问，可以通过
+        SELECT 数据库编号
+        来更换数据库
+    Redis不支持自定义数据库名字
+    Redis不支持每个数据库设置不同的密码
+    我们可以通过配置参数database修改支持的数据库个数，当选择的数据库编号超过最大数据库编号，
+        默认使用最大数据库编号的数据库
+        清空当前数据库的所有内容
+            flushdb
+        清空所有数据库的所有内容
+            flushall
+        随机返回当前数据库的一个键
+            randomkey
+        删除一个或多个key
+            del key
+        返回给定哈希表中所有键的值
+            hvals key
+2. Redis的五种数据类型(字符串，哈希，链表，无序集合，有序集合)
+    字符串
+        set key value 设置key的value
+        get key 得到key的value
+        incr key key如果是整型自增1
+        keys * 得到所有key
+    哈希
+        hset key filed value 设置key对象的field属性的value
+        hget key filed 得到key对象的field属性的value
+        hgetall key 得到key对象的所有的属性和值
+    链表
+        适合存储社交网站的新鲜事
+        lpush key value [value ...] 向链表key左边添加元素
+        rpush key value [value...] 向链表key右边添加元素
+        lpop key 移除key链表左边第一个元素
+        rpop key 移除key链表右边第一元素
+        lrange key start stop 获取链表中某一段，包含最大值，-1表示最后一个元素
+    集合类型
+        适合存储文章的标签，因为是唯一的
+        sadd key member [member ...] 向集合key中添加元素，如果元素已经存在则忽略
+        srem key member [member ...] 从集合key中删除元素
+        smembers key 返回集合key中所有的元素
+        sinter key [key ...] 多个集合执行交集运算
+        sdiff key [key ...] 多个集合执行差集运算
+        sunion key [key ...] 多个集合执行并集运算
+    有序集合
+        适用于通过文章访问量排序
+        zadd key score member [score member ...] 向有序集合key中加入一个或多个元素和分数，如果元素已经存在，则替换分数
+        zrem key member [member ...] 删除集合中一个或多个元素
+        zrange key start stop [withscores] 按元素分数从小到大顺序返回元素，如需获得对应元素的分数，在尾部加上withscores
+        zrevrange key start stop [withscores] 按元素分数从大到小顺序返回元素

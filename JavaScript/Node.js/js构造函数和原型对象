@@ -29,6 +29,28 @@ js 构造函数和原型对象
         var gf1 = createGf("bingbing","d");
         var gf2 = createGf("mimi","a");
     构造函数
+        ES6 中的类实际上就是个函数，而且正如函数的定义方式有函数声明和函数表达式两种一样，类的定义方式也有两种，
+            分别是：类声明、类表达式。
+                使用 class 关键字后跟一个类名（这里是 Ploygon），就可以定义一个类
+                    类声明和函数声明不同的一点是，函数声明存在变量提升现象，而类声明不会。也就是说，你必须先声明类，然后才能使用它，否则代码会抛出 ——ReferenceError 异常，像下面这样：
+                类表达式是定义类的另外一种方式，就像函数表达式一样，在类表达式中，类名是可有可无的。如果定义了类名，则该类名只有在类体内部才能访问到。
+                    var Polygon = class {
+                        constructor(height, width) {
+                            this.height = height;
+                            this.width = width;
+                        }
+                    };    
+        JavaScript的原型链和Java的Class区别就在，它没有“Class”的概念，所有对象都是实例，
+            所谓继承关系不过是把一个对象的原型指向另一个对象而已。
+            在编写JavaScript代码时，不要直接用obj.__proto__去改变一个对象的原型，并且，低版本的IE也无法使用__proto__
+            用obj.xxx访问一个对象的属性时，JavaScript引擎先在当前对象上查找该属性，如果没有找到，就到其原型对象上找，如果还没有找到，就
+                一直上溯到Object.prototype对象，最后，如果还没有找到，就只能返回undefined
+        constructor方法默认返回实例对象（即this）
+             var dog=new Dog(); //构造函数内的this指向新创建的实例对象，也就是这里的dog
+        类和模块的内部，默认就是严格模式
+        static关键字定义了一个类的静态方法。静态方法被称为无需实例化类也可当类被实例化。
+            静态方法通常用于为应用程序创建实用函数。
+
         function Gf(name,bar){  //照约定构造函数的首字母要大写
             this.name = name;
             this.bar = bar;

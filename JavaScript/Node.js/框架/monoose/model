@@ -16,12 +16,25 @@
         var blogModel = mongoose.model('Blog', blogSchema);
         将名为blogSchema的Schema与Blog名字绑定，即是存入数据库的名字，
             但存入数据库中的名字是Blogs，会自动添加一个s。
-
+        mongoose 模型定义重复引用就报错：
+            Cannot overwrite model once compiled 怎么解决？
+            模型定义不允许重复，所以这个mongoose.model()应该只调用一次，而导出它执行后的结果
+            require机制确保了mongoose.model()只会执行一次
+            var model = mongoose.model('user.account', UserAccountSchema);
+            //导出模型
+            module.exports =model;
     比较查询运算符
         $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小于 ／ $lte 小于等于 ／ 
         $ne   不等于 ／ $in 在数组中 ／ $nin 不在数组中
         .find({meta.votes: {$lt: 100}})
         .find({title: {$in: ['Mongoose', 'Mongodb', 'Nodejs']}})
+
+        Thing.find().gt('age', 21)就等同于Thing.find({age: {$gt: 21}})
+        .findOne({ 'name.last': 'Ghost' }, 'name occupation', function (err, person) {
+            if (err) return handleError(err);
+        如果执行查询时发生错误，则error参数将包含错误文档，并且result 将为空。
+            如果查询成功，则error参数将为空，并且result将填充查询的结果。
+
     逻辑查询运算符
         $or 或 ／ $and 与 ／ $nor 非   
         .find({ $and: [

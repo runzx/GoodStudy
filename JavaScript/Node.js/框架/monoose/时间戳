@@ -1,0 +1,11 @@
+
+时间戳
+    如果设置timestamps，猫鼬分配createdAt和updatedAt字段到您的架构，分配的类型是日期。
+
+    默认情况下，两个字段的名称是createdAt和updatedAt，
+        通过设置timestamps.createdAt和来自定义字段名称timestamps.updatedAt。
+
+    var thingSchema = new Schema({..}
+        , { timestamps: { 
+            createdAt: 'created_time' 
+            ,updatedAt: 'updated_time'} });

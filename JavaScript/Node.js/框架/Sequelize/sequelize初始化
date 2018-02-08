@@ -1,0 +1,49 @@
+
+1. .sync({force: true}) 同步表格 ,force为true会首先删除表并重新创建
+        以添加match选项，只重建正则表达式匹配的表：
+            sequelize.sync({ force: true, match: /_test$/ });
+    1、用了 TABLE IF NOT EXISTS 来创建表格，不必自己建立表格；
+    2、看表格名是 users， 是定义表格名参数的复数；
+    3、自添加了3个字段id、createAt、updateAt， 
+        而且 id 是自增并且设置为了主键的， 很贴心；
+    4. .define(
+        {...}
+        ,{
+            createdAt: false,       // 禁止添加 createdAt 字段
+            updatedAt: false,       // 禁止添加 updatedAt 字段
+            timestamps: false,      // 相当禁止了上面两项
+            freezeTableName: true,  // 禁止修改表名称为复数
+        })
+
+2。 连接池
+    // require引用后，会指向Sequelize的主类的构造函数，引用后就可以通过new关键字进行实例化，
+        实例化后就会以连接池的形式连接到所使用的数据库。语法结构如下：
+    var sequelize = new Sequelize('test', 'root', 'abc123', {
+        host: 'localhost',
+        dialect: 'mysql',
+        pool: {
+            max: 5,             // 最大值
+            min: 0,             // 最小值
+            acquire: 30000,     // 在建立连接出错的时候，在抛出错误之前，池子会尝试建立连接的最大时间，重新连接成功就不抛出错误，不行才再抛。
+            idle: 10000         // 闲置的连接超过多少(毫秒)被释放
+        },
+    });
+
+3. 连接
+    实例化 Sequelize 就是建立连接， 参数分别是
+        数据库名（数据库必须存在该数据库），用户名，密码， options。
+    var Sequelize = require('sequelize');
+    var sequelize = new Sequelize('test', 'root', 'abc123', {
+        host: 'localhost',
+        dialect: 'mysql'      // 数据库类型 ， 必须字段， 不然会报错
+    });
+    // 测试是否连接成功
+    (async function(){
+        try {
+        // promise 结合 async 处理 callback 也是我选择 sequelize 的一个原因
+            var connect = await sequelize.authenticate();
+            console.log('Connection has been established successfully.');
+        } catch(err) {
+            console.error('err', err)
+        }
+    })();

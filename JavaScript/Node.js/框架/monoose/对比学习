@@ -1,0 +1,45 @@
+
+1. 
+    Oracle	                        MongoDB	            Mongoose
+    数据库实例(database instance)	MongoDB实例	    Mongoose
+    模式(schema)	                  数据库(database)	  mongoose
+    表(table)	                   集合(collection)	模板(Schema)+模型(Model)
+    行(row)	                       文档(document)	    实例(instance)
+    rowid	                        _id	                _id
+    Join	                        DBRef	            DBRef
+
+    Schema: 相当于一个数据库的模板. Model可以通过mongoose.model 集成其基本属性内容. 当然也可以选择不继承.
+    Model: 基本文档数据的父类,通过集成Schema定义的基本方法和属性得到相关的内容.
+    instance: 这就是实实在在的数据了. 通过 new Model()初始化得到.
+
+2. Schema 另一大特色就是其methods. 我们可以通过定义其methods,访问到实际上的所有内容.
+    定义Schema.methods
+        使用的方法很简单,就是使用 .methods即可.
+            // 定义一个schema
+            var freshSchema = new Schema({ name: String, type: String });
+
+            // 添加一个fn. 
+            animalSchema.methods.findSimilarTypes = function (cb) {
+                //这里的this指的是具体document上的this
+                return this.model('Animal').find({ type: this.type }, cb);
+            }
+            // 实际上,我们可以通过schema绑定上,数据库操作的所有方法.
+            // 该method实际上是绑定在 实例的 doc上的
+    实例Model
+        这里同样很简单,只需要 mongoose.model() 即可.
+            //生成,model 类. 实际上就相当于我们的一个collection
+            var Animal = mongoose.model('Animal', animalSchema);
+            var dog = new Animal({ type: 'dog' });
+    在Schema.methods.fn 上定义的方法,只能在 new Model() 得到的实例中才能访问. 那如果我们想,
+        直接在Model上调用 相关的查询或者删除呢？
+        绑定Model方法：  同样很简单,使用 statics 即可.
+            // 给model添加一个findByName方法
+            animalSchema.statics.findByName = function (name, cb) {
+                //这里的this 指的就是Model
+                return this.find({ name: new RegExp(name, 'i') }, cb);
+            }
+
+            var Animal = mongoose.model('Animal', animalSchema);
+            Animal.findByName('fido', function (err, animals) {
+            console.log(animals);
+            });

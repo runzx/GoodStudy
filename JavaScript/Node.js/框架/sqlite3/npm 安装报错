@@ -1,0 +1,4 @@
+
+Installi sqlite3 (windows): node-pre-gyp install --fallback-to-build
+
+npm install --unsafe-perm --production

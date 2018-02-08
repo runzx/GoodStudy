@@ -83,9 +83,13 @@ const optionalCallback = (err, res) => {
 const req = wreck.request(method, uri, options, optionalCallback);
 
 // ---------------------------------------------------------------
-方法：
+方法：12.5.1
     defaults(options)
     get(uri, [options, [callback]])
+        callback :
+            err
+            response 
+            payload 
     post(uri, [options, [callback]])
     ...
     request(method, uri, [options, [callback]])
