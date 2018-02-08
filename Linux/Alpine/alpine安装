@@ -2,7 +2,18 @@
 1. 安装设置,base,networking
     setup-alpine
         安装到硬盘： 先选sda(可用?查看有哪些硬盘可安装），然后再选sys
-    
+    软件源：
+        直接url：
+            https://mirrors.aliyun.com/alpine/v3.6/main/
+            #可以编辑源文件 /etc/apk/repositories
+    子时区设置-Shanghai      # Asia
+    SSH:
+        #修改配置文件 /etc/ssh/sshd_config，
+        #如果要想使用root用户远程管理，需要修改参数为：
+            PermitRootLogin yes
+        service sshd restart
+        #将ssh服务配置为开机自动启动
+            rc-update add sshd
     issus:
         它采用了musl libc和busybox以减小系统的体积和运行时资源消耗，同时还提供了自己的包管理工具apk。
         Alpine Linux使用了musl，可能和其他Linux发行版使用的glibc实现会有些不同。
@@ -12,7 +23,10 @@
             /var/cache/apk/     (Alpine在该目录下)、 
             /var/lib/apk/
             /etc/apk/cache/     下。
-
+    #网卡配置文件
+        /etc/network/interfaces
+    因为Alpine采用的是musl libc，不是通常用的glibc，在使用DNS时，Alpine（musl libc）在DNS解析文件/etc/resolv.conf中，不使用domain或 search选项。
+    
 2. 安装软件
     apk add 
     apk add --no-cache mysql-client

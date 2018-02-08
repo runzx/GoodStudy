@@ -1,0 +1,16 @@
+
+1.
+    FileType下Cascading Style Sheet 添加*.wxss
+    FileType下XML 添加*.wxml
+
+2. 打开vscode，插件安装
+    vscode-wechat ：生成一个wx.d.ts的语法文件(https://github.com/hellopao/wx.d.ts)
+        可以让webstorm,phpstorm 自动显示微信小程序函数
+        crtl + F8 激活
+    webstorm的童鞋，只要打开你当前vscode打开的项目目录，或者
+        直接把typings文件夹(里面有wx.d.ts)复制到你开发的项目目录下
+
+    另一个：支持到小程序基础库1.7
+        https://github.com/Emeryao/typed-we-app
+        npm install typed-we-app --save-dev
+            或：  typings install github:Emeryao/typed-we-app -SG

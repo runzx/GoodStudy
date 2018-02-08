@@ -1,0 +1,58 @@
+1. 每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。
+    如果想在多个文件分享变量，必须定义为global对象的属性。
+
+    每个模块内部，module变量代表当前模块。这个变量是一个对象，它的exports属性（即module.exports）是对外的接口。
+        加载某个模块，其实是加载该模块的module.exports属性。
+
+2. require方法用于加载模块。
+    var example = require('./example.js');
+
+3。
+    CommonJS规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。
+    AMD规范则是非同步加载模块，允许指定回调函数。
+        因此浏览器端一般采用AMD规范。
+
+4. 历史
+    require/exports 相关的规范由于野生性质，在 2010 年前后出生。
+    出自 ES6 的  import/export 相对就晚了许多。被大家所熟知和使用也是 2015 年之后的事了(ES2015 )。
+
+    require/exports 的用法只有以下三种简单的写法：
+        const fs = require('fs')
+        exports.fs = fs
+        module.exports = fs
+    而 import/export 的写法就多种多样：import fs from 'fs'
+        import {default as fs} from 'fs'
+        import * as fs from 'fs'
+        import {readFile} from 'fs'
+        import {readFile as read} from 'fs'
+        import fs, {readFile} from 'fs'
+
+        export default fs
+        export const fs
+        export function readFile
+        export {readFile, read}
+        export * from 'fs'
+
+5. 不同
+    ES6 Module 中导入模块的属性或者方法是强绑定的，包括基础类型；
+        而 CommonJS 则是普通的值传递或者引用传递。
+    import静态编译，import的地址不能通过计算
+    require就可以，例如 const url = "a" + "b"; 
+    Import url 直接报错了
+    require(url)不会报错
+    所以require都会用在动态加载的时候
+
+    node 直接支持 require ， 没有直接支持 import 。
+        特别是 node8 ，已经支持 es6 绝大多数特性和 es7 的绝大多数特性，就是没有 import。
+
+    import必须放在文件的最开始，且前面不允许有其他逻辑代码，这和其他所有编程语言风格一致。
+        是编译时的（require是运行时的），它必须放在文件开头，而且使用格式也是确定的，不容置疑。
+            它不会将整个模块运行后赋值给某个变量，而是只选择import的接口进行编译，这样在性能上比require好很多。
+    require的使用非常简单，它相当于module.exports的传送门，module.exports后面的内容是什么，require的结果就是什么，对象、数字、字符串、函数……再把require的结果赋值给某个变量，
+        相当于把require和module.exports进行平行空间的位置重叠。
+        而且require理论上可以运用在代码的任何地方，甚至不需要赋值给某个变量之后再使用，比如：
+            require('./a')(); // a模块是一个函数，立即执行a模块函数
+            var data = require('./a').data; // a模块导出的是一个对象
+            var a = require('./a')[0]; // a模块导出的是一个数组
+        完全可以忽略模块化这个概念来使用require，仅仅把它当做一个node内置的全局函数，它的参数甚至可以是表达式：
+            require(process.cwd() + '/a');

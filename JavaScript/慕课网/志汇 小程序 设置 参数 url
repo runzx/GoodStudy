@@ -1,0 +1,6 @@
+
+
+1. 志汇 7 新版 浏览器 显示不能滚屏，所以系统配置在下面显示不出：
+    http://wq163.zx.com/web/index.php?c=site&a=entry&do=peiz&m=zh_dianc&version_id=1
+
+    index.php?c=site&a=entry&op=display&do=settings&m=zh_dianc

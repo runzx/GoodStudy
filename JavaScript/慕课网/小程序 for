@@ -1,0 +1,16 @@
+列表渲染
+
+1. 默认数组的当前项的下标变量名默认为 index，数组当前项的变量名默认为 item
+    使用 wx:for-item 可以指定数组当前元素的变量名，
+    使用 wx:for-index 可以指定数组当前下标的变量名：
+        <view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName">
+            {{idx}}: {{itemName.message}}
+        </view>
+
+2. wx:for 用在<block/>标签上，以渲染一个包含多节点的结构块。
+
+3. 如果列表中项目的位置会动态改变或者有新的项目添加到列表中，并且希望列表中的项目保持自己的特征和状态（如 <input/> 中的输入内容，<switch/> 的选中状态），
+    需要使用 wx:key 来指定列表中项目的唯一的标识符。
+    wx:key 的值以两种形式提供
+        字符串，代表在 for 循环的 array 中 item 的某个 property，该 property 的值需要是列表中唯一的字符串或数字，且不能动态改变。
+        保留关键字 *this 代表在 for 循环中的 item 本身，这种表示需要 item 本身是一个唯一的字符串或者数字，如：

@@ -1,0 +1,29 @@
+
+1， 扩展 和web的fpm配置不是一个
+    php -m 命令查看已经加载的扩展
+    php --ini查看命令行下调用的配置文件
+        Configuration File (php.ini) Path => /etc/php/7.1/cli
+        Loaded Configuration File => /etc/php/7.1/cli/php.ini
+        Scan this dir for additional .ini files => /etc/php/7.1/cli/conf.d
+        Additional .ini files parsed => /etc/php/7.1/cli/conf.d/10-mysqlnd.ini,
+        /etc/php/7.1/cli/conf.d/10-opcache.ini,
+    可以生成同一配置：
+        所有配置*.ini 原文件放在
+            /etc/php/7.1/mods-available
+        建软连接到
+            /etc/php/7.1/cli/conf.d/
+            /etc/php/7.1/fpm/conf.d/
+            /etc/php/7.1/apache2/conf.d/
+        sudo ln -s /etc/php/7.1/mods-available/redis.ini /etc/php/7.1/fpm/conf.d/20-redis.ini
+
+2. debug xdebug --> PHPstorm
+    从命令行启动脚本，因此我们必须确保启动调试器所需的设置。让我们来看看如何使用Xdebug或者Zend Debugger启动我们的PHP CLI脚本。
+    PhpStorm哪些路径映射配置应该用于某个机器的连接，PHP_IDE_CONFIG环境变量的值应该设置为serverName = SomeName，
+        其中SomeName  是在Settings / Preferences |中配置的服务器的名称。
+        Windows:
+            set PHP_IDE_CONFIG="serverName=SomeName"
+        Linux / Mac OS X:
+            export PHP_IDE_CONFIG="serverName=SomeName"
+
+3. TP5 有场景时，命令行运行 不能识别场景，只能把redis配置放到原始的
+    application/extra/queue.php 中（可从conf/extra/中软连接）

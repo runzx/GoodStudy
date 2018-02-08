@@ -1,0 +1,6 @@
+
+    curl -sS https://getcomposer.org/installer | php
+    mv composer.phar /usr/local/bin/composer
+
+    方法一： 修改 composer 的全局配置文件（推荐方式）
+        composer config -g repo.packagist composer https://packagist.phpcomposer.com

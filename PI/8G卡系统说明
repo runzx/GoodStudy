@@ -1,0 +1,30 @@
+
+8G 
+
+1. OS
+    2017-11-29-raspbian-stretch-lite    //Debian 9（stretch） 
+
+2. NMP
+    nginx   nginx/1.10.3
+    mysql   10.1.23-MariaDB-9+deb9u1 Raspbian 9.0
+    php     
+        PHP 7.0.19-1 (cli) (built: May 11 2017 14:04:47) ( NTS )
+        Copyright (c) 1997-2017 The PHP Group
+        Zend Engine v3.0.0, Copyright (c) 1998-2017 Zend Technologies
+            with Zend OPcache v7.0.19-1, Copyright (c) 1999-2017, by Zend Technologies
+    Composer version 1.5.5 2017-12-01 14:42:57
+
+    /etc/php/7.0/fpm/pool.d/www.conf
+        ;listen = /run/php/php7.0-fpm.sock
+        listen = 127.0.0.1:9000
+3. python
+    Python 2.7.13
+    Python 3.5.3
+    pip 9.0.1 from /usr/local/lib/python3.5/dist-packages (python 3.5)
+    virtualenv --version    15.1.0
+
+    sudo update-alternatives --config python    //切换版本
+
+4. git
+    git version 2.11.0
+

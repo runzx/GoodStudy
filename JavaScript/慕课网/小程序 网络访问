@@ -1,0 +1,18 @@
+
+
+
+2. data
+    data 数据说明 最终发送给服务器的数据是 String 类型，如果传入的 data 不是 String 类型，会被转换成 String 。转换规则如下：
+        header['content-type'] 为 'application/json' 的数据，
+            会对数据进行 JSON 序列化
+        header['content-type'] 为 'application/x-www-form-urlencoded' 的数据，会将数据转换成 
+            query string （encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
+
+3. header
+    header 为 application/json，接口传回来的参数要是json 格式的，否则会报500错误，
+    如接口返回参数是xml格式：
+        header['content-type'] 要设置为'application/x-www-form-urlencoded'
+
+4. method 
+    1.默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    2.值必须为大写

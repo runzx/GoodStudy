@@ -1,0 +1,95 @@
+
+1. ES6 
+
+2. 类继承 :要加super() !
+    this关键字则代表实例对象
+
+    import { Base } from '../../utils/base.js'
+    class Home extends Base {
+        //构造函数
+        constructor(){
+            super();
+        }
+    }
+    export {Home};      //ES6 规定输出的内容
+
+3. 箭头函数
+    this 是不变的， 不用that = this;
+    函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+    保持环境变量不改变
+
+    var f = v => v; 
+    上面的箭头函数等同于：
+        var f = function(v) {
+        return v;
+        }; 
+    如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。
+    如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+
+4. 重调自己
+    //http 请求类, 当noRefech为true时，不做未授权重试机制
+    request(params, noRefetch) {
+        。。。
+        if (!noRefetch) {
+            that._refetch(params);  //_refetch()里又调用request()
+        }
+    }
+
+    平时调用request(), 不用加noRefetch 参数， 不加系统默认为false
+
+5. ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。
+    import { stat, exists, readFile } from 'fs'; //从fs模块加载 3 个方法
+
+    export命令除了输出变量，还可以输出函数或类（class）。
+        // 报错
+        function f() {}
+        export f;
+
+        // 正确
+        export function f() {};
+
+        // 正确
+        function f() {}
+        export {f};
+
+6. 小程序 内置Promise
+    一般来说，调用resolve或reject以后，Promise 的使命就完成了，
+        后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外
+
+    new Promise((resolve, reject) => {
+        resolve(1);
+        console.log(2);
+    }).then(r => {
+        console.log(r);
+    });
+    执行顺序：
+    // 2
+    // 1
+        调用resolve或reject并不会终结 Promise 的参数函数的执行。
+         resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
+    then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。因此可以采用链式写法，即then方法后面再调用另一个then方法。
+    getJSON("/posts.json").then(function(json) {
+        return json.post;
+    }).then(function(post) {
+        // ...
+    });
+
+7. ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";
+    严格模式主要有以下限制。
+        *   变量必须声明后再使用
+        函数的参数不能有同名属性，否则报错
+        不能使用with语句
+        不能对只读属性赋值，否则报错
+        不能使用前缀0表示八进制数，否则报错
+        不能删除不可删除的属性，否则报错
+        不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+        eval不会在它的外层作用域引入变量
+        eval和arguments不能被重新赋值
+        arguments不会自动反映函数参数的变化
+        不能使用arguments.callee
+        不能使用arguments.caller
+        *   禁止this指向全局对象
+        不能使用fn.caller和fn.arguments获取函数调用的堆栈
+        增加了保留字（比如protected、static和interface）
+    上面这些限制，模块都必须遵守。
+    严格模式是 ES5 引入。

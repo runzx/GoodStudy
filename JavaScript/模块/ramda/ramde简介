@@ -1,0 +1,13 @@
+
+Ramda 的数据一律放在最后一个参数，理念是"function first，data last"。
+
+1. Ramda 还有一个特点：所有方法都支持柯里化。
+    // 写法二
+    R.map(square)([4, 8])
+    // 或者
+    var mapSquare = R.map(square);
+    mapSquare([4, 8]);
+
+    使得 Ramda 成为 JavaScript 函数式编程最理想的工具库。
+
+2. 

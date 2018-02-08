@@ -1,0 +1,74 @@
+
+
+1.  是 ES7 最重要特性之一
+    async/await是基于Promise的
+        Promise主要用then函数的链式调用，一直点点点，是一种从左向右的横向写法。
+        Promise的then函数只能传递一个参数，虽然可以通过包装成对象，但是这会导致传递冗余信息，频繁的解析又重新组合参数，比较麻烦。
+    sync/await没有这个限制，就当做普通的局部变量来处理好了，用let或者const定义的块级变量，想怎么用就怎么用，想定义几个就定义几个，完全没有限制，也没有冗余的工作。
+        Promise是根据函数式编程的范式，对异步过程进行了一层封装。
+    async/await是基于协程的机制，是真正的“保存上下文，控制权切换 ... ... 控制权恢复，取回上下文”这种机制
+2.  await关键字
+    await 只能放在async函数内部使用，不能放在普通函数里面
+    后面放Promise对象，在Pending状态时，相应的协程会交出控制权，进入等待状态。
+    await是async wait的意思，wait的是resolve(data)消息，并把数据data返回。
+        const a = await new Promise((resolve, reject) => {
+            // async process ...
+            resolve(data);  //自动return data
+        });
+        console.log(a);
+        //当Promise对象由Pending变为Resolved的时候，变量a就等于data；
+            然后再顺序执行下面的语句console.log(a);
+
+    await只关心异步过程成功的消息resolve(data)，拿到相应的数据data。
+        失败消息reject(error) ：
+        让外面的async函数返回的Promise对象统一catch
+3. async关键字
+    只是表明里面可能有异步过程，里面可以有await关键字。
+    async函数，如果里面有异步过程，会等待；
+        但是async函数本身会马上返回，不会阻塞当前线程
+        async函数工作在主线程，同步执行，不会阻塞界面渲染。
+        async函数内部由async关键字修饰的异步过程，工作在相应的协程上，会阻塞等待异步任务的完成再返回。
+    async函数的返回值是一个Promise对象，这个是和普通函数本质不同的地方。
+        return newPromise();这个符合async函数本意；
+        return data;这个是同步函数的写法，这里是要特别注意的。这个时候，
+            其实就相当于return Promise.resolve(data);还是一个Promise对象。
+            调用async函数的地方通过简单的=是拿不到这个data的。
+            怎么样拿到这个data呢？
+                返回值是一个Promise对象，用.then(data => { })函数就可以。
+        如果没有返回，相当于返回了Promise.resolve(undefined);
+    async函数内部只要有一个异步过程发生错误，整个执行过程就中断，
+        这个返回的Promise对象的catch就能抓到这个错误。(前面的then()不会执行！)
+    调用 async 的函数时，函数里面的代码会立即执行，直到await处停止执行内部代码，
+        同时跳出该方法，执行async 函数外面的后续代码，
+        当await处的异步方法返回结果后，再回来执行，所以就有了上面的执行顺序。
+    Note：如果await前没有return的话，then回调里面将返回undefined
+        也就是说 resolve(data) 里的data只能通过
+            return await ...
+            才能让外面的.then(data =>{});
+            取到data值。
+        var asyF = async () => {
+            ...
+            await new Promise(() => {
+                ...
+            })
+            return await new Promise((resolve) => {
+                resolve(data);  // data 可以'abc', 1,cb...
+            })
+        }
+        asyF.then((data) => {
+            // 这要等async里的代码运行完才能执行此下面代码
+            // data 来自于 async里return 的await 
+            ...
+        })
+
+
+
+
+5. 翻译
+    await           等待
+    asynchronous    异步
+
+    async           异步
+    Pending         等待
+    Resolved        解决
+    Promise         承诺

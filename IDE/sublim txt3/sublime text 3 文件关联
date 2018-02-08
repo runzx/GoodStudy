@@ -1,0 +1,19 @@
+
+1. 打开xxx文件
+
+2. 点击右下角的Plain Text,这时候会出现所有的文件格式.
+
+3. 选择open all with current extension as…  ->XML
+
+4. 
+Data\Packages\User\目录下生成一个名字叫XML.sublime-settings的文件.
+    {
+        "extensions":
+        [
+            "xml",
+            "xsd",
+            "xslt",
+            "svg",
+            "lng"
+        ]
+    }

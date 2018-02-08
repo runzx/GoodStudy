@@ -2,6 +2,9 @@
 //  https://www.howtoforge.com/tutorial/debian-samba-server/
 
 1. 安装samba:
+    python 要在2版本下安装！
+    sudo update-alternatives --config python
+    
     sudo apt-get install -y samba
 2. 配置共享，/etc/samba/smb.conf
     备份：sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
