@@ -1,0 +1,9 @@
+v17 server.route(route)
+
+    route:
+        path        required    the absolute path '/...'
+        method      required     'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.
+        vhost       optional    a domain string or an array of domain strings 
+        handler     required    function  : generate the response 
+        options     optional    an object or a function 
+        rules       optional    custom rules object. 

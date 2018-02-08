@@ -1,0 +1,39 @@
+javascript闭包概念及用法梳理
+    http://www.tangshuang.net/2368.html
+
+1. 函数内部的函数：私有函数
+    function add(a) {    
+        return function(b) {        
+            return a + b;    
+        }
+    }
+    var c = add(5)(10); // function()()这样的用法, 当执行add(5)的时候，返回的结果其实是一个函数，而再执行这个函数，需要再传入一个参数，所以就有了add(5)(10)这样的用法。
+
+    jQuery(
+        function($){    
+            function message(msg) {        
+                alert(msg);    
+            }
+            if($(window).width() > 1000) message('window宽度大于1000');
+        }
+    );
+        第一个function被作为参数，传给了jQuery()这个函数，
+            而在function内，又有一个message()函数。
+            所有的jQuery代码被放在第一个function中去处理。
+            第二个函数就是函数体内部的函数，这个函数在函数体内声明，一旦外层函数执行完毕，那么这个函数就失去了作用，
+            在jQuery()外无法使用message()，因此，message()是第一个函数内部的私有函数。
+
+2. 闭包
+    怎么样才算是一个闭包呢？我们来看下面的代码：
+        function a() {    
+            var age = 10;    
+            return function(){        
+                return age;    
+            }
+        }
+        var age = a();
+        alert(age()); // 10
+    闭包是一个函数，它使用了自己之外的变量。
+    闭包是一个作用域。
+    闭包是“由函数和与其相关的引用环境组合而成的实体”。
+    严格的讲，闭包常常表现为一个函数内部的函数，它使用了非自己定义的、自己所在作用域内的变量，并且使这些变量突破了作用域的限制。

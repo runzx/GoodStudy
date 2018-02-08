@@ -1,0 +1,69 @@
+hapi v16 简介
+
+
+
+    reply()和koa里的ctx.body类似，会根据类型进行判断，比如是object类型就会返回json，还是比较方便的。
+    类似的express和koa用的是https://github.com/jshttp/accepts，Higher-level content negotiation，所以二者类似的东西
+    boom
+        HTTP友好的 error 对象
+            {
+                "statusCode": 404,
+                "error": "Not Found",
+                "message": "missing"
+            }
+    call
+        HTTP 路由。
+        https://github.com/hapijs/call
+            const router = new Call.Router();
+            router.add({ method: 'get', path: '/a{b?}c{d}' }, '/a{b?}c{d}');
+    catbox
+        多策略对象缓存服务，支持memory cache, Redis, MongoDB, Memcached, Riak, Amazon S3, RethinkDB, Couchbase, Aerospike 和 LevelDB。基本上就是xxStore。
+    wreck
+        HTTP Client Utilities，简单说就是http客户端。类似request模块
+插件
+    12类，授权、鉴权、文档、国际化、日志、安全、session、模板、工具、验证、hapi自用的扩展
+    授权
+        有2个插件，分别rbac和acl
+            acl是最早也是最基本的一种访问控制机制，它的原理非常简单：每一项资源，都配有一个列表，这个列表记录的就是哪些用户可以对这项资源执行CRUD中的那些操作。当系统试图访问这项资源时，会首先检查这个列表中是否有关于当前用户的访问权限，从而确定当前用户可否执行相应的操作。
+            rbac是把用户按角色进行归类，通过用户的角色来确定用户能否针对某项资源进行某项操作。rbac相对于acl最大的优势就是它简化了用户与权限的管理，通过对用户进行分类，使得角色与权限关联起来，而用户与权限变成了间接关联。rbac模型使得访问控制，特别是对用户的授权管理变得非常简单和易于维护，因此有广泛的应用。
+    鉴权
+        hapi-auth-basic & hapi-auth-cookie 常见
+        hapi-auth-jwt & hapi-auth-jwt2 说一下jwt，是实现成本最小的token授权机制，应用还是比较广的
+        hapi-passport-saml 看名字就知道，这是对著名的passport模块的扩展，passport主要提供的是对oauth授权的支持，支持google、github、twitter、facebook、OpenID、BrowserID、HTML form等各种授权，是非常强大模块
+        hapi-session-mongo 使用mongodb存储session，并集成auth，以前为了偷懒，确实这样做过。
+        hapi-tiny-auth 必须提供用户名和密码才能查看api，弱弱的
+    
+    Boilerplates ?
+    目录结构
+    .
+    ├── api/
+    |   ├── handlers/
+    |   |   └── home.js   * Sample handler
+    |   └── index.js      * REST routes
+    ├── config/
+    |   ├── manifest.js   * Server configuration
+    |   └── secret.js     * Secret key
+    ├── test/
+    |   └── api.js        * API test
+    ├── server.js         * Server definition (uses the Glue plugin to read a manifest)
+    ├── auth.js           * Auth strategies
+    └── package.json
+    
+    glue是一个按照配置进行装配的工具，hapi的以配置为中心，也有glue的一分功劳
+    hapi-auth-jwt2 用于鉴权
+    blipp是一个打印路由列表的模块，如果大家熟悉rails，一定知道rake routes
+    good系列是进程监控用的，也是插件机制，支持console、squeeze等。
+    测试部分，采用的hapi默认的lab + code
+    elint，nodemon，npm-run-all都是比较中规中矩的
+
+优点
+    高性能 - WalmartLabs的那些人开发Hapi的时候，遵守Benchmark Driven Development，其结果hapi是一个high-performance的框架
+    安全 - Eran Hammer（Hapi开发者组长）是OAuth (安全授权) 规范的最初作者。 他有关注hapi安全的意识，并review所有Hapi包含的代码。很多Node Security 项目的成员是是Hapi的核心贡献者，这意味着非常多关注安全的眼睛在关注代码安全
+    可扩展性 - 应对高并发还是非常好的
+    Mobile 优化 (轻量级 - 为移动电商而构建)
+    插件架构 - 扩展/增加 你自己的模块 (良好的生态)
+    对 DevOps 友好 - 基于配置的开发和强大的stats/logging
+    内置缓存 (Redis, MongoDB 或 Memcached)
+    核心代码做了100% 测试/代码覆盖率 - 严格的方法来保证质量
+    可测试性 - hapi内置端到端测试，因为它包含了shot模块
+    核心功能内置，而其他特性以插件的形式展现: http://hapijs.com/plugins

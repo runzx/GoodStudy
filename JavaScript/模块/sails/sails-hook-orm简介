@@ -1,0 +1,37 @@
+
+
+1. 为了加载这个钩子，下面的其他钩子必须已经完成加载：
+    ModuleLoader组件
+    UserConfig
+
+加载适配器
+    当Sails加载时，这个钩子会调用sails.modules.loadAdapters()
+        （由此暴露moduleloader），加载在应用程序中定义的任何自定义适配器。
+        它也加载作为应用程序本身（即在其node_modules/文件夹）的依赖性安装的适配器。这些适配器在实例化waterline时使用。
+
+加载waterline模型，然后将它们暴露为 sails.models.*
+    当Sails加载时，这个钩子会调用sails.modules.loadModels()
+        （由此暴露moduleloader），从应用程序的模型文件夹中加载模型文件。
+
+提示自动迁移
+    由于实例化waterline当前具有自动迁移现有数据（取决于migrate配置）的效果，因此如果没有migrate明确配置设置，则在实例化wateline之前，orm钩子将显示提示。
+
+实例化waterline
+    如上所述，由于所有配置，模型和适配器都被加载，所以这个钩子可以安全地实例化waterline。
+
+公开水合模型 sails.models
+    然后将它们传递给Waterline，将它们转换为具有所有预期方法的Model实例.create()，然后将它们公开为sails.models。通常这个模型文件夹是api/models/，但它可以配置sails.config.paths。
+
+    请注意，该集合中的水合模型sails.models还包括waterline模型，这些模型被隐式创建为连接符（即对于没有指向collection关联的任何关联）。via model
+    另外请注意，模型暴露的sails.models是他们的身份。也就是说，如果你有一个模型文件Wolf.js，它将作为sails.models.wolf。
+公开每个模型的全局变量
+    如果启用（sails.config.globals.models设置为true），则使用globalId每个模型的推断将其公开为全局变量。
+
+
+隐含默认值
+该挂钩在以下设置了以下隐式默认配置sails.config：
+
+属性	                                    类型	        默认
+sails.config.globals.models	            ((boolean))     true
+sails.config.models.datastore	        ((string))      default
+sails.config.datastores.default.adapter	((ref))	    require('sails-disk')

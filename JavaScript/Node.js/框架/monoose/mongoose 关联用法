@@ -1,0 +1,38 @@
+mongoose 关联用法 
+
+1. 官方文档
+    http://mongoosejs.com/docs/populate.html
+    https://mongoose.shujuwajue.com/guide/population.html 中文V4
+
+2. population 实现关联表查询   
+    例：
+    employee.find({})    //查询所有的employees表中的数据，并将结果返回给populate
+         .populate({ path: 'dep', select: { name: 1 } })   //上述结果集合中的dep字段用departments表中的name字段填充
+         .exec(function(err, obj) {
+             callback(err, obj);
+         });
+    
+    User：
+    {
+        username: {type: String, required: true, unique: true},// 用户名
+        password: {type: String, required: true}
+    }
+    Article：
+    {
+        title: {type: String, required: true}, 
+        content: {type: String, required: true}, 
+        created_time: {type: Date, default: Date.now}, 
+        _user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+        }
+    }
+    Article中的_user字段是关键，使用ref，将其与User关联，
+        那么使用mongoose查询Article时(populate方法)，就会将其关联的User一并查出。
+        Article.findById('articleId').populate('_user').exec(function(err, doc){
+            console.log(doc._user.username);
+        })
+
+    只返回特定的字段：字段名 作为 第二个参数：
+        .populate(''_user', 'username') // only return the User username
+    字段名 用法：'nameA nameB' 或 '-nameA -nameB'(不选择)

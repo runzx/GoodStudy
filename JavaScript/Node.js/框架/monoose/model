@@ -1,0 +1,132 @@
+
+
+0. 
+    重要！Mongoose缓存所有的命令，直到连接到数据库。这意味着您
+        不必等到连接到MongoDB才能定义模型，运行查询等
+    每个mongoose模型都保留对本地MongoDB驱动程序collection的引用。可以使用集合对象进行访问YourModel.collection。但是，
+        使用集合对象直接绕过所有的mongoose特征，包括钩子，验证等等。一个值得注意的例外是
+        YourModel.collection仍然缓冲命令。因此，YourModel.collection.find()将不 返回游标。
+
+    Schema  是定义数据库的结构。类似创建表时的数据定义，但比创建数据库可以做更多的定义，只是没办法通过Schema对数据库进行更改。
+    Model   是将Schema定义的结构赋予表名。但可用此名对数据库进行增删查改。
+        当Model_Name为单数名词的时候，mongoose会自动给你转换成复数形式
+    Entity  是将Model与具体的数据绑定，可以对具体数据自身进行操作，例如保存数据。
+
+    Model
+        var blogModel = mongoose.model('Blog', blogSchema);
+        将名为blogSchema的Schema与Blog名字绑定，即是存入数据库的名字，
+            但存入数据库中的名字是Blogs，会自动添加一个s。
+        mongoose 模型定义重复引用就报错：
+            Cannot overwrite model once compiled 怎么解决？
+            模型定义不允许重复，所以这个mongoose.model()应该只调用一次，而导出它执行后的结果
+            require机制确保了mongoose.model()只会执行一次
+            var model = mongoose.model('user.account', UserAccountSchema);
+            //导出模型
+            module.exports =model;
+    比较查询运算符
+        $equals 等于 ／ $gt 大于 ／ $gte 大于等于 ／ $lt 小于 ／ $lte 小于等于 ／ 
+        $ne   不等于 ／ $in 在数组中 ／ $nin 不在数组中
+        .find({meta.votes: {$lt: 100}})
+        .find({title: {$in: ['Mongoose', 'Mongodb', 'Nodejs']}})
+
+        Thing.find().gt('age', 21)就等同于Thing.find({age: {$gt: 21}})
+        .findOne({ 'name.last': 'Ghost' }, 'name occupation', function (err, person) {
+            if (err) return handleError(err);
+        如果执行查询时发生错误，则error参数将包含错误文档，并且result 将为空。
+            如果查询成功，则error参数将为空，并且result将填充查询的结果。
+
+    逻辑查询运算符
+        $or 或 ／ $and 与 ／ $nor 非   
+        .find({ $and: [
+            {meta.votes: {$gte: 50}}, 
+            {meta.votes: {$lt: 100}}
+        ]}) 
+        或：
+        blogModel.and([
+            {meta.votes: {$gte: 50}}, 
+            {meta.votes: {$lt: 100}}
+        ]); //链式
+    元素查询运算符
+        $exists　查询的字段值是否存在
+        blogModel.find({ title: {$exists: true}});
+    $regex　使用正则表达式查询数据
+        blogModel.find({ title: { $regex: "Mongoose.+","$options":"i"}});
+    $where　支持js表达式查询
+        blogModel.find({ $where: 'this.comments.length === 10 || this.name.length === 5' });
+        blogModel.where(function() { return this.comments.length === 10 || this.name.length === 5;});
+    跳过、限制、排序、计数
+        .skip(10).limit(5).sort("{ meta.votes: 1}")
+            asc为升序，-1、desc为降序。可以对一个字段进行排序，也可以是多个。
+        .count([criteria], [callback])　　
+        .select('title body')   指定的查询字段，或者排除指定的字段。+为包含，-为排除。
+0.1 链式查询
+    如果不带callback，则返回query
+    Person
+      .find({ occupation: /host/ })
+      .where('name.last').equals('Ghost')
+      .where('age').gt(17).lt(66)
+      .where('likes').in(['vaporizing', 'talking'])
+      .limit(10)
+      .sort('-occupation')
+      .select('name occupation')
+      .exec(callback);
+0.2 Validation
+    验证始终定义在SchemaType中
+    验证是一个内部中间件
+    验证是在一个Document被保存时默认启用的，除非你关闭验证
+    验证是异步递归的，如果你的SubDoc验证失败，Document也将无法保存
+    验证并不关心错误类型，而通过ValidationError这个对象可以访问
+    验证器 ：
+        required 非空验证
+        min/max 范围验证（边值验证）
+        enum/match 枚举验证/匹配验证
+        validate 自定义验证规则
+    例：
+        var PersonSchema = new Schema({
+            name:{
+                type:'String',
+                required:true //姓名非空
+            },
+            age:{
+                type:'Nunmer',
+                min:18,       //年龄最小18
+                max:120     //年龄最大120
+            },
+            other:{
+                type:'String',
+                validate:[validator,err]  //validator是一个验证函数，err是验证失败的错误信息
+            }
+            ...
+    
+model - 文档操作
+1.构造函数, 参数1:集合名称, 参数2:Schema实例
+
+ db.model(“test1”, TestSchema );
+
+2.查询, 参数1忽略,或为空对象则返回所有集合文档
+
+    model.find({}, callback);
+
+    model.find({},field,callback);
+    过滤查询,参数2: {‘name’:1, ‘age’:0} 查询文档的返回结果包含name , 不包含age.(_id默认是1)
+
+    model.find({},null,{limit:20});
+    过滤查询,参数3: 游标操作 limit限制返回结果数量为20个,如不足20个则返回所有.
+
+    model.findOne({}, callback);
+    查询找到的第一个文档
+
+    model.findById(‘obj._id’, callback);
+    查询找到的第一个文档,同上. 但是只接受 __id 的值查询
+
+3.创建, 在集合中创建一个文档
+
+ Model.create(文档数据, callback))
+
+4.更新,参数1:查询条件, 参数2:更新对象,可以使用MondoDB的更新修改器
+
+ Model.update(conditions, update, function(error)
+
+5.删除, 参数1:查询条件
+
+ Model.remove(conditions,callback);

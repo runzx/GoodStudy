@@ -1,0 +1,27 @@
+requireDir（）
+    检查目录每一个文件， 如是可以require()的， 就导出到相应的以其文件名为元素名的数组中。
+
+    dir
+        + a.js
+        + b.json
+        + c.coffee
+        + d.txt
+    res = requireDir('./dir');
+    res :
+        {
+            a:require('./dir/a.js'),
+            b:require('./dir/b.js')
+        }
+
+2. 安装
+    npm install require-dir
+
+3. 语法 
+    requireDir('path', options)
+        options:
+            recurse：    是否也递归require()子目录。（node_modules在子目录内将被忽略）。默认是false。
+
+            camelcase：  为文件使用破折号和下划线分隔的名称自动添加camelcase别名。例如foo-bar.js将被暴露在原来的'foo-bar'名字以及'fooBar'别名下。默认是false。
+
+            duplicates： 默认情况下，如果多个文件共享相同的基本名称，则只有最高优先级的文件是require()'d并返回。
+                （优先级由require.extensions键的顺序确定，如果recurse为真，则目录优先于文件。）require()除了基本名称键之外，指定此选项的所有文件并返回完整的文件名键。默认是false。

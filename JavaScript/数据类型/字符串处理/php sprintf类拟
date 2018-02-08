@@ -1,0 +1,15 @@
+
+
+1. // php sprintf
+    function sprintf() {
+        var arg = arguments,
+            str = arg[0] || '',
+            i, n;
+        for (i = 1, n = arg.length; i++) {
+            str = str.replace(/%s/, arg[i]);
+        }
+        return str;
+    }
+
+2. nodejs 
+    util.format(format[, ...args])

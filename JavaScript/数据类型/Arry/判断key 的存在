@@ -1,0 +1,11 @@
+
+JavaScript判断数组是否存在key
+
+1. 不能使用ary[key] == undefined，因为可能存在ary = {key:undefined};正确的方法应该为：
+    ary.hasOwnProperty(key); 
+    或 obj.hasOwnProperty(key);
+
+2. 使用key-value pair对复合数组或对象进行loop的时候应该使用：
+    for(var key in ary) { 
+        document.write(key+" : "+ary[key]); 
+    }

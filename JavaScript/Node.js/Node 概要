@@ -1,4 +1,5 @@
-
+中文同步文档
+    http://nodejs.cn/api/
 
 1. 同一台机器，同时安装多个版本的node.js，就需要用到版本管理工具nvm
     git clone https://github.com/creationix/nvm.git ~/.nvm
@@ -42,3 +43,8 @@
                 所以，当uncaughtException触发后，最好记录错误日志，然后结束Node进程。
     unhandledRejection事件：
         用来监听没有捕获的Promise对象的rejected状态。
+6. webstorm IDE配置
+    settings... -> Languages & Frameworks 
+        -> Node.js and NPM -> Node.js Core libray is enable 才能正常调试 'fs' 'path' 'http' 等node自带核心包
+        -> JavaScript -> version: ECMAScript 6
+        -> libraries  -> download 相应包如 hapi, mongoose, koa...  

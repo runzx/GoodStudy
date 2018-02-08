@@ -1,0 +1,38 @@
+https://github.com/hapijs/inert
+
+静态路径 
+
+1. /path/to/somewhere/{param}参数名称无关紧要）。路径参数可以使用任何参数选项（例如，
+    {param}对于一个级别文件，
+    {param?}对于一个级别文件或目录根目录，
+    {param*}对于任何级别或 {param*3}对于特定级别）。
+
+    path- （必需）目录根路径（相对路径根据路由files 配置解析）
+        一串路径字符串。每个路径将被尝试，直到找到一个匹配（通过遵循与单个路径字符串相同的过程）
+    // Static file server
+        path: '/{param*}',
+        handler: {
+            directory: {
+                path: '.',
+                redirectToSlash: true,  // 可选布尔值，用于确定是否将不带尾随斜杠的目录的请求重定向到具有缺少斜杠的相同路径。用于确保响应中的相对链接正确解决。当服务器配置router.stripTrailingSlash为“ true.默认” 时禁用false。
+                index: true             // 可选的boolean | string | string []，用于确定在请求目录时是否在文件夹中找到索引文件。给定的一个或多个字符串指定要查找的索引文件的名称。如果true，查找“index.html”。任何falsy值都会禁用索引文件查找。默认为true。
+            }
+        }
+
+    // Serving a single file
+        path: '/{path*}',
+        handler: {
+            file: 'page.html'
+        }
+
+2. 单页
+    静态
+    handler: function (request, reply) {
+        reply.file('./index.html');
+    };
+    动态
+    handler: function (request, reply) {
+        reply.view('index', {
+            data : data
+        });
+    };

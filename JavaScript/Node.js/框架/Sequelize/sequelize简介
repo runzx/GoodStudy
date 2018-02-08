@@ -1,0 +1,38 @@
+Sequelize 简介
+    https://github.com/sequelize/sequelize
+
+1.  支持
+    Postgres, MySQL, SQLite and Microsoft SQL Server
+        npm install --save sequelize
+    Sequelize V4 是一个重要版本
+        Node 版本: 要使用新的 ES2015 功能，我们现在至少需要 Node4。
+        计数器缓存插件以及因此关联的计数器缓存选项已被删除。 使用 afterCreate 和 afterDelete 钩子可以实现相同的行为。
+        删除了MariaDB方言。
+        删除默认的 REPEATABLE_READ 事务隔离。
+        删除了对 pool: false 的支持。要使用单个连接，请将 pool.max 设置为1。
+        删除了对旧连接池配置关键字的支持。
+        const Model = sequelize.define('Model', {
+            ...
+        });
+
+        // 类方法
+        Model.associate = function (models) {
+            ...associate the models
+        };
+
+        // 实例方法
+        Model.prototype.someMethod = function () {..}
+        Sequelize 现在使用一个 bluebird 库的独立副本.
+            sequelize返回的 promise 现在是 Sequelize.Promise 而不是 bluebird 的全局 Promise 实例。
+        Sequelize.Validator 现在是 validator 库的独立副本
+        DATEONLY 现在以 YYYY-MM-DD 格式而不是 Date 类型返回字符串
+        Sequelize.Utils 不再是公共API的一部分
+        Hooks 现在应返回 promise。 不支持回调。
+        SQLite 添加了 JSON 数据类型支持。
+        
+
+        # And one of the following:
+        $ npm install --save pg@6 pg-hstore # Note that `pg@7` is not supported yet
+        $ npm install --save mysql2
+        $ npm install --save sqlite3
+        $ npm install --save tedious # MSSQL

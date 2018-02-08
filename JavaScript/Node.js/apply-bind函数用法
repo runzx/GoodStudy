@@ -1,0 +1,11 @@
+Function.prototype.apply 和 Function.prototype.bind的解释：
+
+1. 
+    apply(thisArg[, argsArray]) 方法在指定 this 值和参数（参数以数组或类数组对象的形式存在）的情况下
+        调用某个函数.
+    bind(thisArg[, arg1[, arg2[, …]]])方法创建一个新的函数, 当被调用时，它的this关键字被设置为提供的值 ，
+        在调用新函数时，提供任何一个给定的参数序列
+        新函数中的this对应的上下文被指定为obj_a,即返回函数在创建时便被指定了this。
+
+    bind和apply函数的区别，一个是函数立即执行，一个是返回一个新函数。
+    

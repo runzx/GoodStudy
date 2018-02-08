@@ -1,0 +1,66 @@
+Node.js 全局对象
+
+1. 在浏览器 JavaScript 中，通常 window 是全局对象， 而 Node.js 中的全局对象是 global，所有全局变量（除了 global 本身以外）都是 global 对象的属性。
+    例： global.cache = () => {return 'this is global function!';}
+        可以在任何地方，直接cache();
+        global.zx = 'zhaixiang';
+        console.log(zx);
+    定义全局变量方法：    
+        没有使用var关键字声明的变量
+        向global里添加一个变量
+        给GLOBAL对象添加一个属性
+
+    __filename  表示当前正在执行的脚本的文件名。
+    __dirname   表示当前执行脚本所在的目录
+    process     是一个全局变量，即 global 对象的属性。
+
+    require             用于加载模块
+    setTimeout(cb, ms)  全局函数在指定的毫秒(ms)数后执行指定函数(cb)。：setTimeout() 只执行一次指定函数。
+    setInterval(cb, ms) 全局函数在指定的毫秒(ms)数后执行指定函数(cb)。循环
+    
+2. exports和module.exports都是某个对象的引用（reference），
+    初始情况下，它们指向同一个object，
+    给这个object添加属性或函数，都是完全等效的
+
+    node导出的，永远是module.exports指向的对象
+        exports = module.exports = function (name, age) {  
+            this.name = name;  
+            this.age = age;  
+        }  //导出的是一个构造函数， 这样写才能保证2个都指向同一个obj
+
+    exports的缓存
+        执行require之后，
+            目标模块的代码会被完整地执行一次，
+            然后module.exports对象被返回
+        需要注意的是，这个过程只会发生一次，后面重复的require，只会拿到同一个对象
+            // b.js 
+            exports.name = "Tony";  
+            exports.age = 33;  
+            // a.js
+            var b1 = require("./b"); 
+            b1.age ++;
+            var b2 = require("./b");
+            console.log(b2)     // 结果是34 ！
+            
+            // 此时b1,b2指向同一对象！
+    
+    
+    
+    console             用于提供控制台标准输出，用于向标准输出流（stdout）或标准错误流（stderr）输出字符。
+        .log([data][, ...])
+            向标准输出流打印字符并以换行符结束。该方法接收若干 个参数，如果只有一个参数，则输出这个参数的字符串形式。如果有多个参数，则 以类似于C 语言 printf() 命令的格式输出。
+        .info([data][, ...])
+            该命令的作用是返回信息性消息
+        .error([data][, ...])
+            输出错误消息的。控制台在出现错误时会显示是红色的叉子。
+        .warn([data][, ...])
+            输出警告消息。控制台出现有黄色的惊叹号。
+        .dir(obj[, options])
+            用来对一个对象进行检查（inspect），并以易于阅读和打印的格式显示。
+        .time(label) ， console.timeEnd(label)
+            输出时间，表示计时开始。
+        .trace(message[, ...])
+            当前执行的代码在堆栈中的调用路径，这个测试函数运行很有帮助，只要给想测试的函数里面加入 console.trace 就行了。
+
+	
+
