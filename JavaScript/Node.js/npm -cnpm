@@ -12,6 +12,9 @@
         cnpm install express
     //安装
     $ npm install -g cnpm --registry=https://registry.npm.taobao.org
+4. 升级 
+    npm install npm@latest -g
+ 
 
     C:\Users\zhaixiang\AppData\Roaming\npm\cnpm -> C:\Users\zhaixiang\AppData\Roaming\npm\node_modules\cnpm\bin\cnpm
     C:\Users\zhaixiang\AppData\Roaming\npm

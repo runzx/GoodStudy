@@ -1,0 +1,28 @@
+
+升级node.js
+    npm install -g n
+    n stable
+    如需最新版本则用n latest
+
+升级npm
+    npm -g install npm@next
+
+     Window 系统使用以下命令即可：
+        npm install npm -g
+        使用淘宝镜像的命令：
+        cnpm install npm -g
+安装模块
+    npm install express          # 本地安装
+    npm install express -g   # 全局安装
+
+查看安装信息
+    npm list -g //看全局
+    npm ls
+卸载模块
+    npm uninstall express
+更新模块
+    npm update express
+搜索模块
+    npm search express
+创建模块
+    npm init
