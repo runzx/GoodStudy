@@ -1,7 +1,26 @@
 Models Definition
 
 Model相当于数据库中的表，该对象不能通过构造函数实例化，而
-    只能通过sequelize.define()或sequelize.import()方法创建。
+    只能通过sequelize.define()或sequelize.import()方法创建。\
+0. 常用方法
+    1）findOrCreate - 从数据库中查找一个指定元素如果不存在则创建记录
+    2）
+        // 按已知 id查找
+        Project.findById(123).then(function(project) {
+            // project 是一个 Project 实例，且包含存储在数据中的数据
+            // 当不存在 id 为123的记录时 project 为 null
+        })
+        
+        // 按属性查找
+        Project.findOne({ where: {title: 'aProject'}
+            ,attributes: ['id', ['name', 'title']] })
+                .then(function(project) {
+                // project 是匹配到的第一个 title 为 'aProject' 的 Projects 或 null
+                // project 的 project.title 属性中会包含 'name'
+                })
+    3) 查询返回结果 result.dataValues.id =1
+        findCreateFind().spread((user, created) =>{})   此方法没用事务，速度比findOrCreate快
+  
 1. demo
     let DeviceInterface = Sequelize.define(
         'DeviceInterface'
