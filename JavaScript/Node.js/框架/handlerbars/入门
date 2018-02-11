@@ -1,0 +1,79 @@
+
+1. 配置
+    var hbs = exphbs.create({
+        partialsDir: 'views/partials',
+        layoutsDir: "views/layouts/",
+        defaultLayout: 'main',
+        extname: '.hbs',
+        helpers: hbsHelper
+    });
+    在hapi,中安装vision:
+    server.views({
+        engines: {
+            'handlebars': {        // 扩展名可自己定义
+                module: require('handlebars')
+            }
+        },
+        relativeTo: __dirname,
+        isCached: false,                //不缓存视图，开发时用
+        path: '../views',               //相对此文件的路径
+        partialsPath: '../views/partials',
+        helpersPath :'../views/helper',
+        layoutPath: "../views/layouts/",
+        layout : 'default',
+        helpersPath: '',                // 从目录中读.js单个文件
+
+    });
+2. 局部模板
+    partials目录下定义的handlebars文件都会是partials文件，
+        使用方法：{{> head}}
+
+3.    Handlebar的表达式
+        Block表达式：
+            #号来表示Blocks，然后通过{{/表达式}}来结束Blocks。 如果当前的表达式是一个数组，
+                则Handlebars会“自动展开数组”，并将Blocks的上下文设为数组中的元素。 
+            {{#each}} helper遍历列表块内容，用this来引用遍历的元素
+            {{#if}}就你使用JavaScript一样，你可以指定条件渲染DOM，如果它的参数
+                返回false，undefined, null, "" 或者 [] (a "falsy" value), Handlebar将不会渲染DOM，如果存在
+                {{#else}}则执行{{#else}}后面的渲染 
+            {{#unless}}这个语法是反向的if语法也就是当判断的值为false时他会渲染DOM
+            {{#with}}一般情况下，Handlebars模板会在编译的阶段的时候进行context传递和赋值。使用with的方法，我们可以将context转移到数据的一个section里面（如果你的数据包含section）。 这个方法在操作复杂的template时候非常有用。
+        Handlebar支持路径和mustache,Handlebar还支持嵌套的路径，使得能够查找嵌套低于当前上下文的属性 
+            .来访问属性
+            ../ 来访问父级属性。
+
+    {{! 在这其中的注释表达式不会被输出 }}   
+    三花括号{{{ }}}表示不转义的HTML
+
+4. 自定义：
+    Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+
+        switch (operator) {
+            case '==':
+                return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            case '===':
+                return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            case '!=':
+                return (v1 != v2) ? options.fn(this) : options.inverse(this);
+            case '!==':
+                return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+            case '<':
+                return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            case '<=':
+                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            case '>':
+                return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            case '>=':
+                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            case '&&':
+                return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            case '||':
+                return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            default:
+                return options.inverse(this);
+        }
+    });
+
+    模版里这样使用：
+        {{#ifCond var1 '==' var2}}
+    {{#ifeq key ../section}} 这里的..指reply.vice('index', ctx)的ctx上下文对象
