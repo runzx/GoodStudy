@@ -1,0 +1,32 @@
+
+Form元素的语法中
+    x-www-form-urlencoded
+        GET ： 字串（name1=value1&name2=value2...），然后把这个字串append到url后面，用?分割，加载这个新的url
+        POST ： 浏览器把form数据封装到http body中，然后发送到server。
+        key和value都要进行urlEncode;
+
+    multipart/form-data
+        浏览器会把整个表单以控件为单位分割，并为每个部分加上Content-Disposition(form-data或者file),Content-Type(默认为text/plain),name(控件name)等信息，并加上分割符(boundary)。
+        并且会随机生成一个boundary, 用于区分请求body中的各个数据; 每个数据以 --boundary 开始, 紧接着换行,下面是内容描述信息, 接着换2行, 接着是数据; 然后以 --boundary-- 结尾, 最后换行;
+
+    application/json
+    text/xml
+    text/plain
+        请求body没有固定结构, 直接传输对应数据的数据流, 不必和上面2种样, 还要用固定的结构包起来, 
+            只不过数据对应的是json, xml, 文本;
+
+在JS 里：
+
+    1. json方式： 
+        postData = JSON.stringify(opt.data);  
+        headers = {
+        "Content-Type":"application/json; charset=UTF-8",
+        'Content-Length': Buffer.byteLength(postData)
+    } 
+        "Content-Type":"application/json; charset=UTF-8",
+    2. 用query参数方式： 
+        postData = querystring.stringify(opt.data); 
+        headers = {
+            "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+            'Content-Length': Buffer.byteLength(postData)
+        }

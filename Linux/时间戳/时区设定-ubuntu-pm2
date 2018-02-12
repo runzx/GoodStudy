@@ -1,0 +1,26 @@
+
+1. ubuntu
+    sudo dpkg-reconfigure tzdata,选择Asia-->Shanghai,确定
+
+
+2. pm2 log日期格式
+    默认：Mon, 12 Feb 2018 04:49:22 GMT
+
+    apps : [
+
+    // First application
+    {
+        name      : 'API',
+        script    : 'index.js',
+        env: {
+            COMMON_VARIABLE: 'true'
+        },
+        env_production : {
+            NODE_ENV: 'production'
+        },
+	    "log_date_format" : "YYYY-MM-DD HH:mm Z"    // Z表示“显示时区
+    },
+
+    pm2自身的日志，存放于$HOME/.pm2/pm2.log；
+    pm2所管理的应用的日志，存放于$HOME/.pm2/logs/目录下，
+        标准谁出日志存放于${APP_NAME}_out.log，标准错误日志存放于${APP_NAME}_error.log；
