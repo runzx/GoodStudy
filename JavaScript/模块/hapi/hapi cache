@@ -101,3 +101,15 @@ server.cache(options)               //应用层 Policy
     ABCD1234DEADBEEF.json存储在.../AB/CD/ABCD1234DEADBEEF.json
     此缓存不会设置磁盘使用的上限。
     旧的，未被访问的文件通过cleanEveryinterval选项自动清除，默认情况下这个选项是激活的。
+
+    在文件里存的内容 // zhaix是cache()里默认的{id: key, segment: 'zhaix'}
+    手机里改成有catbox-disk,因为时面的redis不知为什么（可能是IP地址变换？），log报错会把磁盘写满。1秒写入2万条log记录。
+        const client = new Catbox.Client(CatboxDisk,{
+            name      : 'diskCache',
+                cachePath: '/home/zx/tmp/cache',    // 保存路径
+                cleanEvery: 3600000,                //默认 1小时， 为0一直保存不清除。
+                partition : 'hapiZX'
+        });
+
+        /home/zx/tmp/cache/zhaix/3d/7e/3d7e74d8fea4f4e72e5e770e36d64c82.json
+            {"key":{"id":"abcedif","segment":"zhaix"},"ttl":1000000,"item":"123456","stored":1518411038847,"expires":"2018-02-12T05:07:18.847Z"}
