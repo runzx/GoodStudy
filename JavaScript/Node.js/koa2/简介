@@ -1,0 +1,39 @@
+
+1. 自ES6确定和ES7的async/await开始普及，node.js的发展变得更加迅速，
+    可以预见到JavaScript中令人“头疼”的多层嵌套回调（注意是”多层嵌套回调“）将会使用Promise + async/await的方式逐渐替代（不是完全替代，多层嵌套回调也有其特殊的应用场景）。
+    基于generator/yield的koa1将会逐渐被koa2替代，毕竟使用co.js来处理generator是一种过渡的方式，虽然有其特定的应用场景，
+        但是用async/await会更加优雅地实现同步写法。
+    https://chenshenhai.github.io/koa2-note/
+
+2. 环境
+    node.js v7.6.0开始完全支持async/await，不需要加flag
+    npm 版本3.x以上
+    安装：
+    在项目目录下：
+    cnpm init
+    cnpm install koa
+
+3. hello world 代码
+    const Koa = require('koa')
+    const app = new Koa()
+
+    app.use( async ( ctx ) => {
+    ctx.body = 'hello koa2'
+    })
+
+    app.listen(3000)
+    console.log('[demo] start-quick is starting at port 3000')
+4. 源码文件
+    ├── lib
+    │   ├── application.js
+    │   ├── context.js
+    │   ├── request.js
+    │   └── response.js
+    └── package.json
+     https://github.com/koajs/koa
+
+        application.js 是整个koa2 的入口文件，封装了context，request，response，以及最核心的中间件处理流程。
+        context.js 处理应用上下文，里面直接封装部分request.js和response.js的方法
+        request.js 处理http请求
+        response.js 处理http响应
+    

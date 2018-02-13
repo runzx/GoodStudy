@@ -1,0 +1,15 @@
+
+ubuntu升级版本重启后黑屏解决办法
+
+黑屏下按Ctrl+Alt+F1，进入tty1，执行下面命令：
+
+sudo apt-get upgrade
+    提示下面的命令
+
+sudo dpkg --configure -a
+    大概意思就是：利用”Debian“ 操作系统的套件管理系统（dpkg）把所有的软件包都重新修复一遍
+
+    等几分钟，执行完成后重启
+
+reboot
+    成功进入桌面16.04LTS

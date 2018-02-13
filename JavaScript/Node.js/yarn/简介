@@ -1,0 +1,11 @@
+
+2016 年 10 月 11 日），facebook 公开了新的 javascript 包管理工具 yarn, 用来替代目前被广泛使用的 npm (nodejs 自带的包管理工具)
+
+1. 
+    https://github.com/yarnpkg/yarn
+
+    离线模式
+    依赖关系确定性
+    更好的网络性能
+
+2. 
