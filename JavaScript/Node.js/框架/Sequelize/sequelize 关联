@@ -1,0 +1,32 @@
+
+
+例：
+    User.hasMany(UserAddress, {foreignKey:'user_id', targetKey:'id', as:'Address'});
+    Player.belongsTo(Team);     // 将向 Team 添加一个 teamId 属性以保存 Team 的主键值
+    User.belongsToMany(Role, {through: 'userRoles', as:'UserRoles'});
+    User.belongsTo(UserRole, {as: 'role'});     // 将 role 添加到 user 而不是 userRole
+    User.belongsTo(Company, {foreignKey: 'fk_company'}); // 将 fk_company 添加到 User
+
+1. BelongsTo
+    BelongsTo 关联是在 source model 上存在一对一关系的外键的关联。    
+    外键
+        默认情况下，将从目标模型名称和目标主键名称生成 belongsTo 关系的外键。
+        默认的样式是 camelCase，但是如果源模型配置为 
+            underscored: true ，那么 foreignKey 将是snake_case。
+        已定义 as 的情况下，将使用它代替目标模型名称。
+        在所有情况下，默认外键可以用 foreignKey 选项覆盖。
+    目标键
+        目标键是源模型上的外键列指向的目标模型上的列。 默认情况下，belongsTo 关系的目标键将是目标模型的主键。 
+            要定义自定义列，请使用 targetKey 选项。
+
+2. HasOne
+    HasOne 关联是在 target model 上存在一对一关系的外键的关联。
+    // 单向关联
+    Project.hasOne(User)
+        在此示例中，hasOne 将向 User 模型添加一个 projectId 属性 ！ 
+        此外，Project.prototype 将根据传递给定义的第一个参数获取 getUser 和 setUser 的方法。 
+        如果启用了 underscore 样式，则添加的属性将是 project_id 而不是 projectId。
+
+        外键将放在 users 表上。
+        你也可以定义外键，例如 如果您已经有一个现有的数据库并且想要处理它：
+            Project.hasOne(User, { foreignKey: 'initiator_id' })
