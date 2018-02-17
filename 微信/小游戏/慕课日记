@@ -1,0 +1,23 @@
+
+1. 
+    服务器同步工具
+        live-server
+    类里静态方法
+        static fun1(){}
+    函数声明 不提倡用，它会把函数作用域提到所有变量之前~, 一加载此文件就会作用
+        function fun1() {}
+        var fun2 = function(){} // 用这种方式比较好！
+    ES5 的类继承
+        寄生组合继承“”
+            call(), apply()
+            调用一个对象的一个方法，用另一个对象替换当前对象
+            Animal.prototype.say.apply(cat);
+            Cat.prototype = Object.create(Animal.prototype);
+            
+
+2.  模块他解
+    入口： game.js
+    导演类： Dirctir.js
+    
+3. 在浏览器里模拟开发
+    var canvas = document.getElementById('game_canvas');

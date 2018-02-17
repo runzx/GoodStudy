@@ -1,0 +1,62 @@
+
+
+1. 安裝 live-server
+    sudo npm install -g live-server
+    vscode里：
+        安装Live Server插件
+        开启Server（服务）
+            在窗口的最底部有Go Live可以点击，一旦点击，就会自动在浏览器中打开HTML文件
+            在HTML文件中右键，然后点击open live server
+            快捷键 (alt+L, O) 打开服务   (alt+L, C) 关闭服务
+            按F1,然后在输入栏中输入 Live Server: Open Live Server to start a server  打开服务，或者 Live Server: Close Live Server to stop a server 关闭服务
+            Live Server的配置
+            {
+                "liveServer.settings.port": 8080,               //设置本地服务的端口号
+                "liveServer.settings.root": "/",                //设置根目录，也就是打开的文件会在该目录下找， 根目录下会自动打开index.html
+                "liveServer.settings.CustomBrowser": "chrome",  //设置默认打开的浏览器
+                "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome --incognito --remote-debugging-port=9222",
+                "liveServer.settings.NoBrowser": false,
+                "liveServer.settings.ignoredFiles": [           //设置忽略的文件
+                    ".vscode/**",
+                    "**/*.scss",
+                    "**/*.sass"
+                ]
+            }
+
+2. 运行
+    在Terminal 里切換路徑到上述 index.html 檔案所在路徑 ( 在此例為 cd 桌面/TodoApp/ )，
+        輸入命令live-server，將會啟動伺服器，開啟瀏覽器，
+            修改端口号：   live-server --port=9000
+            If a file ~/.live-server.json exists it will be loaded and used as default options for live-server on the command line. See "Usage from node" for option names.
+
+        前往 http://localhost:8080 ， index.html 檔案會顯示Hello, world!在網頁上。
+
+3. live-server模块有三个功能。
+    启动一个HTTP服务器，展示指定目录的index.html文件，通过该文件加载各种网络资源，这是file://协议做不到的。
+    添加自动刷新功能。只要指定目录之中，文件有任何变化，它就会刷新页面。
+    npm run serve命令执行以后，自动打开浏览器。、
+
+4. Command line parameters:
+    --port=NUMBER       - select port to use, default: PORT env var or 8080
+    --host=ADDRESS      - select host address to bind to, default: IP env var or 0.0.0.0 ("any address")
+    --no-browser        - suppress automatic web browser launching
+    --browser=BROWSER   - specify browser to use instead of system default
+    --quiet | -q        - suppress logging
+    --verbose | -V      - more logging (logs all requests, shows all listening IPv4 interfaces, etc.)
+    --open=PATH         - launch browser to PATH instead of server root
+    --watch=PATH        - comma-separated string of paths to exclusively watch for changes (default: watch everything)
+    --ignore=PATH       - comma-separated string of paths to ignore (anymatch-compatible definition)
+    --ignorePattern=RGXP - Regular expression of files to ignore (ie .*\.jade) (DEPRECATED in favor of --ignore)
+    --no-css-inject     - reload page on CSS change, rather than injecting changed CSS
+    --middleware=PATH   - path to .js file exporting a middleware function to add; can be a name without path nor extension to reference bundled middlewares in middleware folder
+    --entry-file=PATH   - serve this file (server root relative) in place of missing files (useful for single page apps)
+    --mount=ROUTE:PATH  - serve the paths contents under the defined route (multiple definitions possible)
+    --spa               - translate requests from /abc to /#/abc (handy for Single Page Apps)
+    --wait=MILLISECONDS - (default 100ms) wait for all changes, before reloading
+    --htpasswd=PATH     - Enables http-auth expecting htpasswd file located at PATH
+    --cors              - Enables CORS for any origin (reflects request origin, requests with credentials are supported)
+    --https=PATH        - PATH to a HTTPS configuration module
+    --https-module=MODULE_NAME - Custom HTTPS module (e.g. spdy)
+    --proxy=ROUTE:URL   - proxy all requests for ROUTE to URL
+    --help | -h         - display terse usage hint and exit
+    --version | -v      - display version and exit
