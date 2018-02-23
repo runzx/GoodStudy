@@ -13,3 +13,11 @@ rrayBuffer对象、TypedArray视图和DataView视图是 JavaScript 操作二进�
 
     简单说，ArrayBuffer对象代表原始的二进制数据，TypedArray 视图用来读写简单类型的二进制数据，DataView视图用来读写复杂类型的二进制数据。
 
+    ArrayBuffer也是一个构造函数，可以分配一段可以存放数据的连续内存区域。
+        const buf = new ArrayBuffer(32);
+            上面代码生成了一段 32 字节的内存区域，每个字节的值默认都是 0。可以看到，
+            ArrayBuffer构造函数的参数是所需要的内存大小（单位字节）。
+    为了读写这段内容，需要为它指定视图。DataView视图的创建，需要提供ArrayBuffer对象实例作为参数。
+        const buf = new ArrayBuffer(32);
+        const dataView = new DataView(buf);
+        dataView.getUint8(0) // 0
