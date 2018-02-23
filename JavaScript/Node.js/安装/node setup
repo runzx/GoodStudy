@@ -1,0 +1,11 @@
+
+可以管理node版本的第三方库，n来自tj大神。
+安装n有几种方式，最快捷的是用npm安装，前面的安装已经为这里打好了铺垫，现在只需要运行
+    npm install -g n    
+    //安装好后升级nodejs
+    n latest
+
+    Use or install the latest official release:
+        $ n latest
+    Use or install the stable official release:
+        $ n stable

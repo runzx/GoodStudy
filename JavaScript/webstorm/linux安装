@@ -1,0 +1,5 @@
+
+1. Unpack the WebStorm-2017.3.4.tar.gz file using the following command: 
+    tar -xzf WebStorm-2017.3.4.tar.gz
+
+2. Run WebStorm.sh from the bin subdirectory
