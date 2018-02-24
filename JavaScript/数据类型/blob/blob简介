@@ -1,0 +1,9 @@
+Blob 对象表示一个不可变、原始数据的类文件对象。
+    Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。
+    JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，
+        允许我们可以通过JS直接操作二进制数据。
+    Blob对象可以看做是存放二进制数据的容器，此外还可以通过Blob设置二进制数据的MIME类型。
+创建Blob
+    var blob = new Blob(dataArr:Array<any>, opt:{type:string});
+        dataArray：数组，包含了要添加到Blob对象中的数据，数据可以是任意多个ArrayBuffer，ArrayBufferView， Blob，或者 DOMString对象。
+        opt：对象，用于设置Blob对象的属性（如：MIME类型）

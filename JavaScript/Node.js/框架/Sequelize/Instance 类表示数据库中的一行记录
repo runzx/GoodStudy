@@ -1,0 +1,30 @@
+
+Instance 类表示数据库中的一行记录，该类不能直接实例化，
+    而应该由 Model 对象创建。 Instance 实例有两种，由 
+        Model.build 方法创建的非持久化实例，和由 
+        Model.create 方法创建的持久化实例。
+    应该注意， Instance 翻译后也叫做“实例”，但它在Sequelize 中是一个类，
+        它的实例应该叫做“实例”类的实例
+1. 创建持久化实例
+    除了显式的调用save方法保存实例外，还可以create方法创建并保存实例。
+        Task.create({ title: 'foo', description: 'bar', deadline: new Date() })
+            .then(function(task) {
+                // 现在可以通过 task 变量访问新创建的 Task
+                //此返回的数据task只有前面写入的数据。其它如果没有写的，id之类就空着！！
+            })
+2. findOrCreate() - 查找或创建
+    findOrCreate(options) -> Promise.<Instance, created>
+    查找一行记录，如果不存在则创建实例并保存到数据库中
+        options.where	Object	查询属性
+        [options.defaults]	Object	用于创建新实例的默认值
+        [options.transaction]	Transaction	在事务中执行查询
+        .then(arr)
+            Instance arry[0].dataValues 存查询到结果
+                    arry[1] ：false      表示查找到， 没创建
+    .spread((user, created) //created 同上面 arry[1]
+        START TRANSACTION;
+        INSERT INTO `User` (`id`,`openid`...) VALUES (DEFAULT,'openid1'...); //id系统用的是DEFAULT,如果自己定义，系统会传null
+        COMMIT;
+        此方法用了事务，速度不如 findCreateFind()
+    查询到时返回全字段（如果没指定）
+    创建新Instance，只返回创建时通过defaults指定的字段内容（外加id）。

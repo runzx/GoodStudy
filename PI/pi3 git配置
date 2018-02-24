@@ -54,8 +54,10 @@
     sudo git init --bare ele.git                //20180121 用饿了么平台的用户数据点餐
     git init --bare hapiZX.git                  //20180207 hapi后台 用git@pi3 登录不用加sudo 
     git remote add pi3 git@pi3:hapiZX.git       // 加PC端运行
-
-
+    git init --bare zh7.git                //zh7
+    git remote add pi3 git@pi3:zh7.git
+    git push pi3 master --set-upstream
+    
     20170513　mmb.git 这个是点餐小程序后端开发项目，使用TP5
     20170523    zyb.git 小程序前端，用七月老师的框架改写
     20170604    lumen.git   用lumen开发REST API
