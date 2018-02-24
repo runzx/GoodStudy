@@ -7,6 +7,7 @@ EPEL源
     EPEL 下载地址：http://download.fedora.redhat.com/pub/epel/
     例如CentOS6.5添加阿里云的EPEL源
         yum localinstall --nogpgcheck http://mirrors.aliyun.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+                                    http://mirrors.aliyun.com/epel/6/i386/epel-release-6-8.noarch.rpm
     CentOS 7.0添加阿里云的EPEL源
         yum localinstall --nogpgcheck http://mirrors.aliyun.com/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
 Remi源
