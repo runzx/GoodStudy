@@ -1,0 +1,18 @@
+
+CentOS6.5 
+
+1. 下载二进制程序  https://nodejs.org/en/download/
+    wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x86.tar.xz
+
+    xz -d  node-v8.9.4-linux-x86.tar.xz
+    tar -xvf node-v8.9.4-linux-x86.tar
+    mv node-v8.9.4-linux-x86 /opt/node
+
+2. 配置环境变量
+    打开etc目录下的 profile 文件
+        # vi /etc/profile
+    在文件最后增加如下内容
+        export NODE_HOME=/opt/node
+        export PATH=$NODE_HOME/bin:$PATH
+    生效环境变量
+        # source /etc/profile

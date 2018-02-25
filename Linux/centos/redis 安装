@@ -1,0 +1,74 @@
+
+
+1、安装编译工具
+    yum -y install wget  make gcc gcc-c++ zlib-devel openssl openssl-devel pcre-devel kernel keyutils  patch perl
+
+2. 下载tcl
+    wget https://sourceforge.net/projects/tcl/files/Tcl/8.6.8/tcl8.6.8-src.tar.gz
+    tar -zxvf  tcl8.6.8-src.tar.gz
+    cd tcl8.6.8/unix/
+    ./configure
+    make &&make install
+3. 安装Redis
+    
+    wget http://download.redis.io/redis-stable.tar.gz
+
+    tar zxvf redis-2.8.24.tar.gz
+
+    mv redis-stable /usr/local/redis 
+
+    cd /usr/local/redis 
+
+    make &&make install
+        报错： *** [err]: Server is able to generate a stack trace on selected systems in tests/integration/logging.tcl
+        可忽略。
+    ls /usr/local/bin/ 有redis*的文件则ok
+
+    mkdir -p /etc/redis
+    ln -s /usr/local/redis/redis.conf /etc/redis.conf
+    vi /etc/redis.conf
+4. 配置
+    daemonize yes   #redis将以守护进程的方式运行，默认为no会暂用你的终端
+    timeout 300     #当 客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能
+    
+    pidfile /var/redis/run/redis.pid    # 修改pid目录文件
+    
+    dir /var/redis/data     # 修改dump目录文件    /data/redis/data
+    
+    logfile /var/redis/log/redis.log        # 修改log目录文件     /data/redis/log/redis.log
+5. 启动redis
+    redis-server /etc/redis/redis.conf
+
+    redis-cli ping  
+    PONG
+    测试启动 redis-cli ping 返回PONG，启动成功
+
+    确保将Linux内核过度使用内存设置为1。添加vm.overcommit_memory = 1到/etc/sysctl.conf
+    
+    The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128
+    由于/proc/sys/net/core/somaxconn 被设置为128的较低值，所以511的TCP backlog设置不能被强制执行
+        在/etc/sysctl.conf 里设置（/proc/sys/net 里是临时数据，重启就没）
+            net.core.somaxconn = 2048
+        /sbin/sysctl –p     // 使之立即生效
+
+6.开机启动
+    # 将redis压缩包目录utils目录下启动脚本复制到/etc/init.d/下
+        cp redis_init_script /etc/init.d/
+    # 修改服务名
+        mv redis_init_script redis
+    # 修改脚本
+        REDISPORT=6379
+        EXEC=/usr/local/bin/redis-server
+        CLIEXEC=/usr/local/bin/redis-cli
+        PIDFILE=/var/redis/run/redis.pid
+        CONF="/etc/redis/${REDISPORT}.conf"
+    
+    修改/etc/init.d/redis配置，增加# chkconfig: 2345 90 10
+    执行注册
+        chkconfig --add redis
+        //  chkconfig redis on
+
+    使用service redis start启动服务
+    service redis start
+    # 使用service redis stop停止服务
+    service redis stop

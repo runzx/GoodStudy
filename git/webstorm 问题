@@ -1,0 +1,8 @@
+
+1. 升级git v2.16+后：ssh://git@www.bosstg.cn:15822/home/git/fjt.git 时出现：
+    Failed with error: ssh variant 'simple' does not support setting port
+
+2. 用于SSH工具检测的Git（> = 2.16.0）的内部行为已更改，TortoiseGitPlink并且不再被检测为ssh或plink兼容。
+    这只会影响SSH URL是否包含端口。现在，你需要设置环境变量GIT_SSH_VARIANT来ssh，在TortoiseGit 2.5.7的下一个版本，这将自动完成。
+    webstorm :
+        "SSH Executable -> Native" 默认是Built-in

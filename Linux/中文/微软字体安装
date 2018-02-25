@@ -1,0 +1,7 @@
+Ubuntu安装Microsoft Windows Fonts微软字体库
+
+1. sudo apt-get install ttf-mscorefonts-installer
+
+2. 在安装字体后，我们需要使用命令来更新字体缓存：
+
+sudo fc-cache -f -v
