@@ -90,6 +90,8 @@
     firewall-cmd --zone=work --remove-service=smtp
 
     默认配置文件有两个：/usr/lib/firewalld/ （系统配置，尽量不要修改）和 /etc/firewalld/ （用户配置地址）
+        /etc/firewalld/         目录下才是当前系统生效的各项配置。
+        /usr/lib/firewalld/     中是预设的一些配置样例！
     zone概念：
         硬件防火墙默认一般有三个区，firewalld引入这一概念系统默认存在以下区域（根据文档自己理解，如果有误请指正）：
         drop：   默认丢弃所有包
@@ -98,8 +100,17 @@
         external：这个不太明白，功能上和上面相同，允许指定的外部连接
         dmz：    和硬件防火墙一样，受限制的公共连接可以进入
         work：   工作区，概念和workgoup一样，也是指定的外部连接允许
-        home：   类似家庭组
+        home：   类似家庭组, 仅接受经过选择的连接
         internal：信任所有连接
+        trusted : 信任 ,可以接受所有的网络连接
+
+    firewalld自定义规则
+        SSHD端口由默认的修改成1333,
+        cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/     #修改某个预设的services端口
+        firewall-cmd --add-port=2000-4000/tcp #为当前系统zone添加一段端口范围
+        firewall-cmd --permanent --zone=home --add-port=8080/tcp #为特定的zone增加端口
+        firewall-cmd --permanent --zone=home --add-forward-port=port=22:proto=tcp:toaddr=127.0.0.2 #启用端口转发，将到22端口的请求转发到127.0.0.2
+            
 6. 安装mysql 
     https://dev.mysql.com/downloads/repo/yum/
     curl -O https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
@@ -140,3 +151,84 @@
         chkconfig redisd on
     #打开服务
         service redisd start
+    
+8. v7更新：
+    内核更新到3.10.0
+    支持Linux容器， 支持Docker技术
+    LVM快照支持ext4和XFS
+    转用systemd、firewalld和GRUB2
+    XFS作为缺省文件系统
+    支持PTPv2
+    支持40G 以太网卡
+    在兼容的硬件上支持以UEFI安全启动模式安装
+
+9. php
+    1) php5.6
+        配置yum源
+            # rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            # rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+            remi 源默认并没有启用，可以通过修改 repo  文件来启用它。
+                vi /etc/yum.repos.d/remi.repo
+                    [remi-php56]
+                    ......
+                    enabled=1
+        yum install php php-opcache php-pecl-apcu php-devel php-mbstring php-mcrypt php-mysqlnd php-phpunit-PHPUnit php-pecl-xdebug php-pecl-xhprof php-pdo php-pear php-fpm php-cli php-xml php-bcmath php-process php-gd php-common
+        yum install php php-opcache php-pecl-apcu php-devel php-mbstring php-mcrypt php-mysqlnd  php-pdo php-pear php-fpm php-cli php-xml php-bcmath php-process php-gd php-common
+
+            PHP 5.6.33 (cli) (built: Jan  3 2018 13:02:21)
+            Copyright (c) 1997-2016 The PHP Group
+            Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies
+                with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
+
+        配置php.ini
+            # vi /etc/php.ini
+            理论上配置一下时区就够了：
+                date.timezone = Asia/Chongqing
+        配置php-fpm
+            vi /etc/php-fpm.d/www.conf
+            修改以下位置：
+                ; 配置php所属用户
+                user = nginx
+                group = nginx
+                
+                listen.owner = nginx
+                listen.group = nginx
+                
+                ; 通过sock方式通信
+                listen = /var/run/php-fpm/php-fpm.sock
+        启动php
+            # systemctl start php-fpm
+    SELinux 权限设置 错误：   ... FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.11.1, server: localhost, request: "GET /phpinfo.php HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "192.168.11.130"
+        ls -alZ
+        ls /home/ -alZ      // 查看文件权限
+            drwxr-xr-x. root      root      system_u:object_r:home_root_t:s0 .
+            dr-xr-xr-x. root      root      system_u:object_r:root_t:s0      ..
+            drwxrwxrwx. nginx     nginx     unconfined_u:object_r:home_root_t:s0 www    // 这时导致出错
+            drwx------. zhaixiang zhaixiang unconfined_u:object_r:user_home_dir_t:s0 zhaixiang
+        chcon -R -t httpd_sys_content_t /home/www
+            drwxrwxrwx. nginx     nginx     unconfined_u:object_r:httpd_sys_content_t:s0 www    // OK ！花了我一晚上！！！
+
+        允许apache进程访问mysql
+            setsebool -P httpd_can_network_connect=1
+    SELinux常用的命令
+        ls –Z | ps –Z | id –Z      分别用于查看文件（夹）、进程和用户的SELinx属性。最常用的是ls -Z
+        sestatus    查看当前SELinux的运行状态
+        setenforce  在SELinux为启动模式下，用此命令可以暂时停用SELinux
+        getsebool   查看当前Policy（策略）的布尔值
+        setsebool   设置Policy的布尔值，以启用或停用某项Policy
+        chcon       改变文件或文件夹的content标记
+
+10 查看Selinux的状态
+    # /usr/sbin/sestatus -v 
+    临时关闭
+        setenforce 0 
+    临时开启
+        setenforce 1
+    彻底关闭SeLinux请使用下面的命令
+        #vim /etc/selinux/config
+        将 SELINUX=enforcing 改为 SELINUX=disabled 
+        重启服务器即可。
+    例：凡是mysql需要访问的地方都加上下面的命令
+            chcon -R -t mysqld_db_t /mysqldir   #该命令是修改目录或文件的策略类型为mysql可以访问
+        httpd 目录也遇到类似的问题，提示没有权限或找不到文件，但关闭Selinux后正常可以使用下面的命令
+            chcon -R -t httpd_sys_content_t /httpddir 
