@@ -1,0 +1,5 @@
+// 	win10下hosts失效
+
+1.“DNS CLient”服务是缓存dns用的， 所以说修改了hosts的文件是不能马上生效的， 需要一段时间的延时， 通常可以用ipconfig /flushdns来刷新dns缓存， 但这个方法对于我的问题似乎没有什么效果， 于是干脆打开控制面板- 管理工具 – 服务， 在其中找到“DNS Client”　将其停用并改为手动模式。 
+
+2.hosts文件必须是ascii编码方式

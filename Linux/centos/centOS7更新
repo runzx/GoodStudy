@@ -129,6 +129,7 @@
         mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
     远程访问
         grant all privileges on *.* to 'root'@'%' identified by 'password' with grant option;  
+    show variables like 'port'; //查看端口
 
 7. redis
     yum install tcl     // 不用编译了
@@ -139,12 +140,21 @@
     ln -s /usr/local/redis/redis.conf /etc/redis/redis.conf
         daemonize yes
         logfile /var/redis/log/redis.log        # 指定log目录文件
-        dir /date/redis/data                    # 修改dump目录文件
+        dir /var/redis/data                    # 修改dump目录文件
     /etc/sysctl.conf
         net.core.somaxconn = 2048
         vm.overcommit_memory = 1
+            当操作系统收到内存分配请求时，它会依据overcommit_memory 设定的条件，考虑接受或者拒绝这个请求 
+                0 – 默认设置 内核使用启发式算法，来估算可用的内存量，直接拒绝不合理的请求 
+                1 – 内核不考虑内存是否够用，直接同意请求，在这种设置下，潜在的内存过载风险增加了，但有利于内存密集型任务 
+                2 – 如果程序请求的内存分配大于等于 交换分区和物理内存的总和 * overcommit_ratio / 100 则拒绝这个请求 
+                默认是 交换分区和物理内存总和的50%
+                默认设置是0，只要内存请求超过物理内存的剩余量，请求就会被拒绝。设置1，不管实际物理内存使用量，直接同意请求。设置1是一种比较粗放式的对内存请求的管理方式，
+                    我认为更为优雅的方式是使用2，并且将overcommit_ratio 的值设为60 ~ 80
+                    echo "vm.overcommit_memory=2" >> /etc/sysctl.conf
+                    echo "vm.overcommit_ratio=70" >> /etc/sysctl.conf
     /sbin/sysctl --load=/etc/sysctl.conf    // 立即生效
-    cp redis_init_script /etc/init.d/redis
+    cp redis_init_script /etc/init.d/redisd     // d结尾表示服务
         # !/bin/sh
         # chkconfig:   2345 90 10
     #设置为开机自启动服务器
