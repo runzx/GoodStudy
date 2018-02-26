@@ -1,0 +1,40 @@
+
+1. SELinux则是基于MAC（强制访问机制），简单的说，就是程序和访问对象上都有一个安全标签（即selinux上下文）进行区分，只有对应的标签才能允许访问。否则即使权限是777，也是不能访问的。
+    在SELinux中，访问控制属性叫做安全上下文。所有客体（文件、进程间通讯通道、套接字、网络主机等）和主体（进程）都有与其关联的安全上下文，一个安全上下文由三部分组成：
+        用户（u）、角色(r)和类型(t)标识符。但我们最关注的是第三个部分，标识符。
+    Selinux的配置文件位置：
+        /etc/selinux/config，永久修改，要重启系统才生效。它还有个链接在：
+        /etc/sysconfig/selinux
+            SELINUX=enforcing
+            #此项定义selinux状态。
+                #enforcing—是强制模式系统受selinux保护。就是你违反了策略，你就无法继续操作下去
+                #permissive—是提示模式系统不会受到selinux保护，只是收到警告信息。permissive就是Selinux有效，但是即使你违反了策略的话它让你继续操作，但是把你的违反的内容记录下来(警告信息)
+                #disabled—禁用selinux。
+            SELINUXTYPE=targeted
+            #此项定义selinux使用哪个策略模块保护系统。
+                targeted只对apache ,sendmail, bind,postgresql,nfs,cifs等网络服务保护。
+            以上策略配置都放置在/etc/selinux目录中，目录和策略名称相同
+2. 命令
+    sestatus        查询selinux工作状态
+    selinuxenabled  检查selinux是否开启,配合echo $?.传回值是0为开启,1为关闭
+    getenforce      查看selinux的状态
+    setenforce      设定selinux运行状态,1开启（Enforcing）,0关闭(Permissive)
+    ls -Z           查看文件上下文可以通过
+    ps Z            查看进程上下文可以使用 
+    id –Z           查看用户上下文可以用
+        安全上下文以
+            Identify:role:type
+            用户:角色:类型(域)标识符  的形式出现(这里的用户指的是selinu用户)
+                unconfined_u：   不受限的用户， 不受 SELinux 所限制的 bash 程序所产生的文件， 其身份识别大多就是 unconfined_u 
+                system_u：       系统用户
+
+                object_r：       代表的是文件或目录等文件资源，这应该是最常见的啰；
+                system_r：       代表的就是程序， 角色的字段最后面使用“ _r ”来结尾！因为是 role 的意思
+
+                type：           在文件资源 （Object） 上面称为类型 （Type）；
+                domain：         在主体程序 （Subject） 则称为领域 （domain） 
+        httpd_sys_content_t     : for allowing Apache to serve these contents  
+        httpd_sys_rw_content_t  : for allowing Apache to write to those path.
+    剪切操作时文件的上下文没有发生改变，仍然是原上下文，而复制操作时文件的上下文继承了目标目录的上下文。
+    httpd进程不能访问域类型标签是admin_home_t的资源，被selinux将访问拒绝了
+    日志默认    /var/log/audit/audit.log
