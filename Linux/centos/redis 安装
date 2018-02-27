@@ -13,7 +13,7 @@
     
     wget http://download.redis.io/redis-stable.tar.gz
 
-    tar zxvf redis-2.8.24.tar.gz
+    tar zxvf redis-stable.tar.gz
 
     mv redis-stable /usr/local/redis 
 
@@ -25,7 +25,7 @@
     ls /usr/local/bin/ 有redis*的文件则ok
 
     mkdir -p /etc/redis
-    ln -s /usr/local/redis/redis.conf /etc/redis.conf
+    ln -s /usr/local/redis/redis.conf /etc/redis/redis.conf
     vi /etc/redis.conf
 4. 配置
     daemonize yes   #redis将以守护进程的方式运行，默认为no会暂用你的终端
@@ -49,7 +49,8 @@
     由于/proc/sys/net/core/somaxconn 被设置为128的较低值，所以511的TCP backlog设置不能被强制执行
         在/etc/sysctl.conf 里设置（/proc/sys/net 里是临时数据，重启就没）
             net.core.somaxconn = 2048
-        /sbin/sysctl –p     // 使之立即生效
+        /sbin/sysctl –p     // 使之立即生效, 这个有问题，用下面的：
+        /sbin/sysctl --load=/etc/sysctl.conf
 
 6.开机启动
     # 将redis压缩包目录utils目录下启动脚本复制到/etc/init.d/下
