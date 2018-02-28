@@ -4,31 +4,69 @@
     pm2 ecosystem
     自动生成ecosystem.config.js
     此配置文件可以是json，手动生成。
-
+    要部署功能 ，在配置文件里添加一个“deploy”属性。这是部署应用程序的最低要求
+        http://pm2.keymetrics.io/docs/usage/deployment/
 2. 设置deploy部分。
     其中production用于生产环境，dev用于开发环境，
         production : {
         user : "登录远程服务器的用户名，此处填写我们创建的yishi",
         host : "远程服务器的IP或hostname，此处可以是数组同步部署多个服务器，不过鉴于我们只有一个服务器，因此我们填写123.57.205.23",
-        ref  : "远端名称及分支名，此处填写origin/master",
+                //  ["212.83.163.1", "212.83.163.2", "212.83.163.3"],
+        ref  : "git remote 远端仓库名称及分支名，此处填写origin/master",
         repo : "git仓库地址，此处填写git@github.com:e10101/pm2app.git",
         path : "远程服务器部署目录，需要填写user具备写入权限的目录，此处填写/home/yishi/www/production",
-        "post-deploy" : "部署后需要执行的命令，此处填写npm install && pm2 startOrRestart ecosystem.json --env production"
+        // 提前安装所需的软件。(eg: git)
+        // 可以是用";"分隔的多个命令，或者本地的脚本路径
+            "pre-setup" : "apt-get install git",
+        // 主机上的命令或脚本路径
+        // 将仓库里面的代码克隆到主机后执行
+        // eg: 在共享目录中放置配置
+            "post-setup": "ls -la",
+        // 本地执行的命令（当部署到本地）
+        // 可以是用";"分隔的多条命令
+            "pre-deploy-local" : "echo 'This is a local executed command'"
+        // 仓库资源已经被克隆完后执行的命令
+        "post-deploy" : "部署后需要执行的命令，此处填写npm install && pm2 startOrRestart ecosystem.config --env production"
+        // 环境变量，将会被合成到所有app的env设置中
+            "env"  : {
+                "NODE_ENV": "production"
+            },
+        "key"  : "/path/to/some.pem", // path to the public key to authenticate,使用SSH密钥
         },
 
     pm2的部署是通过ssh进行的，因此需要开通本地到远程服务器的无密码登录
         scp ~/.ssh/id_rsa.pub yishi@123.57.205.23:/home/yishi/.ssh/authorized_keys
     在本地应用目录下，执行pm2 deploy命令：
-        pm2 deploy ecosystem.json production setup
+        pm2 deploy ecosystem.json production setup  // 初始化远程文件夹：
         如报git rsa 错误
             ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-
+    显示部署帮助文档 pm2 deploy help
+        $ pm2 deploy <configuration_file> <environment> <command>
+            Commands:
+                setup   运行远程的setup命令
+                update  将部署更新到最新版本
+                revert [n]  恢复到第n次部署或者第1次部署
+                curr[ent]   输出当前提交
+                prev[ious]  输出上一次提交
+                exec|run <cmd>  执行给出的命令
+                list  列出之前的部署提交
+                [ref] deploy to [ref], the "ref" setting, or latest tag
+            例：  pm2 deploy production exec "pm2 reload all"
 3. 接下来就是实际部署了。
     在部署前，现将本地代码修改并进行git提交：
         git add .
         git commit -m "update ecosystem"
         git push
     提交后，在本地应用目录，输入如下命令进行生产环境的部署：
-        pm2 deploy ecosystem.json production
+        pm2 deploy ecosystem.json production    //  部署代码
     在远程服务器查看端口情况：
         netstat -antp ｜ grep 3000
+
+4. 配置部署
+    在目标服务器上，您必须已经通过以下方式安装了PM2：
+        $ npm install pm2@latest -g
+    同时PM2能够通过以下方式启动服务器启动：
+        $ pm2 startup ubuntu    //centos
+    断开远程服务器的连接并确保您的远程服务器具有您的ssh密钥。您可以通过以下方式生成并复制它们
+        $ ssh-keygen -t rsa
+        $ ssh-copy-id node@myserver.com
