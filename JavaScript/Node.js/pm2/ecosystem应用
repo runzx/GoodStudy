@@ -60,13 +60,99 @@
     提交后，在本地应用目录，输入如下命令进行生产环境的部署：
         pm2 deploy ecosystem.json production    //  部署代码
     在远程服务器查看端口情况：
-        netstat -antp ｜ grep 3000
+        netstat -antp| grep 3000
 
 4. 配置部署
     在目标服务器上，您必须已经通过以下方式安装了PM2：
         $ npm install pm2@latest -g
     同时PM2能够通过以下方式启动服务器启动：
-        $ pm2 startup ubuntu    //centos
+        $ pm2 startup ubuntu    //centos , systemd, darwin, amazon
+                //  Make sure you upgrade to PM2 > 2.2.x
+                //  systemd: Ubuntu >= 16, CentOS >= 7, Arch, Debian >= 7
+            然后按照提示需要输入的命令进行输入：
+                在PI3里 pm2 startup systemd
+                    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u zhaixiang --hp /home/zhaixiang
+                    执行后结果见最后：：
+                sudo su -c "env PATH=$PATH:/usr/bin pm2 startup centos -u yishi --hp /home/yishi"
+                保存pm2设置
+                pm2 save
     断开远程服务器的连接并确保您的远程服务器具有您的ssh密钥。您可以通过以下方式生成并复制它们
         $ ssh-keygen -t rsa
         $ ssh-copy-id node@myserver.com
+
+
+                        -------------
+在PI3里 pm2 startup systemd ：
+    。。。
+
+    [PM2] Init System found: systemd
+    Platform systemd
+    Template
+    [Unit]
+    Description=PM2 process manager
+    Documentation=https://pm2.keymetrics.io/
+    After=network.target
+
+    [Service]
+    Type=forking
+    User=zhaixiang
+    LimitNOFILE=infinity
+    LimitNPROC=infinity
+    LimitCORE=infinity
+    Environment=PATH=/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+    Environment=PM2_HOME=/home/zhaixiang/.pm2
+    PIDFile=/home/zhaixiang/.pm2/pm2.pid
+
+    ExecStart=/usr/lib/node_modules/pm2/bin/pm2 resurrect
+    ExecReload=/usr/lib/node_modules/pm2/bin/pm2 reload all
+    ExecStop=/usr/lib/node_modules/pm2/bin/pm2 kill
+
+    [Install]
+    WantedBy=multi-user.target
+
+    Target path
+    /etc/systemd/system/pm2-zhaixiang.service
+    Command list
+    [ 'systemctl enable pm2-zhaixiang',
+    'systemctl start pm2-zhaixiang',
+    'systemctl daemon-reload',
+    'systemctl status pm2-zhaixiang' ]
+    [PM2] Writing init configuration in /etc/systemd/system/pm2-zhaixiang.service
+    [PM2] Making script booting at startup...
+    >>> Executing systemctl enable pm2-zhaixiang
+    Created symlink from /etc/systemd/system/multi-user.target.wants/pm2-zhaixiang.service to /etc/systemd/system/pm2-zhaixiang.service.
+    [DONE]
+    >>> Executing systemctl start pm2-zhaixiang
+    [DONE]
+    >>> Executing systemctl daemon-reload
+    [DONE]
+    >>> Executing systemctl status pm2-zhaixiang
+    ● pm2-zhaixiang.service - PM2 process manager
+    Loaded: loaded (/etc/systemd/system/pm2-zhaixiang.service; enabled)
+    Active: active (running) since Wed 2018-02-28 12:07:00 CST; 188ms ago
+        Docs: https://pm2.keymetrics.io/
+    Main PID: 11618 (PM2 v2.10.1: Go)
+    CGroup: /system.slice/pm2-zhaixiang.service
+            ‣ 11618 PM2 v2.10.1: God Daemon (/home/zhaixiang/.pm
+
+    Feb 28 12:07:00 raspberrypi pm2[19143]: [PM2] Restoring processes located in /home/zhaixiang/.pm2/dump.pm2
+    Feb 28 12:07:00 raspberrypi pm2[19143]: [PM2][ERROR] Failed to read dump file in /home/zhaixiang/.pm2/dump.pm2.bak
+    Feb 28 12:07:00 raspberrypi pm2[19143]: [PM2][ERROR] No processes saved; DUMP file doesn't exist
+    Feb 28 12:07:00 raspberrypi pm2[19143]: ┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────┬───────────┬───────────┬──────────┐
+    Feb 28 12:07:00 raspberrypi pm2[19143]: │ App name │ id │ mode │ pid   │ status │ restart │ uptime │ cpu │ mem       │ user      │ watching │
+    Feb 28 12:07:00 raspberrypi pm2[19143]: ├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────┼───────────┼───────────┼──────────┤
+    Feb 28 12:07:00 raspberrypi pm2[19143]: │ index    │ 0  │ fork │ 14814 │ online │ 87      │ 113m   │ 0%  │ 77.4 MB   │ zhaixiang │ disabled │
+    Feb 28 12:07:00 raspberrypi pm2[19143]: └──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────┴───────────┴───────────┴──────────┘
+    Feb 28 12:07:00 raspberrypi pm2[19143]: Use `pm2 show <id|name>` to get more details about an app
+    Feb 28 12:07:00 raspberrypi systemd[1]: Started PM2 process manager.
+    [DONE]
+    +---------------------------------------+
+    [PM2] Freeze a process list on reboot via:
+    $ pm2 save
+
+    [PM2] Remove init script via:
+    $ pm2 unstartup systemd
+
+    $ pm2 save
+        [PM2] Saving current process list...
+        [PM2] Successfully saved in /home/zhaixiang/.pm2/dump.pm2
