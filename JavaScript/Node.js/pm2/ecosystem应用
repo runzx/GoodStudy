@@ -1,0 +1,34 @@
+本地pm2的ecosystem配置
+
+1. 生成
+    pm2 ecosystem
+    自动生成ecosystem.config.js
+    此配置文件可以是json，手动生成。
+
+2. 设置deploy部分。
+    其中production用于生产环境，dev用于开发环境，
+        production : {
+        user : "登录远程服务器的用户名，此处填写我们创建的yishi",
+        host : "远程服务器的IP或hostname，此处可以是数组同步部署多个服务器，不过鉴于我们只有一个服务器，因此我们填写123.57.205.23",
+        ref  : "远端名称及分支名，此处填写origin/master",
+        repo : "git仓库地址，此处填写git@github.com:e10101/pm2app.git",
+        path : "远程服务器部署目录，需要填写user具备写入权限的目录，此处填写/home/yishi/www/production",
+        "post-deploy" : "部署后需要执行的命令，此处填写npm install && pm2 startOrRestart ecosystem.json --env production"
+        },
+
+    pm2的部署是通过ssh进行的，因此需要开通本地到远程服务器的无密码登录
+        scp ~/.ssh/id_rsa.pub yishi@123.57.205.23:/home/yishi/.ssh/authorized_keys
+    在本地应用目录下，执行pm2 deploy命令：
+        pm2 deploy ecosystem.json production setup
+        如报git rsa 错误
+            ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+3. 接下来就是实际部署了。
+    在部署前，现将本地代码修改并进行git提交：
+        git add .
+        git commit -m "update ecosystem"
+        git push
+    提交后，在本地应用目录，输入如下命令进行生产环境的部署：
+        pm2 deploy ecosystem.json production
+    在远程服务器查看端口情况：
+        netstat -antp ｜ grep 3000
