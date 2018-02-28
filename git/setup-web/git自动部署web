@@ -13,20 +13,20 @@
     为
     git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
 
-2. $ sudo git init --bare demosite.git
+2. $ sudo git init --bare hapiZX.git
     # 文件夹权限
         $ sudo chown -R git:git demosite.git
         $ cd /demosite.git/hooks
         $ sudo vi post-receive
     写入以下内容
         #!/bin/sh
-        GIT_WORK_TREE=/home/wwwroot/www.demosite.com  git checkout -f
+        GIT_WORK_TREE=/home/hapiZX  git checkout -f
     # 写入权限
         $ chmod +x post-receive
     # 建立web目录，如果目录不存在，git不会创建目录的
-        $ mkdir /home/wwwroot/www.demosite.com  -p
+        $ mkdir /home/hapiZX  -p
     # web目录的文件夹权限
-        $ sudo chown -R git:git /home/wwwroot/www.demosite.com 
+        $ sudo chown -R git:git /home/hapiZX 
 
 三　实现自动部署
     post-receive
@@ -35,8 +35,8 @@
         在git远端仓库的hooks目录下新建post-receive文件：
             #!/bin/sh  
             
-            #author: embbnux  
-            #Blog of Embbnux: http://www.embbnux.com  
+            #author: zhaix  
+            # http://www.bosstg.cn  
             
             #判断是不是远端仓库  
             IS_BARE=$(git rev-parse --is-bare-repository)  
@@ -46,13 +46,13 @@
             fi  
             
             unset GIT_DIR  
-            DeployPath="/var/web"  
+            DeployPath="/home/hapiZX"  
             
             echo "==============================================="  
             cd $DeployPath  
             echo "deploying the test web"  
             
-            ＃git stash  
+            #git stash  
             #git pull origin master  
             git fetch --all  
             git reset --hard origin/master  
