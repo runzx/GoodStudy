@@ -1,0 +1,44 @@
+
+1. 检测一下当前node对es6的支持情况
+    npm -g install es-checker
+    es-checker
+
+    node 8.9.4 不支持：
+        Function：   × Tail-call optimization for function calls and recursion
+        Array：      × Methods added to Array.prototype ([].fill(), [].find(), [].findIndex(), [].entries(), [].keys(), [].values() )
+        Module：     × Module export command
+                     × Module import command
+
+2. Babel 官网 安装指南
+    webstorm:
+        npm install --save-dev babel-cli
+        首选项 - 工具 - 文件观察器中，单击+按钮并从列表中选择Babel文件观察器。
+        Languages＆Frameworks - JavaScript - JavaScript语言版本中，选择ECMAScript 6。
+        创建.babelrc配置文件
+            使用env预设，它可以为ES2015 +启用转换
+                npm install babel-preset-env --save-dev
+                {
+                    "presets": ["env"]
+                }
+            您的目标是Node.js而不是浏览器，则可以将babel-preset-env配置为仅包含特定版本所需的填充和转换：
+                {
+                    "presets": [
+                        ["env", {
+                        "targets": {
+                            "node": "6.10"      // 或 "node": "current"
+                        }
+                        }]
+                    ]
+                }
+            targets.node 设置为 true 或 "current" 可以根据当前 Node.js 版本进行动态转换。也可以设置为具体的数字表示需要支持的最低的 Node.js 版本。
+            useBuiltIns 可以根据之前的配置自行添加 polyfill，默认不开启。安装 babel-polyfill 后只要引入一次就行：
+                import "babel-polyfill";
+
+
+    项目根目录新建一个“dist”文件夹，里面放的就是es5的js文件。
+
+
+3. 由于直接安装babel时会创建“node_modules”文件夹,webstrom会立即索引该文件夹,导致卡顿现象.
+    在新项目时,如果没有"node_modules",先手动创建,然后把该文件夹移出索引:
+    右键该文件夹,选择"mark as"---"excluded";
+    最后再安装babel.
