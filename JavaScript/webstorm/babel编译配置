@@ -1,0 +1,13 @@
+
+1. 默认babel es6+babel 
+    项目根目录新建一个“dist”文件夹，里面放的就是es5的js文件。
+    babel-presets-env + .babelre
+        我还不能使其对node 生效，全部  转换成ES5代码。
+    
+
+让编译后的文件和原文件在同一个文件夹下：文件名中加compile后缀
+    Arguments:
+        $FilePathRelativeToProjectRoot$ --out-file $FileDir$\$FileNameWithoutExtension$-compile.js --source-maps --presets env
+    Output paths to refresh:
+        $FileDir$\$FileNameWithoutExtension$-compile.js:$FileDir$\$FileNameWithoutExtension$-compile.js.map
+    在linux系统下，需要将相应的目录路径修改为 / 
