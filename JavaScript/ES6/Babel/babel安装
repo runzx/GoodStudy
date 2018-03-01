@@ -30,6 +30,15 @@
                         }]
                     ]
                 }
+                {
+                    "presets": [
+                        ["env", {
+                        "targets": {
+                            "node": "current"
+                        }
+                        }]
+                    ]
+                }
             targets.node 设置为 true 或 "current" 可以根据当前 Node.js 版本进行动态转换。也可以设置为具体的数字表示需要支持的最低的 Node.js 版本。
             useBuiltIns 可以根据之前的配置自行添加 polyfill，默认不开启。安装 babel-polyfill 后只要引入一次就行：
                 import "babel-polyfill";
@@ -40,5 +49,18 @@
 
 3. 由于直接安装babel时会创建“node_modules”文件夹,webstrom会立即索引该文件夹,导致卡顿现象.
     在新项目时,如果没有"node_modules",先手动创建,然后把该文件夹移出索引:
-    右键该文件夹,选择"mark as"---"excluded";
+    右键该文件夹,选择"mark as"---"excluded"; // webstorm 会自动识别并实现此功能
     最后再安装babel.
+
+4. 新的 babel-preset-env 改下面方式
+    npm install --save-dev @babel/preset-env
+
+    {
+        "presets": [
+            ["@babel/preset-env", {
+            "targets": {
+                "node": "current"
+            }
+            }]
+        ]
+    }
