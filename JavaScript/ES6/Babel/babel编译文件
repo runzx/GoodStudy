@@ -1,0 +1,22 @@
+
+编译文件script.js并输出到stdout。
+    npx babel script.js
+
+如果你想输出到你可能使用的文件--out-file或-o。
+    npx babel script.js --out-file script-compiled.js
+
+要在每次更改文件时编译文件，请使用--watch或-w选项：
+    npx babel script.js --watch --out-file script-compiled.js
+
+编译Source Maps
+如果您想添加一个map文件，您可以使用--source-maps或-s。
+    npx babel script.js --out-file script-compiled.js --source-maps
+
+如果您宁愿使用内联源地图，则可以使用--source-maps inline。
+    npx babel script.js --out-file script-compiled.js --source-maps inline
+
+编译目录
+编译整个src目录并将其输出到lib目录。你可以使用--out-dir或-d。这不会覆盖其中的任何其他文件或目录lib。
+    npx babel src --out-dir lib
+编译整个src目录并将其输出到一个连接文件。
+    npx babel src --out-file script-compiled.js
