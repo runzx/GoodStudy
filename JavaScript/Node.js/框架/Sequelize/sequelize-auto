@@ -2,7 +2,8 @@ sequelize-auto从数据库表自动生成Sequelize模型(Model)
 
 1. 全局安装模块
     全局安装一个你所使用的数据库驱动。
-
+    npm i -g mysql
+    npm i -g sequelize
 2. 语法结构如下：
     sequelize-auto -h  -d  -u  -x [password] -p [port]  
     --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName]
@@ -19,3 +20,5 @@ sequelize-auto从数据库表自动生成Sequelize模型(Model)
         -t, --tables    - 指定所要导出的表，逗号分隔。默认为全部
 
     sequelize-auto -h pi3 -d Zerg -u zhaixiang-db -x zx2962 
+
+    sequelize-auto -h pi3 -d test -u zhaixiang-db -x zx2962 -t bis

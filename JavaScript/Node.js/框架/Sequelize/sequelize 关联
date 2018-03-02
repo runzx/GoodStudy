@@ -30,3 +30,12 @@
         外键将放在 users 表上。
         你也可以定义外键，例如 如果您已经有一个现有的数据库并且想要处理它：
             Project.hasOne(User, { foreignKey: 'initiator_id' })
+    
+    HasOne 和 BelongsTo 插入外键的位置有所不同。
+        HasOne 会向目标模型中插入关联键，
+        而BelongsTo 会向源模型中插入关联键。
+
+3. 一对多(One-To-Many)关联
+    // 定义 hasMany 关联
+        Project.hasMany(User, {as: 'Workers'})
+    会向 User 中添加一个projectId或project_id属性。Project 的实例中会有访问器getWorkers 和 setWorkers。这是一种单向关联方式
