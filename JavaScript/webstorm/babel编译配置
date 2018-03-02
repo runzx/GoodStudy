@@ -1,4 +1,7 @@
 
+0. 安装
+    在项目目录下：
+    npm i --save-dev babel-cli babel-presets-env
 1. 默认babel es6+babel 
     项目根目录新建一个“dist”文件夹，里面放的就是es5的js文件。
     babel-presets-env + .babelre
@@ -11,3 +14,14 @@
     Output paths to refresh:
         $FileDir$\$FileNameWithoutExtension$-compile.js:$FileDir$\$FileNameWithoutExtension$-compile.js.map
     在linux系统下，需要将相应的目录路径修改为 / 
+
+2. 让webstorm 实现 babel-presets-env 里的targets.node 指定ndoe版本编译：
+    Arguments:
+            $FilePathRelativeToProjectRoot$ --out-file $FileDir$\$FileNameWithoutExtension$-compile.js --source-maps 
+    不能带 这参数：    --presets env
+    我猜测这参数会让babel去用env环境变量，反而忽略.babelre里的presets[[env, targets.node]]
+
+3. 文件监控 范围
+    Scope 
+        注意： include Recursively 包括所有子目录！
+        zx 里我只设置了zx/目录下的所有js文件转换，其它目录下的不作转换！ 
