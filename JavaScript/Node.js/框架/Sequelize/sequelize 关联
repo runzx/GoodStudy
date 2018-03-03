@@ -39,3 +39,25 @@
     // 定义 hasMany 关联
         Project.hasMany(User, {as: 'Workers'})
     会向 User 中添加一个projectId或project_id属性。Project 的实例中会有访问器getWorkers 和 setWorkers。这是一种单向关联方式
+
+4. 
+    外键定义
+        {foreignKey: 'category_id'}     // underscored:true ，系统默认false: categoryId
+    关联名， 显示要关联后里的字段名，默认为模型名称
+        { as: 'goods' }
+            include: [{model : dbBase.Product, as: 'Goods'}]
+        include: [dbBase.Product]   // 不用as 
+
+
+5. MySql 外键约束
+    FOREIGN KEY REFERENCES
+    主表，从表
+        空、RESTRICT、NO ACTION
+            删除：从表记录不存在时，主表才可以删除。删除从表，主表不变。
+            更新：从表记录不存在时，主表才可以更新。更新从表，主表不变。
+        CASCADE
+            删除：删除主表时自动删除从表。删除从表，主表不变。
+            更新：更新主表时自动更新从表。更新从表，主表不变。
+        SET NULL
+            删除：删除主表时自动更新从表值为NULL。删除从表，主表不变。
+            更新：更新主表时自动更新从表值为NULL。更新从表，主表不变。

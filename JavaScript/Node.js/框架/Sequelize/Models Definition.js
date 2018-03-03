@@ -68,7 +68,7 @@ Model相当于数据库中的表，该对象不能通过构造函数实例化，
             'deletedAt': 'dtime',
             'paranoid': true,
             // 不使用驼峰式命令规则，这样会在使用下划线分隔
-            // 这样 updatedAt 的字段名会是 updated_at
+            // 这样 updatedAt 的字段名会是 updated_at, 外键也会user_id
             underscored: true,
         }
     );
@@ -84,7 +84,7 @@ Model相当于数据库中的表，该对象不能通过构造函数实例化，
 
 2. Promise
     Sequelize基于Promise实现异步流程控制，但其使用的并不是ECMAScript 6中规定的标准Promise对象，而是使用bluebird，这个模块是对原生Promise的一个扩展。
-    user = User.findOne();  // user 是一个promise对象
+    user = User.findOne();  // user 是一个promise对象， 这是不能得到结果的
 3. Data types
 
     // 枚举
