@@ -20,6 +20,7 @@ Model相当于数据库中的表，该对象不能通过构造函数实例化，
                 })
     3) 查询返回结果 result.dataValues.id =1
         findCreateFind().spread((user, created) =>{})   此方法没用事务，速度比findOrCreate快
+            注： 如果查询是用id, 生成新的ID值会用查询的数值!
   
 1. demo
     let DeviceInterface = Sequelize.define(
