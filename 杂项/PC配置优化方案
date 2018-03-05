@@ -1,0 +1,36 @@
+
+1. PC桌面主机
+    业务系统：
+        webstorm
+        微信开发者工具
+        vscode
+        git
+        WinScp
+        SQLyog
+        chrome
+        postman
+        node 8.9
+        python 2.7  (node 有模块安装时要用py2.7)
+    通用系统：
+        Notepad++
+        Vmware      可以用windows10自带的hyper-v ？？
+        TeamViewer
+        Xmind
+    windows10:
+        WSL:    ubuntu 16.0.4
+        Ext2    兼容性有问题，可能会使笔记本休眠出问题
+2. WSL ubuntu 16.0.4
+    业务系统：
+        mysql   5.7     通过端口可以在windows下用
+        redis   4.0.8   通过端口可以在windows下用
+        php     7.2
+        nginx   1.12    通过端口可以在windows下用
+3. Vmware
+    银行，税务 单独虚拟机
+    开发可以来一套， 便于小组开发时 快速配置
+    CentOS7 64 开发服务器平台 
+        git     1.8
+        node    8.9.4
+        
+        
+
