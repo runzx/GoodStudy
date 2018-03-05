@@ -1,0 +1,45 @@
+2017-11-29-raspbian-stretch-lite
+
+非桌面lite版本
+    安装在SD卡上的更简单的方法是使用Etcher。
+        https://etcher.io/
+    无需键盘或网络访问即可设置Wi-Fi：
+        在Etcher完成将Raspbian Stretch图像闪存到SD卡后，请执行以下操作：
+            连接SD卡。在SD卡的根目录下创建一个名为：wpa_supplicant.conf的新文件
+            在这个文件中你应该添加如下内容：
+                country = US 
+                ctrl_interface = DIR = /var/run/wpa_supplicant GROUP = netdev update_config = 1
+                network={
+                    ssid="YourNetworkSSID"
+                    psk="Your Network's Passphrase"
+                    key_mgmt=WPA-PSK
+                }
+            国家应该是你的国家代码。如果你在美国以外，则更改
+            ssid是Wi-Fi网络的名称。
+            psk是Wi-Fi网络的密码
+            key_mgmt通常是WPA-PSK，可以有其他值，如WPA-EAP，但在大多数情况下，您应该可以使用WPA-PSK。
+    设置SSH访问：
+        SD卡的根目录中创建一个空文件: ssh
+        ssh pi@192.168.0.143        // password : raspberry
+
+    例：
+    country=GB
+    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+    update_config=1
+
+    指定树莓派IP地址：
+        sd卡根目录文件 cmdline.txt ，在最前端加上IP设置：
+            ip=192.168.1.10
+    设置静态IP：
+        /etc/hdcpcd.conf        // 网线改 eth0
+            interface wlan0
+            static ip_address=192.168.1.7/24
+            static routers=192.168.1.3
+            static domain_name_servers=192.168.175.2
+    配置区域设置:
+        sudo raspi-config
+            en_US.UTF-8”语言环境
+            sudo nano /etc/default/locale
+                LANG=en_US.UTF-8
+                LC_ALL=en_US.UTF-8
+                LANGUAGE=en_US.UTF-8
