@@ -5,7 +5,11 @@ server.cache(options)               //应用层 Policy
         expiresIn       - 毫秒 表示的相对过期时间。
             不能与expiresAt一起使用。
         expiresAt       - 使用“HH:MM”格式以24小时表示法表示的一天中的所有缓存记录到期。使用当地时间。不能与expiresIn一起使用。
-        generateFunc    - 函数，用于在调用时在高速缓存中找不到缓存项目get()。方法的签名是function(id, next)： - 提供给方法id的id字符串或对象get()。- next当新项目与签名一起返回时调用的方法 function(err, value, ttl)，其中： - err错误条件。- value生成的新值。- ttl以毫秒为单位的缓存ttl值。设置为0跳过缓存中的存储。默认为缓存全局策略。
+        generateFunc    - 函数，用于在调用时在高速缓存中找不到缓存项目get()。方法的签名是
+                            function(id, next)： - 提供给方法id的id字符串或对象get()。
+                                - next当新项目与签名一起返回时调用的方法 
+                                    function(err, value, ttl)，其中： 
+                                        - err错误条件。- value生成的新值。- ttl以毫秒为单位的缓存ttl值。设置为0跳过缓存中的存储。默认为缓存全局策略。
         staleIn         - 将缓存中的项目标记为陈旧的毫秒数，并在generateFunc提供时尝试重新生成。必须小于expiresIn。
         staleTimeout    - 等待刷新查询结果的时间，超过此时间后从陈旧缓存里读取(毫秒)。
         generateTimeout - 当generateFunc函数花费太长时间返回一个值时，在返回超时错误之前要等待的毫秒数 。当最终返回值时，它将被存储在缓存中以备将来的请求。如果generateFunc存在，则需要。设置为false禁用可能导致所有get()请求永久停止的超时。
@@ -113,3 +117,4 @@ server.cache(options)               //应用层 Policy
 
         /home/zx/tmp/cache/zhaix/3d/7e/3d7e74d8fea4f4e72e5e770e36d64c82.json
             {"key":{"id":"abcedif","segment":"zhaix"},"ttl":1000000,"item":"123456","stored":1518411038847,"expires":"2018-02-12T05:07:18.847Z"}
+

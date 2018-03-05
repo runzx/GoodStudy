@@ -2,3 +2,14 @@
 nginx默认request的header的那么中包含’_’时，会自动忽略掉。 
     解决方法是：在nginx里的nginx.conf配置文件中的http部分中添加如下配置： 
         underscores_in_headers on;  #（默认 underscores_in_headers 为off）
+
+在node hapi request.headers 
+    所有参数名 都变成小写 ！ bisId 传到后成了 bisid 
+
+在nginx中支持任意的请求头域。在上面的例子中，
+    变量名的最后一部分是将字符名转换为小写，用下划线代替破折号。  http://nginx.org/en/docs/http/ngx_http_core_module.html#var_http_
+        Content-Type: application/json; charset=UTF-8
+        My-custom-header: 1
+    nginx 里生成对应变量为：
+        $http_
+        $http_my_custom_header
