@@ -1,0 +1,17 @@
+
+
+1. 网络
+    查看网络状态 
+        netstat 的常用参数: - t、- u、- w和- x分别表示TCP、UDP、RAW和UNIX套接字连接。-a标记，还会显示出等待连接（也就是说处于监听模式）的套接字。-l 显示正在被监听(listen)的端口, -n表示直接显示端口数字而不是通过察看/etc/service来转换为端口名,-p选项表示列出监听的程序
+            netstat -na|grep 8080	//查看监听8080端口运行否
+        ip add
+
+2. 文件权限
+    chmod 777 -R dir-file
+    chown -R user1 directory1 
+
+    tar -cvf archive.tar file1 创建一个非压缩的 tarball
+    tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包
+
+    find / -name file1 从 '/' 开始进入根文件系统搜索文件和目录
+    
