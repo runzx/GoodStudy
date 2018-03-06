@@ -1,0 +1,32 @@
+dataset
+    在组件中可以定义数据，这些数据将会通过事件传递给 SERVICE。 书写方式： 
+        以data-开头，多个单词由连字符-链接，
+            不能有大写(大写会自动转成小写)
+            如data-element-type，最终在 
+            event.currentTarget.dataset 中会将连字符转成驼峰elementType。
+
+bind事件绑定不会阻止冒泡事件向上冒泡，catch事件绑定可以阻止冒泡事件向上冒泡。
+    如在下边这个例子中，点击 inner view 会先后调用handleTap3和handleTap2(
+            因为tap事件会冒泡到 middle view，
+            而 middle view 阻止了 tap 事件冒泡，不再向父节点传递)，点击 middle view 会触发handleTap2，点击 outer view 会触发handleTap1。
+        <view id="outer" bindtap="handleTap1">
+            outer view
+            <view id="middle" catchtap="handleTap2">
+                middle view
+                <view id="inner" bindtap="handleTap3">
+                    inner view
+                </view>
+            </view>
+        </view>
+    事件的捕获阶段
+        自基础库版本 1.5.0 起，触摸类事件支持捕获阶段。
+            捕获阶段位于冒泡阶段之前，且在捕获阶段中，事件到达节点的顺序与冒泡阶段恰好相反。
+            需要在捕获阶段监听事件时，可以采用capture-bind、capture-catch关键字，后者将中断捕获阶段和取消冒泡阶段。
+        在下面的代码中，点击 inner view 会先后调用handleTap2、handleTap4、handleTap3、handleTap1。
+            <view id="outer" bind:touchstart="handleTap1" capture-bind:touchstart="handleTap2">
+                outer view
+                <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
+                    inner view
+                </view>
+            </view>
+        如果将上面代码中的第一个capture-bind改为capture-catch，将只触发handleTap2。
