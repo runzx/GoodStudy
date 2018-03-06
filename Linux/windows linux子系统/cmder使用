@@ -1,0 +1,30 @@
+
+全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；
+    比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。
+
+1. 安装
+
+    系统变量添加
+        变量名： CMDER_HOME 值： c:\cmder
+        path 加： %CMDER_HOME%
+        管理员权限CMD> Cmder.exe /REGISTER ALL   //就可以右键显现
+    settings -> StarTup -> Environment : 加：
+        set LANG=zh_CN.UTF8     // set LC_ALL=zh_CN.utf8
+    调节背景的透明度
+        编写前端代码时可以透过cmder直接看到浏览器页面的变化
+        Features -> Transparency
+2. cmder默认常用快捷键
+    ctrl `  激活窗口
+    shift + alt + 1/2   1 CMD  2 PowerShell 3 powershell (系统管理员权限)
+    alt+ Enter      全屏
+    ctrl + w        close tab 
+    ctrl + t        new tab
+    win + alt + p   Preferences 
+    Ctrl+1：快速切换到第1个页签 （n）
+
+    利用Tab         自动路径补全
+    Right click / ctrl + shift + v  粘贴
+    ctrl + r        历史搜索
+    shift + mouse   选择并拷贝文本
+3. aliases功能---自定义短命令代替不方便记忆的命令
+    打开安装目录config/user-aliases.cmd文件，直接修改之。注：看后缀我们知道，修改后的命令只能在cmd下有效
