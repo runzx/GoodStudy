@@ -48,6 +48,13 @@
             include: [{model : dbBase.Product, as: 'Goods'}]
         include: [dbBase.Product]   // 不用as 
 
+4.1 不要外键约束 
+    // constraints: false,
+    Comment.belongsTo(this.Image, {
+        foreignKey: 'commentable_id',
+        constraints: false,             // ！！
+        as: 'image'
+    });
 
 5. MySql 外键约束
     FOREIGN KEY REFERENCES
