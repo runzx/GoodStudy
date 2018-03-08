@@ -1,0 +1,41 @@
+
+没有约束的外键引用
+
+有时我们想添加一个外键引用，但不想添加任何约束或关系。
+        定义时:
+        Category.belongsTo(Product, 
+            {
+                foreignKey: 'category_id',
+                constraints: false,         // 加这行    
+                as: 'image'
+            }
+        );
+ 
+可以手动将参考属性添加到您的模式定义中，并标记它们之间的关系。 
+    但重建或同步后约束 又会生成
+    category_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Category, // Can be both a string representing the table name, or a reference to the model
+            key:   "id"
+        }
+    }
+
+修改默认：
+
+var sequelize = new Sequelize( 'test', 'root', '123456', 
+    { 
+        'dialect': 'mysql', 
+        'dialectOptions': { 
+            charset: "utf8mb4", 
+            collate: "utf8mb4_unicode_ci", 
+            supportBigNumbers: true, 
+            bigNumberStrings: true 
+            }, 
+        'host': 'localhost', 
+        'port': 3306, //需在此处配置，否则中文无法插入 
+        'define': { 
+            'underscored': true, 
+            'charset': 'utf8mb4' } 
+    } 
+);
