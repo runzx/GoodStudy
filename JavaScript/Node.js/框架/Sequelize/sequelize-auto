@@ -21,4 +21,4 @@ sequelize-auto从数据库表自动生成Sequelize模型(Model)
 
     sequelize-auto -h pi3 -d Zerg -u zhaixiang-db -x zx2962 
 
-    sequelize-auto -h pi3 -d test -u zhaixiang-db -x zx2962 -t bis
+    sequelize-auto -h pi3 -d test -u zhaixiang-db -x zx2962 -t user_address

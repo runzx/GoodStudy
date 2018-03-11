@@ -90,3 +90,13 @@ server.start((err) => {
     }
     console.log('Server started at: ' + server.info.uri);
 })
+
+======================================
+无token 或 token 不对
+    {
+        "statusCode":401,
+        "error":"Unauthorized",
+        "message":"Bad token",
+        "attributes":
+            {"error":"Bad token"}
+    }
