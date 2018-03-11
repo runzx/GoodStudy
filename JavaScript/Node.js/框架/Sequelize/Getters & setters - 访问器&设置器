@@ -1,0 +1,26 @@
+Getters & setters - 访问器&设置器
+
+1. 做为一个属性定义
+    snap_items: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            get() {
+                // 'this' allows you to access attributes of the instance
+                return JSON.parse(this.getDataValue('snap_items'));
+            },
+    },
+2. 做为模型选项
+    {
+        tableName: 'order',
+        getterMethods: {
+            snap_address() {
+                return JSON.parse(this.getDataValue('snap_address'))    // 因为同名，所以不能用this.snap_address取原始值！！
+            }
+        },
+
+    }
+
+3. 访问
+    get() － 获取值（单个或全部）
+        instance.get([key], [options]) -> Object|any , plain=false设置为true时，返回简单对象
+        instance.getDataValue(key)  // 获取真实字段值
