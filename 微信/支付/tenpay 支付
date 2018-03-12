@@ -1,0 +1,79 @@
+https://github.com/befinal/node-tenpay
+
+1.
+    因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换
+        微信返回值XML做JSON转换之后的字段均为字符串类型, 请自行转换后再进行数据运算
+        字符串与数字运算结果问题 '1' + 0 = '10'
+        金额单位问题 微信支付中传入的金额单位为    分   !!
+        特殊情况: downloadBill 下载对帐单, 返回值为字符串文本
+        未出错时正常返回为JSON格式数据
+
+2. 实例化
+    const tenpay = require('tenpay');
+    const config = {
+        appid: '公众号ID',
+        mchid: '微信商户号',
+        partnerKey: '微信支付安全密钥',
+        pfx: require('fs').readFileSync('证书文件路径'),
+        notify_url: '支付回调网址',
+        spbill_create_ip: 'IP地址'
+    };
+    const api = new tenpay(config);
+
+3. 中间件・微信通知(支付结果/退款结果)
+    middleware参数: pay<支付结果通知, 默认> refund<退款结果通知>
+    需自行添加bodyParser接收post data
+    reply()会自动封装SUCCESS消息, reply('some error_msg')会自动封装FAIL消息
+    其只提供了express和koa ， hapi要自己写
+
+    https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
+        通知url必须为直接可访问的url，不能携带参数。示例：POST 
+            notify_url：“https://pay.weixin.qq.com/wxpay/pay.action”
+            字段名	        变量名	        必填	类型  	示例值	        描述
+            返回状态码   return_code	是	String(16)	SUCCESS	    SUCCESS/FAIL 此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
+            返回信息     return_msg	 否	 String(128)	签名失败	返回信息，如非空，为错误原因
+            以下字段在return_code为SUCCESS的时候有返回：
+                业务结果	result_code	是	String(16)	SUCCESS	SUCCESS/FAIL
+        
+        商户处理后同步返回给微信参数：
+            字段名	        变量名	    必填	类型	    示例值	    描述
+            返回状态码	return_code	是	String(16)	SUCCESS	    SUCCESS/FAIL (SUCCESS表示商户接收通知成功并校验成功)
+            返回信息	 return_msg	 否	 String(128)	OK	     返回信息，如非空，为错误原因：签名失败 / 参数格式校验错误
+            
+    Express框架获取参数主要有以下4种形式:
+        req.body        是配合Express中间件bodyParser()中间件提供的。这个对象默认为 {},req.body可以获取到post到body中的内容。
+        req.params      路由/user/:name, name属性会存放在req.params.name
+        req.param()     req.query、req.body、以及req.params获取参数的三种方式的封装。req.param(name)返回name参数的值。
+        req.query       解析过的请求参数对象
+        
+        post请求中的变量，使用req.body.xxx方法, 同hapi request.payload.xxx
+            
+        // Express中间件
+        middlewareForExpress(type = 'pay') {
+            return async (req, res, next) => {
+            res.reply = msg => {
+                res.header('Content-Type', 'application/xml; charset=utf-8');
+                res.send(replyData(msg));
+            }
+
+            try {
+                if (typeof req.body !== 'string') throw new Error('XMLDataError');
+                req.weixin = await this._parse(req.body, 'middleware_' + type);
+            } catch (err) {
+                return res.reply('XMLDataError');
+            }
+
+            next();
+            }
+        }
+        // const util = require('./util');
+        exports.buildXML = (obj, rootName = 'xml') => {
+            const opt = {rootName, allowSurrogateChars: true, cdata: true};
+            return new xml2js.Builder(opt).buildObject(obj);
+        }   
+        ------------------------------------- replyData(msg) msg 为空表示成功。 
+        const replyData = (msg) => {
+            util.buildXML(msg ? {return_code: 'FAIL', return_msg: msg} : {return_code: 'SUCCESS'});
+        }
+
+            
