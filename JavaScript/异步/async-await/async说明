@@ -61,10 +61,81 @@
             ...
         })
 
+    async函数永远返回一个Promise对象，所以它当然可以连缀.then方法。
+        .then() 会返回一个新的 Promise 实例，所以它可以链式调用
+        当前面的 Promise 状态改变时，.then() 会执行特定的状态响应函数，并将其结果，
+            调用自己的 Promise 的 resolve() 返回。
+    Promise.resolve()。它是 Promise 的静态方法，可以
+        返回一个状态为 fulfilled 的 Promise 实例
+        接受四种不同类型的参数，并且返回不同的值：
+            参数为空，返回一个 fulfilled 实例，响应函数的参数也为空
+            参数不为空、也不是 Promise 实例，返回 fulfilled 实例，只不过响应函数能得到这个参数
+            参数为 Promise 实例，直接原样返回
+            参数为 thenable 对象，立刻执行它的 .then()
+    而使用 Promise 的话，我们不需要关心它什么时候开始什么时候结束，
+        只需要在后面追加操作，即可。另外，Promise 是一个普通对象，
+        我们也可以像对待别的对象那样将它进行传递。这为它带来了独特的价值。
 
+4. async函数 定义
+    1）函数声明
+    2）函数表达式
+    3）对象的方法形式
+        let obj = { async foo() {} };
+        obj.foo().then(...)
+    4）Class的方法
+        class Storage {
+            constructor() {
+                this.cachePromise = caches.open('avatars');
+            }
 
+            async getAvatar(name) {
+                const cache = await this.cachePromise;
+                return cache.match(`/avatars/${name}.jpg`);
+            }
+        }
+    
+        const storage = new Storage();
+        storage.getAvatar('jake').then(…);
+    5）箭头函数
+        const foo = async () => {};
+5. 异常处理
+    Promises利用reject()来传递错误，
+        利用.then的第二个回调函数，
+        或利用.catch来捕获错误。
+            建议大家使用 .catch() 捕获 rejected 状态。
+    asyncFunc()
+        .then(
+            (res) => {
+                console.log('ok');
+            }, 
+            (err) {
+                console.log(err); // 出错了
+            }
+    );
 
-5. 翻译
+    asyncFunc()
+        .catch(function (err) {
+            console.log(err); // 出错了
+        }
+    );
+    await能够起到.then的作用，await如果等待到的是失败的结果，
+        就必须先处理这个结果，才能进入下一个流程。这一点很重要。
+    async function asyncFunc() {
+        await f('data1')
+            .catch(function (e) {
+                console.log(e); // data1 这里处理后，才能往下走，没有这，就挂接到asyncFunc().catch()
+            }
+        );
+        await f('data2');
+    };
+
+    asyncFunc().catch(function (e) {
+        console.log(e); // data2
+    });
+    async内部也可以有.then和.catch级联，外部也可以继续级联
+        优先考虑在内部写小流程，在外部写大流程。
+    已经有.then和.catch来负责错误分支，就根本没必要引入try {} catch(e) {}的写法，这种写法徒增代码复杂度。
+6. 翻译
     await           等待
     asynchronous    异步
 

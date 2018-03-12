@@ -1,0 +1,16 @@
+
+
+1. 属性设置 与 setter 冲突
+
+    attributes:['id','bis_id']
+    attributes: { exclude: ['prepay_id', 'snap_address'] }
+    
+    get() {
+                return JSON.parse(this.getDataValue('snap_address'));
+            }
+    如果没包含或排除 字段，就会让设置了相应字段的get() (Getters & setters - 访问器&设置器) 失效， 并报错：
+        stack: SyntaxError: Unexpected token u in JSON at position 0
+
+
+    当需要查询所有字段并对某一字段使用聚合查询时，而只需要以对象的形式传入attributes并添加include子属性即可。
+        attributes: { include: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']] }

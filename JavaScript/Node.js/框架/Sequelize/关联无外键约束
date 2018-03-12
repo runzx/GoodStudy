@@ -19,7 +19,7 @@
             model: Category, // Can be both a string representing the table name, or a reference to the model
             key:   "id"
         }
-    }
+    }·
 
 修改默认：
 
