@@ -1,0 +1,19 @@
+路由先决条件  Route prerequisites
+    路由pre选项允许定义这种预处理程序方法。这些方法按顺序调用。如果pre数组包含另一个数组，那么这些方法将被并行调用。
+    pre可以分配一个混合数组：
+        method      - 要调用的函数
+        assign      - 将函数结果分配给的键名称,reoly('value') 'value'--> assign : 'name'
+            request.pre.name 就是 'value'
+        failAction  - 确定如何处理该方法返回的错误。
+            'error'     - 将错误响应返回给客户端。这是默认值
+            'log'       - 记录错误但继续处理请求。
+            'ignore'    - 不采取特殊行动。如果assign使用，则会分配错误。
+        函数        -
+        strings     - 例 'user(params.id)' server.method()注册
+    在先决条件方法中，调用 reply()会将返回的值分配给提供的assign键。
+        如果返回的值是错误，则该failAction设置确定行为。
+        要强制返回值作为响应并跳过其他先决条件和处理程序，请使用该reply().takeover()方法。
+        如果返回的值是错误，则该failAction设置确定行为
+    request.pre
+        pre- 一个对象，其中每个键是由路径先决条件功能分配的名称 。这些值是作为参数提供给继续函数的原始值。
+        response - 设置时的响应对象。该对象可以被修改，但不能被分配另一个对象。要用扩展点内的另一个替换响应 ，请使用reply(response)其他响应覆盖。包含null未设置响应的时间（例如，当客户端断开连接时，请求过早终止）。

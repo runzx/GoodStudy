@@ -83,3 +83,12 @@ https://github.com/befinal/node-tenpay
                 .type('application/xml')
                 .charset('utf-8')
                 .header('X-Custom', 'some-value');
+
+4. 小程序 支付
+    api:
+        // 获取H5支付参数(自动下单) 获取微信JSSDK支付参数(自动下单, 兼容小程序)
+        async getPayParams(params){
+            params.trade_type = 'JSAPI';
+            let order = await this.unifiedOrder(params);    // 统一下单
+            return this.getPayParamsByPrepay(order);        // 生成加密参数
+        } 

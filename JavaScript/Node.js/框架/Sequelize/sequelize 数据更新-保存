@@ -1,0 +1,20 @@
+数据更新
+
+1. 模型上用的 静态
+    public static update(values: Object, options: Object): Promise<Array<affectedCount, affectedRows>>
+        Order.update(
+            {prepay_id :value},
+            {
+                where : {id : key},
+                fields :[],         // 默认全部
+                transaction ：t1    // t1 是定义 的 事务
+            }
+        ).then()
+
+2. 实例 上用的
+    public update(updates: Object, options: Object): Promise<this>
+        Instance[0].update(
+                        {prepay_id :value}
+                    ).then()
+        // Instance 通过 findAll()
+            结果是一数组，数组里包含所有字段， 还有dataValues{所有原始字段值},getDataValues()从这里面取值。
