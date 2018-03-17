@@ -1,0 +1,14 @@
+
+ES7只有2个特性:
+
+    includes()
+    指数操作符
+ES8尚未发布(2017年1月)，下面是它已经完成起草的一些特性：
+
+    Object.values()
+    Object.entries()
+    padStart()
+    padEnd()
+    Object.getOwnPropertyDescriptors()
+    函数参数列表结尾允许逗号
+    Async/Await

@@ -1,0 +1,22 @@
+
+1. 
+    parseFloat() 函数可解析一个字符串，并返回一个浮点数。
+        解析过程中遇到了正负号（+ 或 -）、数字 (0-9)、小数点，或者科学记数法中的指数（e 或 E）以外的字符，
+            则它会忽略该字符以及之后的所有字符，返回当前已经解析到的浮点数。
+            同时参数字符串首位的空白符会被忽略。
+        document.write(parseFloat("10")) 
+        document.write(parseFloat("10.00")) 
+        document.write(parseFloat("10.33")) 
+        document.write(parseFloat("34 45 66")) 
+        document.write(parseFloat(" 60 ")) 
+        document.write(parseFloat("40 years"))
+        document.write(parseFloat("He was 40"))
+
+        输出：
+        10
+        10
+        10.33
+        34
+        60
+        40
+        NaN

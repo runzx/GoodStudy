@@ -1,0 +1,4 @@
+
+同步、异步的异常，await 都不会自动捕获，但好处是可以自动中断函数
+    可以在其上层async fn().catch((err)=>{}) 捕捉到， zx 试过OK，读MYSQL网络中断
+    但是 setTimeout()里的 就没有办法捕捉。

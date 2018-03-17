@@ -1,0 +1,121 @@
+
+串行操作：
+    ...
+    let a1 = await fn1();
+    let a2 = await fn2();
+    ...
+ 并行操作：
+    1）
+        ...
+        let a1 =  fn1();
+        let a2 =  fn2();
+        let b1 = await a1;
+        let b2 = await a2;
+        ...
+    2) 
+        let [a1, a2] = await Promise.all([
+            fn1(),
+            fn2()
+        ]);
+        ...
+        console.log(a1);
+async 在全局下使用为非法，得改成：
+    (async () => {
+
+    })();
+    相当于立即执行。
+
+js 事件循环分为 macrotask 和 microtask。分别称为task与jobs.
+    resolve 表明通过的决议，reject 表明拒绝的决议，如果决议通过，
+        then 函数的第一个回调会立即插入 microtask 队列，异步立即执行。
+    microtask 会被插入到每一个 macrotask 的尾部，所以 microtask 总会优先执行，哪怕 macrotask 因为 js 进程繁忙被 hung 住。
+        setTimeout setInterval 会插入到 macrotask 中
+        未捕获的 reject 会传到末尾，通过 catch 接住
+    永远不要在 macrotask 队列中抛出异常，因为 macrotask 队列脱离了运行上下文环境，
+        异常无法被当前作用域捕获。
+        function fetch(callback) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    throw Error('用户不存在')
+                })
+            })
+        }
+        fetch().then(result => {
+            console.log('请求处理', result) // 永远不会执行
+        }).catch(error => {
+            console.log('请求处理异常', error) // 永远不会执行
+        })
+        // 程序崩溃
+        // Uncaught Error: 用户不存在
+        由于不在同一个调用栈，虽然这个异常无法被捕获，但也不会影响当前调用栈的执行。
+        
+    microtask 中抛出的异常可以被捕获，说明 microtask 队列并没有离开当前作用域
+        Promise.resolve(true).then((resolve, reject)=> {
+            throw Error('microtask 中的异常')
+        }).catch(error => {
+            console.log('捕获异常', error) // 捕获异常 Error: microtask 中的异常
+        })
+
+    只要注意在 macrotask 级别回调中使用 reject，就没有抓不住的异常。
+        一定要在 macrotask 抛出异常的话，请改为 reject 的方式。
+        function thirdFunction() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject('收敛一些')
+                })
+            })
+        }
+        Promise.resolve(true).then((resolve, reject) => {
+            return thirdFunction()
+        }).catch(error => {
+            console.log('捕获异常', error) // 捕获异常 收敛一些
+        })
+        // 如果 return thirdFunction() 这行缺少了 return 的话，依然无法抓住这个错误，这是因为
+            没有将对方返回的 Promise 传递下去，错误也不会继续传递。
+    
+    microtasks:
+        process.nextTick
+        promise
+        Object.observe
+        MutationObserver
+    macrotasks:
+        setTimeout
+        setInterval
+        setImmediate
+        I/O
+        UI渲染
+    而整个 script 也是属于一个 macrotask
+        JavaScript引擎首先从macrotask queue中取出第一个任务，
+            执行完毕后，将microtask queue中的所有任务取出，按顺序全部执行；
+        然后再从macrotask queue中取下一个，
+            执行完毕后，再次将microtask queue中的全部取出；
+        循环往复，直到两个queue中的任务都取完。
+    而promise中的then方法的函数会被推入到microtasks队列中，而setTimeout函数会被推入到macrotasks
+        任务队列中，在每一次事件循环中，macrotask只会提取一个执行，
+        而microtask会一直提取，直到microsoft队列为空为止。
+
+Node.js 环境 当Node.js启动时会初始化event loop，下图是一个简化版的事件循环执行顺序，大体分为六个阶段。
+       ┌───────────────────────┐
+    ┌─>│        timers         │
+    │  └──────────┬────────────┘
+    │  ┌──────────┴────────────┐
+    │  │     I/O callbacks     │
+    │  └──────────┬────────────┘
+    │  ┌──────────┴────────────┐
+    │  │     idle, prepare     │
+    │  └──────────┬────────────┘      ┌───────────────┐
+    │  ┌──────────┴────────────┐      │   incoming:   │
+    │  │         poll          │<─────┤  connections, │
+    │  └──────────┬────────────┘      │   data, etc.  │
+    │  ┌──────────┴────────────┐      └───────────────┘
+    │  │        check          │
+    │  └──────────┬────────────┘
+    │  ┌──────────┴────────────┐
+    └──┤    close callbacks    │
+       └───────────────────────┘
+    timers 阶段:        这个阶段执行setTimeout和setInterval的回调.
+    I/O callbacks 阶段: 执行除了被close或者由定时器，setImmediate所产生的回调外的所有回调.
+    idle, prepare 阶段: 内部使用.
+    poll 阶段:          检索新的IO事件，node有时会阻塞这里.
+    check 阶段:         调用setImmediate的回调.
+    close callbacks 阶段: 一些关闭回调的操作，例如，socket.on('close', ...).

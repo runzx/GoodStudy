@@ -1,0 +1,10 @@
+URL编码
+
+1. encodeURI()
+    对整个URL进行编码，因此除了常见的符号以外，对其他一些在网址中有特殊含义的符号“; / ? : @ & = + $ , #”，不编码。编码后，它输出符号的
+        utf-8形式，并且在每个字节前加上%
+        解码函数是decodeURI()
+    encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()'
+        encodeURIComponent会把 http://  编码成  http%3A%2F%2F 而encodeURI却不会。
+
+
