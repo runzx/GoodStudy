@@ -1,0 +1,24 @@
+
+1. 代码片段
+    Javascript (ES6) Code Snippets，常用的类声明、ES 模块声明、CMD 模块导入等，支持的缩写不下 20 种；
+        https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets
+
+2. 图标
+    VSCode Great Icons
+        https://marketplace.visualstudio.com/items?itemName=emmanuelbeziat.vscode-great-icons
+
+3. 配置
+    {
+        "editor.cursorStyle": "block",
+        "editor.fontFamily": "Fira Code",
+        "editor.fontLigatures": true,
+        "editor.fontSize": 16,
+        "editor.lineHeight": 24,
+        "editor.lineNumbers": "on",
+        "editor.minimap.enabled": false,
+        "editor.renderIndentGuides": false,
+        "editor.rulers": [120],
+        "workbench.colorTheme": "Solarized Dark",
+        "workbench.iconTheme": "vscode-great-icons"
+    }
+
