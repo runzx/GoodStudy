@@ -1,0 +1,10 @@
+
+获取access_token
+    access_token是公众号的全局唯一接口调用凭据
+    access_token的有效期目前为2个小时，需定时刷新
+    在刷新过程中，中控服务器可对外继续输出的老access_token，此时公众平台后台会保证在5分钟内，新老access_token都可用
+
+    https请求方式: GET
+        https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
+    返回例：    {"access_token":"ACCESS_TOKEN","expires_in":7200}
+                {"errcode":40013,"errmsg":"invalid appid"}
