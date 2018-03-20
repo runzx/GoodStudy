@@ -1,0 +1,35 @@
+
+
+1.  页面链接。
+    <navigator url="/page/navigate/navigate?title=navigate" hover-class="navigator-hover">跳转到新页面</navigator>
+
+2. 页面路由
+    路由方式	触发时机	                路由前页面	    路由后页面
+    -------------------------------------------------------------------
+    打开新页面   API wx.navigateTo 	        onHide	    onLoad, onShow
+                <navigator open-type="navigateTo"/>
+    页面重定向	 API wx.redirectTo          onUnload	    onLoad, onShow
+                <navigator open-type="redirectTo"/>	
+    Tab 切换	API wx.switchTab
+                <navigator open-type="switchTab"/>
+                用户切换 Tab	
+    页面返回     API wx.navigateBack        onUnload	onShow
+                <navigator open-type="navigateBack">
+                用户按左上角返回按钮
+    重启动      API wx.reLaunch             onUnload	onLoad, onShow
+                <navigator open-type="reLaunch"/>		
+
+3. 
+    navigateTo, redirectTo 只能打开非 tabBar 页面。
+    switchTab 只能打开 tabBar 页面。
+    调用页面路由带的参数可以在目标页面的onLoad中获取。
+
+4. Tab 切换对应的生命周期（以 A、B 页面为 Tabbar 页面，
+    C 是从 A 页面打开的页面，
+    D 页面是从 C 页面打开的页面为例）：
+        当前页面	路由后页面	触发的生命周期（按顺序）
+        C	            A	    C.onUnload(), A.onShow()
+        C	            B	    C.onUnload(), B.onLoad(), B.onShow()
+        D	            B	    D.onUnload(), C.onUnload(), B.onLoad(), B.onShow()
+        D（从转发进入）	 A	     D.onUnload(), A.onLoad(), A.onShow()
+        D（从转发进入）	 B	     D.onUnload(), B.onLoad(), B.onShow()

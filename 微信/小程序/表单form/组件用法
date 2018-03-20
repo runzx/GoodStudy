@@ -1,0 +1,28 @@
+
+1. form
+    将组件内的用户输入的<switch/> <input/> <checkbox/> <slider/> <radio/> <picker/> 提交。
+        当点击 <form/> 表单中 formType 为 submit 的 <button/> 组件时，
+            会将表单组件中的 value 值进行提交，
+            需要在表单组件中加上 name 来作为 key。
+        属性名	        类型	        说明
+        report-submit	Boolean	    是否返回 formId 用于发送模板消息	
+        bindsubmit      EventHandle	携带 form 中的数据触发 submit 事件，
+            event.detail = {value : {'name': 'value'} , formId: ''}	
+        bindreset	    EventHandle	表单重置时会触发 reset 事件
+
+2. picker
+    从底部弹起的滚动选择器，现支持五种选择器，通过mode来区分，分别是
+        普通选择器，多列选择器，时间选择器，日期选择器，省市区选择器，
+        默认是普通选择器。mode = selector
+        多列选择器：mode = multiSelector
+        时间选择器：mode = time
+        日期选择器：mode = date
+        省市区选择器：mode = region (1.4)
+    <view class="section">
+        <view class="section__title">普通选择器</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <view class="picker">
+                当前选择：{{array[index]}}
+            </view>
+        </picker>
+    </view>
