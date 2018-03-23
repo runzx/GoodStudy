@@ -20,9 +20,9 @@
         省市区选择器：mode = region (1.4)
     <view class="section">
         <view class="section__title">普通选择器</view>
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" name="category">
             <view class="picker">
                 当前选择：{{array[index]}}
             </view>
         </picker>
-    </view>
+    </view>         // 要加name ,才能把值提交给form

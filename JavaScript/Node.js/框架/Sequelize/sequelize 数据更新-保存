@@ -10,6 +10,8 @@
                 transaction ：t1    // t1 是定义 的 事务
             }
         ).then()
+    如果有非字段属性在values,忽视。
+    返回数组，[0]是修改的记录数，如果是0表示没更新！
 
 2. 实例 上用的
     public update(updates: Object, options: Object): Promise<this>
