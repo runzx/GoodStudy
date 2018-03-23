@@ -1,0 +1,28 @@
+
+1. 冒泡事件
+    touchstart	手指触摸动作开始	
+    touchmove	手指触摸后移动	
+    touchcancel	手指触摸动作被打断，如来电提醒，弹窗	
+    touchend	手指触摸动作结束	
+    tap	        手指触摸后马上离开	
+    longpress	手指触摸后，超过350ms再离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发	1.5.0
+    longtap	    手指触摸后，超过350ms再离开（推荐使用longpress事件代替）	
+    transitionend	    会在 WXSS transition 或 wx.createAnimation 动画结束后触发	
+    animationstart	    会在一个 WXSS animation 动画开始时触发	
+    animationiteration	会在一个 WXSS animation 一次迭代结束时触发	
+    animationend	    会在一个 WXSS animation 动画完成时触发	
+    touchforcechange	在支持 3D Touch 的 iPhone 设备，重按时会触发
+
+2. 除上表之外的其他组件自定义事件如无特殊声明都是非冒泡事件，
+    如<form/>的submit事件，<input/>的input事件，
+    <scroll-view/>的scroll事件，(详见各个组件)
+
+3. 事件绑定和冒泡
+    key 以bind或catch开头，然后跟上事件的类型，如bindtap、catchtouchstart。自基础库版本 1.5.0 起，bind和catch后可以紧跟一个冒号，其含义不变，如bind:tap、、catch:touchstart。
+    value 是一个字符串，需要在对应的 Page 中定义同名的函数。不然当触发事件的时候会报错。
+    bind事件绑定    不阻止冒泡事件向上冒泡，
+    catch事件绑定   阻止冒泡事件向上冒泡。
+
+4. 数据传递
+    detail
+        自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入，媒体的错误事件会携带错误信息
