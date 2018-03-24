@@ -1,0 +1,13 @@
+微信小程序中使用ES7特性async/await
+
+1. 经过Babel转译后的代码，会把aysnc/await的功能通过类似co库的方式来实现，即要使用到generator
+    Facebook开源的regenerator库
+
+2. 安装
+    npm install regenerator
+    把 regenerator-runtime/拷贝到小程序目录下 utils/
+        (也可以只把regenerator-runtime.js的文件拿出来)
+    import regeneratorRuntime from '../../utils/regenerator-runtime/runtime-module.js';
+
+3. 问题
+    这样安装的，在调试跟踪时会对不上代码行。
