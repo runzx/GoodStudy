@@ -12,7 +12,7 @@ ngx_http_limit_req_module模块（0.7.21）用于限制每一个定义的key的�
     server {
         ...
         location /search/ {
-            limit_req zone=one burst=5;
+            limit_req zone=one burst=5 nodelay;
     }
 
     $binary_remote_addr 
