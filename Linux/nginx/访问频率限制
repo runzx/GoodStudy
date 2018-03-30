@@ -29,3 +29,5 @@ ngx_http_limit_req_module模块（0.7.21）用于限制每一个定义的key的�
         #nodelay，如果不设置该选项，严格使用平均速率限制请求数，
         #第1秒25个请求时，5个请求放到第2秒执行，
         #设置nodelay，25个请求将在第1秒执行。
+
+    HttpLimitConnModul用来限制单个ip的并发连接数，使用limit_zone和limit_conn指令
