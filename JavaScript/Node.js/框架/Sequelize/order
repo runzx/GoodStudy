@@ -1,0 +1,41 @@
+
+
+Subtask.findAll({
+    //以其他函数命令（`col1`，12，'lalala'）DESC
+    [sequelize.fn（'otherfunction'，sequelize.col（'col1'），12，'lalala'），'DESC']，
+
+    //将使用模型名称作为关联的名称来命令关联模型的created_at。
+    [Task，'createdAt'，'DESC']，
+
+    //使用模型名称作为关联的名称，通过关联模型的created_at进行排序。
+     [Task, Project, 'createdAt', 'DESC'],
+
+    //将使用关联的名称通过关联模型的created_at进行排序。
+    ['Task'，'createdAt'，'DESC']，
+
+    //使用关联的名称，通过嵌套关联模型的created_at进行排序。
+    ['Task'，'Project'，'createdAt'，'DESC']，
+
+    //将使用关联对象通过关联模型的created_at进行排序。 （优选方法）
+    [Subtask.associations.Task，'createdAt'，'DESC']，
+
+    //将使用关联对象通过嵌套关联模型的created_at进行排序。 （优选方法）
+    [Subtask.associations.Task，Task.associations.Project，'createdAt'，'DESC']，
+
+    //通过关联模型的created_at使用简单的关联对象进行排序。
+    [{model：Task，如'Task'}，'createdAt'，'DESC']，
+
+    //将通过嵌套关联模型的created_at简单关联对象进行排序。
+    [{model：Task，as'Task'}，{model：Project，'：'Project'}，'createdAt'，'DESC']]
+
+      //按最大年龄降序排列
+      order：sequelize.literal（'max（age）DESC'）
+
+      //按照最大年龄升序排序，假定升序是省略方向时的默认顺序
+      order：sequelize.fn（'max'，sequelize.col（'age'））
+
+      //按照年龄升序排列，假定升序是省略方向时的默认顺序
+      order：sequelize.col（'age'）
+
+      //根据方言随机排序（而不是fn（'RAND'）或fn（'RANDOM'））
+      order：sequelize.random（）

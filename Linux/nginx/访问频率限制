@@ -1,0 +1,31 @@
+http://nginx.org/en/docs/http/ngx_http_limit_req_module.html
+
+ngx_http_limit_req_module模块（0.7.21）用于限制每一个定义的key的请求的处理速率，特别是从一个单一的
+    IP地址的请求的处理速率。限制是使用“泄漏桶”(“leaky bucket”)方法完成的。
+    例：
+    http {
+        ## 对每一个IP的请求限制为1次每秒
+        limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+        ## 对一个server_name下的请求限制为10次每秒（这个数值有点低，一般会改大很多）
+	    limit_req_zone $server_name zone=perserver:10m rate=10r/s;
+        ...
+    server {
+        ...
+        location /search/ {
+            limit_req zone=one burst=5;
+    }
+
+    $binary_remote_addr 
+        variable’s size is always 4 bytes for IPv4 addresses or 16 bytes for IPv6 addresses. 
+        The stored state always occupies 64 bytes on 32-bit platforms and 128 bytes on 64-bit platforms. 
+        One megabyte zone can keep about 16 thousand 64-byte states or about 8 thousand 128-byte states.
+
+    频率 < 1r/s 要用分钟 30r/m
+    一旦并发连接超过指定数量，就会返回503错误。
+    #限制每ip每秒不超过20个请求，漏桶数burst为5
+        #brust的意思就是，如果第1秒、2,3,4秒请求为19个，
+        #第5秒的请求为25个是被允许的。
+        #但是如果你第1秒就25个请求，第2秒超过20的请求返回503错误。
+        #nodelay，如果不设置该选项，严格使用平均速率限制请求数，
+        #第1秒25个请求时，5个请求放到第2秒执行，
+        #设置nodelay，25个请求将在第1秒执行。
