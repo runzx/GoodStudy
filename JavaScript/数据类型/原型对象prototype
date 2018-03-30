@@ -1,0 +1,12 @@
+
+1. 原型对象的所有属性和方法，都能被实例对象共享
+    对于构造函数来说，生成实例的时候，该属性会自动成为实例对象的原型。
+    原型对象的属性不是实例对象自身的属性。只要修改原型对象，变动就立刻会体现在所有实例对象上。
+    实例对象可以视作从原型对象衍生出来的子对象
+    一层层地上溯，所有对象的原型最终都可以上溯到Object.prototype
+    这就是所有对象都有valueOf和toString方法的原因，因为这是从Object.prototype继承的。
+    prototype对象有一个constructor属性，默认指向prototype对象所在的构造函数。
+    instanceof运算符返回一个布尔值，表示对象是否为某个构造函数的实例。
+        v instanceof Vehicle
+        // 等同于
+        Vehicle.prototype.isPrototypeOf(v)
