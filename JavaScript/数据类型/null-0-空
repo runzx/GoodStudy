@@ -1,0 +1,21 @@
+
+false、0、''空字符串、null和undefined
+    false是布尔类型对象，
+    0是数字类型对象，
+    ''空字符串是字符串类型对象，
+    null是object对象，
+    undefined类型还是undefined。
+1. 假值
+    0、空字符串和false
+    ==  假值相等
+    算一个有效的对象，因此可以对其使用toString等类型相关的方法，
+        而空值则不行
+2. 空值
+    null和undefined， == 时相等
+    undefined表示无效对象，null表示空对象
+    变量如果声明了但是没有初始化，那么Javascript引擎会将此变量自动指向undefined对象。
+
+3. 共同点： 
+    假值和空值== 不相等！
+    假值和空值有一个共性，那就是在 作为if的条件分支时，均被视为false ；
+        应用"!"操作之后得到的均为true 

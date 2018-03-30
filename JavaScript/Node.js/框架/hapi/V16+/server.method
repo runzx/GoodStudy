@@ -1,0 +1,10 @@
+
+1. 定义
+    server.method(name, method, [options])
+
+2. 使用
+    server.methods[name].utils.users.get
+    当已定义cache时
+        server.methods[name].cache.
+            drop(arg1, arg2, ..., argn, callback) : 删除缓存
+            stats   -obj
