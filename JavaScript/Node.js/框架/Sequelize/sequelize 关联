@@ -68,3 +68,9 @@
         SET NULL
             删除：删除主表时自动更新从表值为NULL。删除从表，主表不变。
             更新：更新主表时自动更新从表值为NULL。更新从表，主表不变。
+
+6. 关联的操作
+    include: [
+                {model: this.dbBase.Product, as: 'goods', where : {from : 1}},
+    
+    order : [['listorder', 'DESC'],['goods', 'listorder', 'DESC']]  // goods 是关联的as名称

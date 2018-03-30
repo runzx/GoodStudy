@@ -1,0 +1,18 @@
+
+1. stage不同阶段的区别
+    es7不同阶段语法提案的转码规则模块（共有4个阶段），分别是stage-0，stage-1，stage-2，stage-3。
+
+    stage-0的功能范围最广大，包含stage-1, stage-2以及stage-3的所有功能，同时还另外支持如下两个功能插件：
+        transform-do-expressions            // 在 jsx写if/else表达式
+        transform-function-bind             // 提供过 :: 这个操作符来方便快速切换上下文this
+    stage-1除了包含stage-2和stage-3，还包含了下面4个插件：
+        transform-class-constructor-call
+        transform-class-properties
+        transform-decorators
+        transform-export-extensions
+    stage-2除了包含stage-3，还包含了下面2个插件：
+        syntax-trailing-function-commas     // 支持函数的最后一个参数后面允许加逗号
+        transform-object-reset-spread       // 支持解释扩展运算符
+    stage-3包含了下面2个插件：
+        transform-async-to-generator        // 支持es7中的async和await
+        transform-exponentiation-operator   // 支持 ** 操作符进行幂操作
