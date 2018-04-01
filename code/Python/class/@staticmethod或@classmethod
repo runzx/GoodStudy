@@ -1,0 +1,4 @@
+@staticmethod或@classmethod
+    可以不需要实例化，直接类名.方法名()来调用
+    @staticmethod不需要表示自身对象的self和自身类的cls参数，就跟使用函数一样。
+    @classmethod也不需要self参数，但第一个参数需要是表示自身类的cls参数。

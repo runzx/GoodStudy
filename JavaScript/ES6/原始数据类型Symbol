@@ -1,0 +1,27 @@
+原始数据类型Symbol
+    ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。它是 JavaScript 语言的第七种数据类型，前六种是：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。
+    Symbol 值通过Symbol函数生成。这就是说，对象的属性名现在可以有两种类型，
+        一种是原来就有的字符串，另一种就是新增的 Symbol 类型。
+        Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。
+        注意，Symbol函数的参数只是表示对当前 Symbol 值的描述，
+            因此相同参数的Symbol函数的返回值是不相等的。
+        Symbol 值不能与其他类型的值进行运算，会报错。
+        注意，Symbol 值作为对象属性名时，不能用点运算符。
+            在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。
+                let mySymbol = Symbol();
+                // 第一种写法
+                let a = {};
+                a[mySymbol] = 'Hello!';
+                // 第二种写法
+                let a = {
+                [mySymbol]: 'Hello!'
+                };
+                // 第三种写法
+                let a = {};
+                Object.defineProperty(a, mySymbol, { value: 'Hello!' });
+            Symbol 类型还可以用于定义一组常量，保证这组常量的值都是不相等的。
+                log.levels = {
+                DEBUG: Symbol('debug'),
+                INFO: Symbol('info'),
+                WARN: Symbol('warn')
+                };

@@ -1,0 +1,13 @@
+JavaScript集合类：Array、Map、Set
+
+在JavaScript中，所有变量实际上都是某种类型的对象
+    ES6标准引入了新的iterable类型，Array、Map和Set都属于iterable类型
+        具有iterable类型的集合可以通过新的for ... of循环来遍历。
+            for ... in循环由于历史遗留问题，它遍历的实际上是对象的属性名称
+                一个Array数组实际上也是一个对象，它的每个元素的索引被视为一个属性
+            for ... of循环则完全修复了这些问题，它只循环集合本身的元素：
+            更好的方式是直接使用iterable内置的forEach方法，它接收一个函数，每次迭代就自动回调该函数。
+                forEach()方法是ES5.1标准引入的
+        JavaScript的对象有个小问题，就是键必须是 字符串。但实际上Number或者其他数据类型作为键也是非常合理的。
+    Map：是一组键值对的结构，具有极快的查找速度。
+    Set：Set和Map类似，也是一组key的集合，但不存储value。key不能重复
