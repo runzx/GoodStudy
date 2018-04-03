@@ -100,3 +100,26 @@ server.start((err) => {
         "attributes":
             {"error":"Bad token"}
     }
+
+// ------------------------------------------------
+request.auth.credentials ={
+    scope : ['user', 'admin'],  // 这个参数将被用在server.route里
+    //...
+};
+
+server.route({
+    // ...
+    config: { 
+       auth: {
+            strategy : 'simple',    // strategies  如果是数组是这
+            scope : ['+user', '!admin', 'a', 'b']      // '+' required, '!' forbidden 表示不能有admin,必须是user,且 a和b要有一个成立
+                // 可以访问请求对象（query和params）上的属性，以便通过使用{}属性名称周围的字符来填充动态范围，
+                // 例如'user-{params.id}'。默认为false（没有范围要求）。
+       }
+
+       handler: function (request, reply) {
+       
+          return reply('success');
+       }
+    }
+});
