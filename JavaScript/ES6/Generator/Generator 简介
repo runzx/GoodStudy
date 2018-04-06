@@ -1,0 +1,28 @@
+Generator 函数的语法
+
+1. 定义
+    function* foo(x, y) { ··· }
+    执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
+    每次遇到yield，函数暂停执行，下一次再从该位置继续向后执行，而return语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）return语句，
+        但是可以执行多次（或者说多个）yield表达式。
+        函数foo是一个 Generator 函数，就变成只有调用next方法时，函数foo才会执行。
+    var g = foo();
+    g.next();
+        { value: 'xxx', done: false }   // done属性的值true，表示遍历已经结束。
+
+    yield表达式如果用在另一个表达式之中，必须放在圆括号里面。
+        console.log('Hello' + (yield 123)); // OK
+
+2. yield*表达式 (用来在一个 Generator 函数里面执行另一个 Generator 函数。)
+    在 Generator 函数内部，调用另一个 Generator 函数，默认情况下是没有效果的
+    如果yield表达式后面跟的是一个遍历器对象，需要在yield表达式后面加上星号，表明它返回的是一个遍历器对象。这被称为yield*表达式。
+        let delegatedIterator = (function* () {
+            yield 'Hello!';
+            yield 'Bye!';
+        }());
+
+        let delegatingIterator = (function* () {
+            yield 'Greetings!';
+            yield* delegatedIterator;
+            yield 'Ok, bye.';
+        }());

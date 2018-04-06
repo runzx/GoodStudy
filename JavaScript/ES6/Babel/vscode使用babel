@@ -1,0 +1,66 @@
+vscode 使用babel 调试
+
+1. 
+    package.json中增加build命令，使用babel转换es6代码。
+    "scripts": {
+        ......
+        "build": "babel src -d dist --source-maps",
+        "babelWatch":"babel src/**/*.js -d dist -w -s inline"   // 另一种方式 
+    }
+2. 创建一个npm task（vscode概念），用来执行npm run build
+    // vscode debug 基本配置
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "启动程序",
+                "program": "${workspaceFolder}/t5.js"
+            }
+        ]
+
+        "sourceMaps": true,         //sourcemap打开  v1.9+ 默认
+        "outFiles": [
+            "${workspaceRoot}\\dist\\index.js"
+        ],                          //源映射，指定实际执行文件
+        "preLaunchTask": "build"    //首先执行build task
+        
+    // 增加文件在根目录.vscode目录下，名字是tasks.json ：
+         Run Build Task (Ctrl+Shift+B)
+        
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "type": "npm",
+                "script": "test",
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            },
+            {
+                "label" : "build",      // v2.0 不用taskName
+                "type": "npm",
+                "script": "build",
+                "problemMatcher": []
+            }
+        ]
+        
+3. Launch.json属性
+    所有启动配置的一些可选属性：
+        type    - 用于此启动配置的调试器类型。每安装调试扩展引入一个类型，例如，node对于内置的节点调试器，或php与go对PHP和去扩展。
+        request - 此启动配置的请求类型。目前支持的是launch和attach。
+        name    - 出现在Debug启动配置下拉列表中的友好名称。
+        
+        preLaunchTask           - 要在调试会话开始前启动任务，请将此属性设置为tasks.json（位于工作区.vscode文件夹下）中指定的任务的名称。
+        postDebugTask           - 要在调试会话的最后启动任务，请将此属性设置为tasks.json（位于工作区.vscode文件夹下）中指定的任务的名称。
+        internalConsoleOptions  - 在调试会话期间控制调试控制台面板的可见性
+        debugServer             - 仅限调试扩展作者：连接到指定的端口，而不是启动调试适配器
+
+        program     - 启动调试器时运行的可执行文件或文件
+        args        - 传递给程序进行调试的参数
+        env         - 环境变量（该值null可用于“取消定义”变量）
+        cwd         - 用于查找依赖关系和其他文件的当前工作目录
+        port        - 连接到正在运行的进程时的端口
+        stopOnEntry - 节目启动时立即中断
+        console     -要使用什么样的主机，例如internalConsole，integratedTerminal，externalTerminal。

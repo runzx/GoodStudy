@@ -1,0 +1,15 @@
+作用域包（@babel/x）    // 域内包（scoped package）。
+
+更改的示例：
+    babel-cli - > @babel/cli
+    babel-core - > @babel/core
+    babel-preset-env - > @babel/preset-env
+
+Babel 6 做了大量模块化的工作，将原来集成一体的各种编译功能分离出去，独立成插件。这意味着，
+    默认情况下，当下版本的 babel 不会编译代码。
+
+.babelrc 文件，把各种命令行参数统一到其中。
+    例：{
+            "plugins": ["@babel/plugin-transform-arrow-functions"]
+        }
+    在命令行只要运行 npx babel babel.test.js 即可，babel 会自动读取 .babelrc 里的配置并应用到编译中：

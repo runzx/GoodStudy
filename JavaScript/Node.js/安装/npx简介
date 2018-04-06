@@ -1,0 +1,15 @@
+npx 用来执行 npm 二进制执行文件，可以更加方便。
+
+1. 
+    你想执行一个本地项目安装的二进制文件而不是全局安装的，你需要这样：
+        ./node_modules/.bin/jest
+        等价：
+        npx jest
+
+        npx babel sss.js // npx 执行一个命令会优先查看本地安装，没有的话会从仓库获取并执行。
+
+2. 切换 node 版本
+    npx -p node-bin@ node -v    // 可以指定某一次运行时node的版本
+        -p选项可以指定你要安装的包的运行的$PATH
+        node-bin只能用于 *nix 平台。这是Aria Stewart的杰作
+
