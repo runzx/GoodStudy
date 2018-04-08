@@ -73,6 +73,12 @@
         let {title:esTitle,test:[{title:cnTitle}]} = metaData
         console.log(esTitle,cnTitle)
     }
+    //给新的变量名赋值， 可以从一个对象中提取变量并赋值给和对象属性名不同的新的变量名。
+        var o = {p: 42, q: true};
+        var {p: foo, q: bar} = o;
+        
+        console.log(foo); // 42 
+        console.log(bar); // true
 
     
 
