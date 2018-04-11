@@ -6,6 +6,21 @@
         = 0
     '1' * 100
         = 100
+
+    parseInt()
+        var iNum1 = parseInt("12345red");	//返回 12345
+        var iNum1 = parseInt("0xA");	//返回 10
+        var iNum1 = parseInt("56.9");	//返回 56
+        var iNum1 = parseInt("red");	//返回 NaN
+        基模式，可以把二进制、八进制、十六进制或其他任何进制的字符串转换成整数。
+        var iNum1 = parseInt("AF", 16);	//返回 175
+    parseFloat()
+        var fNum1 = parseFloat("12345red");	//返回 12345
+        var fNum2 = parseFloat("0xA");	//返回 NaN
+        var fNum3 = parseFloat("11.2");	//返回 11.2
+        var fNum4 = parseFloat("11.22.33");	//返回 11.22
+        var fNum5 = parseFloat("0102");	//返回 102
+        var fNum1 = parseFloat("red");	//返回 NaN
 2. 
     5 + null
         = 5
@@ -15,3 +30,13 @@
 3. 布尔值
     false = 0 
     true = 其它值
+4. 数字 转 字符
+    var iNum1 = 10;
+    var iNum2 = 10.0;
+    alert(iNum1.toString());	//输出 "10"
+    alert(iNum2.toString());	//输出 "10"
+    基模式 ：
+    var iNum = 10;
+    alert(iNum.toString(2));	//输出 "1010"
+    alert(iNum.toString(8));	//输出 "12"
+    alert(iNum.toString(16));	//输出 "A"

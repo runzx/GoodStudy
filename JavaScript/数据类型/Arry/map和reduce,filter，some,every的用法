@@ -1,0 +1,41 @@
+map和reduce的用法
+
+1. map
+    对数组的每个元素调用定义的回调函数并返回相应位置值的新数组。
+    array1.map(callbackfn[, thisArg])
+        callbackfn  必选。  最多可以接受三个参数的函数。  对于数组中的每个元素，map 方法都会调用 callbackfn 函数一次。
+            value   数组元素的值。
+            index   数组元素的数字索引。
+            array1  包含该元素的数组对象。  
+        thisArg     可选。   callbackfn 函数中的 this 关键字可引用的对象。  如果省略 thisArg，则 undefined 将用作 this 值。  
+
+    例：把Array的所有数字转为字符串：
+        var arr = [1,2,3,4,5,6,7,8,9];
+        arr.map(String);// ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+    
+2. reduce
+    reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终为一个值
+    arr.reduce(callback[, initialValue]) 
+        callback（一个在数组中每一项上调用的函数，接受四个函数：）
+            previousValue（上一次调用回调函数时的返回值，或者初始值）
+            currentValue（当前正在处理的数组元素）
+            currentIndex（当前正在处理的数组元素下标）
+            array（调用reduce()方法的数组）
+        initialValue（可选的初始值。作为第一次调用回调函数时传给previousValue的值）
+
+3. filter
+    对数组中的每个元素都执行一次指定的函数（callback），并且创建一个新的数组，该数组元素是所有回调函数执行时返回值为 true 的原数组元素。它只对数组中的非空元素执行指定的函数，没有赋值或者已经删除的元素将被忽略，同时，新创建的数组也不会包含这些元素。
+    arr.filter(callback[, thisObject]);
+        如参数 thisObject 被传递进来，它将被当做回调函数（callback）内部的 this 对象，如果没有传递或者为null，那么将会使用全局对象。
+
+4. some():
+    对数组中的每个元素都执行一次指定的函数（callback），直到此函数返回 true，如果发现这个元素，some 将返回 true，如果回调函数对每个元素执行后都返回 false ，some 将返回 false。它只对数组中的非空元素执行指定的函数，没有赋值或者已经删除的元素将被忽略。
+    //检查是否有数组元素大于等于10：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false 
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true 
+5. every():
+    对数组中的每个元素都执行一次指定的函数（callback），直到此函数返回 false，如果发现这个元素，every 将返回 false，如果回调函数对每个元素执行后都返回 true ，every 将返回 true。它只对数组中的非空元素执行指定的函数，没有赋值或者已经删除的元素将被忽略
+    //测试是否所有数组元素都大于等于10：
+    //[12, 5, 8, 130, 44].every(isBigEnough) 返回 ： false 
+    //[12, 54, 18, 130, 44].every(isBigEnough) 返回 ： true 

@@ -1,0 +1,5 @@
+
+1. 允许为空
+    any.empty(schema)
+        Joi.string().empty('');
+            当传来的为''空时才能通过。

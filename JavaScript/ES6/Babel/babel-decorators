@@ -1,0 +1,19 @@
+1. 支持
+    babel v6+不支持， v7支持 Stage 0
+        Stage 0 - 稻草人: 只是一个想法，可能是 babel 插件。
+        Stage 1 - 提案: 初步尝试。
+        Stage 2 - 初稿: 完成初步规范。
+        Stage 3 - 候选: 完成规范和浏览器初步实现。
+        Stage 4 - 完成: 将被添加到下一年度发布。
+
+2. 安装
+    npm install babel-plugin-transform-decorators-legacy --save-dev
+
+    {
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+        "transform-decorators-legacy"
+    ]
+    }
+
+3. 
