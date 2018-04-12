@@ -1,0 +1,53 @@
+
+流不是什么特别的东西，它只是一个实现了一些方法的 EventEmitter。根据它实现的方法，流可以变成
+    可读流(Readable)，可写流(Writable)，或者双向流(Duplex，同时可读可写)。
+
+    request 是一个可读流，response 是一个可写流。
+    fs 模块，它能帮你处理可读可写流。
+
+1. 从流中读取数据
+    从流中读取数据最好的方式是监听 data 事件，添加一个回调函数。
+        var fs = require('fs');
+        var readableStream = fs.createReadStream('file.txt');
+        var data = '';
+        var readableStream.on('data', function(chunk) {
+            data += chunk;
+        });
+        readableStream.on('end', function() {
+            console.log(data);
+        });
+    例如 HTTP request 会在读取到几 KB 数据的时候触发 data 事件。 当你从一个文件中读取数据的时候，你可能会决定当一行被读完的时候就触发 data 事件。
+    当没有数据可读的时候 (读到文件尾部时)，流就会发送 end 事件。
+
+    还有另一种读取流的方式，你只要在读到文件尾部前不断调用流实例中的 read() 方法就可以了。
+        var fs = require('fs');
+        var readableStream = fs.createReadStream('file.txt');
+        var data = '';
+        var chunk;
+        readableStream.on('readable', function() {
+        while ((chunk = readableStream.read()) != null) {
+            data += chunk;
+        }
+        });
+        readableStream.on('end', function() {
+        console.log(data);
+        });
+        // read() 方法会从内部 buffer 中读取数据，当没有数据可读的时候，它会返回 null。
+2. 设置编码
+    默认情况下，你从流中读取到的是 Buffer 对象。
+    readableStream.setEncoding('utf8'); 数据就会被解析成 utf8，回调函数中的 chunk 就会是字符串了。
+
+3. 管道 (Piping)
+    var fs = require('fs');
+    var readableStream = fs.createReadStream('file1.txt');
+    var writableStream = fs.createWriteStream('file2.txt');
+    readableStream.pipe(writableStream);
+
+    需要注意的是，pipe() 会返回目的地的流，因此你可以很轻易让多个流链接起来！
+
+4. 链接 (Chaining)
+    var fs = require('fs');
+    var zlib = require('zlib');
+    fs.createReadStream('input.txt.gz')
+        .pipe(zlib.createGunzip())
+        .pipe(fs.createWriteStream('output.txt'));

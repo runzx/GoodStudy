@@ -9,3 +9,20 @@
 2. 新增对象
 	obj[key]=value;	//键值为变量Key的值。 例key='red' obj[key]='abc'  就是加一个 obj.red='abc';
 	
+3. 删除/添加
+	shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+		如果数组是空的，那么 shift() 方法将不进行任何操作，返回 undefined 值。请注意，该方法不创建新数组，
+			而是直接修改原有的 arrayObject。
+	splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。
+		arr.splice(index,howmany,item1,.....,itemX)
+			参数	描述
+			index	必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。
+			howmany	必需。要删除的项目数量。如果设置为 0，则不会删除项目。
+			item1, ..., itemX	可选。向数组添加的新项目。从 index 所指的下标处开始插入。
+
+4. 分割
+	split() 方法用于把一个字符串分割成字符串数组。
+		arr.split(separator,howmany)
+		参数		描述
+		separator	必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。
+		howmany		可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。
