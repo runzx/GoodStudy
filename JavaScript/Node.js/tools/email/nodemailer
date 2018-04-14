@@ -1,0 +1,121 @@
+
+8. 
+    from    - The email address of the sender. All email addresses can be plain ‘sender@server.com’ or formatted ’“Sender Name” sender@server.com‘, see Address object for details
+    to      - Comma separated list or an array of recipients email addresses that will appear on the To: field
+    cc      - Comma separated list or an array of recipients email addresses that will appear on the Cc: field
+    bcc     - Comma separated list or an array of recipients email addresses that will appear on the Bcc: field
+    subject - The subject of the email
+    text    - The plaintext version of the message as an Unicode string, Buffer, Stream or an attachment-like object ({path: ‘/var/data/…’})
+    html    - The HTML version of the message as an Unicode string, Buffer, Stream or an attachment-like object ({path: ‘http://…‘})
+    attachments - An array of attachment objects (see Using attachments for details). Attachments can be used for embedding images as well.
+
+    var message = {
+        from: 'sender@server.com',
+        to: 'receiver@sender.com',
+        subject: 'Message title',
+        text: 'Plaintext version of the message',
+        html: '<p>HTML version of the message</p>'
+    };
+
+9. let message = {
+        ...
+        attachments: [
+            {   // utf-8 string as an attachment
+                filename: 'text1.txt',
+                content: 'hello world!'
+            },
+            {   // binary buffer as an attachment
+                filename: 'text2.txt',
+                content: new Buffer('hello world!','utf-8')
+            },
+            {   // file on disk as an attachment
+                filename: 'text3.txt',
+                path: '/path/to/file.txt' // stream this file
+            },
+            {   // filename and content type is derived from path
+                path: '/path/to/file.txt'
+            },
+            {   // stream as an attachment
+                filename: 'text4.txt',
+                content: fs.createReadStream('file.txt')
+            },
+            {   // define custom content type for the attachment
+                filename: 'text.bin',
+                content: 'hello world!',
+                contentType: 'text/plain'
+            },
+            {   // use URL as an attachment
+                filename: 'license.txt',
+                path: 'https://raw.github.com/nodemailer/nodemailer/master/LICENSE'
+            },
+            {   // encoded string as an attachment
+                filename: 'text1.txt',
+                content: 'aGVsbG8gd29ybGQh',
+                encoding: 'base64'
+            },
+            {   // data uri as an attachment
+                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ='
+            },
+            {
+                // use pregenerated MIME node
+                raw: 'Content-Type: text/plain\r\n' +
+                    'Content-Disposition: attachment;\r\n' +
+                    '\r\n' +
+                    'Hello world!'
+            }
+        ]
+    }
+
+
+10. 直接支持列表：
+    "126"
+    "163"
+    "1und1"
+    "AOL"
+    "DebugMail"
+    "DynectEmail"
+    "FastMail"
+    "GandiMail"
+    "Gmail"
+    "Godaddy"
+    "GodaddyAsia"
+    "GodaddyEurope"
+    "hot.ee"
+    "Hotmail"
+    "iCloud"
+    "mail.ee"
+    "Mail.ru"
+    "Maildev"
+    "Mailgun"
+    "Mailjet"
+    "Mailosaur"
+    "Mandrill"
+    "Naver"
+    "OpenMailBox"
+    "Outlook365"
+    "Postmark"
+    "QQ"
+    "QQex"
+    "SendCloud"
+    "SendGrid"
+    "SendinBlue"
+    "SendPulse"
+    "SES"
+    "SES-US-EAST-1"
+    "SES-US-WEST-2"
+    "SES-EU-WEST-1"
+    "Sparkpost"
+    "Yahoo"
+    "Yandex"
+    "Zoho"
+    "qiye.aliyun"
+
+    let transporter = nodemailer.createTransport({
+        service: 'SendPulse', // no need to set host or port etc.
+        auth: {
+            user: 'account.email@example.com',
+            pass: 'smtp-password'
+        }
+    });
+
+    transporter.sendMail(...)
