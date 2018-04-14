@@ -1,0 +1,9 @@
+// 下面方式在小程序里不行，不会有数组生成。
+<input class="weui-input" name='location[{{index}}]' value='{{item}}' placeholder="请输入位置名称" />
+
+修改数组内容， 我采用下面流程
+1.  <block wx:for="{{location}}">
+2.       <input class="weui-input" bindinput="inputData" data-id="{{index}}" value='{{item}}' placeholder="请输入位置名称" />
+        在input里通过事件bindinput 只要有输入，就在事件里把变化setData();
+3.  <button class="weui-btn" type="primary" bindtap="save"  style="background-color:#34aaff">确定提交</button>
+    通过button提交，在事件save里把this.data.location 数据处理后updateBis()

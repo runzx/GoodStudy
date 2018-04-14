@@ -1,0 +1,154 @@
+
+流不是什么特别的东西，它只是一个实现了一些方法的 EventEmitter。根据它实现的方法，流可以变成
+    可读流(Readable)，可写流(Writable)，或者双向流(Duplex，同时可读可写)。
+
+    request 是一个可读流，response 是一个可写流。
+    fs 模块，它能帮你处理可读可写流。
+
+1. 从流中读取数据
+    从流中读取数据最好的方式是监听 data 事件，添加一个回调函数。
+        var fs = require('fs');
+        var readableStream = fs.createReadStream('file.txt');
+        var data = '';
+        var readableStream.on('data', function(chunk) {
+            data += chunk;
+        });
+        readableStream.on('end', function() {
+            console.log(data);
+        });
+    例如 HTTP request 会在读取到几 KB 数据的时候触发 data 事件。 当你从一个文件中读取数据的时候，你可能会决定当一行被读完的时候就触发 data 事件。
+    当没有数据可读的时候 (读到文件尾部时)，流就会发送 end 事件。
+
+    还有另一种读取流的方式，你只要在读到文件尾部前不断调用流实例中的 read() 方法就可以了。
+        var fs = require('fs');
+        var readableStream = fs.createReadStream('file.txt');
+        var data = '';
+        var chunk;
+        readableStream.on('readable', function() {
+        while ((chunk = readableStream.read()) != null) {
+            data += chunk;
+        }
+        });
+        readableStream.on('end', function() {
+        console.log(data);
+        });
+        // read() 方法会从内部 buffer 中读取数据，当没有数据可读的时候，它会返回 null。
+2. 设置编码
+    默认情况下，你从流中读取到的是 Buffer 对象。
+    readableStream.setEncoding('utf8'); 数据就会被解析成 utf8，回调函数中的 chunk 就会是字符串了。
+
+3. 管道 (Piping)
+    var fs = require('fs');
+    var readableStream = fs.createReadStream('file1.txt');
+    var writableStream = fs.createWriteStream('file2.txt');
+    readableStream.pipe(writableStream);
+
+    需要注意的是，pipe() 会返回目的地的流，因此你可以很轻易让多个流链接起来！
+
+4. 链接 (Chaining)
+    var fs = require('fs');
+    var zlib = require('zlib');
+    fs.createReadStream('input.txt.gz')
+        .pipe(zlib.createGunzip())
+        .pipe(fs.createWriteStream('output.txt'));
+
+5. 对照
+    Readable Streams    Writable Streams
+    Events
+        data                drain       事件，这是一个表示可写流可以接受更多数据的信号.
+        end                 finish      事件，当所有数据都被写入底层系统后会触发此事件。
+        error               error
+        close               close
+        readable            pipe/unpipe
+    Function
+        pipe(),unpipe           write      
+        read, unshift, resume   end
+        pause, isPaused         cork,uncork
+        setEncoding             setDefaultEncoding
+
+    当一个可读流处于暂停模式时，我们可以使用 read() 方法按需的读取数据。
+        而对于一个处于流动模式的可读流，数据会源源不断的流动，我们需要通过事件监听来处理数据。
+        在流动模式中，如果没有消费者监听事件那么数据就会丢失。
+        通过增加一个 data 事件回调就可以把处于暂停模式的流切换到流动模式；
+        同样的，移除 data 事件回调会把流切回到暂停模式。
+        要手动在这两个模式间切换，你可以使用 resume() 和 pause() 方法。
+        当使用 pipe 方法时，它会自动帮你处理好这些模式之间的切换，因此你无须关心这些细节。
+
+6. 用法
+    request('http://google.com/doodle.png').pipe(fs.createWriteStream('doodle.png'))
+    //---------------------------------------------------
+    // Node 内置了一些非常有用的变换流。这就是 zlib 和 crypto 流。
+    const fs = require('fs');
+    const zlib = require('zlib');
+    const file = process.argv[2];
+
+    fs.createReadStream(file)
+        .pipe(zlib.createGzip())
+        .on('data', () => process.stdout.write('.'))
+        .pipe(fs.createWriteStream(file + '.zz'))
+        .on('finish', () => console.log('Done'));   // 既然 pipe 方法会返回下游流，我们就可以把注册事件回调的操作级联在一起：
+    //---------------------------------------------------
+    const { Transform } = require('stream');
+
+    const reportProgress = new Transform({
+        transform(chunk, encoding, callback) {
+            process.stdout.write('.');
+            callback(null, chunk);              // transform() 方法中利用 callback() 的第二个参数传递数据的。它等价于使用 push 方法推送数据。
+        }
+    });
+
+    fs.createReadStream(file)
+        .pipe(zlib.createGzip())
+        .pipe(reportProgress)       // 创建一个变换流来显示进度，而不是直接监听 data 事件。把 .on() 调用换成另一个 .pipe() 调用：
+        .pipe(fs.createWriteStream(file + '.zz'))
+        .on('finish', () => console.log('Done'));
+//--------------------------------------
+    const crypto = require('crypto');
+    // ...
+    fs.createReadStream(file)       // 对给定的文件先压缩再加密
+        .pipe(zlib.createGzip())
+        .pipe(crypto.createCipher('aes192', 'a_secret'))
+        .pipe(reportProgress)
+        .pipe(fs.createWriteStream(file + '.zz'))
+        .on('finish', () => console.log('Done'));
+
+    fs.createReadStream(file)       // 真正的解压上面文件，要以相反的顺序利用 crypto 和 zlib
+        .pipe(crypto.createDecipher('aes192', 'a_secret'))
+        .pipe(zlib.createGunzip())
+        .pipe(reportProgress)
+        .pipe(fs.createWriteStream(file.slice(0, -3)))
+        .on('finish', () => console.log('Done'));
+    //----------------------------------------------------------------
+        // 传入 "a,b,c,d" 就变成了 {a: b, c: d}。
+    const { Transform } = require('stream');
+    const commaSplitter = new Transform({
+        readableObjectMode: true,               // 在该流上增加 readableObjectMode 标记是必须的，因为我们在给下游推送一个对象，而不是字符串。
+        transform(chunk, encoding, callback) {
+            this.push(chunk.toString().trim().split(','));
+            callback();
+        }
+    });
+    const arrayToObject = new Transform({
+        readableObjectMode: true,
+        writableObjectMode: true,               // 设置 writableObjectModel 以便让该流可以接收一个对象
+        transform(chunk, encoding, callback) {
+            const obj = {};
+            for(let i=0; i < chunk.length; i+=2) {
+                obj[chunk[i]] = chunk[i+1];
+            }
+            this.push(obj);
+            callback();
+        }
+    });
+    const objectToString = new Transform({
+        writableObjectMode: true,
+        transform(chunk, encoding, callback) {
+            this.push(JSON.stringify(chunk) + '\n');
+            callback();
+        }
+    });
+    process.stdin
+        .pipe(commaSplitter)
+        .pipe(arrayToObject)
+        .pipe(objectToString)
+        .pipe(process.stdout)

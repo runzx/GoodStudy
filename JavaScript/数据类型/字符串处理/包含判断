@@ -1,0 +1,9 @@
+
+1. 利用IndexOf判断字符串是否包含
+    var someText = 'javascript rules';
+    if (someText.indexOf('javascript') !== -1) {
+        // 包含
+    }
+
+2. ES6中引入了新的方法includes()
+   'something'.includes('thing');       // true
