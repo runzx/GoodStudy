@@ -1,0 +1,3 @@
+
+推荐一个随机 ID 生成模块 Nano ID。据作者说，比 uuid 更可靠和好用。至少从 API 的功能和易用性来看，似乎确实如此。
+    https://github.com/ai/nanoid
