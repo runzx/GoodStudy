@@ -1,0 +1,33 @@
+
+1. 在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+    class Foo {
+        static classMethod() {
+            return 'hello';
+        }
+    }
+
+    Foo.classMethod() // 'hello'
+    如果静态方法包含this关键字，这个this指的是类，而不是实例。
+    静态方法可以与非静态方法重名。
+    父类的静态方法，可以被子类继承。
+    静态方法也是可以从super对象上调用的。
+        static classMethod() {
+            return super.classMethod() + ', too';
+        }
+2. 类的表态属性
+    目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
+    class Foo {
+    }
+
+    Foo.prop = 1;
+    Foo.prop // 1
+    我在BaseDb
+    class BaseService{
+        constructor(){
+            this.dbBase = db;
+            this.Op = db.Sequelize.Op;
+        }
+    }
+    BaseService.dbBase = db;
+3. async 
+    static async getBisAll(bis_id, cb){};
