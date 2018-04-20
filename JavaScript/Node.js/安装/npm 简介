@@ -47,8 +47,9 @@ npm 模块安装机制简介
         指定所安装的模块属于哪一种性质的依赖关系
             –save：模块名将被添加到dependencies，可以简化为参数-S。
             –save-dev: 模块名将被添加到devDependencies，可以简化为参数-D 
+            npm 5.0版有两个重大变化。一是 --save 参数没用了，二是引入了package-lock.json文件
         安装beta版本的模块
-    
+
     npm update  
         -S或--save参数，可以在安装的时候更新package.json里面模块的版本号。
         只更新顶层模块，而不更新依赖的依赖

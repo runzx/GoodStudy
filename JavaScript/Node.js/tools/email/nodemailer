@@ -16,13 +16,16 @@
         text: 'Plaintext version of the message',
         html: '<p>HTML version of the message</p>'
     };
+    
+    // 流
+    html: fs.createReadStream(path.resolve(__dirname, 'email.html'))
 
 9. let message = {
         ...
         attachments: [
             {   // utf-8 string as an attachment
-                filename: 'text1.txt',
-                content: 'hello world!'
+                filename: 'text1.txt',      // zx 邮件里显示、下载后的文件名
+                content: 'hello world!'     // zx 本地真实带路径的文件名
             },
             {   // binary buffer as an attachment
                 filename: 'text2.txt',
@@ -118,4 +121,15 @@
         }
     });
 
-    transporter.sendMail(...)
+    transporter.sendMail(message, cb(err, response))
+
+    response : { 
+        accepted: [ 'runzx@hotmail.com' ],
+        rejected: [],
+        envelopeTime: 286,
+        messageTime: 749,
+        messageSize: 1243,
+        response: '250 Ok: queued as ',
+        envelope: { from: '843476168@qq.com', to: [ 'runzx@hotmail.com' ] },
+        messageId: '<f177d71a-1ded-6499-9c3a-d6dbc1da60e2@qq.com>' 
+    }
