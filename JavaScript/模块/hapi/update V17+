@@ -1,0 +1,60 @@
+
+1. 切换到新的分支
+    # switch to your develop branch first …
+    git checkout develop
+
+    # … and move to the hapi migration v17 branch from there
+    git checkout -b hapi-v17  
+2. 更新项目依赖关系
+    由于hapi的核心发生重大变化，所以来自hapi生态系统的所有插件都需要更新。
+
+3. 每个服务器的单个连接
+    const server = new Hapi.Server({  
+        host: 'localhost',
+        port: 3000
+    });
+
+4. 注册插件
+    await server.register({
+        plugin: require('vision')
+    })
+5. 创建插件
+    exports.plugin = { register, name, version, multiple, dependencies, once, pkg };
+        exports.plugin = {  
+            register: (server, options) => {
+                …
+            },
+            pkg: require('../package.json')
+        }
+
+6. 路由处理程序中直接返回,取消reply()
+    const handler = (request, h) => {  
+    // return a string
+    return 'ok'
+
+    // return an object and hapi creates JSON out of it
+    return { name: 'Future Studio', makeItRock: true }
+
+    // redirect … to 404 … hehehehe :D
+    return h.redirect('/404')
+
+    // return a view
+    return h.view('index', { name: 'Future Studio' })
+
+    // use the "h" response toolkit to create a response
+    return h
+        .response(someHTML)
+        .type('text/html')
+        .header('X-Custom', 'my-value')
+        .code(201)
+    }
+7. 响应流控制：删除“hold（）”和“send（）”
+    h.response()
+
+8. onCredentials：一个新的请求扩展点
+    位于onPreAuth和onPostAuth之间。在onPreAuth，hapi验证请求并识别用户。授权是onPostAuth检查请求范围以验证请求是否具有访问权限的一部分。
+    在中onCredentials，您可以在请求授权之前自定义凭据。
+        server.ext('onPreAuth', (request, h) => { … })  
+        server.ext('onCredentials', (request, h) => { … })  
+        server.ext('onPostAuth', (request, h) => { … })  
+9. route 中config 改 options (config 还可以用，不推荐)
