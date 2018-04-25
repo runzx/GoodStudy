@@ -1,0 +1,33 @@
+https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+
+1. Adding the MySQL APT Repository
+    https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+    https://dev.mysql.com/downloads/file/?id=477124
+    https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+
+    sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb
+
+2. 
+    sudo apt update
+    sudo apt-get install mysql-server
+
+3. sudo service mysql status
+
+4. 提示"Plugin 'unix_socket' is not loaded"的错误
+    sudo sevice mysql stop  # 停止进程
+    sudo mysqld_safe --skip-grant-tables &  # 进入安全模式，并设置为后台进程
+    mysql -u root　-p　　# 登陆mysql
+    select Host,User,plugin from mysql.user where User='root';  # 查询用户
+    update mysql.user set plugin='mysql_native_password';  #重置加密模式
+    update mysql.user set password=PASSWORD("zx2962")  where User='root';  #重置密码
+    flush privileges;  #刷新权限信息
+    exit
+
+    sudo kill -9 $(pgrep mysql)  # 杀掉进程
+    sudo service mysql start # 重新启动服务
+    登陆mysql, 安装unix_soket
+    mysql -u root -p
+    install plugin unix_socket soname 'auth_socket';
+
+5. 用户
+    CREATE USER 'zhaixiang-db'@'%' IDENTIFIED BY 'zx2962';

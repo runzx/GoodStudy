@@ -15,3 +15,6 @@
 
     find / -name file1 从 '/' 开始进入根文件系统搜索文件和目录
     
+3. 进程 端口
+    netstat -tunlp|grep 3000
+    fuser -n tcp 80
