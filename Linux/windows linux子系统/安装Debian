@@ -33,5 +33,14 @@
 
 4. web
     sudo ln -s  /mnt/d/phpStudy/WWW /home/www
+    sudo ln -s /etc/nginx/sites-available/api.zx.com.conf /etc/nginx/sites-enabled/api.zx.com.conf
+5. base.sh 
+#!/bin/bash
 
+echo "WSL，Debian 9 stretch,安装nginx1.10.3, mysql5.7.22, sshd, redis 3.2.6"
 
+sudo service ssh start
+#sudo service php7.1-fpm start
+sudo service nginx start
+sudo service mysql start
+sudo redis-server /etc/redis/redis.conf
