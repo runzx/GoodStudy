@@ -1,0 +1,31 @@
+命令行批量插入100条数据命令
+
+---------------------------------------------------
+更新
+====================================================
+1：定义存储过程  
+
+DROP PROCEDURE test_insert ;
+DELIMITER $$ //定义结束符  
+  
+CREATE PROCEDURE test_insert()   
+    
+BEGIN     
+  DECLARE i INT DEFAULT 0;     
+  START TRANSACTION;    
+  WHILE i<1000   
+  DO     
+    UPDATE `test`.`Product` SET `stock` = '10000' WHERE `id` = i; 
+  SET i=i+1;     
+  END WHILE;     
+  COMMIT;  
+END $$  
+  
+DELIMITER ;  //结束符改为；  
+--------------------------------------------
+  INSERT   
+// INTO t_user(column1,column2,column3) VALUES(UUID_SHORT(),i,'测试数据');  
+      INTO Product(stock) VALUES(1000);
+
+2:执行存储过程  
+call test_insert(); 

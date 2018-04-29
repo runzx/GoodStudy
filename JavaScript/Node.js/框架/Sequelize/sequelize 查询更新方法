@@ -1,0 +1,11 @@
+
+1. 查询不到时新建 ，数据用data里。--不用事务，速度快些
+    如果是唯一约束则尝试再次查找。
+    返回 数组Array(2) [model, false] ：res[0] 数据；res[1] true 新建 
+    findCreateFind({
+        where: {user_id: data.user_id},
+        defaults: data
+    })
+
+2. 同上， 采用事务 处理
+    findOrCreate(options) 
