@@ -1,0 +1,71 @@
+高级Node.js项目结构教程
+    https://blog.codeship.com/advanced-node-js-project-structure-tutorial/
+1. 目标：
+    编写易于扩展和维护的应用程序。
+    配置与业务逻辑完全分离。
+    我们的应用程序可以包含多种过程类型。
+
+2. 例
+
+    .
+    |-- config
+    |   |-- components
+    |   |   |-- common.js
+    |   |   |-- logger.js
+    |   |   |-- rabbitmq.js
+    |   |   |-- redis.js
+    |   |   |-- server.js
+    |   |   `-- twitter.js
+    |   |-- index.js
+    |   |-- social-preprocessor-worker.js
+    |   |-- twitter-stream-worker.js
+    |   `-- web.js
+    |-- models
+    |   |-- redis
+    |   |   |-- index.js
+    |   |   `-- redis.js
+    |   |-- tortoise
+    |   |   |-- index.js
+    |   |   `-- tortoise.js
+    |   `-- twitter
+    |       |-- index.js
+    |       `-- twitter.js
+    |-- scripts
+    |-- test
+    |   `-- setup.js
+    |-- web
+    |   |-- middleware
+    |   |   |-- index.js
+    |   |   `-- parseQuery.js
+    |   |-- router
+    |   |   |-- api
+    |   |   |   |-- tweets
+    |   |   |   |   |-- get.js
+    |   |   |   |   |-- get.spec.js
+    |   |   |   |   `-- index.js
+    |   |   |   `-- index.js
+    |   |   `-- index.js
+    |   |-- index.js
+    |   `-- server.js
+    |-- worker
+    |   |-- social-preprocessor
+    |   |   |-- index.js
+    |   |   `-- worker.js
+    |   `-- twitter-stream
+    |       |-- index.js
+    |       `-- worker.js
+    |-- index.js
+    `-- package.json
+
+    在这个例子中，我们有3个进程：
+    twitter-stream-worker：该进程正在Twitter上侦听关键字并将推文发送到RabbitMQ队列。
+    social-preprocessor-worker：该进程正在监听RabbitMQ队列，并将推文保存到Redis并删除旧的。
+    web：该进程正在为具有单个端点的REST API提供服务：GET /api/v1/tweets?limit&offset。
+
+    环境变量可以通过process.env对象访问。请记住，
+        所有值都是一种类型String，所以您可能需要使用类型转换。
+    配置验证
+        验证环境变量也是一个非常有用的技术。它可以帮助您在应用程序执行其他任何操作之前捕获启动时的配置错误。
+    配置分割
+        通过组件拆分配置可以是放弃单个不断增长的配置文件的一个很好的解决方案。
+    永远不要将您的配置分组到特定环境文件中。它不能很好地扩展！

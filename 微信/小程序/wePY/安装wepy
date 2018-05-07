@@ -1,0 +1,87 @@
+1. 特性：
+    类Vue开发风格
+    支持自定义组件开发
+    支持引入NPM包
+    支持Promise
+    支持ES2015+特性，如Async Functions
+    支持多种编译器，Less/Sass/Stylus/PostCSS、Babel/Typescript、Pug
+    支持多种插件处理，文件压缩，图片压缩，内容替换等
+    支持 Sourcemap，ESLint等
+    小程序细节优化，如请求列队，事件优化等
+2. 安装使用
+    安装（更新） wepy 命令行工具。
+        npm install wepy-cli -g
+    生成开发示例
+        wepy init standard myproject
+    安装依赖
+        cd myproject
+        npm install
+    开发实时编译
+        wepy build --watch
+
+3. 状态的管理（数据的管理）
+    现在我们用的是全局变量进行数据管理，大家都知道写全局变量是一个不可控的行为。
+    稍一不注意就会引起问题，而且难以排查。更别说做我们后面可能有大量的数据管理。
+    解决方案
+    redux （wepy官方推荐）
+        也是现在app团队在用的数据管理模式。
+        单向数据流特点，严格的操作规范
+        通过disptch 一个action 触发更新数据
+
+        redux是flux的实现，redux的理论中state是不可更改的，你需要通过某种手段返回一个新的数据
+        redux 核心思想
+            View：          视图层
+            Action（动作）： 视图层发出的消息（比如mouseClick）
+            Dispatcher（派发器）：用来接收Actions、执行回调函数
+            Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒Views要更新页面
+4. 代码高亮
+    文件后缀为.wpy，可共用Vue的高亮规则，但需要手动设置。
+        WebStorm/PhpStorm
+          1. 打开Settings，搜索Plugins，搜索Vue.js插件并安装。
+          2. 打开Settings，搜索File Types，找到Vue.js Template，在Registered Patterns添加*.wpy，即可高亮。
+        VS Code
+          1. 在 Code 里先安装 Vue 的语法高亮插件 Vetur。
+          2. 打开任意 .wpy 文件。
+          3. 点击右下角的选择语言模式，默认为纯文本。
+          4. 在弹出的窗口中选择 .wpy 的配置文件关联...。
+          5. 在选择要与 .wpy 关联的语言模式 中选择 Vue。
+5. wepy项目中使用Promise
+    在1.4.1以后的版本，需要用户手动加入，具体方法如下：
+        进入项目根目录，安装polyfill
+            npm install promise-polyfill --save
+        在app.wpy中引入polyfill
+            import Promise from 'promise-polyfill'; 
+        在app.wpy中使API promise化
+            export default class extends wepy.app {
+                constructor () {
+                    super();
+                    this.use('promisify');
+                }
+            }
+6. wepy项目中使用async await
+    在1.4.1以后的版本，需要用户手动加入
+    进入项目根目录，安装runtime包
+        npm install wepy-async-function --save
+    修改wepy.config.js加入runtime配置
+            babel: {
+                "presets": [
+                    "env"
+                ],
+                "plugins": [
+                    "transform-export-extensions",
+                    "syntax-export-extensions"
+                ]
+            }
+    在app.wpy中引入引入runtime包
+        import 'wepy-async-function'; 
+    在app.wpy中使API promise化
+        export default class extends wepy.app {
+
+            constructor () {
+                super();
+                this.use('promisify');
+            }
+
+        }
+    重启编译
+        wepy build --no-cache

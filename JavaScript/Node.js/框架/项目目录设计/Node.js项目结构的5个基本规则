@@ -1,0 +1,26 @@
+Node.js项目结构的5个基本规则
+
+1. 规则1 - 围绕功能组织文件，而不是角色
+    把CMV三个目录改成下面：
+        .
+        ├── product
+        |   ├── index.js
+        |   ├── product.js
+        |   └── product.hbs
+        ├── user
+        |   ├── index.js
+        |   ├── user.js
+        |   └── user.hbs
+2. 规则2 - 不要把逻辑放在index.js文件中
+    使用这些文件只能导出功能，如：
+        // product/index.js
+        var product = require('./product')
+
+        module.exports = {
+            create: product.create
+        }
+3. 规则3 - 将您的测试文件放在执行旁边
+
+4. 规则4 - 使用config目录
+
+5. 规则5 - 将你的长npm脚本放在一个scripts目录中

@@ -1,0 +1,95 @@
+运算符 的安全性-Operators security
+    使用没有别名(aliases)的Sequelize可以提高安全性
+
+1. 目前还设置了下列遗留别名， 
+        $eq, $ne, $gte, $gt, $lte, $lt, $not, $in, $notIn, 
+        $is, $like, $notLike, $iLike, $notILike, $regexp, $notRegexp, $iRegexp, $notIRegexp, 
+        $between, $notBetween, $overlap, $contains, $contained, $adjacent, $strictLeft, $strictRight, $noExtendRight, $noExtendLeft, 
+        $and, $or, $any, $all, $values, $col
+    但计划在不久的将来完全删除:
+        ne, not, in, notIn, gte, gt, lte, lt, like, ilike, $ilike, nlike, $notlike, notilike, 
+        .., between, !.., notbetween, nbetween, overlap, &&, @>, <@
+2. 为了更好的安全性，强烈建议使用Sequelize.Op而不是依赖任何字符串别名。
+    您可以通过设置operatorsAliases选项来限制应用程序需要的别名
+        const Op = Sequelize.Op;
+
+        //use sequelize without any operators aliases
+        const connection = new Sequelize(db, user, pass, { operatorsAliases: false });
+
+        //use sequelize with only alias for $and => Op.and
+        const connection2 = new Sequelize(db, user, pass, { operatorsAliases: { $and: Op.and } });
+    安全设置：
+        const Op = Sequelize.Op;
+        const operatorsAliases = {
+        $eq: Op.eq,
+        $ne: Op.ne,
+        $gte: Op.gte,
+        $gt: Op.gt,
+        $lte: Op.lte,
+        $lt: Op.lt,
+        $not: Op.not,
+        $in: Op.in,
+        $notIn: Op.notIn,
+        $is: Op.is,
+        $like: Op.like,
+        $notLike: Op.notLike,
+        $iLike: Op.iLike,
+        $notILike: Op.notILike,
+        $regexp: Op.regexp,
+        $notRegexp: Op.notRegexp,
+        $iRegexp: Op.iRegexp,
+        $notIRegexp: Op.notIRegexp,
+        $between: Op.between,
+        $notBetween: Op.notBetween,
+        $overlap: Op.overlap,
+        $contains: Op.contains,
+        $contained: Op.contained,
+        $adjacent: Op.adjacent,
+        $strictLeft: Op.strictLeft,
+        $strictRight: Op.strictRight,
+        $noExtendRight: Op.noExtendRight,
+        $noExtendLeft: Op.noExtendLeft,
+        $and: Op.and,
+        $or: Op.or,
+        $any: Op.any,
+        $all: Op.all,
+        $values: Op.values,
+        $col: Op.col
+        };
+
+        const connection = new Sequelize(db, user, pass, { operatorsAliases });
+3. 
+    组合：
+        {
+            rank: {
+                [Op.or]: {
+                    [Op.lt]: 1000,
+                    [Op.eq]: null
+                }
+            }
+        }
+        // rank < 1000 OR rank IS NULL
+
+        {
+            createdAt: {
+                [Op.lt]: new Date(),
+                [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
+            }
+        }
+        // createdAt < [timestamp] AND createdAt > [timestamp]
+
+        {
+            [Op.or]: [
+                {
+                    title: {
+                        [Op.like]: 'Boat%'
+                    }
+                },
+                {
+                    description: {
+                        [Op.like]: '%boat%'
+                    }
+                }
+            ]
+        }
+        // title LIKE 'Boat%' OR description LIKE '%boat%'
