@@ -2,7 +2,25 @@
 0. 转换
     // 转日期字符串为时间戳(ms)
     let myDate = new Date('2018-05-06T14:02:44.000Z');  // UTC
-    
+    ms = myDate.getTime();    //or ms=date.valueOf();返回指定时间距离1970年1月1日0时0分0秒的毫秒
+
+        new Date();
+        new Date("month dd,yyyy hh:mm:ss");
+        new Date("month dd,yyyy");
+        new Date("yyyy/MM/dd hh:mm:ss");
+        new Date("yyyy/MM/dd");
+        new Date("YYYY-MM-DDTHH:mm:ss.sssZ");//ISO 8601 扩展格式 “YYYY-MM-DDTHH:mm:ss.sssZ”，支持ECMAScript5才能支持此格式
+        new Date(yyyy,mth,dd,hh,mm,ss);
+        new Date(yyyy,mth,dd);
+        new Date(ms);
+    Date.parse() 方法解析一个表示某个日期的字符串，并返回从1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的UTC时间）的毫秒数
+        Date.parse('2016/11/12');
+        Date.parse('2016/11/12 12:00:09');
+        Date.parse('12/11/2016');
+        Date.parse("Aug 9, 1995");
+        Date.parse("Wed, 09 Aug 1995 00:00:00 GMT");
+        Date.parse("Wed, 09 Aug 1995 00:00:00");
+        Date.parse('2016-11-12T12:00:09');
 1. ISO 日期格式
     ISO 格式是 ISO 8601 扩展格式的简化形式。  格式如下所示：  
     YYYY-MM-DDTHH:mm:ss.sssZ
