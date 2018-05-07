@@ -29,3 +29,22 @@ DELIMITER ;  //结束符改为；
 
 2:执行存储过程  
 call test_insert(); 
+==============================================================
+指删除表
+delimiter $$
+create procedure drop_tables_like(pattern varchar(255), db varchar(255))
+begin
+select @str_sql:=concat('drop table ', group_concat(table_name))
+from information_schema.tables
+where table_schema=db and table_name like pattern;
+
+prepare stmt from @str_sql;
+execute stmt;
+drop prepare stmt;
+end$$
+
+// call drop_tables_like('kw_%', 'db_1')$$
+call drop_tables_like('simcms_%', 'hapiZX')$$
+
+drop procedure if exists drop_tables_like$$
+delimiter ;
