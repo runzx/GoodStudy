@@ -1,0 +1,58 @@
+WePY项目的目录结构
+├── dist                   小程序运行代码目录（该目录由WePY的build指令自动编译生成，请不要直接修改该目录下的文件）
+├── node_modules           
+├── src                    代码编写的目录（该目录为使用WePY后的开发目录）
+|   ├── components         WePY组件目录（组件不属于完整页面，仅供完整页面或其他组件引用）
+|   |   ├── com_a.wpy      可复用的WePY组件a
+|   |   └── com_b.wpy      可复用的WePY组件b
+|   ├── pages              WePY页面目录（属于完整页面）
+|   |   ├── index.wpy      index页面（经build后，会在dist目录下的pages目录生成index.js、index.json、index.wxml和index.wxss文件）
+|   |   └── other.wpy      other页面（经build后，会在dist目录下的pages目录生成other.js、other.json、other.wxml和other.wxss文件）
+|   └── app.wpy            小程序配置项（全局数据、样式、声明钩子等；经build后，会在dist目录下生成app.js、app.json和app.wxss文件）
+└── package.json           项目的package配置
+
+2. project.config.json文件内容如下：
+    {
+    "description": "project description",
+    "setting": {
+        "urlCheck": true,
+        "es6": false,
+        "postcss": false,
+        "minified": false
+    },
+    "compileType": "miniprogram",
+    "appid": "touristappid",
+    "projectname": "Project name",
+    "miniprogramRoot": "./dist"
+    }
+
+        es6:        对应关闭ES6转ES5选项，关闭。                重要：未关闭会运行报错。
+        postcss:    对应关闭上传代码时样式自动补全选项，关闭。    重要：某些情况下漏掉此项也会运行报错。
+        minified:   对应关闭代码压缩上传选项，关闭。            重要：开启后，会导致真机computed, props.sync 等等属性失效。（注：压缩功能可使用WePY提供的build指令代替，详见后文相关介绍以及Demo项目根目录中的wepy.config.js和package.json文件。）
+        urlCheck:   对应不检查安全域名选项，开启。 如果已配置好安全域名则建议关闭
+
+3. 代码规范
+    变量与方法尽量使用驼峰式命名，并且注意避免使用$开头。 
+        以$开头的标识符为WePY框架的内建属性和方法，可在JavaScript脚本中以this.的方式直接使用，具体请参考API文档。
+    小程序入口、页面、组件文件名的后缀为.wpy；外链的文件可以是其它后缀。 具体请参考wpy文件说明。
+
+    使用ES6语法开发。 框架在ES6(ECMAScript 6)下开发，因此也需要使用ES6开发小程序，ES6中有大量的语法糖可以让我们的代码更加简洁高效。
+
+    使用Promise。 框架默认对小程序提供的API全都进行了 Promise 处理，甚至可以直接使用async/await等新特性进行开发。启用Promise方法
+
+    事件绑定语法使用优化语法代替。
+        原 bindtap="click" 替换为 @tap="click"，
+        原catchtap="click"替换为@tap.stop="click"。
+        原 capture-bind:tap="click" 替换为 @tap.capture="click"，
+        原capture-catch:tap="click"替换为@tap.capture.stop="click"。
+    更多@符用法，参见组件自定义事件。
+    事件传参使用优化后语法代替。 
+        原bindtap="click" data-index={{index}}替换为@tap="click({{index}})"。
+
+    自定义组件命名应避开微信原生组件名称以及功能标签<repeat>。 
+        不可以使用input、button、view、repeat等微信小程序原生组件名称命名自定义组件；
+        另外也不要使用WePY框架定义的辅助标签repeat命名。有关repeat的详细信息，请参见循环列表组件引用。
+
+4. 生命周期函数
+    wepy中onRoute事件就是为了解决这个问题，只有在页面路由时才会触发（包括第一次进入页面）。加入onRoute后的生命周期事件调用时序为：
+        onLoad -> onShow -> onRoute -> onReady -> onUnload
