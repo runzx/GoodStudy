@@ -1,0 +1,14 @@
+
+1. 小程序 支付时，金额要用分，* 100 变整数
+
+    但JS有些数会有很小的小数：
+        0.1+0.2 = 0.30000000000000004
+        我测试支付时有个数： 14602.000000000002 ，报错 ： total_fee参数长度有误
+    处理办法：
+        wxOrderData.total_fee = parseFloat(wxOrderData.total_fee.toPrecision(12));
+        NumberObject.toPrecision(num) 方法可在对象的值超出指定位数时将其转换为指数计数法。
+            num	必需。规定必须被转换为指数计数法的最小位数。
+            该参数是 1 ~ 21 之间（且包括 1 和 21）的值。
+            返回 NumberObject 的字符串表示，包含 num 个有效数字
+            14602.000000000002.toPrecision(12)
+        
