@@ -3,3 +3,13 @@
     any.empty(schema)
         Joi.string().empty('');
             当传来的为''空时才能通过。
+        let schema = Joi.string().empty('');
+        schema.validate('');    // returns { error: null, value: undefined }
+        schema = schema.empty();
+        schema.validate('');    // returns { error: "value" is not allowed to be empty, value: '' }
+
+2. 允许 undefined 
+    any.optional()      // 不允许null
+
+3. 要允许null
+    any.allow(value) 白名单

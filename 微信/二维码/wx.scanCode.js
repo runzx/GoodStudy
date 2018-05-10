@@ -45,3 +45,11 @@ charSet:"utf-8"
 errMsg:"scanCode:ok"
 result:"http://weixin.qq.com/r/qnWHnwrEZlcZrU789yC4"
 scanType:"QR_CODE" 
+
+// 当所扫的码为当前小程序的合法二维码时，会返回此字段，内容为二维码携带的 path
+// 这是我生成的 测试二维码 B类
+charSet:"utf-8"
+errMsg:"scanCode:ok"
+path:"pages/setting/setting?scene=1:2"
+result:""
+scanType:"QR_CODE"

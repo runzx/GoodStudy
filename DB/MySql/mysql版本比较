@@ -88,3 +88,7 @@ MySQL 4.1/5.0/5.1/5.5/5.6各版本的主要区别
         8)复制事件采用crc32校验，增强master/slave 复制数据一致性
         9)新增 log_bin_basename （以前variables里面没有binlog位置信息，对数据库的监管很不方便） 
 
+    6. 5.7
+        5.7之后，JSON支持也被加入。
+            JSON中的字符串在MySQL中会被转化成utf8mb4的字符集，给携带诸如emoji字符的数据的存储带来了方便。
+        多源复制

@@ -1,0 +1,46 @@
+
+1. ssh
+    sudo apt update
+    sudo apt install ssh
+    sudo nano /etc/ssh/sshd_config
+        port 24     // 23 WSL ubuntu
+    sudo nano /etc/sudoers
+        zhaixiang ALL=NOPASSWD:  /usr/lib/openssh/sftp-server
+    winscp 编辑->高级->环境->sftp 
+        sudo /usr/lib/openssh/sftp-server
+    sudo service ssh start
+2. db mysql redis monogo
+    curl https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+    sudo apt install lsb-release
+    sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb
+        选择安装 5.7 或 8？
+    sudo apt update
+    sudo apt install mysql-server -y
+        设置密码root
+        V5.7.22-1debian9
+    sudo service mysql start
+    mysql -u root　-p　　# 登陆mysql
+    CREATE USER 'zhaixiang-db'@'%' IDENTIFIED BY 'zx2962';
+    GRANT ALL ON *.* TO 'zhaixiang-db'@'%';
+
+    sudo apt install redis-server       // V3.2.6
+    nano redis.sh 
+    chmod +x redis.sh
+
+3. nodejs
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt-get install -y nodejs      // 安装要用python2.7,自动安装
+
+4. web
+    sudo ln -s  /mnt/d/phpStudy/WWW /home/www
+    sudo ln -s /etc/nginx/sites-available/api.zx.com.conf /etc/nginx/sites-enabled/api.zx.com.conf
+5. base.sh 
+#!/bin/bash
+
+echo "WSL，Debian 9 stretch,安装nginx1.10.3, mysql5.7.22, sshd, redis 3.2.6"
+
+sudo service ssh start
+#sudo service php7.1-fpm start
+sudo service nginx start
+sudo service mysql start
+sudo redis-server /etc/redis/redis.conf

@@ -1,0 +1,18 @@
+open-data 只能做数据的展示，不能获取。
+    type	String		开放数据类型
+    open-gid	String		当 type="groupName" 时生效, 群id
+    lang	String	en	当 type="user*" 时生效，以哪种语言展示 userInfo，有效值有：en, zh_CN, zh_TW
+
+    groupName	拉取群名称	1.4.0
+    userNickName	用户昵称	1.9.90
+    userAvatarUrl	用户头像	1.9.90
+    userGender	用户性别	1.9.90
+    userCity	用户所在城市	1.9.90
+
+例：
+    <open-data type="groupName" open-gid="xxxxxx"></open-data>
+    <open-data type="userAvatarUrl"></open-data>
+    <open-data type="userGender" lang="zh_CN"></open-data>
+
+    wx.getShareInfo(OBJECT)
+    openGId	群对当前小程序的唯一 ID

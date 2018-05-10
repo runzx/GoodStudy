@@ -1,0 +1,50 @@
+命令行批量插入100条数据命令
+
+---------------------------------------------------
+更新
+====================================================
+1：定义存储过程  
+
+DROP PROCEDURE test_insert ;
+DELIMITER $$ //定义结束符  
+  
+CREATE PROCEDURE test_insert()   
+    
+BEGIN     
+  DECLARE i INT DEFAULT 0;     
+  START TRANSACTION;    
+  WHILE i<1000   
+  DO     
+    UPDATE `test`.`Product` SET `stock` = '10000' WHERE `id` = i; 
+  SET i=i+1;     
+  END WHILE;     
+  COMMIT;  
+END $$  
+  
+DELIMITER ;  //结束符改为；  
+--------------------------------------------
+  INSERT   
+// INTO t_user(column1,column2,column3) VALUES(UUID_SHORT(),i,'测试数据');  
+      INTO Product(stock) VALUES(1000);
+
+2:执行存储过程  
+call test_insert(); 
+==============================================================
+指删除表
+delimiter $$
+create procedure drop_tables_like(pattern varchar(255), db varchar(255))
+begin
+select @str_sql:=concat('drop table ', group_concat(table_name))
+from information_schema.tables
+where table_schema=db and table_name like pattern;
+
+prepare stmt from @str_sql;
+execute stmt;
+drop prepare stmt;
+end$$
+
+// call drop_tables_like('kw_%', 'db_1')$$
+call drop_tables_like('simcms_%', 'hapiZX')$$
+
+drop procedure if exists drop_tables_like$$
+delimiter ;

@@ -15,7 +15,13 @@
     tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包
 
     find / -name file1 从 '/' 开始进入根文件系统搜索文件和目录
-3. 测试网站
+
+    
+3. 进程 端口
+    netstat -tunlp|grep 3000
+    fuser -n tcp 80
+
+4. 测试网站
     get请求
         curl “http://www.baidu.com” 如果URL指向的是一个文件或者一幅图可以直接下载到本地
         curl -i “http://www.baidu.com” 显示全部信息
@@ -28,4 +34,4 @@
         通过-d参数，把访问参数放在里面，如果没有参数，则不需要-d。
 
         wget –post-data ‘user=foo&password=bar’ http://www.baidu.com
-    
+
