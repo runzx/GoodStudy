@@ -1,0 +1,41 @@
+    由于系统与硬件的兼容性问题，有可能升级内核后导致服务器不能正常启动，这是非常可怕的，
+        没有特别的需要，建议不要随意升级内核。
+yum update 更新时不升级内核           
+        cp /etc/yum.conf    /etc/yum.conf.bak
+    方法一、修改yum的配置文件
+        vi /etc/yum.conf  在[main]的最后添加 exclude=kernel*
+    方法二、直接在yum的命令后面加上如下的参数：
+        yum --exclude=kernel* update
+
+yum -y update
+升级所有包同时也升级软件和系统内核
+
+yum -y upgrade
+只升级所有包，不升级软件和系统内核
+
+3. 对于CentOS、OpenSUSE、SLES（SUSE Linux Enterprise Server） 和 Aliyun Linux，
+    升级Linux实例后启动失败，可能是因为升级后的内核对应的initrd文件中没有virtio-blk和xen-blkfront驱动。
+    而Debian和Ubuntu的virtio-blk和 xen-blkfront驱动是内核内置的，所以不存在这个可能性。
+    initrd（initial ramdisk）是用于载入临时root文件系统到磁盘中的，运行于Linux实例启动阶段。起同样作用的还有initramfs文件，虽然initrd和initramfs是两种不同的操作概念，但这两个文件都活跃在启动实例时挂载root文件系统之前。
+
+    如何优化内核并避免启动失败
+        1)编辑系统配置文件，若配置文件中缺失下列内容需要您手动加上：
+            CentOS 6和CentOS 7：执行 vi /etc/dracut.conf.d/virt-drivers.conf，
+            添加 add_drivers+=" xen-blkfront virtio_blk "
+        2)更新内核：
+            CentOS：执行 yum install kernel
+        3)执行命令 lsinitrd /boot/initramfs-$(new-kernel-ver).img | grep -E 'virtio|xen' 
+            检查并确认initrd / initramfs文件中已经包含了virtio-blk和xen-blkfront驱动。
+        4)必须确认virtio-blk和xen-blkfront驱动在initrd中才可以重启实例。
+    https://www.jianshu.com/p/1261ed6f8399
+
+4. ESC 
+    不要开启 SELinux。
+    不要卸载相关硬件的驱动程序。
+    不要随意修改网卡 MAC 地址。
+    不要修改 Linux 实例默认的 /etc/issue 文件内容。否则，根据实例创建的自定义镜像的系统发行版本无法被正确识别，使用该镜像创建的实例无法正常启动。
+    不要随意更改根目录所在分区下各个目录的权限，尤其是 /etc、/sbin、/bin、/boot、/dev、/usr和 /lib 等目录的权限。如果权限更改不当会导致系统出现异常。
+    不要重命名、删除或禁用 Linux下的 root 账号。
+    不要编译 Linux 系统的内核，或对内核进行任何其他操作。
+    如果您使用普通云盘，不建议使用 swap 分区。如果是高效云盘或 SSD 云盘，可以根据实际情况使用 swap 分区。
+    不要开启 NetWorkManager 服务。该服务会跟系统内部网络服务出现冲突，导致网络异常。

@@ -1,0 +1,29 @@
+
+1. REMOTE HOST IDENTIFICATION HAS CHANGED!
+    $ ssh zhaixiang@www.bosstg.cn -p 15822
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @       WARNING: POSSIBLE DNS SPOOFING DETECTED!          @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    The RSA host key for [www.bosstg.cn]:15822 has changed,
+    and the key for the corresponding IP address [103.37.149.67]:15822
+    is unknown. This could either mean that
+    DNS SPOOFING is happening or the IP address for the host
+    and its host key have changed at the same time.
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+    Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+    It is also possible that a host key has just been changed.
+    The fingerprint for the RSA key sent by the remote host is
+    SHA256:eUbqhJkeRewsCRhLKT3lEOZiijRoTuOcU9b8QSuLIWk.
+    Please contact your system administrator.
+    Add correct host key in /c/Users/zhaixiang/.ssh/known_hosts to get rid of this message.
+    Offending RSA key in /c/Users/zhaixiang/.ssh/known_hosts:25
+    RSA host key for [www.bosstg.cn]:15822 has changed and you have requested strict checking.
+    Host key verification failed.
+
+2. 第一次SSH连接时，会生成一个认证，储存在客户端（也就是用SSH连线其他电脑的那个，自己操作的那个）中的known_hosts，但是如果服务器验证过了，认证资讯当然也会更改，服务器端与客户端不同时，就会跳出错误啦～因此，
+    只要把电脑中的认证资讯删除，连线时重新生成，
+    ssh-keygen -R +输入服务器的IP
+    或直接删除 .ssh/known_hosts文件里相应的记录

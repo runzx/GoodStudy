@@ -14,8 +14,13 @@ false、0、''空字符串、null和undefined
     null和undefined， == 时相等
     undefined表示无效对象，null表示空对象
     变量如果声明了但是没有初始化，那么Javascript引擎会将此变量自动指向undefined对象。
-
+        null代表有存储信息的容器(比如sce之前被赋过值的变量)，但该容器中的内容为空。
+        undefined代表不存在用于存储信息的容器。
 3. 共同点： 
     假值和空值== 不相等！
     假值和空值有一个共性，那就是在 作为if的条件分支时，均被视为false ；
         应用"!"操作之后得到的均为true 
+4. 隐式转换
+    隐式转换能让你的代码更为简洁，比如针对boolean的隐式转换，让 if 语句中的表达式变得更短。
+    它为所有的类型都定义了到 boolean 的隐式转换规则，即所谓 truthy （被隐式转换为 true）和 falsy（被隐式转换为 false）。但是并不允许自定义 boolean 隐式转换。依照规则，
+        所有的对象都是 truthy 的，即使是空数组或空对象。
