@@ -1,0 +1,2 @@
+
+将原来的进程杀掉  PM2_HOME=/root/.pm2 pm2 kill
