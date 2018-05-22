@@ -9,3 +9,19 @@
 
 2. 同上， 采用事务 处理
     findOrCreate(options) 
+3. where
+    where : {
+        id: id,
+        [this.Op.or] : [
+            {
+                bis_id: scop_bis_id
+            },
+            {
+                user_id: uid
+            }
+        ]
+    }
+    相当于：
+    ((`Order`.`bis_id` = 3 OR `Order`.`user_id` = 1) AND `Order`.`id` = 7))
+    全部条件：
+    WHERE ((`Order`.`deleted_at` > '2018-05-22 05:15:14' OR `Order`.`deleted_at` IS NULL) AND ((`Order`.`bis_id` = 3 OR `Order`.`user_id` = 1) AND `Order`.`id` = 7))
