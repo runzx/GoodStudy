@@ -1,0 +1,10 @@
+1. Instance类表示一个实例，表示数据库中的一行。它不能通过构造函数实例化，而应该通过Model.find*或Model.create等方法创建。
+    实例中包含一个dataValues属性，其中存储了实例实际所要操作的值。dataValues中的值可以通过以下几种方式访问：
+        instance.field
+        // 等价于
+        instance.get('field')
+        // 等价于
+        instance.getDataValue('field')
+    如果定义了访问器(getter)/设置器(setter)，字段值从其中访问而不是从dataValues。
+    一般会直接访问或使用get来访问属性值，
+    而getDataValue只用于自定义的访问器。
