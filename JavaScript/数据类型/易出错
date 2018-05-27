@@ -1,0 +1,12 @@
+
+1. 定义时用 变量赋值， 然后 引用其属性，当赋值变量为undefined 出错!
+    var addressInfo = data.snap_address;
+    addressInfo.totalDetail = address.setAddressInfo(addressInfo);
+    安全写法：
+        let addressInfo = data.snap_address || '';
+        addressInfo.totalDetail = xxxx;
+2. 数据里面为空，if (data && data.length > 0) 为真，因为['']也是一个元素，length ==1
+    let tmp = wx.getStorageSync(this._orderKeyName);
+    return {data: [tmp]};
+    改：
+        return tmp ? {data: [tmp]} : '';
