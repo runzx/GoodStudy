@@ -1,0 +1,9 @@
+
+
+where : {[this.Op.ne]: ''}
+    对null ''空值都有效， sql :
+        `openid_tpl` != ''
+
+where: {[this.Op.ne]: null}
+    只对null 有效，不能判断'' sql：
+        `openid_tpl` IS NOT NULL 
