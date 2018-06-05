@@ -6,6 +6,15 @@
     此配置文件可以是json，手动生成。
     要部署功能 ，在配置文件里添加一个“deploy”属性。这是部署应用程序的最低要求
         http://pm2.keymetrics.io/docs/usage/deployment/
+
+    max_memory_restart  最大内存限制数，超出自动重启；
+    env  环境变量，object类型，如{"NODE_ENV":"production", "ID": "42"}；
+    log_date_format  指定日志日期格式，如YYYY-MM-DD HH:mm:ss；
+    error_file  记录标准错误流，$HOME/.pm2/logs/XXXerr.log)，代码错误可在此文件查找；
+    out_file  记录标准输出流，$HOME/.pm2/logs/XXXout.log)，如应用打印大量的标准输出，会导致pm2日志过大；
+    min_uptime  应用运行少于时间被认为是异常启动；
+    max_restarts  最大异常重启次数，即小于min_uptime运行时间重启次数；
+    autorestart  默认为true, 发生异常的情况下自动重启；
 2. 设置deploy部分。
     其中production用于生产环境，dev用于开发环境，
         production : {

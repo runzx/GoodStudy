@@ -1,0 +1,41 @@
+
+
+
+
+1. h.context
+    1) server.bind(xxx) : h.context =xxx;
+    2) 在route.config.bind:{zx:'xxx'} 同样 h.context = {zx:'xxx'};
+    3) pre中间件 修改无效, 用server.bind也无用，估计pre里的是单独拷贝过来的。
+    可以传递对象，在hander()里也可以this访问到。
+    如果没有server.bind且route里也没bind, 则hander()里的this : null !!
+    当hander()为箭头函数时，this : global （nodejs里）
+
+2. h.close
+    中断流程，直接返回空 code=200
+
+    h.response(zx).takeover(); 中断流程，返回zx code=200
+
+3. pre中间件
+    pre 里生成的response 放到pre 和preResponse 里
+
+return h.response('success')
+        .type('text/plain')
+        .header('X-Custom', 'some-value');
+
+h.continue
+    访问权限：只读。
+
+    响应符号。当由生命周期方法返回时，请求生命周期将继续，而不会更改响应。
+
+// redirect … to 404 … hehehehe :D
+  return h.redirect('/404')
+
+  // return a view
+  return h.view('index', { name: 'Future Studio' })
+
+  // use the "h" response toolkit to create a response
+  return h
+    .response(someHTML)
+    .type('text/html')
+    .header('X-Custom', 'my-value')
+    .code(201)
