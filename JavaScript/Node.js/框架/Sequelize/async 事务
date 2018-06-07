@@ -1,0 +1,41 @@
+
+
+1. 
+    let transaction;    
+    try {
+        // get transaction
+        transaction = await sequelize.transaction();
+        // step 1
+        await Model.destroy({where: {id}, transaction});
+        // step 2
+        await Model.create({}, {transaction});
+        // commit
+        await transaction.commit();
+    } catch (err) {
+        // Rollback transaction if any errors were encountered
+        await transaction.rollback();
+    }
+
+2. 
+    await sequelize.transaction( async t=>{
+        const user = User.create( { name: "Alex", pwd: "2dwe3dcd" }, { transaction: t} )
+        const group = Group.findOne( { name: "Admins", transaction: t} )
+        // etc.
+    })
+3.
+    try {
+        // Result is whatever you returned inside the transaction
+        let result = await sequelize.transaction( async (t) => {
+            // step 1
+            await Model.destroy({where: {id: id}, transaction: t});
+
+            // step 2
+            return await Model.create({}, {transaction: t});
+        });
+
+        // In this case, an instance of Model
+        console.log(result);
+    } catch (err) {
+        // Rollback transaction if any errors were encountered
+        console.log(err);
+    }

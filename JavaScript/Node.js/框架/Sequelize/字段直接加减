@@ -1,0 +1,24 @@
+
+1. 递减
+    为了减少一个实例的值而不遇到并发问题，你可以使用 decrement。
+    Model.decrement
+    return user.decrement('my-integer-field', {by: 2})
+
+2. 递增
+    为了增加实例的值而不发生并发问题，您可以使用 increment。
+
+    首先，你可以定义一个字段和要添加的值。
+        User.findById(1).then(user => {
+            return user.increment('my-integer-field', {by: 2})
+        }).then(/* ... */)
+    然后，你可以定义多个字段和要添加到其中的值。
+        User.findById(1).then(user => {
+            return user.increment([ 'my-integer-field', 'my-very-other-field' ], {by: 2})
+        }).then(/* ... */)
+    最后，你可以定义一个包含字段及其递增值的对象。
+        User.findById(1).then(user => {
+            return user.increment({
+                'my-integer-field':    2,
+                'my-very-other-field': 3
+            })
+        }).then(/* ... */)
