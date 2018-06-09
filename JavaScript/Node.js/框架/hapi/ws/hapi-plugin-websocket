@@ -1,0 +1,44 @@
+
+1.  await server.register(HAPIWebSocket)
+    server.register({       // 2种方式都可
+        plugin: HAPIWebSocket,
+        options: {
+            create: (wss) => {
+                ...
+            }
+        }
+    })
+
+2. 路由上配置
+    plugins: { websocket: true }    // 最简单方式
+
+    plugins: {
+        websocket: {
+            only: true,
+            autoping: 10 * 1000,
+            subprotocol: "foo/1.0",
+            initially: true,
+            connect: ({ ctx, wss, ws, req, peers }) => {
+                ...
+                ws.send(...)
+                ...
+            },
+            disconnect: ({ ctx, wss, ws, req, peers }) => {
+                ...
+            }
+        }
+    }
+    Register WebSocket-enabled Framed Route:
+    plugins: {
+        websocket: {
+            only:          true,
+            frame:         true,
+            frameEncoding: "json",
+            frameRequest:  "REQUEST",
+            frameResponse: "RESPONSE"
+        }
+    }...
+    handler: async (request, h) => {
+        let { mode, ctx, wss, ws, wsf, req, peers, initially } = request.websocket()
+        ...
+    }

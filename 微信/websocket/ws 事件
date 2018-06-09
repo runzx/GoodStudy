@@ -1,0 +1,46 @@
+
+0. new WebSocket.Server(options[, callback])
+    1. Event: 'connection'
+        socket {WebSocket}
+        request {http.IncomingMessage}
+
+    2. Event: 'error'
+        error {Error}
+    3. Event: 'headers'
+        headers {Array}
+        request {http.IncomingMessage}
+    4. Event: 'listening'
+        Emitted when the underlying server has been bound.
+
+5. new WebSocket(address[, protocols][, options])
+    address {String|url.Url|url.URL} The URL to which to connect.
+    protocols {String|Array} The list of subprotocols.
+    options {Object}
+        handshakeTimeout    {Number} Timeout in milliseconds for the handshake request.
+        perMessageDeflate   {Boolean|Object} Enable/disable permessage-deflate.
+        protocolVersion     {Number} Value of the Sec-WebSocket-Version header.
+        origin              {String} Value of the Origin or Sec-WebSocket-Origin header depending on the protocolVersion.
+        Any other option allowed in http.request() or https.request().
+    1） Event: 'close'
+        code {Number}
+        reason {String}
+    2）Event: 'error'
+        error {Error}
+    3）Event: 'message'
+        data {String|Buffer|ArrayBuffer|Buffer[]}
+    4）Event: 'open'
+        Emitted when the connection is established.
+    5）Event: 'ping'
+        data {Buffer}
+        Emitted when a ping is received from the server.
+    6）Event: 'pong'
+        data {Buffer}
+    7）Event: 'unexpected-response'
+        request {http.ClientRequest}
+        response {http.IncomingMessage}
+    8）Event: 'upgrade'
+        response {http.IncomingMessage}
+    9）websocket.addEventListener(type, listener)
+        type {String} A string representing the event type to listen for.
+        listener {Function} The listener to add.
+        

@@ -1,0 +1,103 @@
+
+
+JavaScript 是一种类型松散或动态语言。这意味着您不必提前声明变量的类型。
+    类型将在程序处理时自动确定。
+    JavaScript中的签名仍然可以为您提供有关该方法的一些信息：
+        MyObject.prototype.myFunction(value)
+    该方法是安装在一个名为MyObject的 对象上。
+    该方法安装在MyObject的原型上（因此它是一个instance method），
+        而不是static method。
+    该方法名为myFunction。
+    该方法接受一个参数，该参数被称为value，且没有进一步定义。
+
+0. 函数定义：
+    声明 vs. 表达式
+1. 函数声明在代码执行时会被提升到上下文的顶部。
+    这意味着你可以在函数调用之后声明函数而不会导致错误。
+
+2. 函数表达式却不能被提升因为函数实际上是匿名的
+    （它们仅能被一个变量引用）
+3. 参数
+    JavaScript中函数的另一个特点是你可以将任意数目的参数传递给任意函数而不会引发错误
+    函数的参数实际上以叫做arguments的类数组的结构存储
+4. JavaScript的函数能接收任意种类和数量的签名而完全不需要提前说明。
+    这意味JavaScript中的函数实际上没有任何签名。
+    缺乏函数签名意味着缺乏函数重载。
+    avascript中函数缺少签名并不意味着Javascript不能模仿重构。
+        function sayMessage(message){
+            if(arguments.length === 0){
+                message = 'Default message';
+            }
+
+            console.log(message);
+        }
+
+        sayMessage("Hello!");  //输出"Hello!"
+5. 对象方法 
+    你可以在任何时间添加或者移除对象。当一个属性值是一个函数时，这个属性叫做方法。
+        你可以用添加属性的方法廷加一个对象,例如：
+        var person = {
+            name: 'Nicholas',
+            sayName: function(){
+                console.log(person.name); // 静态调用
+            }
+        };
+
+        person.sayName();   //输出'Nicholas'
+6. this 对象
+    avascript中的每个作用域都有this对象，它指向调用函数的对象。在全局作用域中，this指向全局对象（在浏览器中是window）。
+        当一个对象附带的方法被调用时，this对象默认等于这个对象。
+            var person = {
+                name: 'Nicholas',
+                sayName: function(){
+                    console.log(this.name); // 实例对象
+                }
+            };
+
+            person.sayName(); //输出“Nicholas”
+    这意味着你可以随意改变变量名甚至在不同的对象中重用这个函数，比如说：
+        function sayNameForAll(){
+            console.log(this.name);
+        }
+
+        var person1 = {
+            name: "Nicholas",
+            sayName: sayNameForAll
+        };
+        var person2 = {
+            name: "Greg",
+            sayName: sayNameForAll
+        };
+7. 改变this
+    使用并操纵函数中this值是学好Javascript面向对象编程的关键
+    函数仅仅是对象。对象能拥有方法，这意味着函数也能拥有方法。
+    1) 第一个操纵this的方法叫做call()，它将使用一个特定的this值和一些特定的参数来执行函数。
+        call()的第一个变量应该是作为函数执行时的this值的对象。
+        其余的参数作为传递给函数的参数。
+        function sayNameForAll(label){
+            console,log(label + ":" + this.name);
+        }
+        var person1 = {
+            name: "Nicholas"
+        };
+        var person2 = {
+            name: "Greg"
+        };
+
+        var name = "Michael";
+        sayNameForAll.call(this,"global");  //输出"global:Micahle"   
+        sayNameForAll.call(person1,"person1");  //输出"person1:Micahle" 
+        sayNameForAll.call(person2,"global");  //输出"person2:Micahle" 
+            person1,person2函数后面并没有括号因为它作为一个对象被获取而不是作为一段代码被执行。
+    2) 第二个操纵this的函数方法叫做apply()。apply()方法和call()方法运行起来完全相同除了它只接收两个参数：
+        一个作为this的值和
+        一个由传递给函数的参数组成的数组或类数组（这意味着你可以使用arguments对象作为第二个参数）。
+    3) 第三种改变this的方法叫做bind()。这个方法添加在ECMAScript5中并且和前面两种方法有着很大区别。
+        bind()创建一个this值与一个或多个参数被指定的新版本函数，
+            而不是用给定的this值和参数调用函数。
+        bind()函数的第一个参数是新函数的this值。
+            其余的参数表示永久被设置在新函数中的参数。
+            任何没有被永久设置在新函数中的参数都应该在后面被传递。
+    4) Javascript中函数与其它对象最大的不同在于它有一个特殊的叫做
+        [[Call]]的内在属性，其中包含对函数的执行指令。
+        typeof操作符在一个对象中查找这个内在属性，一旦找到便返回“function”。

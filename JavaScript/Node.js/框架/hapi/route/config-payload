@@ -1,0 +1,23 @@
+route.options.payload
+    1) route.options.payload.allow
+    默认值：允许解析以下MIME类型：
+        application/json
+        application/*+json
+        application/octet-stream
+        application/x-www-form-urlencoded
+        multipart/form-data
+        text/*
+    请注意，允许其他未列出的MIME类型不会使它们被解析，
+        如果parse是true，请求将导致错误响应。
+
+    2) route.options.payload.output
+        Default value: 'data'.
+            'stream'
+            'file'
+    3) route.options.payload.parse
+    确定传入的有效负载是处理还是原始呈现
+        Default value: true.    //  如果请求'Content-Type'与允许的MIME类型allow（对于整个有效负载以及部分）匹配 ，
+            则有效负载在可能时转换为对象。
+            如果格式未知，则发送错误请求（400）错误响应。
+        false - 原始有效负载未经修改就返回。
+        'gunzip' - 在解码任何已知内容编码之后，原始有效负载将不加修改地返回。
