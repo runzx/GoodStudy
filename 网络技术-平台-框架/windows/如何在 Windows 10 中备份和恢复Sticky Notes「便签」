@@ -1,0 +1,10 @@
+如何在 Windows 10 中备份和恢复Sticky Notes「便签」
+    在 Windows 10 中，它已经演变成了一款现代应用程序，通过 Windows + W 快捷键即可调出使用。
+
+1. 使用 Windows + R 快捷键打开「运行」，打开如下路径：
+    %LocalAppData%\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState
+2. 将 plum.sqlite 这个便签数据库文件复制到安全位置进行保存即可。
+
+3. 还原
+    %LocalAppData%\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState
+    将备份好的 plum.sqlite 数据库文件粘贴进去即可。

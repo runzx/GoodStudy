@@ -1,0 +1,13 @@
+
+1. 开启开发人员模式
+    「设置」-「安全和更新」-「针对开发人员」选项卡中启用「开发人员模式」。
+
+2. 开启Bash for Windows
+    打开「控制面板」-「卸载程序」-点击左侧的「启用或关闭 Windows 功能」- 在弹出的窗口中勾选「Windows subsystem for Linux(Beta)」组件进行安装。
+    可以直接在 PowerShell(管理员) 中执行如下命令启用 Windows subsystem for Linux 功能：
+        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
+3. 但当你使用 Wsl.exe 或 Bash.exe 命令来启动 Shell 时，或者从 Windows 10 的其它位置运行 
+    wsl [command] 或 bash -c [command] 命令时，WSL 将使用默认的 Linux 环境
+
+    使用 wslconfig.exe 命令行工具可以直接管理 Windows Subsystem for Linux（WSL）默认运行的 Linux 发行版。
