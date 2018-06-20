@@ -1,0 +1,17 @@
+
+https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
+
+1. 登录密码为：Passw0rd!
+
+3. 激活系统
+    控制面板\系统和安全\系统，
+        产品ID上方有一个激活按钮，点击即可激活90天，记得备份快照哦！
+    在联网激活后可以用90天，过期后还可以运行「slmgr /rearm」命令再重新激活的。
+
+4. 版本查看 slmgr /dlv
+    KMS激活方法：
+    以下激活命令均以管理员身份运行CMD（命令提示符）
+        slmgr /upk
+        slmgr /ipk xxxxx-xxxxx-xxxxx-xxxxx-xxxxx
+        slmgr /skms kms.xspace.in
+        slmgr /ato
