@@ -1,0 +1,24 @@
+
+1。 安装eslint
+
+2. 配置
+    设置配置：
+    {
+        "workbench.startupEditor": "welcomePage",
+        "vetur.format.defaultFormatter.js": "vscode-typescript",
+        "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.tabSize": 2,
+        "eslint.validate": [
+            "javascript",
+            "javascriptreact",
+            "html",
+            "vue",
+            {
+            "language": "html",
+            "autoFix": true
+            }
+        ]
+    }

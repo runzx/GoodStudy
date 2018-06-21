@@ -1,0 +1,20 @@
+
+npm i -g eslint
+
+1。 运行
+    eslint [options] [file|dir|glob]*
+        eslint file1.js file2.js
+        或者：
+        eslint lib/**
+    Fixing problems:
+        --fix                          Automatically fix problems
+        --fix-dry-run                  Automatically fix problems without saving the changes to the file system
+    Basic configuration:
+        --no-eslintrc                  Disable use of configuration from .eslintrc.*
+        -c, --config path::String      Use this configuration, overriding .eslintrc.* config options if present
+        --env [String]                 Specify environments
+        --ext [String]                 Specify JavaScript file extensions - default: .js
+        --global [String]              Define global variables
+        --parser String                Specify the parser to be used
+        --parser-options Object        Specify parser options
+
