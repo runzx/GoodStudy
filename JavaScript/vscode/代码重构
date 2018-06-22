@@ -23,3 +23,6 @@
     显示 Output:Ctrl+Shift+U
 4. 跳转到光标上一次(下一次)位置（误操作的回退方案，非常有用） 
     Ctrl + Left / Ctrl + Right
+5. 支持Markdown
+    Ctrl + Shift + v
+    
