@@ -11,3 +11,21 @@
     wsl [command] 或 bash -c [command] 命令时，WSL 将使用默认的 Linux 环境
 
     使用 wslconfig.exe 命令行工具可以直接管理 Windows Subsystem for Linux（WSL）默认运行的 Linux 发行版。
+
+4. 设置WSL启动设置
+    17093及更高版本中可用
+    /etc/wsl.conf
+        # Enable extra metadata options by default
+        [automount]
+        enabled = true
+        root = /windir/
+        options = "metadata,umask=22,fmask=11"
+        mountFsTab = false
+
+        # Enable DNS – even though these are turned on by default, we’ll specify here just to be explicit.
+        [network]
+        generateHosts = true
+        generateResolvConf = true
+    automount: 自动挂载
+        mountFsTab: true设置/etc/fstab在WSL启动时处理
+            /etc/fstab是一个文件，您可以声明其他文件系统，如SMB共享。因此，您可以在启动时自动在WSL中安装这些文件系统。

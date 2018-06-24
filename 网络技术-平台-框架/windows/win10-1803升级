@@ -1,0 +1,35 @@
+20180623 收到新半高 msata 128G
+
+1。打补丁后自动激活，应是原来的激活信息通过硬件保存在MS后台。
+    10.0.17134.112
+2. 安装vscode 1.24.1, git 1.17,nodejs 8.11.3,webstorm 2018.1.5
+    winscp 5.13, notorn antiVirus 22.14.2.13
+    wsl ubuntu 18.04 
+        更改默认帐户：
+            ubuntu1804.exe config --default-user root
+            // 重启电脑才能生效
+        mysql-server // Ver 14.14 Distrib 5.7.22 root 为空
+            CREATE USER 'zhaixiang-db'@'%' IDENTIFIED BY 'zx2962';
+            GRANT ALL ON *.* TO 'zhaixiang-db'@'%';
+
+        nodejs 10.5.0
+        redis 4.0.9
+        安装ssh 
+            sudo dpkg-reconfigure openssh-server //生成加密文件
+            Port 23
+            PasswordAuthentication yes # 允许密码登录
+            sudo service ssh start
+        /etc/sudoers
+            // ubuntu1804改zhaixiang ALL=NOPASSWD: ALL,winscp不行。
+            %sudo   ALL=NOPASSWD: ALL
+            winscp sfpt : sudo /usr/lib/openssh/sftp-server
+        安装nginx
+            nginx/1.14.0
+            sudo ln -s /etc/nginx/sites-available/api.zx.com.conf /etc/nginx/sites-enabled/api.zx.com.conf
+
+        sudo ln -s  /mnt/d/WWW /home/www
+        \%userprofile%\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc\LocalState\rootfs
+        // ubuntu1804可以在win里直接改WSL里数据???
+3. 换系统应备份：
+    winscp.ini, .WebStorm2018.1/config/plugins/Iedis (redis管理插件) 
+    .ssh/ ，    
