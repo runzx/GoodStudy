@@ -1,0 +1,33 @@
+
+gitweb setup
+    Gitweb actually supports FCGI natively, so you do not need to wrap it as a CGI script.
+
+1. nginx 
+    apt install fcgiwrap
+    start/enable fcgiwrap.socket
+        systemctl status fcgiwrap.socket
+    /etc/nginx/nginx.conf
+        location /gitweb.cgi {
+            include fastcgi_params;
+            gzip off;
+            fastcgi_param   SCRIPT_FILENAME  /usr/share/gitweb/gitweb.cgi;
+            fastcgi_param   GITWEB_CONFIG  /etc/gitweb.conf;
+            fastcgi_pass    unix:/var/run/fcgiwrap.socket;
+        }
+
+        location / {
+            root /usr/share/gitweb;
+            index gitweb.cgi;
+        }
+
+2. gitweb 配置
+    /etc/gitweb.conf    // https://git-scm.com/docs/gitweb.conf
+        # The directories where your projects are. Must not end with a slash.
+        our $projectroot = "/path/to/your/repositories"; 
+
+        # Base URLs for links displayed in the web interface.
+        our @git_base_url_list = qw(git://<your_server> http://git@<your_server>);
+        # “blame”视图（显示源文件中每行的作者）
+        $feature{'blame'}{'default'} = [1];
+        # 高亮 语法突出显示 要先安装
+        $feature {'highlight'} {'default'} = [1];

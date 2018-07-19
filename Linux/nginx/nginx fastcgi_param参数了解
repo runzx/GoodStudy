@@ -1,4 +1,9 @@
-fastcgi_param 详解
+1. 原本只有fastcgi_params文件，fastcgi.conf是nginx 0.8.30 (released: 15th of December 2009)才引入的。
+    fastcgi.conf只比fastcgi_params多了一行 “fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;”
+    推荐：使用最新的方式： 
+        include fastcgi.conf;
+
+fastcgi.conf 详解
     fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;   #脚本文件请求的路径
     fastcgi_param  QUERY_STRING       $query_string;                        #请求的参数; 如?app=123
     fastcgi_param  REQUEST_METHOD     $request_method;                      #请求的动作(GET,POST)
