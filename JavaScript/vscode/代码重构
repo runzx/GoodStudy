@@ -2,7 +2,10 @@
 1. 重构代码
     重命名：比如要修改一个方法名，可以选中后按 F2，输入新的名字，回车，会发现所有的文件都修改了
     找到所有的引用：            Shift+F12
-    同时修改本文件中所有匹配的： Ctrl+F12
+    跳转到symbol的定义处 F12
+    瞥见下symbol的定义出（在该symbol下方展开面板，显示定义处代码，非常有用）
+        Alt + F12
+    同时修改本文件中所有匹配的： Ctrl+F2
     跳转到下一个 Error 或 Warning：当有多个错误时可以按 F8 逐个跳转
     查看 diff： 在 explorer 里选择文件右键 Set file to compare，然后需要对比的文件上右键选择 Compare with file_name_you_chose
 2. 查找替换
@@ -18,3 +21,10 @@
     显示 Git:   Ctrl+Shift+G
     显示 Debug: Ctrl+Shift+D
     显示 Output:Ctrl+Shift+U
+4. 跳转到光标上一次(下一次)位置（误操作的回退方案，非常有用） 
+    Alt + Left / Alt + Right
+    workbench.action.navigateForward    前进
+    workbench.action.navigateBack       后退
+5. 支持Markdown
+    Ctrl + Shift + v
+    

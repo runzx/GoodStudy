@@ -1,0 +1,20 @@
+Fast CGI Install on Debian or Ubuntu    (PI3)
+    https://www.nginx.com/resources/wiki/start/topics/examples/fcgiwrap/
+
+1. 
+    sudo apt install fcgiwrap
+        Setting up spawn-fcgi (1.6.4-1) ... // 自动安装
+        Setting up fcgiwrap (1.1.0-5) 
+    cp /usr/share/doc/fcgiwrap/examples/nginx.conf /etc/nginx/fcgiwrap.conf
+    在nginx server配置中加
+        # fast cgi support
+            include /etc/nginx/fcgiwrap.conf;
+    系统应自动安装/etc/init.d/fcgiwrap
+        SPAWN_FCGI="/usr/bin/spawn-fcgi"
+        DAEMON="/usr/sbin/fcgiwrap"
+        NAME="fcgiwrap"
+        DESC="FastCGI wrapper"
+        。。。
+        FCGI_SOCKET="/var/run/$NAME.socket"
+        FCGI_USER="www-data"
+        FCGI_GROUP="www-data"
