@@ -1,0 +1,16 @@
+
+1. 全局变量,动态
+    定义：
+    const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
+    server.app.cache = cache;
+    读取：
+    request.server.app.cache.drop()
+2. 全局静态配置
+    在server定义时配置信息
+    const server = new Hapi.server({
+        app:{
+            cache1:{}
+        },
+        cache:{}
+    })
+    server.settings.app.cache1     //?

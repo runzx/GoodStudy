@@ -38,3 +38,15 @@ $ sudo service mongod start
     logappend = true
     #存储引擎
     storageEngine = mmapv1
+3. 安装mongodb v3.0.14      // http://andyfelong.com/2017/03/mongodb-3-0-14-binaries-for-raspberry-pi-3/
+        https://mongo-pi.com/resources
+    先用apt安装 v2.4,这样有配置文件及各对应目录
+    https://andyfelong.com/downloads/core_mongodb_3_0_14.tar.gz
+    https://andyfelong.com/downloads/tools_mongodb_3_0_14.tar.gz
+    cd dir-with-binaries
+    sudo chown root:root mongo*
+    sudo chmod 755 mongo*
+    sudo strip mongo*
+    sudo cp -p mongo* /usr/bin
+
+    sudo systemctl start mongodb

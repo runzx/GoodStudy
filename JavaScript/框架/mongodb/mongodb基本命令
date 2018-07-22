@@ -1,0 +1,56 @@
+
+1. MongoDB基本使用
+    show dbs:显示数据库列表 
+    show collections：显示当前数据库中的集合（类似关系数据库中的表） 
+    show users：显示用户
+
+    use <db name>：切换当前数据库，这和MS-SQL里面的意思一样 
+    db.help()：显示数据库操作命令，里面有很多的命令 
+    db.foo.help()：显示集合操作命令，同样有很多的命令，foo指的是当前数据库下，一个叫foo的集合，并非真正意义上的命令 
+    db.foo.find()：对于当前数据库中的foo集合进行数据查找（由于没有条件，会列出所有数据） 
+    db.foo.find( { a : 1 } )：对于当前数据库中的foo集合进行查找，条件是数据中有一个属性叫a，且a的值为1
+2. Collection聚集集合
+    1、创建一个聚集集合（table）
+        db.createCollection(“collName”, {size: 20, capped: 5, max: 100});
+    2、得到指定名称的聚集集合（table）
+        db.getCollection("account");
+    3、得到当前db的所有聚集集合
+        db.getCollectionNames();
+    4、显示当前db所有聚集索引的状态
+        db.printCollectionStats();
+3.  用户相关
+    1、添加一个用户
+        db.addUser("name");
+        db.addUser("userName", "pwd123", true); 添加用户、设置密码、是否只读
+    2、数据库认证、安全模式
+        db.auth("userName", "123123");
+    3、显示当前所有用户
+        show users;
+    4、删除用户
+        db.removeUser("userName");
+    其他
+    1、查询之前的错误信息
+        db.getPrevError();
+    2、清除错误记录
+        db.resetError();
+
+4. 
+5. 索引
+    1、创建索引
+    db.userInfo.ensureIndex({name: 1});
+    db.userInfo.ensureIndex({name: 1, ts: -1});
+    
+    2、查询当前聚集集合所有索引
+    db.userInfo.getIndexes();
+    
+    3、查看总索引记录大小
+    db.userInfo.totalIndexSize();
+    
+    4、读取当前集合的所有index信息
+    db.users.reIndex();
+    
+    5、删除指定索引
+    db.users.dropIndex("name_1");
+    
+    6、删除所有索引索引
+    db.users.dropIndexes();

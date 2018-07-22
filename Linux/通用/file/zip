@@ -1,0 +1,9 @@
+
+1. bz2
+    bzip2是一个压缩能力更强的压缩程序，.bz2结尾的文件就是bzip2压缩的结果。
+    与bzip2相对的解压程序是bunzip2。tar中使用-j这个参数来调用gzip。下面来举例说明一下：
+    # tar -cjf all.tar.bz2 *.jpg
+    这条命令是将所有.jpg的文件打成一个tar包，并且将其用bzip2压缩，生成一个bzip2压缩过的包，包名为all.tar.bz2
+    # tar -xjf all.tar.bz2
+    bzip2 -d xxx.bz2 解压
+    

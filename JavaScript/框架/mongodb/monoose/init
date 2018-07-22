@@ -1,0 +1,3 @@
+1.
+    var db = mongoose.connect("mongodb://user:pass@ip:port/database");
+        port 是mongodb服务器可以访问端口，默认是27017
