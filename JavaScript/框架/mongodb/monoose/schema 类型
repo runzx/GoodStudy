@@ -12,3 +12,5 @@ Schema 类型
     Objectid
         Schema.Types.ObjectId：同MongoDB内置的_id 的类型。由24位Hash字符串。
     Array
+2. methods
+    不要在自定义方法中使用 ES6 箭头函数，会造成 this 指向错误。

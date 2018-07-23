@@ -1,0 +1,11 @@
+1. node.js >= 4.0.0 and MongoDB >= 3.0.0
+
+2. 
+    Model.geoNear()已被删除
+    域套接字必须是URI编码的。
+    你必须包裹$match和$skip阶段的数组。
+        MyModel.aggregate([{ $match: { isDeleted: false } }, { $skip: 10 }]).exec(cb);
+    true:   true,'true',1,'1','yes'
+    false:  false,'false',0,'0','no'
+
+        

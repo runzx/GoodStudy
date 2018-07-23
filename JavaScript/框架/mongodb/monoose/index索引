@@ -1,0 +1,9 @@
+
+1. 在 Schema 中定义索引。索引分字段级别和schema级别， 复合索引 需要在 schema 级别定义。
+    var animalSchema = new Schema({
+        name: String,
+        type: String,
+        tags: { type: [String], index: true } // field level
+    });
+
+    animalSchema.index({ name: 1, type: -1 }); // schema level
