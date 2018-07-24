@@ -1,0 +1,3 @@
+Schema.reserved
+document 中被保留的字段。
+    on, emit, _events, db, get, set, init, isNew, errors, schema, options, modelName, collection, _pres, _posts, toObject

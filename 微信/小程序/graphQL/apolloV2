@@ -1,0 +1,30 @@
+
+1. gql标签
+    Apollo Server 2.0附带了使用Prettier gql进行编辑器语法高亮和自动格式化的标记
+    您不再需要导入body-parser进行设置apollo-server-express。
+    你不再需要进口makeExecutableSchema的graphql-tools。
+    您不再需要导入graphqlExpress和graphiqlExpress从中导入apollo-server-express。
+    您应该将typeDefs参数和解析器作为参数传递给Apollo Server的实例。
+    如果服务器仅作为GraphQL服务器运行，则不再需要运行您自己的HTTP服务器（如express）。
+    Apollo Server 2.0附带了一个内置服务器，因此不再需要启动服务器（例如Express，Koa等）。
+        对于这些情况，可以删除现有的apollo-server-{integrations}包并添加新版本的2.0 apollo-server。
+    Apollo Server 2允许在applyMiddleware调用之前安装在同一路径上的中间件。
+        例如，此服务器在GraphQL执行之前运行身份验证中间件。
+            const path = '/graphql';
+            app.use(path, jwtCheck);
+            server.applyMiddleware({ app, path });
+
+const { ApolloServer, gql } = require('apollo-server');
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+//Some projects use schemas imported from external files
+const fs = require('fs');
+const typeDefs = gql`${fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf8')}`;
+
+//gql can also be used as regular function to convert a string to an AST
+const typeDefs = gql(fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf8'))
