@@ -1,0 +1,17 @@
+
+1. path 模块提供了一些工具函数，用于处理文件与目录的路径。
+    import { resolve } from 'path'
+        方法会把一个路径或路径片段的序列解析为一个绝对路径。
+        resolve([...paths])     // resolve(__dirname, '../model')
+2. util 主要用于支持 Node.js 内部 API 的需求。
+    promisify(original)
+    让一个遵循异常优先的回调风格的函数， 即 (err, value) => ... 回调函数是最后一个参数, 返回一个返回值是一个 promise 版本的函数。
+
+3. fs
+    import { readFile, writeFileSync as wfs } from 'fs'
+        const rf = promisify(readFile)
+        async () => {
+            const rContent = await rf('config.json')
+        }()
+4. querystring
+    import * as qs from 'querystring'

@@ -1,0 +1,12 @@
+1. mongoose里的中间件,有两个, 一个是pre, 一个是post.
+    pre: 在指定方法执行之前绑定。 中间件的状态分为 parallel和series.
+    post: 相当于事件监听的绑定
+
+2. 中间件一般仅仅只能限于在几个方法中使用. (但感觉就已经是全部了)
+    doc 方法上: init,validate,save,remove;
+    model方法上: count,find,findOne,findOneAndRemove,findOneAndUpdate,update
+
+        schema.pre('save', true, function(next, done) {
+        // 并行执行下一个中间件
+        next();
+        });
