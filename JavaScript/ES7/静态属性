@@ -1,0 +1,13 @@
+
+ES7静态/实例属性 Babel支持，node 8.11,10.7不支持
+class myClass{
+    myProp = 58         // ES7 实例属性
+    static prop = 1     // ES7 静态属性
+    constructor(){
+        this.myProp1 = {}   // ES6 实例属性
+    }
+
+}
+myClass.prop1 = []          // ES6 静态属性
+
+node 支持表：   https://node.green

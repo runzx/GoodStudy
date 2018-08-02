@@ -70,3 +70,12 @@ https://download-chromium.appspot.com/
     evaluate方法中是无法直接使用外部的变量的，需要作为参数传入，想要获得执行的结果也需要return出来。
 
 5. page.$() page.evaluate() 是在Chromuim里运行，console.log()显示在浏览器的console上
+    注意querySelectorAll返回的是一个NodeList，不是一个数组，不是一个可观的DOM结构，可以试下打印obj2，只有加上下标可返回对应元素。
+    元素本身也支持querySelector和querySelectorAll
+    element.querySelectorAll不是从element开始匹配元素的。而事实上，它会在element的子代元素中匹配查询条件
+
+    NodeList 对象在某些方面和数组非常相似，看上去可以直接使用从 Array.prototype 上继承的方法。然而，
+        除了forEach方法，NodeList 没有这些类似数组的方法。
+        方法：forEach方法之外，还有item，entries，keys和values方法。
+
+    page.$$() 返回 是数组 ！！！

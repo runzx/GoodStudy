@@ -21,3 +21,9 @@
     
 3. 在浏览器里模拟开发
     var canvas = document.getElementById('game_canvas');
+
+4. 字体
+    苹果：苹方字体
+    安卓：思源字体
+5。 全局样式
+    font,font-color组件样式能继承

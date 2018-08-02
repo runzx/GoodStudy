@@ -1,0 +1,48 @@
+xpath就是选择XML文件中节点的方法。
+
+1。 节点（node），就是XML文件的最小构成单位，一共分成7种。
+    - element（元素节点）
+    - attribute（属性节点）
+    - text （文本节点）
+    - namespace （名称空间节点）
+    - processing-instruction （处理命令节点）
+    - comment （注释节点）
+    - root （根节点）
+    节点有以下属性：
+        Parent (父节点, 0到1个)
+            比如在上面简单的例子中，Span节点的父节点是div节点.
+        Children (子节点, 0到多个)
+            比如在上面简单的例子中，div节点的子点是span节点.
+        Siblings (邻居节点，0到多个)
+            比如在以下的html中，input的邻居节点有span节点和table节点
+
+2. 选择节点的基本规则
+    - nodename（节点名称）：表示选择该节点的所有子节点
+    - "/"： 表示选择根节点
+    - "//"：表示选择任意位置的某个节点
+    - "@"： 表示选择某个属性
+
+    # 斜杠（/）作为路径内部的分割符。
+    # 同一个节点有绝对路径和相对路径两种写法。
+    # 绝对路径（absolute path）必须用"/"起首，后面紧跟根节点，比如/step/step/...。
+    # 相对路径（relative path）则是除了绝对路径以外的其他写法，比如 step/step，也就是不使用"/"起首。
+    # "."表示当前节点。
+    # ".."表示当前节点的父节点
+
+3. xpath的谓语条件（Predicate）
+    所谓"谓语条件"，就是对路径表达式的附加条件。
+    所有的条件，都写在方括号"[]"中，表示对节点进行进一步的筛选。
+        /bookstore/book[1] ：表示选择bookstore的第一个book子元素。
+        /bookstore/book[last()-1] ：表示选择bookstore的倒数第二个book子元素。
+        /bookstore/book[price>35.00] ：表示选择bookstore的book子元素，且被选中的book元素的price子元素值必须大于35
+
+4. 通配符
+    # "*"   表示匹配任何元素节点。
+    # "@*"  表示匹配任何属性值。
+    # node()表示匹配任何类型的节点。
+        /*/* ：表示选择所有第二层的元素节点。
+        /bookstore/* ：表示选择bookstore的所有元素子节点。
+        //title[@*] ：表示选择所有带有属性的title元素。
+5. 选择多个路径
+    用"|"选择多个并列的路径。
+        //book/title | //book/price ：表示同时选择book元素的title子元素和price子元素。

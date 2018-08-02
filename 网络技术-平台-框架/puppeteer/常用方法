@@ -1,0 +1,28 @@
+
+1。  Page.exposeFunction，
+    这个 API 用来在页面注册全局函数，非常有用：
+
+2。 键盘和鼠标
+    键盘和鼠标的API比较简单，键盘的几个API如下：
+        keyboard.down(key[, options]) 触发 keydown 事件
+        keyboard.press(key[, options]) 按下某个键，key 表示键的名称，比如 ‘ArrowLeft’ 向左键，详细的键名映射请戳这里
+        keyboard.sendCharacter(char) 输入一个字符
+        keyboard.type(text, options) 输入一个字符串
+        keyboard.up(key) 触发 keyup 事件
+    鼠标操作：
+        mouse.click(x, y, [options]) 移动鼠标指针到指定的位置，然后按下鼠标，这个其实 mouse.move 和 mouse.down 或 mouse.up 的快捷操作
+        mouse.down([options]) 触发 mousedown 事件，options 可配置:
+        options.button 按下了哪个键，可选值为[left, right, middle], 默认是 left, 表示鼠标左键
+        options.clickCount 按下的次数，单击，双击或者其他次数
+        delay 按键延时时间
+        mouse.move(x, y, [options]) 移动鼠标到指定位置， options.steps 表示移动的步长
+        mouse.up([options]) 触发 mouseup 事件
+
+3。Page.waitFor 系列 API
+    page.waitFor(selectorOrFunctionOrTimeout[, options[, …args]]) 下面三个的综合 API
+    page.waitForFunction(pageFunction[, options[, …args]]) 
+        等待 pageFunction 执行完成之后
+    page.waitForNavigation(options) 
+        等待页面基本元素加载完之后，比如同步的 HTML, CSS, JS 等代码
+    page.waitForSelector(selector[, options]) 
+        等待某个选择器的元素加载之后，这个元素可以是异步加载的，这个 API 非常有用，你懂的。

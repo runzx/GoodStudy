@@ -1,0 +1,19 @@
+
+1。 shell 里命令-js
+db.test（复制源表）.find().forEach(function(x){
+    db.target（目的表）.insert(x);
+})
+
+db.teches.find().forEach(function(item){
+    item.category = 7
+    db.articles.insert(item)
+})
+db.hegs.find().forEach(function(item){
+    item.category = '16'
+    db.articles.insert(item)
+})
+db.books.find().forEach(function(item){
+    item.category = '20'
+    db.articles.insert(item)
+})
+

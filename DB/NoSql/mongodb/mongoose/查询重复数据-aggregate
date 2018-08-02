@@ -1,0 +1,49 @@
+
+1。 对名称和获取名称使用聚合，计数> 1：
+    db.collection.aggregate(
+        {"$group" : { "_id": "$name", "count": { "$sum": 1 } } },
+        {"$match": {"_id" :{ "$ne" : null } , "count" : {"$gt": 1} } }, 
+        {"$project": {"name" : "$_id", "_id" : 0} }
+    )
+
+    用group将作者名称分组
+        {"group":{"_id":"$author","count":{"$sum":1}}}
+        这样就会将作者按照名字排序，某个作者的名字每出现一次，就会对这个作者的"count"加1。
+    用$project将author字段投射出来
+        {"$project": {"author":1}}
+        这个语法与查询中的字段选择器比较像：可以通过指定
+            "fieldname" : 1选择需要投射的字段，或者通过指定"fieldname":0排除不需要的字段。
+        执行完这个"$project"操作之后，结果集中的每个文档都会以
+            {"_id" : id, "author" : "authorName"}这样的形式表示。这些结果只会在内存中存在，不会被写入磁盘。
+
+db.articles.aggregate(
+    {"$group" : { "_id": "$tid", "count": { "$sum": 1 } } },
+    {"$match": {"_id" :{ "$ne" : null } , "count" : {"$gt": 1} } }, 
+    {"$project": {"tid" : "$_id", "_id" : 0,"count":1,"title':1} }
+)
+
+2. 保存结果
+    db.collection.aggregate()方法可以返回一个指针（cursor），数据放在内存中，直接操作。跟Mongo shell 一样指针操作。
+
+    var result = db.foo.aggregate(...);
+    db.bar.insert(result.result);
+
+    db.<collection>.aggregate( [
+        { <operation> },
+        { <operation> },
+        . . .,
+        { $out :"<output-collection>" }
+    ] )
+    检查新的聚合运算符 $out 以获得更详细的示例。
+    以这种方式使用 P.S ，你不限于 16Mb 个大小。
+var res = db.articles.aggregate(
+    {"$group" : { "_id": "$tid", "count": { "$sum": 1 } } },
+    {"$match": {"_id" :{ "$ne" : null } , "count" : {"$gt": 1} } }, 
+    {"$project": {"tid" : "$_id", "_id" : 0,"count":1,"title":1} }
+    )
+    var result = db.foo.aggregate(...);
+    db.test.insert(res.result);     // 这样只能插入一条记录
+
+    res.forEach(function(item){
+        db.test.insert(item)
+    })  // ok!
