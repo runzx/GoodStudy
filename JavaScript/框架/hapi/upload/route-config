@@ -1,0 +1,14 @@
+
+route.options.payload.output
+    默认值：'data'。
+    'data' - 传入的有效负载完全读入内存。
+        parse :true，则基于“Content-Type”标头解析payload（JSON，表单解码，多部分）。
+        parse :false，Buffer则返回raw 。
+
+    'stream'- 通过Stream.Readable接口提供传入的payload。
+        payload : 'multipart/form-data'并且parse是true，则当文件作为流提供时，字段值表示为文本。
+            来自“multipart / form-data”上传的文件流也将具有hapi包含filename和 headers属性的属性。请注意，多部分payload的payload流是在加载到内存中的整个mutlipart内容之上创建的合成接口。以避免加载大的多部分的payload到内存中，
+        parse :false 和使用流解析器处理所述多部分的payload中的处理程序（例如pez）。
+
+    'file'- 传入的有效内容将写入uploads设置指定的目录中的临时文件 。如果payload是'multipart/form-data'并且 parse是true，则在将文件保存到磁盘时，字段值将显示为文本。请注意，
+        清除框架生成的文件是应用程序的唯一责任。这可以通过跟踪使用哪些文件（例如使用request.app对象），以及监听服务器'response'事件来执行清理来完成。

@@ -10,10 +10,15 @@ Node.js 全局对象
         向global里添加一个变量
         给GLOBAL对象添加一个属性
 
-    __filename  表示当前正在执行的脚本的文件名。
-    __dirname   表示当前执行脚本所在的目录
+    __filename  表示当前正在执行的脚本的文件名。 -绝对路径
+    __dirname   表示当前执行脚本所在的目录      -绝对路径
     process     是一个全局变量，即 global 对象的属性。
-
+    process.cwd()：获得当前执行node命令时候的文件夹目录名
+        -绝对路径 项目根目录名(node index.js 的地方)
+    './' ：不使用require时候，'./'与process.cwd()一样，
+        使用require时候，与__dirname一样
+        ./ 正确的结论是：在 require() 中使用是跟 __dirname 的效果相同，不会因为启动脚本的目录不一样而改变，(以此文件为参考的相对路径)
+        在其他情况下跟 process.cwd() 效果相同，是相对于启动脚本所在目录的路径。
     require             用于加载模块
     setTimeout(cb, ms)  全局函数在指定的毫秒(ms)数后执行指定函数(cb)。：setTimeout() 只执行一次指定函数。
     setInterval(cb, ms) 全局函数在指定的毫秒(ms)数后执行指定函数(cb)。循环
