@@ -1,0 +1,115 @@
+
+1. python-walk
+    python中os.walk是一个简单易用的文件、目录遍历器，可以帮助我们高效的处理文件、目录方面的事情。
+    walk(top, topdown=True, onerror=None, followlinks=False)
+        参数
+        top 是你所要便利的目录的地址
+        topdown 为真，则优先遍历top目录，否则优先遍历top的子目录(默认为开启)
+        onerror 需要一个 callable 对象，当walk需要异常时，会调用
+        followlinks 如果为真，则会遍历目录下的快捷方式(linux 下是 symbolic link)实际所指的目录(默认关闭)
+        os.walk 的返回值是一个生成器(generator),也就是说我们需要不断的遍历它，来获得所有的内容。
+
+        每次遍历的对象都是返回的是一个三元组(root,dirs,files)
+
+        root 所指的是当前正在遍历的这个文件夹的本身的地址
+        dirs 是一个 list ，内容是该文件夹中所有的目录的名字(不包括子目录)
+        files 同样是 list , 内容是该文件夹中所有的文件(不包括子目录)
+        如果topdown 参数为真，walk 会遍历top文件夹，与top文件夹中每一个子目录。
+
+2. node walk :
+        A typical stat event looks like this:
+
+        { dev: 16777223,
+        mode: 33188,
+        nlink: 1,
+        uid: 501,
+        gid: 20,
+        rdev: 0,
+        blksize: 4096,
+        ino: 49868100,
+        size: 5617,
+        blocks: 16,
+        atime: Mon Jan 05 2015 18:18:10 GMT-0700 (MST),
+        mtime: Thu Sep 25 2014 21:21:28 GMT-0600 (MDT),
+        ctime: Thu Sep 25 2014 21:21:28 GMT-0600 (MDT),
+        birthtime: Thu Sep 25 2014 21:21:28 GMT-0600 (MDT),
+        name: 'README.md',
+        type: 'file' }
+
+3. excemple
+options = {
+    followLinks: false
+    // directories with these keys will be skipped
+  , filters: ["Temp", "_Temp"]
+  };
+
+  walker = walk.walk("/tmp", options);
+
+  // OR
+  // walker = walk.walkSync("/tmp", options);
+
+  walker.on("names", function (root, nodeNamesArray) {
+    nodeNamesArray.sort(function (a, b) {
+      if (a > b) return 1;
+      if (a < b) return -1;
+      return 0;
+    });
+  });
+
+  walker.on("directories", function (root, dirStatsArray, next) {
+    // dirStatsArray is an array of `stat` objects with the additional attributes
+    // * type
+    // * error
+    // * name
+
+    next();
+  });
+
+  walker.on("file", function (root, fileStats, next) {
+    fs.readFile(fileStats.name, function () {
+      // doStuff
+      next();
+    });
+  });
+
+  walker.on("errors", function (root, nodeStatsArray, next) {
+    next();
+  });
+
+  walker.on("end", function () {
+    console.log("all done");
+  });
+}());
+// 同步调用
+// To be truly synchronous in the emitter and maintain a compatible api,
+  // the listeners must be listed before the object is created
+  options = {
+    listeners: {
+      names: function (root, nodeNamesArray) {
+        nodeNamesArray.sort(function (a, b) {
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        });
+      }
+    , directories: function (root, dirStatsArray, next) {
+        // dirStatsArray is an array of `stat` objects with the additional attributes
+        // * type
+        // * error
+        // * name
+
+        next();
+      }
+    , file: function (root, fileStats, next) {
+        fs.readFile(fileStats.name, function () {
+          // doStuff
+          next();
+        });
+      }
+    , errors: function (root, nodeStatsArray, next) {
+        next();
+      }
+    }
+  };
+
+  walker = walk.walkSync("/tmp", options);
