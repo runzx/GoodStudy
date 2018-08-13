@@ -47,3 +47,38 @@ var res = db.articles.aggregate(
     res.forEach(function(item){
         db.test.insert(item)
     })  // ok!
+
+Code{code='function () {
+    var num = 0;
+
+    // Track how many bytes we've used this cursor to iterate iterated.  This function can be called
+    // with some very large cursors.  SpiderMonkey appears happy to allow these objects to
+    // accumulate, so regular gc() avoids an overly large memory footprint.
+    //
+    // TODO: migrate this function into c++
+    var bytesSinceGC = 0;
+
+    while (this.hasNext()) {
+        num++;
+        var nextDoc = this.next();
+        bytesSinceGC += Object.bsonsize(nextDoc);
+
+        // Garbage collect every 10 MB.
+        if (bytesSinceGC > (10 * 1024 * 1024)) {
+            bytesSinceGC = 0;
+            gc();
+        }
+    }
+    return num;
+}'}
+
+3。 命令集合：
+    $project	投射操作符，用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段
+    $match	匹配操作符，用于对文档集合进行筛选
+    $group	分组操作符，用于对文档集合进行分组
+    $unwind	拆分操作符，用于将数组中的每一个值拆分为单独的文档
+    $sort	排序操作符，用于根据一个或多个字段对文档进行排序
+    $limit	限制操作符，用于限制返回文档的数量
+    $skip	跳过操作符，用于跳过指定数量的文档
+    $lookup	连接操作符，用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate
+    $count	统计操作符，用于统计文档的数量
