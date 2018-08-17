@@ -13,6 +13,10 @@ db.law.find().forEach(function (x) {
     db.law.save(x);
 });
 
+db.law.find().forEach( x => {
+    x.ise = +x.ise;
+    db.law.save(x);
+});
 //string转化为date类型
 db.law.find().forEach(function (x) {
     x.eift = new ISODate(x.eift);
