@@ -1,0 +1,28 @@
+当先装linux,再装win7后启动项里没有linux:
+1. 用luntutu 启动U盘启动，
+    df  //查看有哪些分区，硬盘，lubuntu会自动挂载其它分区
+        // 并且确认其分区所在设备/dev/sda 或sdb...
+    打到相应linux安装分区，ext3,ext4 分区大小来判断
+    /media/.... // 挂载位置，可以从文件管理器里拷贝
+2. 新建MBR分区，即进行如下操作
+    sudo grub-install --root-directory=/media/....  /dev/sdb
+
+3. Linux老手们告诫用户一定要先装windows再装linux，但是有些时候如果windows死机或者中毒后必须重装windows系统时，就需要对Grub进行修复了。这其中原因是因为windows把多重引导程序Grub覆盖了，而自身程序却没有引导Linux启动的能力。
+    grub                    // 启动光盘上的grub程序，如果用户正在使用Ubuntu，需要使用sudo  grub以获得root权限。
+    find /boot/grub/stage1  // 查找硬盘上linux系统将/boot存放在哪个硬盘分区中，grub在安装时需要读取这个目录中的相关配置文件。
+    root (hdx,y)          // 示linux内核文件所在硬盘分区（也就是/boot所在目录分区），将这里的（hdx，y）替换为上一行中查找的那个分区，注意括号中不能存在空格。
+    setup (hd0)           // 在第一块硬盘中安装grub引导程序。
+    quit 
+    
+    输入“ root (hd ” ，然后按两次 TAB 键； /* 这会列出你电脑上可能的磁盘设备，硬盘为 hd0/hd1 或 sd0/sd1 等 */ 
+    输入cat /boot/vm， 按两次 TAB 键，如果出现一些 vm 开头的文件，比如 vmlinuz-2.6.15-26-386 
+        说明这里是 /boot 所在的分区。 
+    再输入cat /boot/initrd，按两次 TAB 键，如果出现一些 initrd 开头的文件，比如 initrd.img-2.6.15-26-386 说明这个 
+        /boot 所在的分区有 initrd ，即 ramdisk 镜像；
+    如果没有出现/sbin/init文件，说明(hd0,1)分区仅仅是/boot分区而不是/分区。
+
+    依次输入命令：
+    root (hd0,1)    /* 假设 /dev/hda2 是你的 /boot 所在的分区 */ 
+    kernel /boot/vmlinuz-2.6.15-26-386 ro dev=/dev/hda3     /* 假设 /dev/hda3 是你的 / 所在的分区 */
+    initrd /boot/initrd.img-2.6.15-26-386 
+    boot    // 即可启动系统。 

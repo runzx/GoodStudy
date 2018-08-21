@@ -59,3 +59,22 @@ See git-config(1) for details.
 
 git config branch.master.remote origin
 git config branch.master.merge refs/heads/master
+
+3. git pull pi3 master
+error: git upload-pack: git-pack-objects died with error.remote:
+error: inflate: data stream error (unknown compression method)
+remote: fatal: loose object 4c47103a139c37222bada7a2ef0a1375600cf209 (stored in objects/4c/47103a139c37222bada7a2ef0a1375600cf209) is corruptfatal: git upload-pack: aborting due to possible repository corruption on the remote side.
+
+--------------------------
+Total 12 (delta 7), reused 0 (delta 0)
+error: inflate: data stream error (unknown compression method)
+fatal: loose object 4c47103a139c37222bada7a2ef0a1375600cf209 (stored in objects/4c/47103a139c37222bada7a2ef0a1375600cf209) is corrupt
+error: inflate: data stream error (unknown compression method)
+
+git 记录一些文件的版本指针 被损坏了
+到git目录下
+    git fsck --full
+        error: inflate: data stream error (unknown compression method)
+        error: unable to unpack header of objects/4c/47103a139c37222bada7a2ef0a1375600cf209
+        error: 4c47103a139c37222bada7a2ef0a1375600cf209: object corrupt or missing: objects/4c/47103a139c37222bada7a2ef0a1375600cf209
+    到objects/4c/4710....文件删除
