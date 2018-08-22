@@ -1,0 +1,22 @@
+
+1。 查看网络
+    sudo iwlist wlan0 scan
+
+    sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+        
+        ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+        update_config=1
+        country=CN
+
+        network={
+            ssid="zhai-home"
+            psk="5722323123"
+        }
+    sudo nano /etc/dhcpcd.conf
+        interface wlan0
+        static ip_address=192.168.1.11/24
+        static routers=192.168.1.1
+        static domain_name_servers=114.114.114.114
+
+    sudo raspi-config 
+        配置wifi 可能要先配置国家

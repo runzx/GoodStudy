@@ -1,0 +1,11 @@
+
+
+    sudo tar -zxvf robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz -C /opt/
+    sudo chmod -R 777 /opt/robo3t-1.1.1-linux-x86_64-c93c6b0
+    sudo ln -s /opt/robo3t-1.2.1-linux-x86_64-3e50a65 /opt/robo3t
+    cd /opt/robo3t/bin
+    ./robo3t
+
+    sudo gedit ~/.bashrc
+    alias robo3t="/usr/local/bin/robomongo/bin/robo3t"
+    source ~/.bashrc
