@@ -1,0 +1,59 @@
+
+1. 在一个文件或模块中，export、import可以有多个，export default仅有一个
+    通过export方式导出，在导入时要加{ }，export default则不需要
+    export default命令，为模块指定默认输出，这样就不需要知道所要加载模块的变量名
+        import any from "./a.js"    // any可以自己取名
+        import { f1, f2 } from './b'  // export {f1,f2}  2边要对应一样！
+2. export
+    //导出变量
+    export const a = '100';  
+
+    //导出方法
+    export const dogSay = function(){ 
+        console.log('wang wang');
+    }
+
+    //导出方法第二种
+    function catSay(){
+    console.log('miao miao'); 
+    }
+    export { catSay };
+
+    export function foo () {}
+    export class foo {}
+    export {foo as default, bar};
+    export {foo as default, bar} from "foo";
+
+    //export default导出
+    const m = 100;
+    export default m; 
+    //export defult const m = 100;// 这里不能写这种格式。
+3. import
+    import { dogSay, catSay } from './testEs6Export'; //导出了 export 方法 
+    import m from './testEs6Export';  //导出了 export default 
+
+    import * as testModule from './testEs6Export'; //as 集合成对象导出
+
+    import foo, * as bar, {baz as xyz} from "foo";
+    import 语句会被提升到文件顶部执行，也就是说在模块初始化的时候所有的 import 都必须已经导入完成
+        导入语句只能作为模块顶层的语句出现，不能出现在 function 里面或是 if 里面
+        import 的模块名只能是字符串常量，导入的值也是不可变对象；比如说你不能 import { a } from ‘./a’ 然后给 a 赋值个其他什么东西
+4. es6 babel转
+        export default 30;
+    ES5:
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.default = 42
+    ES6:
+        import assert from 'assert'
+        assert(true)
+    ES5:
+        function _interopRequireDefault(obj) {
+            return obj && obj.__esModule
+                    ? obj
+                    : {'default': obj}
+        }
+        var __assert = require('assert');
+        var __assert2 = _interopRequireDefault(__assert)
+        (0, __assert2['default'])(true)

@@ -6,7 +6,10 @@
         = 0
     '1' * 100
         = 100
-
+    +'58' 
+        = 58    
+    ~~'58'
+        = 58    // 这2种比parseInt()简洁
     parseInt()
         var iNum1 = parseInt("12345red");	//返回 12345
         var iNum1 = parseInt("0xA");	//返回 10
