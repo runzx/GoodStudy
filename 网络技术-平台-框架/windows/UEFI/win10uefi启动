@@ -1,0 +1,44 @@
+Windows 在装机过程中会将硬盘划分出一个约 100m 大小的分区，称为 EFI 分区这个分区就是起引导作用的
+
+1. 该分区包含 3 个文件夹（如果你没有装 Linux 的话，就只有两个），分别是 Boot、Microsoft 和 Manjaro，
+    其中 Boot 文件夹就是 UEFI 引导所必需的文件。
+    bootmgfw.efi 是 Windows 默认引导文件。
+    EFI/Boot/bootx64.efi
+    EFI/Microsoft/Boot/bootmgfw.efi
+
+    按下开机按钮的时候，首先 UEFI 找到 EFI 分区的 Boot 文件夹，
+        然后加载 bootx64.efi 文件，读取文件信息，找到 EFI/Microsoft/Boot/bootmgfw.efi，
+        按照 bootmgfw.efi 的要求，加载所需的启动信息，启动 Windows 10。
+
+    关闭 BIOS 的 Secure Boot 的功能
+        在默认情况下，UEFI 固件只会加载那些被签名的引导程序。
+    安装linux:
+        只需要注意一点：在选择挂载 boot 位置的时候，一定要挂载在 efi 分区，别的都不行。
+        重启之后，不出意外的话，你会直接进入 Windows 10，不要担心，这时 Linux 已经安装成功了，
+            我们只需要将引导文件替换一下。
+            先用 DG 打开 EFI 分区，你会看到多了一个文件夹
+            grubx64.efi 的文件，这就是启动 Linux 的引导文件
+
+            进入管理员命令行。方法：win + x，再按 a
+            输入 bcdedit /set {bootmgr} path \EFI\Manjaro\grubx64.efi。提示操作成功的话，就完成了。
+                如果输入以上命令提示「参数错误」的话，将 {bootmgr} 改为 '{bootmgr}'，原因是 PowerShell 和 CMD 语法的差别。
+
+        修复 Windows 引导:
+            我们打开 /boot/grub/grub.cfg 文件，发现里面确实没有 Windows 10 的启动信息，在后面加上：
+            menuentry "Microsoft Windows 10" {
+                insmod part_get
+                insmod fat
+                insmod search_fs_uuid
+                insmod chain
+                search --fs-uuid --set=root $hints_string $fs_uuid
+                chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+            }
+
+            这里的 $hints_string，代表的是终端执行命令：
+                sudo grub-probe --target=hints_string /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi     后的输出
+            而 $fs_uuid 代表的是：
+                sudo grub-probe --target=fs_uuid /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi          的输出。
+            然后保存。在终端执行命令：sudo grub-mkconfig -o /boot/grub/grub.cfg，就 OK 了。
+        我之前用的是 Ubuntu，我现在换成了 Manjaro，我就需要用 DG 删除 EFI 分区的 Ubuntu 文件夹。
+        在我使用 Manjaro 更新了一次 Linux 的内核后，进不去 Windows 10 了，这个时候千万不要直接修复 Windows 10 引导，这会格式化 EFI 分区，只需要按上面 修复 Windows 引导 的方法编辑一下 GRUB 就可以了。
+        
