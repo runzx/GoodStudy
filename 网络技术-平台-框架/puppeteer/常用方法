@@ -20,6 +20,16 @@
 
 3。Page.waitFor 系列 API
     page.waitFor(selectorOrFunctionOrTimeout[, options[, …args]]) 下面三个的综合 API
+        waitUntil :
+        load    事件是最常用的一个事件，当页面完全加载后(包括所有图像、javascript文件、CSS文件等外部资源)，就会触发window上的load事件
+        domcontentloaded 考虑在DOMContentLoaded事件发生时完成导航。
+            当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，
+            而无需等待样式表、图像和子框架的完成加载。
+            DOMContentLoaded 事件必须等待其所属script之前的样式表加载解析完成才会触发。
+        networkidle0    当网络连接数不超过0且至少为500ms 时，请考虑完成导航。
+            则是全部request结束
+        networkidle2    当网络连接数不超过2 500ms 时，请考虑完成导航。
+            代表还有两个以下的request就考虑navigation结束
     page.waitForFunction(pageFunction[, options[, …args]]) 
         等待 pageFunction 执行完成之后
     page.waitForNavigation(options) 
