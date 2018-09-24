@@ -1,0 +1,22 @@
+
+1。 转换
+  var mongoose = require('mongoose');
+  var id = mongoose.Types.ObjectId('576cd26698785e4913b5d0e1');
+
+2。 Model.findById(bis_id) 输入'576cd26698785e4913b5d0e1' 会自动转换
+
+3。比较
+  results.userId.equals(AnotherMongoDocument._id)
+
+4。 转创建文档时间戳
+    ObjectId("5349b4ddd2781d08c09890f4").getTimestamp()
+      ISODate("2014-04-12T21:49:17Z")
+5。ObjectId 转换为字符串
+    newObjectId.str
+6。创建新的 ObjectId
+    newObjectId = ObjectId()
+7。 ObjectId 是一个 12 字节的 BSON 类型，其结构如下：
+    前 4 个字节代表 UNIX 的时间戳（以秒计）。
+    接下来的 3 个字节代表机器标识符。
+    接下来的 2 个字节代表进程 id。
+    最后 3 个字节代表随机数。

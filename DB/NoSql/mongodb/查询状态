@@ -1,3 +1,6 @@
 
 1。 db.stats
     默认是bytes单位     db.stats(1073741824); G单位
+
+2. mongo shell
+	不能console.log,可以用print()

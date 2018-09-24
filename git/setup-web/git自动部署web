@@ -7,7 +7,7 @@
     # 修改git的密码
     $ passwd git
     # 禁用shell登录
-    $ sudo vi /etc/passwd
+    $ sudo vi /etc/passwds
     修改
     git:x:1001:1001:,,,:/home/git:/bin/bash
     为

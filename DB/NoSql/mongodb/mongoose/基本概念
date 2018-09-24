@@ -114,3 +114,16 @@
             $all    匹配数组里面的键值,匹配多个值(同时具有) $all:[“apple”,“banana”,“peach”]}
             $size   查询数组的长度值
             $slice  获取数组字段的内容: query.slice(‘comments’, 5)
+
+12. id
+	mongoose分配给每一个schema一个虚拟属性id，它是一个getter。
+	返回的是_id转换为字符串后的值。
+	_id 
+		如果没有定义_id域（field），那么mongoose将会默认分配一个_id域（field）。类型是ObjectId。如果不需要使用这个默认的选择，可以通过设置这个选项。
+	相等判断：
+		xx.userId.equals(yy._id)
+
+	getter 如果不直接访问，是不会显示出来(当它是对象里一属性时不能被拷贝)
+	虚拟字段在 toJSON() or toObject() 默认不包括，可设置{ virtuals: true }来改变
+	OrderSchema.set('toObject', { virtuals: true })
+							set('toJSON', { virtuals: true })

@@ -1,0 +1,15 @@
+js-cookie插件是一个JS操作cookie的插件，源文件只有3.34 KB，非常轻量级。js-cookie也支持npm和Bower安装和管理。下面看看js-cookie的具体用法。
+
+1、引入js-cookie.js
+  < src="/path/to/js.cookie.js"></>
+    Or include it via jsDelivr CDN:
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+2、js-cookie.js常用的API和方法
+  a、设置cookie
+    Cookies.set('name', 'value', { expires: 7, path: '' });//7天过期
+    Cookies.set('name', { foo: 'bar' });//设置一个json
+  b、读取cookie
+    Cookies.get('name');//获取cookie
+    Cookies.get(); #读取所有的cookie
+  c、删除cookie
+    Cookies.remove('name'); #删除cookie时必须是同一个路径。
