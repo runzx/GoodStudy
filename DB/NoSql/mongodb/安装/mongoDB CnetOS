@@ -61,3 +61,12 @@ Install MongoDB Community Edition on Red Hat Enterprise or CentOS Linux
 Cgred是一种服务（启动cgrulesengd服务），它根据/etc/cgrules.conf文件中设置的参数将任务移动到cgroup中。/etc/cgrules.conf文件中的条目可以采用以下两种形式之一：
 	user subsystems control_group
 	user:command subsystems control_group
+	
+	*:mongod memeory limitmem			# zx 所有用户启动的mongod 都限制内存
+
+sudo service cgred start
+sudo chkconfig cgred on // 启动自运行
+
+6. 故障
+	启动不了。日志： Permission denied
+	chown mongod:mongod -R /var/lib/mongo 	// v4.0.2
