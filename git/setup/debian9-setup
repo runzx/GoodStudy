@@ -1,0 +1,26 @@
+1. ssh 要在boot上建一文件: ssh的无后缀文件即可
+    ssh
+2. 阿里源,stretch
+    deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main contrib non-free rpi 
+
+3. 开启强制HDMI输出：（很多现在的显示器在树莓派上并不能识别）
+    在TF卡分区，打开config.txt文件(开机后位置： /boot/config.txt)，修改如下：
+        hdmi_safe=1
+        config_hdmi_boost=4
+        hdmi_ignore_edid=0xa5000080
+        hdmi_group=2
+        hdmi_mode=82   
+4. 静态网址
+# vim /etc/network/interfaces
+
+#开机自动激活eth0接口 
+auto eth0 
+#配置eth0接口为静态设置IP地址 
+iface eth0 inet static 
+address 192.168.1.10
+netmask 255.255.255.0  
+gateway 192.168.1.1
+
+5. 制卡
+    dd bs=4M if=/media/zhaixiang/WIN7_SP1_61/zx/2018-06-27-raspbian-stretch-lite.img of=/dev/mmcblk0 conv=fsync
+
