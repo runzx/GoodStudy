@@ -24,3 +24,9 @@ gateway 192.168.1.1
 5. 制卡
     dd bs=4M if=/media/zhaixiang/WIN7_SP1_61/zx/2018-06-27-raspbian-stretch-lite.img of=/dev/mmcblk0 conv=fsync
 
+6.   sudo nano /etc/dhcpcd.conf
+
+interface wlan0
+static ip_address=192.168.1.10/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
