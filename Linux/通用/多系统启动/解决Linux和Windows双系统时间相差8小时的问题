@@ -1,0 +1,14 @@
+解决Linux和Windows双系统时间相差8小时的问题
+Linux上:
+    解决办法一
+    对于 老版本 的Ubuntu系统，把文件/etc/default/rcS中的UTC=yes修改成UTC=no可以让系统直接显示物理时间。
+
+    在 新版本 的系统中，rcS文件的设置会被忽略，代替它的是/etc/adjtime文件。 
+    在/etc/adjtime文件的第三行中，只要将UTC改为LOCAL即可让linux系统直接显示物理时间，不对时间进行调整。
+
+    解决办法二
+    如果不想手动修改adjtime文件，可以使用hwclock命令进行设置：
+
+    $ sudo hwclock -w --localtime
+    执行该命令后adjtime文件的第三行会自动变为LOCAL，然后在将系统时间调整为正确的时间即可。
+
