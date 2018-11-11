@@ -1,5 +1,6 @@
 mongoDB windows setup
-
+    要注意！！！ 取消选项：install MongoDB Compass 
+    不然会要很长时间！！
 Component Set	Binaries
 Server	mongod.exe
 Router	mongos.exe

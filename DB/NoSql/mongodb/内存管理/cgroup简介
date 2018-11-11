@@ -123,7 +123,7 @@ cgexec -g cpu:small /usr/local/bin/matho-primes 0 999999999 > /dev/null & # 后�
 		root:mongod				memory			limitmongomem
 		deploy:mongod			memory			limitmongomem
 
-
+		mount -t cgroup -o memory limitmem /sys/fs/cgroup/memory/limitmem
 3。 限制 mongodb
 	多个业务需要共享mongodb集群资源，采用cgroup做资源隔离，限制mongod进程的内存
 	1.  mkdir /cgroup,  mount -t cgroup -o memory mongomemcg /cgroup , 创建cgroup环境

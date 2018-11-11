@@ -1,0 +1,27 @@
+更新修改器
+'$inc' 增减修改器,只对数字有效.下面的实例: 找到 age=22的文档,修改文档的age值自增1
+  Model.update({'age':22}, {'$inc':{'age':1} }  );
+    执行后: age=23
+
+'$set' 指定一个键的值,这个键不存在就创建它.可以是任何MondoDB支持的类型.
+  Model.update({'age':22}, {'$set':{'age':'haha'} }  );
+    执行后: age='haha'
+  {'$set': {
+      'items.$.name': 'updated item2',
+      'items.$.value': 'two updated'
+  }},   // 更新数组对象 中的指定键值, 不影响items对象里其它的键值
+  
+'$unset' 同上取反,删除一个键
+  Model.update({'age':22}, {'$unset':{'age':'haha'} }  );
+    执行后: age键不存在
+
+update updateOne 
+  被传入的路径中非原子（$atomic）的操作，会以 $set 形式执行。
+findOneAndUpdate
+  
+  传入数据对象的键必须是schema里定义的， 不然不会更新！
+
+findByIdAndUpdate
+  所有非atomic操作名称的顶级更新键都被视为设置操作：
+
+  传入对象会所覆盖原集合?

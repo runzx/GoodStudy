@@ -1,0 +1,10 @@
+pi3 debian 配置  raspberrypi 4.4.50
+
+1。 系统已带
+	/sys/fs/cgroup/memory/...
+
+	sudo apt install cgroup-bin // 会安装  cgroup-tools  0.41-6+rpi1
+	在/sys/fs/cgroup/memory/下创建目录，会自动生成memory.limit_in_bytes...文件
+	echo 256M > memory.limit_in_bytes
+
+sudo apt-get install cgroup-bin cgroup-lite cgroup-tools cgroupfs-mount libcgroup1

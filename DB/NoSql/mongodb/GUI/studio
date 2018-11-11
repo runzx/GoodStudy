@@ -1,0 +1,12 @@
+@echo off
+ECHO 重置Studio 3T的使用日期......
+FOR /f "tokens=1,2,* " %%i IN ('reg query "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" ^| find /V "installation" ^| find /V "HKEY"') DO ECHO yes | reg add "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" /v %%i /t REG_SZ /d ""
+ECHO 重置完成, 按任意键退出......
+pause>nul
+exit
+
+--------------------- 
+作者：ysk_xh_521 
+来源：CSDN 
+原文：https://blog.csdn.net/ysk_xh_521/article/details/83447598 
+版权声明：本文为博主原创文章，转载请附上博文链接！

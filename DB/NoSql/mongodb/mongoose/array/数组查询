@@ -1,0 +1,21 @@
+查询数组:
+    Model.find({'array':10} );
+    查询 array(数组类型)键中有10的文档,  array : [1,2,3,4,5,10]  会匹配到
+
+    Model.find({'array[5]':10} );
+    查询 array(数组类型)键中下标5对应的值是10,  array : [1,2,3,4,5,10]  会匹配到
+
+  '$all' 匹配数组中多个元素
+    Model.find({'array':[5,10]} );
+    查询 匹配array数组中 既有5又有10的文档
+
+  '$size' 匹配数组长度
+    Model.find({'array':{"$size" : 3} } );
+    查询 匹配array数组长度为3 的文档
+
+  '$slice' 查询子集合返回
+    Model.find({'array':{"$skice" : 10} } );
+    查询 匹配array数组的前10个元素
+
+    Model.find({'array':{"$skice" : [5,10] } } );
+    查询 匹配array数组的第5个到第10个元素

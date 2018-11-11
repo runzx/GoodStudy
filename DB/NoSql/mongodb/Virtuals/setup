@@ -1,0 +1,17 @@
+
+1. Document.prototype.toObject（）
+  
+  getters 应用所有getter（path和virtual getters），默认为false
+  virtuals应用virtual getters（可以覆盖getters选项），默认为false
+
+2.
+  schema.set('toJSON', { getters: true, virtuals: false });
+  此方法的返回值用于对JSON.stringify（doc）的调用。
+
+3. 
+  var schema = new Schema({ name: String });
+  schema.path('name').get(function (v) {
+    return v + ' is my name';
+  });
+
+4. 在get 用from ==1 才生成合成网址，如果select时不含from ,则认为from == null !!!

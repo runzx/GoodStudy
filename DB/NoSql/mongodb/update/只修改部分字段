@@ -1,0 +1,5 @@
+
+1。 update({},{$set: {filed1:xxx,filed2:yyy}})
+	不用$set 则会把其它字段内容全部洗掉!!!
+
+2. 整数要用 NumberInt()， 默认是浮点数 1.0

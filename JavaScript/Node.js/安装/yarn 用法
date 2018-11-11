@@ -22,3 +22,5 @@
     npm uninstall taco --save   === yarn remove taco 
     npm install taco --save-dev === yarn add taco --dev
     npm update --save           === yarn upgrade
+    npm install -g              === yarn global add [package]
+    npm rebuild	                === yarn install --force

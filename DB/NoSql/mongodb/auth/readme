@@ -1,0 +1,16 @@
+
+启用访问控制后，请确保您拥有数据库中的用户 userAdmin或userAdminAnyDatabase角色 admin。该用户可以管理用户和角色
+配置：
+	use admin
+	db.createUser(
+		{
+			user: "myUserAdmin",
+			pwd: "abc123",
+			roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+		}
+	)
+访问：
+	mongo --port 27017 -u “myUserAdmin” -p “abc123”-- authenticationDatabase “admin”
+	或
+	use admin
+	db.auth("myUserAdmin", "abc123" )

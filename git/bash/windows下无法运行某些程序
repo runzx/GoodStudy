@@ -1,0 +1,13 @@
+
+解决方式有 3 种：
+
+  使用 winpty 接口
+    winpty python
+  显式使用 python -i
+  使用 alias 映射
+    在 /etc/bash.bashrc 中加入 alias python='winpty python'，之后便可以直接输入 python 了
+    git的安装目录/etc/bash.bashrc， 在文件的最后加入一行命令：
+      alias newEXEname="'编辑器程序路径' 命令行参数"
+      注意：应用程序路径要用单引号包围，以及windows默认的路径分隔符 \ 有转义的含义，所以要改成 / 。
+        或者这样：alias xxx="'c:\\xx\\xxx.exe' 命令行参数"，将所有 \ 改成 \\
+    修改存盘重启bash
