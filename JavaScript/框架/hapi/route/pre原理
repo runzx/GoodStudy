@@ -1,0 +1,11 @@
+
+1。v17 版 
+  pre 在handler前执行，return 值为 req.pre.xxx
+    config: {pre: [{ method: preWechat, assign: 'wx' }]},
+
+2. wechat 因为数据是xml封包，带返回 openId地址，所以在wechat中把前解包放在
+  pre里，然后根据应相openId生成reply()方法通过pre传回handler中。
+  业务流程处理后，结果：
+    return wx.reply(result)
+
+3. 没有用 onPreResponses onHandler 因为这2个对所有路由生效，效率太低。

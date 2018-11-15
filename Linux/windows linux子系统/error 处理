@@ -1,0 +1,19 @@
+1。 0x800703fa
+  此时，在运行窗口中执行“services.msc”指令，在本地服务中重启 LxssManager 服务即可
+
+2。 0x8007019e 错误
+  这个问题是因为 windows 还没有启用 windows 子系统功能
+  “控制面板\所有控制面板项\程序和功能”中选择“启用或者关闭Windows功能”
+
+3。 0x80070057 错误
+  0x80070057 错误是因为你的 windows 还不是最新版，在线安装所有更新，重启电脑后再次尝试即可
+
+4。 相关文件目录位置
+  bash.exe 文件路径
+  既然通过 win + R 执行 bash 就可以打开，那么 bash.exe 当然是在系统环境变量 PATH 下，找一下就会发现，果然不出所料，在 C:\Windows\System32 目录下
+  bash 安装路径
+  win10 的 linux 子系统在下面的路径中：
+    C:\Users\${用户名}\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+  windows 硬盘挂在路径
+    在 linux 子系统中，是完全可以访问任何 windows 磁盘的，所有的 windows 磁盘都默认挂载在 
+      /mnt 路径下
