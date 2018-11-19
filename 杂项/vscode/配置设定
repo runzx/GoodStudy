@@ -1,0 +1,80 @@
+1. 用户设置 - 全局应用于您打开的任何VS代码实例的设置。
+    %APPDATA%\Code\User\settings.json
+    Linux的 $HOME/.config/Code/User/settings.json
+  工作区设置 - 存储在工作区内的设置，仅在打开工作区时应用。
+  crtl + , 打开设置
+    修改后的设置用蓝色线表示
+    齿轮图标打开一个上下文菜单
+  命令选项板（Ctrl + Shift + P）运行全局命令“首选项：配置语言特定设置”（命令ID :)，这将打开语言选择器。选择所需的语言，打开设置编辑器，其中包含可添加适用设置的语言条目。
+    workbench.action.configureLanguageBasedSettings
+
+
+2. eslint
+  eslint.enable：启用/禁用ESLint。默认情况下启用
+  "eslint.validate": [ "javascript", "javascriptreact", { "language": "html", "autoFix": true } ]
+  eslint.autoFixOnSave - 启用保存时自动修复。
+  {
+    "eslint.options": { "configFile": "C:/mydirectory/.eslintrc.json" }
+  }
+
+  所有的配置文件都在 .eslintrc.js 中
+  npm install --save-dev eslint-config-vue eslint-plugin-vue
+  create a file named .eslintrc in your project:
+  {
+    "extends": "vue"
+    // Your overrides...
+  }
+  增加了eslint-plugin-vue来更好的校验 vue 相关代码。
+    npm install --save-dev eslint eslint-plugin-vue
+  默认情况下使用了最严格的plugin:vue/recommended来校验代码，若你觉得太严格可自行修改。
+    可以修改为  extends: ['plugin:vue/essential', 'eslint:recommended']
+  VSCODE配置：
+   "files.autoSave": "off",
+      "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue-html",
+        {
+          "language": "vue",
+          "autoFix": true
+        }
+      ],
+      "eslint.run": "onSave",
+      "eslint.autoFixOnSave": true
+    }
+
+  npm install --save-dev eslint-config-vue eslint-plugin-vue
+    create a file named .eslintrc in your project:
+    {
+      "extends": "vue"
+      // Your overrides...
+    }   // vue团队的
+  npm install --save-dev eslint-config-elemefe eslint
+    Then add following contents to your .eslintrc file
+    {
+      "extends": "elemefe"
+    } // 饿了么团队的 config
+
+3. pretter
+  prettier-eslint并prettier-tslint包含在此扩展程序的安装中。
+  eslint，tslint和您的特定配置所需的所有对等依赖项必须在本地安装。全局安装将无法识别。
+  VSCode特定设置
+    这些设置特定于VSCode，需要在VSCode设置文件中设置。请参阅文档以了解如何执行此操作。
+
+    prettier.eslintIntegration（默认值：false） - 仅限JavaScript和TypeScript
+    使用更漂亮的eslint而不是更漂亮。其他设置只会是后备，以防无法从ESLint规则中推断出这些设置。
+
+    prettier.tslintIntegration（默认值：false） - 仅限JavaScript和TypeScript
+    使用更漂亮的tslint而不是更漂亮。其他设置只会是后备，以防无法从TSLint规则中推断出这些设置。
+
+    prettier.stylelintIntegration（默认值：false） - 仅限CSS，SCSS和LESS
+    使用更漂亮的stylelint而不是更漂亮。其他设置只会是后备，以防无法从stylelint规则中推断出它们。
+
+    prettier.requireConfig（默认值：false）
+    需要'prettierconfig'来格式化
+
+    prettier.ignorePath（默认值：.prettierignore）
+    提供诸如.gitignore或之类的忽略文件的路径.prettierignore。匹配的文件不会被格式化。设置为null不读取忽略文件。需要重启。
+
+prettier.disableLanguages（默认：[“vue”]）
+用于禁用此扩展的语言ID列表。需要重启。 注意：禁用父文件夹中启用的语言将阻止格式化，而不是让任何其他格式化程序运行
