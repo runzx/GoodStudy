@@ -1,0 +1,154 @@
+1. 配置文件.prettierrc的方式，在项目根目录
+  vscode 里可用.editorconfig 配置文件
+
+  prettier只关注格式化，并不具有lint检查语法等能力
+  支持  JavaScript · Flow · TypeScript · CSS · SCSS · Less · JSX · 
+        Vue · GraphQL · JSON · Markdown
+  .prettierrc :
+  {
+    "eslintIntegration": true,
+    "stylelintIntegration": true,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "semi": false
+  }
+
+  // 点击保存时，根据 eslint 规则自定修复，同时集成 prettier 到 eslint 中
+  "prettier.eslintIntegration": true,
+  "eslint.autoFixOnSave": true,
+
+  // 为了避免和 eslint 冲突，讲编辑器默认的代码检查规则关闭（如果开启了）
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+
+
+  eslint-config-prettier eslint-plugin-prettier prettier eslint-plugin-html eslint-config-airbnb
+  关闭ESLint的格式规则  
+    希望禁用冲突规则（同时保留Prettier不关心的其他规则）。最简单的方法是使用eslint-config-prettier。它是一个可以在任何现有ESLint配置的顶部添加的衬垫。
+    .eslintrc.json：
+      {
+        "extends": ["prettier"]
+      }
+  两者兼用  eslint-plugin-prettier和eslint-config-prettier
+    {
+      "extends": ["plugin:prettier/recommended"]
+    }
+  使用ESLint运行Prettier  eslint-plugin-prettier
+    {
+      "plugins": ["prettier"],
+      "rules": {
+        "prettier/prettier": "error"
+      }
+    }
+
+
+编写 ESlint 配置文件 .eslintrc.js 配置
+  module.exports = {
+    root: true,
+    parserOptions: {
+      // 检查 ES6 语法
+      parser: "babel-eslint"
+    },
+    env: {
+      browser: true
+    },
+    // extending airbnb config and config derived from eslint-config-prettier
+    // 这里是 vue
+    extends: ["plugin:vue/essential", "airbnb-base", "prettier"],
+
+    // 选择 eslint 插件
+    plugins: ["prettier", "vue"],
+
+    // react
+    // extends: ['airbnb-base', 'prettier'],
+    // plugins: ['prettier', 'react'],
+
+    // 不需要框架
+    // extends: ['airbnb-base', 'prettier'],
+    // plugins: ['prettier'],
+
+    // 自定义 eslint 检查规则
+    rules: {
+      // 自定义 prettier 规则 (实际上，可配置项非常有限)
+      "prettier/prettier": [
+        "error",
+        {
+          singleQuote: true,
+          trailingComma: "all"
+        }
+      ],
+      camelcase: "off", // 强制驼峰法命名
+      "no-new": "off", // 禁止在使用new构造一个实例后不赋值
+      "space-before-function-paren": "off", // 函数定义时括号前面不要有空格
+      "no-plusplus": "off", // 禁止使用 ++， ——
+      "max-len": "off", // 字符串最大长度
+      "func-names": "off", // 函数表达式必须有名字
+      "no-param-reassign": "off" // 不准给函数入参赋值
+
+      // react 如果在项目中文件名后缀是 .js 而不是 .jsx 避免报错
+      // "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      // react props validation 错误
+      // "react/prop-types": 0,
+    }
+  };
+
+  官网
+  https://prettier.io/docs/en/configuration.html
+
+  vscode:
+  prettier.printWidth（默认值：80）
+  在此行限制内拟合代码
+
+  prettier.tabWidth（默认值：2）
+  每个选项卡应使用的空格数
+
+  prettier.singleQuote（默认值：false）
+  如果为true，将使用单引号而不是双引号
+
+  prettier.trailingComma（默认值：'none'）
+  尽可能控制尾随逗号的打印。有效选项：
+
+  “无” - 没有尾随逗号
+  “es5” - 在ES5中有效的尾随逗号（对象，数组等）
+  “all” - 尽可能使用尾随逗号（函数参数）
+  prettier.bracketSpacing（默认值：true）
+  控制对象文字内的空格打印
+
+  prettier.jsxBracketSameLine（默认值：false）
+  如果为true，则将>多行jsx元素放在最后一行的末尾，而不是在下一行单独放置
+
+  prettier.parser（默认：'babylon'） - 仅限JavaScript
+  使用哪个解析器。有效选项是'flow'和'babylon'。
+
+  prettier.semi（默认值：true）
+  是否在每一行的末尾添加分号（semi: true），或仅在可能引入ASI失败的行的开头添加分号（semi:false）
+
+  prettier.useTabs（默认值：false）
+  如果为true，则使用制表符缩进行
+
+  prettier.proseWrap（默认值：'保存'）preserve
+  （Markdown）在多行中包抄散文。
+
+  prettier.arrowParens（默认：'避免'）avoid
+  在唯一箭头函数参数周围包括括号
+
+  VSCode特定设置
+  这些设置特定于VSCode，需要在VSCode设置文件中设置。请参阅文档以了解如何执行此操作。
+
+  prettier.eslintIntegration（默认值：false） - 仅限JavaScript和TypeScript
+  使用更漂亮的eslint而不是更漂亮。其他设置只会是后备，以防无法从ESLint规则中推断出这些设置。
+
+  prettier.tslintIntegration（默认值：false） - 仅限JavaScript和TypeScript
+  使用更漂亮的tslint而不是更漂亮。其他设置只会是后备，以防无法从TSLint规则中推断出这些设置。
+
+  prettier.stylelintIntegration（默认值：false） - 仅限CSS，SCSS和LESS
+  使用更漂亮的stylelint而不是更漂亮。其他设置只会是后备，以防无法从stylelint规则中推断出它们。
+
+  prettier.requireConfig（默认值：false）
+  需要'prettierconfig'来格式化
+
+  prettier.ignorePath（默认值：.prettierignore）
+  提供诸如.gitignore或之类的忽略文件的路径.prettierignore。匹配的文件不会被格式化。设置为null不读取忽略文件。需要重启。
+
+  prettier.disableLanguages（默认：[“vue”]）
+  用于禁用此扩展的语言ID列表。需要重启。 注意：禁用父文件夹中启用的语言将阻止格式化，而不是让任何其他格式化程序运行

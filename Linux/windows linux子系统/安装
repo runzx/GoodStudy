@@ -45,7 +45,7 @@ Windows10内置Linux子系统
             通过tcp协议进行通讯（简单点说就是用网络，端口都是通的）
                 如果提示sshd error: could not load host key，则用下面的命令重新生成
                     sudo rm /etc/ssh/ssh*key
-                    dpkg-reconfigure openssh-server
+                    sudo dpkg-reconfigure openssh-server
 
                 /etc/ssh/sshd_config
                 Port 23 # 端口改为23，22端口已被占用

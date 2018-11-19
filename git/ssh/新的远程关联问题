@@ -1,0 +1,16 @@
+
+Permissions 0770 for '/home/zhaixiang/.ssh/id_rsa' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+
+1. 我们要把本机的id_rsa.pub 内容复制到git服务器git帐户.ssh/authorized_keys
+        scp ~/.ssh/id_rsa.pub git@pi3:/home/git/id_rsa.pub 
+        ssh git@pi3 
+	    cat id_rsa.pub >> .ssh/authorized_keys
+    在服务器添加完公钥后报错
+        sign_and_send_pubkey: signing failed: agent refused operation
+    eval "$(ssh-agent -s)"
+    ssh-add
+    会报下面错误:
+        Permissions 0770 for '/home/zhaixiang/.ssh/id_rsa' are too open.
+    chmod 700 ~/.ssh/id_rsa     // 只有本人有读写执行权限  

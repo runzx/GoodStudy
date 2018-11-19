@@ -1,0 +1,19 @@
+
+npm全局安装命令
+    npm install create-react-app -g
+
+yarn 全局安装命令
+    yarn global add create-react-app 
+
+查看npm上已经全局安装的命令
+    npm list -g --depth=0     // 不显示子模块
+
+查看yarn 全局安装的根目录
+    yarn global bin
+      C:\Users\runzx\AppData\Local\Yarn\bin
+查看npm 全局安装的根目录
+    npm bin 
+      C:\Users\runzx\node_modules\.bin  // 我是在C:\Users\runzx\下运行此命令，为项目下的目录路径
+    npm bin -g
+      C:\Users\runzx\AppData\Roaming\npm
+

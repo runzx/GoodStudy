@@ -1,0 +1,7 @@
+1。 常用命令
+	查看所有标签	git tag
+	创建标签			git tag name
+	指定提交信息	git tag -a name -m "xxx"
+	删除标签			git tag -d name
+	标签发布			git push origin name
+	

@@ -1,0 +1,15 @@
+
+1。options:{
+  cors:{
+    origin:['*'], //  所有域名
+    additionalHeaders:['x-aaa'],  // 除['Accept', 'Authorization', 'Content-Type', 'If-None-Match']外的
+  }
+}
+  credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). 
+    Defaults to false.允许交换cookie
+2。 全局设置
+  Server({
+    routes:{
+      cors:{}
+    }
+  })

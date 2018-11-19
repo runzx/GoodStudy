@@ -1,0 +1,55 @@
+
+1。管理Vue的所有组件状态。
+  它能把组件的共享状态抽取出来，当做一个全局单例模式进行管理。这样不管你在何处改变状态，都会通知使用该状态的组件做出相应修改。
+  每一个Vuex应用就是一个store，在store中包含组件中的
+    共享状态state和
+    改变状态的方法（暂且称作方法）mutations。
+    只能通过mutations改变store的state的状态 // 类似小程序 setData,小程序是为渲染，这里为同步状态
+    使用store.commit方法触发mutations改变state:
+      store.commit('increment')
+    
+    如果希望Vuex状态更新，相应的Vue组件也得到更新，最简单的方法就是在Vue的computed（计算属性）获取state
+
+    // Counter 组件
+    const Counter = {
+        template: `<div>{{ count }}</div>`,
+        computed: {
+            count () {
+                return store.state.count;
+            }
+        }
+    }
+
+  Vuex通过store选项，提供了一种机制将状态从根组件注入到每一个子组件中。
+  通过这种注入机制，就能在子组件Counter通过this.$store访问：
+  computed: {
+        count () {
+            return this.$store.state.count
+        }
+    }
+
+2。 vue2.0 版本，vuex 的文件夹改为了 store
+  在文件的 main.js 中注入，2.0 的注入方式如下
+    import store from './store';
+
+  组件内部如何使用 vuex 的
+    import { mapState, mapActions, mapGetters } from 'vuex';
+
+3。简单来说就是将 state 看成我们项目中使用的数据的集合。然后，Vuex 使得 
+  组件本地状态（component local state）：仅仅在组件内部使用的状态，有点类似通过配置选项传入 Vue 组件内部的意思。 
+  应用层级状态(application state)     ： 表示同时被多个组件共享的状态层级
+
+  Vuex 的四个核心概念分别是：
+    The state tree：Vuex 使用单一状态树，用一个对象就包含了全部的应用层级状态。
+    Getters: 用来从 store 获取 Vue 组件数据。
+    Mutators: 事件处理器用来驱动状态的变化。
+    Actions: 可以给组件使用的函数，以此用来驱动事件处理器 mutations
+    Vuex 规定，属于应用层级的状态只能通过 Mutation 中的方法来修改，
+      而派发 Mutation 中的事件只能通过 action。
+      从左到又，从组件出发，组件中调用 action，在 action 这一层级我们可以和后台数据交互，比如获取初始化的数据源，或者中间数据的过滤等。
+      然后在 action 中去派发 Mutation。Mutation 去触发状态的改变，状态的改变，将触发视图的更新。
+    数据流都是单向的
+    组件能够调用 action
+    action 用来派发 Mutation
+    只有 mutation 可以改变状态
+    store 是响应式的，无论 state 什么时候更新，组件都将同步更新

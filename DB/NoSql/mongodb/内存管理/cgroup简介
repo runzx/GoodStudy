@@ -1,0 +1,140 @@
+CGroup 介绍、应用实例及原理描述
+
+1。 是 Control Groups 的缩写，是 Linux 内核提供的一种可以限制、记录、隔离进程组 (process groups) 所使用的物力资源 (如 cpu memory i/o 等等) 的机制。2007 年进入 Linux 2.6.24 内核，CGroups 不是全新创造的，它将进程管理从 cpuset 中剥离出来
+	将任意进程进行分组化管理的 Linux 内核功能。
+	运行中的内核可以使用的 Cgroup 子系统由/proc/cgroup 来确认。
+	CGroup 提供了一个 CGroup 虚拟文件系统，作为进行分组管理和各子系统设置的用户接口。
+		要使用 CGroup，必须挂载 CGroup 文件系统。
+	Docker 就使用了 cgroups 提供的资源限制能力来完成cpu，内存等部分的资源控制。
+	Linux内核有一个很强大的模块叫 VFS (Virtual File System)。 VFS 能够把具体文件系统的细节隐藏起来，给用户态进程提供一个统一的文件系统 API 接口。 
+	 	cgroups 也是通过 VFS 把功能暴露给用户态的，cgroups 与 VFS 之间的衔接部分称之为 cgroups 文件系统。
+
+2。 cgroups使用方法
+	cgroups文件系统挂载
+		mount -t cgroup -o subsystems name /cgroup/name
+			其中 subsystems 表示需要挂载的 cgroups 子系统， /cgroup/name 表示挂载点，
+			这条命令同时在内核中创建了一个cgroups 层级结构。
+	centos下面，在使用yum install libcgroup安装了cgroups模块之后，在 /etc/cgconfig.conf 文件中会自动生成 cgroups 子系统的挂载点:
+	cgcreate -t sankuai:sankuai -g cpu:test
+		就可以在 cpu 子系统下建立一个名为 test 的节点。
+	cgdelete -r cpu:test	命令进行删除
+
+	一、安装：
+		a、cgroup是linux系统的一个内核组件，只需要安装控制接口程序 
+			yum install -y libcgroup 
+			yum install libcgroup-tools // centOs7
+				v0.41 
+		b、启动cgroup的管理程序
+			service cgconfig start 
+		查看cgconfig是否启动
+			service cgconfig status 
+		设置开机启动  
+			chkconfig cgconfig on 
+	安装内容：
+		# rpm -ql libcgroup-tools
+		/etc/cgconfig.conf
+		/etc/cgconfig.d
+		/etc/cgrules.conf
+		/etc/cgsnapshot_blacklist.conf
+		/etc/sysconfig/cgred
+		/usr/bin/cgclassify
+		/usr/bin/cgcreate
+		/usr/bin/cgdelete
+		/usr/bin/cgexec
+		/usr/bin/cgget
+		/usr/bin/cgset
+		/usr/bin/cgsnapshot
+		/usr/bin/lscgroup
+		/usr/bin/lssubsys
+		/usr/lib/systemd/system/cgconfig.service
+		/usr/lib/systemd/system/cgred.service
+		/usr/sbin/cgclear
+		/usr/sbin/cgconfigparser
+		/usr/sbin/cgrulesengd
+	列出当前的子系统
+		# lssubsys
+	查看内存子系统挂载的层级
+		# lssubsys -m memory
+	显示子系统mount目录
+		可以使用lssubsys命令列出系统中的所有层级，可用子系统以及当前的挂载点
+		# lssubsys -aim
+			/sys/fs/cgroup/...
+	显示所有资源组
+		# lscgroup
+	使用umount卸载层级，并重新挂载到另外的层级
+		# umount /sys/fs/cgroup/cpuset    ## 通过卸载挂载点，删除层级
+		# mount -t cgroup -o cpuset cpuset /cgroups/cpuset/   ## mount -t cgroup -o subsystems name 挂载点   其中name表示层级名称
+	查看mount支持的文件系统类型
+		# cat /proc/filesystems
+	清除整个cgroups文件系统
+		使用不带任何参数的cgclear命令可以清除整个cgroups文件系统
+		# cgclear
+
+# 创建两个不同cpu资源分配的组
+cgcreate -g cpu:/large      # 具体命令使用cgcreate -h
+cgcreate -g cpu:/small
+
+# cpu.shares是cpu控制的一个属性,更多的属性
+# 可以到/sys/fs/cgroup/cpu目录下查看，默认值是1024，值越大，能获得更多的cpu时间
+cgset -r cpu.shares=512 small 
+
+# cgexec启动一个cgroup任务
+matho-primes 0 999999999 > /dev/null &  # 生成一个从0到999999999的质数列表
+cgexec -g cpu:small /usr/local/bin/matho-primes 0 999999999 > /dev/null & # 后台运行
+
+	二。 debian
+	先安装 cgroup-bin 软件包
+		sudo apt install cgroup-bin
+	挂载 cgroup，准备 cpuset 子系统，该系统可以用来控制 cpu 资源
+		mount -t tmpfs cgroup_root /sys/fs/cgroup
+		mkdir /sys/fs/cgroup/cpuset
+		mount -t cgroup -ocpuset cpuset /sys/fs/cgroup/cpuset/
+	查看
+		sudo lscgroup
+	/usr/share/doc/cgroup-bin/examples/cgconfig.conf
+	三。配置文件
+	Linux把cgroups实现成一个文件系统，各个子系统的挂载点配置在/etc/cgconfig.conf文件中
+		mount {
+			cpuset  = /cgroup/cpuset;
+			cpu     = /cgroup/cpu;
+			cpuacct = /cgroup/cpuacct;
+			memory  = /cgroup/memory;
+			devices = /cgroup/devices;
+			freezer = /cgroup/freezer;
+			net_cls = /cgroup/net_cls;
+			blkio   = /cgroup/blkio;
+		}
+		group <name> {
+				[<permissions>]
+				<controller> {
+						<param name> = <param value>;
+						…
+				}
+				…
+		}
+		如：
+		group limitmongodbmem{
+				memory {
+						memory.limit_in_bytes = 256M;
+				}
+		}
+		用户绑定 /etc/cgrules.conf
+		user:process			subsystems	group
+		root:mongod				memory			limitmongomem
+		deploy:mongod			memory			limitmongomem
+
+		mount -t cgroup -o memory limitmem /sys/fs/cgroup/memory/limitmem
+3。 限制 mongodb
+	多个业务需要共享mongodb集群资源，采用cgroup做资源隔离，限制mongod进程的内存
+	1.  mkdir /cgroup,  mount -t cgroup -o memory mongomemcg /cgroup , 创建cgroup环境
+	2.  mkdir /cgroup/groupMongo
+	3.  启动mongod进程, mongod --dbpath /var/lib/mongodb --port 27017
+	4.  echo {限制内存大小} > /cgroup/groupMongo/memory.limit_in_bytes (或memory.memsw.limit_in_bytes)
+	5.  echo {mongod进程号} > /cgroup/groupMongo/tasks
+	通过top查看mongod进程的RES内存检查
+
+	以限制mongodb的内存大小为例。
+	mkdir /cgroup/memory/test/ 
+	echo 50M > /cgroup/memory/test/memory.limit_in_bytes 
+	echo 50M > /cgroup/memory/test/memory.memsw.limit_in_bytes 
+	cgexec -g memory:test mongod -port 27017 --bind_ip 127.0.0.1 --dbpath /var/lib/mongo

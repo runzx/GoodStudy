@@ -1,0 +1,18 @@
+商品表（spu）、规格表（sku）设计
+
+1。 spu属性就是不会影响到库存和价格的属性, 又叫关键属性，与商品是一对一的关系，比如
+
+	毛重: 420.00 g
+	产地: 中国大陆
+
+	sku指的是具体规格单品（玫瑰金 16G），sku属性就是会影响到库存和价格的属性, 又叫销售属性，与商品是多对一的关系，比如
+
+	容量: 16G, 64G, 128G
+	颜色: 银, 白, 玫瑰金
+	所以iphone6s则会生成 3 * 3 = 9 个 sku
+2。 
+	商品分类表--mmall_category
+	商品表--------mmall_product
+	商品规格表--mmall_product_specs
+	属性key表---mmall_attribute_key
+	属性value表-mmall_attribute_value

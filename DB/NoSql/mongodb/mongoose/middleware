@@ -10,3 +10,16 @@
         // 并行执行下一个中间件
         next();
         });
+3. pre 和 post save() 钩子都不执行于 update()，findOneAndUpdate() 等情况
+	Model.update，findByIdAndUpdate，findOneAndUpdate，findOneAndRemove，
+	findByIdAndRemove都是直接在数据库中执行的命令。
+	查询中间件与文档中间件的区别在于一种微妙但重要的方式：
+		在文档中间件中，this指的是正在更新的文档。
+		在查询中间件中，mongoose不一定具有对正在更新的文档的引用，因此this引用 查询对象而不是正在更新的文档。
+	Mongoose 4.0为这些函数制定了新钩子。
+		schema.pre('find', function() {})
+	每次更新之前更新updatedAt时间戳，你可以使用pre钩子。
+		schema.pre('update', function() {
+			this.update({},{ $set: { updatedAt: new Date() } });
+		});
+

@@ -1,0 +1,29 @@
+
+
+1。 渐进式 Web 应用程序（PWA）是响应式网页设计的一个新领域，而且越来越流行。PWA 最开始出现在 Android 的 Chrome 上，现在也被用于其他大多数 Android 浏览器，如 Opera、Firefox、Samsung Internet 和 UCWeb，以及 iOS 11.3 之后的 iPhone 和 iPad、桌面操作系统上的 Windows Edge 和 Chrome。
+  保留本质： 开放平台、易访问，可索引
+  类似APP功能：离线、交互、通知..
+
+2. Service Worker 是一种Web Worker(定义在HTML标准)，事件驱动后台过程。客户事件通过钩子实现离线启动
+  Cache API 
+3. Manifest
+  Web App 可启动原生App特性：添加图标到主屏，全屏打开。
+  通过manifest 关联到当前网页，定义 元信息：名字，图标，启动URL...
+
+4. 2017 年，Chrome 为 Android 用户推出了一项新功能：WebAPK。现在，用户在安装 PWA（只要它符合要求）时，Google Play 服务器会创建一个 APK（Android 包，原生的应用程序容器），并将其安装在设备中，就好像它是来自 Play Store 的一样。用户不需要启用不安全来源或做出任何其他设置。
+
+5. 根据 google 定义，PWA 应该具有一下特性：
+  渐进式：能确保每个用户都能打开网页
+  响应式：PC，手机，平板，不管哪种格式，网页格式都能完美适配
+  离线应用：支持用户在没网的条件下也能打开网页，这里就需要 Service Worker 的帮助
+  APP 化：能够像 APP 一样和用户进行交互
+  常更新：一旦 Web 网页有什么改动，都能立即在用户端体现出来
+  安全：安全第一，给自己的网站加上一把绿锁--HTTPS
+  可搜索：能够被引擎搜索到推送：做到在不打开网页的前提下，推送新的消息
+  可安装：能够将 Web 想 APP 一样添加到桌面
+  可跳转：只要通过一个连接就可以跳转到你的 Web 页面
+
+6. 类APP交互是指，PWA是Google提出并推广的，
+  而采用Google定义了PWA需使用Material Design的设计风格，
+  因此目前大部分网站都采取的是MD的设计（然而这种限制反而是对PWA本身的违背）。
+  除了MD的设计，其中还包括app cache shell（分模块加载）、添加到桌面、全屏浏览、任务切换器中以单独任务存在，智能app引流横幅等一系列相关的东西。

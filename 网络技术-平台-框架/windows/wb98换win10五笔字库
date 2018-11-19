@@ -2,6 +2,8 @@
 windows字库文件位置:
     C:\Windows\InputMethod\CHS
     取得管理员权限: ChsWubiNew.lex (14361版本)或ChsWubi.lex(其它版本)
+    安全-->高级--修改文件的所有者为 administrators 
+    1803 要换 ChsWubiNew.lex
     然后替换原字库即可
     完成替换后, 再添加五笔输入法 ( 如果已经打开, 请先删除, 注销后, 再替换 )
 

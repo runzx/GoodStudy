@@ -7,7 +7,7 @@ Winscp sudo su 設定
     在sshd_config里找到sftp-server在系统里位置
         # override default of no subsystems
         Subsystem       sftp    /usr/libexec/openssh/sftp-server
-    
+            /usr/lib/openssh/sftp-server    // ubuntu 18
 2. Winscp 里 “编辑”->"高级"->"环境"->"sftp" 
     sudo /usr/libexec/openssh/sftp-server
 

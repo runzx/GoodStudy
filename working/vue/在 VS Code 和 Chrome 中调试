@@ -1,0 +1,35 @@
+在 VS Code 和 Chrome 中调试
+
+1. 同时请确保自己在 VS Code 中安装了 Debugger for Chrome 扩展的最新版本。
+  更新 webpack 配置以构建 source map。
+    config/index.js 并找到 devtool 属性。将其更新为：
+      devtool: 'source-map',
+    Vue CLI 3 你需要设置 vue.config.js 内的 devtool 属性：
+      module.exports = {
+        configureWebpack: {
+          devtool: 'source-map'
+        }
+      }
+  launch.json 的文件，选择 Chrome 环境。然后将生成的 launch.json 的内容替换成为接下来的两段配置：
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "vuejs: chrome",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}/src",
+        "breakOnLoad": true,
+        "sourceMapPathOverrides": {
+          "webpack:///src/*": "${webRoot}/*"
+        }
+      }
+    ]
+  }
+
+  在根目录打开你惯用的终端并使用 Vue CLI 开启这个应用：
+    npm start     // npm run dev 
+
+	在main.js里加一句！
+		Vue.config.devtools = true

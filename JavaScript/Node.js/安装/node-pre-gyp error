@@ -1,0 +1,7 @@
+node-pre-gyp
+
+1. gyp ERR! configure error
+  gyp ERR! stack Error: Can't find Python executable "python", you can set the PYTHON env variable.
+  用npm 安装出错，所以转
+    yarn global add node-gyp
+  再安装  比如：yarn add  bcrypt  // ok!

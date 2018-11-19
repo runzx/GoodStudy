@@ -1,0 +1,29 @@
+官方软件安装后，若无注册码会有 30 天的试用期。若30天试用期满了后，可进行以下操作进行重置：
+
+1.删除注册表：HKEY_CURRENT_USER\Software\NoSQL Manager Group
+2.备份appConfig.xml文件（里面有你的数据库配置信息，包括帐号密码）
+3.删除应用数据：C:\ProgramData\NoSQL Manager Group
+
+首先，我百度了使用bat删除注册表的方式
+reg delete "HKEY_CURRENT_USER\Software\NoSQL Manager Group" /f
+新建文件夹，把后缀改成bat
+然后我找到了appConfig.xml这个文件。在windows用户目录下有个隐藏文件夹，我把个人用户名用XXX代替
+C:\Users\XXX\AppData\Roaming\NoSQL Manager Group\NoSQL Manager for MongoDB
+出于好奇，我打开看了看里面的配置内容，发现有三个日期
+很显然，第一个应该是初次运行时间，第二个是购买提示展示时间，第三个是升级检测时间
+
+  <FirstRun>2018-05-19</FirstRun>
+  <BuyReminderShowDate>2018-05-23</BuyReminderShowDate>
+  <FirstStartOfPaidVersion>0</FirstStartOfPaidVersion>
+  <CheckUpdatesInterval>5</CheckUpdatesInterval>
+  <LastUpdateCheckDate>2018-05-19</LastUpdateCheckDate>
+复制代码
+原本应该去百度如何用bat复制移动文件的，然而我想着能不能把这三个日期改掉（虽然感觉这个想法很天真），
+我把三个日期都改成了2018-05-23（当时时间已经是2018-05-23 23:55左右），然后运行了下删除注册表的bat，再打开程序，居然没有购买提示了！！！
+然后再打开刚刚的appConfig.xml，运行时间已经变了，重启也不会再次提示。perfect!
+
+  <FirstRun>2014-01-01</FirstRun>
+  <BuyReminderShowDate>2018-05-23</BuyReminderShowDate>
+  <FirstStartOfPaidVersion>0</FirstStartOfPaidVersion>
+  <CheckUpdatesInterval>90</CheckUpdatesInterval>
+  <LastUpdateCheckDate>2018-05-23</LastUpdateCheckDate>

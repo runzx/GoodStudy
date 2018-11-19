@@ -40,3 +40,16 @@ population
             path: 'teacher',
             model: 'User'   // 在User集合中查找该ID
         })
+4. 多级填充
+    return await Bis.findById(Bis_id)
+        .populate({
+            path: 'categorys',
+            populate: { path: 'products' }
+        })
+    bis集合：定义
+        categorys: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Category'
+        }]
+    Category定义：
+        products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],

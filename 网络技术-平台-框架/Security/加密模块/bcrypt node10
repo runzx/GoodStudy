@@ -1,0 +1,4 @@
+
+This version of Node.js requires NODE_MODULE_VERSION 57
+
+  npm rebuild bcrypt --update-binary

@@ -1,0 +1,34 @@
+
+安装
+pm2 install pm2-logrotate
+要安装特定版本，使用请@<version>后缀
+
+pm2 install pm2-logrotate@2.2.0
+注意：命令pm2 install不是npm install
+
+配置
+max_size（默认为10M）：当文件大小高于此值时，它将旋转它（可能是工作人员在实际超过限制后检查文件）。您可以在随后结束指定单位：10G，10M，10K
+retain（默认为30文件日志）：此数字是任何时候保留的旋转日志数，这意味着如果您有retain = 7，则最多有7个旋转日志和当前日志。
+compress（默认为false）：通过gzip的为所有旋转的日志启用压缩
+dateFormat（默认为YYYY-MM-DD_HH-mm-ss）：使用日志文件名称的数据格式
+rotateModule（默认为true）：像其他应用程序一样旋转PM2模块的日志
+workerInterval（为默认30秒）：您可以控制工作人员检查日志大小的时间间隔（最小值1）
+rotateInterval（默认为0 0 * * *每天午夜）：此cron用于在执行时强制旋转。我们使用node-schedule来调度cron，因此node-schedule的所有有效cron对于此选项都是有效的cron.Cron风格：
+TZ（默认为系统时间）：的英文这用于偏移保存的日志文件的标准TZ数据库时区。例如Etc/GMT-1，每小时带有日志的值将在14格林威治标准时间以13日志名称中的小时GMT-1 保存文件。
+*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    |
+│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+│    │    │    │    └───── month (1 - 12)
+│    │    │    └────────── day of month (1 - 31)
+│    │    └─────────────── hour (0 - 23)
+│    └──────────────────── minute (0 - 59)
+└───────────────────────── second (0 - 59, OPTIONAL)
+如何设置这些值？
+安装模块后，您必须键入： pm2 set pm2-logrotate:<param> <value>
+
+例如：
+
+pm2 set pm2-logrotate:max_size 1K （1KB）
+pm2 set pm2-logrotate:compress true （旋转时压缩日志）
+pm2 set pm2-logrotate:rotateInterval '*/1 * * * *' （每分钟强制旋转）

@@ -1,0 +1,9 @@
+mongodb中journal工作原理
+
+1。  journal文件在MongoDB中的作用相当于redo日志文件在oracle中的作用，它可以在即使服务器意外宕机的情况下，将数据库操作进行重演。
+    在64位的机器上，2.0以上版本默认是开启了journal的，但是
+		在32位机器上，或者2.0以下的版本中，默认是不开启journal的。所以在我的安装了2.4.3版本的32位机器上，每次启动mongodb都提示“warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.”，所以我须要在启动mongodb时带上 --journal 参数；而在默认启动journal的机器上如果不想启动journal，则可以带上 --nojournal 参数。
+	默认情况下mongodb每100毫秒往journal文件中flush一次数据，不过这是在数据文件和journal文件处于同一磁盘卷上的情况，而如果数据文件和journal文件不在同一磁盘卷上时，默认刷新输出时间是30毫秒。不过这个毫秒值是可以修改的，
+	 	可修改范围是2~300，值越低，刷新输出频率越高，数据安全度也就越高，但磁盘性能上的开销也更高。
+		journal文件是以“j._”开头命名的，且是append only的，如果1个journal文件满了1G大小，mongodb就会新创建一个journal文件来使用，一旦某个journal文件所记载的写操作都被使用过了，mongodb就会把这个journal文件删除。
+	

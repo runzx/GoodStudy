@@ -1,0 +1,14 @@
+1。 VS Code为设置提供了两种不同的范围：
+	用户设置 - 全局应用于您打开的任何VS代码实例的设置。
+	工作区设置 - 存储在工作区内的设置，仅在打开工作区时应用。
+	工作区设置会覆盖用户设置。
+	相应的settings.json文件，settings.json保存修改后的文件后，VS Code会重新加载设置更改。
+
+2。 设置文件位置
+	windows:	%APPDATA%\Code\User\settings.json
+	mac				$HOME/Library/Application Support/Code/User/settings.json
+	Linux			$HOME/.config/Code/User/settings.json
+	工作区设置文件位于.vscode根文件夹中的文件夹下
+
+	语言特定的编辑器设置
+		要按语言自定义编辑器，请运行全局命令“首选项”：Configure language specific settings, workbench.action.configureLanguageBasedSettings从命令选项板（Ctrl + Shift + P）配置语言特定设置
