@@ -1,6 +1,7 @@
 1。 0x800703fa
   此时，在运行窗口中执行“services.msc”指令，在本地服务中重启 LxssManager 服务即可
 
+  Restart-Service LxssManager //？
 2。 0x8007019e 错误
   这个问题是因为 windows 还没有启用 windows 子系统功能
   “控制面板\所有控制面板项\程序和功能”中选择“启用或者关闭Windows功能”
@@ -17,3 +18,6 @@
   windows 硬盘挂在路径
     在 linux 子系统中，是完全可以访问任何 windows 磁盘的，所有的 windows 磁盘都默认挂载在 
       /mnt 路径下
+5。修改文件模式屏蔽字
+  linux 子系统默认的 umask 是 000，这意味着你创建的所有文件、目录都是 000 权限的，通过执行 umask 命令即可修改：
+  当然了，最好是将这行命令放到 /etc/profile 或 bashrc 中

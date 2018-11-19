@@ -1,0 +1,8 @@
+内置方法
+
+  server.log(tags, [data, [timestamp]])
+  request.log(tags, [data])
+    tags是用于简要标识事件的字符串或字符串数​​组。把它们想象成日志级别
+    data是用于记录事件的可选字符串或对象。您可以在此处传递错误消息或您希望与标记一起提供的任何其他详细信息。
+    timestamp参数。默认为Date.now()，
+    
