@@ -1,0 +1,37 @@
+计算属性和侦听器
+
+1. 模板内的表达式非常便利，初衷是用于简单运算的。
+  在模板中放入太多的逻辑会让模板过重且难以维护。
+  对于任何复杂逻辑，你都应当使用计算属性。
+
+2. 
+  computed: {
+    // 计算属性的 getter
+    reversedMessage: function () {
+      // `this` 指向 vm 实例
+      return this.message.split('').reverse().join('')
+    }
+  }
+  可以像绑定普通属性一样在模板中绑定计算属性。
+  计算属性的 getter 函数是没有副作用 (side effect) 的，这使它更易于测试和理解。
+  计算属性是基于它们的依赖进行缓存的。只在相关依赖发生改变时它们才会重新求值。
+  计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：
+3.  侦听属性:
+  当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+  watch: {
+      firstName: function (val) {
+        this.fullName = val + ' ' + this.lastName
+      },
+      lastName: function (val) {
+        this.fullName = this.firstName + ' ' + val
+      }
+  }
+
+  computed: {
+    fullName: function () {
+      return this.firstName + ' ' + this.lastName
+    }
+  }
+  更好的做法是使用计算属性而不是命令式的 watch 回调
+  使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，
+    并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。

@@ -1,0 +1,39 @@
+
+
+2。Vue 实例还暴露了一些有用的实例属性与方法。
+  它们都有前缀 $，以便与用户定义的属性区分开来，例：$nextTick(),$data,$watch()
+
+3. 实例生命周期钩子
+  生命周期钩子的 this 上下文指向调用它的 Vue 实例
+    不要在选项属性或回调上使用箭头函数，
+  created 
+  mounted
+  updated
+  destroyed
+
+4. 模板语法
+  所有 Vue.js 的模板都是合法的 HTML ，所以能被遵循规范的浏览器和 HTML 解析器解析。
+  Vue 将模板编译成虚拟 DOM 渲染函数。
+  数据绑定最常见的形式就是使用“Mustache”语法 (双大括号) 的文本插值：
+     v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新
+     为了输出真正的 HTML，你需要使用 v-html 指令：<span v-html="rawHtml"></span></p>
+  特性
+    Mustache 语法不能作用在 HTML 特性上，遇到这种情况应该使用 v-bind 指令：
+      <div v-bind:id="dynamicId"></div>
+  使用 JavaScript 表达式
+    每个绑定都只能包含单个表达式
+      流控制也不会生效，请使用三元表达式
+  指令
+    指令 (Directives) 是带有 v- 前缀的特殊特性。指令特性的值预期是单个 JavaScript 表达式 
+  参数
+    一些指令能够接收一个“参数”，在指令名称之后以冒号表示。
+      <a v-bind:href="url">...</a>    // href特性 为url方法的参数
+  修饰符
+    修饰符 (Modifiers) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。
+      例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：
+        <form v-on:submit.prevent="onSubmit">...</form>
+
+  缩写：
+    v-bind 缩写 :
+    v-on 缩写   @
+    

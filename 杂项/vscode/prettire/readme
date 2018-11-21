@@ -1,0 +1,39 @@
+
+安装插件：ESlint，Prettier
+  {
+    "prettier.eslintIntegration": true,
+    "eslint.autoFixOnSave": true,
+    "editor.formatOnSave": true
+  }
+  eslint-plugin-prettier 公开了一个 “recommended” 配置
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ]
+  },
+  需安装依赖库： eslint-plugin-prettier 和 eslint-config-prettier 
+    yarn add --dev eslint-plugin-prettier eslint-config-prettier prettier-eslint-cli
+  修复工具：
+    {
+      "scripts": {
+        "eslint-fix": "eslint src/**/**/*.vue --fix",
+        "format-code": "prettier-eslint --write \"src/**/*.js\" \"src/**/*.vue\""
+      }
+    }
+
+  "rules": {
+    "no-console": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,            // 单引号
+        "trailingComma": "none",        // 
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "parser": "flow"
+      }
+    ]
+  }
