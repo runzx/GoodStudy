@@ -1,5 +1,7 @@
 1. 用户设置 - 全局应用于您打开的任何VS代码实例的设置。
     %APPDATA%\Code\User\settings.json
+      C:\Users\runzx\AppData\Roaming\Code\User\settings.json
+      
     Linux的 $HOME/.config/Code/User/settings.json
   工作区设置 - 存储在工作区内的设置，仅在打开工作区时应用。
   crtl + , 打开设置

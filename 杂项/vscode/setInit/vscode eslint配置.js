@@ -62,9 +62,12 @@ eslint.workingDirectories - 要使用的工作目录的array 。 ESLint解析与
     ]
   },
   "eslint.options": {
-    // "configFile": "d:/zx/code/.eslintrc.js"
+    "configFile": "d:/zx/code/.eslintrc.js"
   },
   "eslint.run": "onSave",
   "prettier.semi": false,
-  "javascript.format.enable": false
+  "javascript.format.enable": false,
+  "editor.fontFamily": "Consolas, 'Courier New', monospace,'Fira Code','Input Mono','Inconsolata'"
 }
+// win10下用户内有效配置路径：
+  C:\Users\runzx\AppData\Roaming\Code\User\settings.json
