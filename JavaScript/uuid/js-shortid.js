@@ -7,7 +7,8 @@ var shortid=require('shortid');
 console.log(shortid.gen());
 
  */
-(function(root, factory) {
+
+;(function(root, factory) {
   'use strict'
   if (typeof define === 'function' && define.amd) {
     define(factory)
@@ -24,69 +25,11 @@ console.log(shortid.gen());
   }
 })(this, function() {
   var __initime = 1460332800000, //2016-04-11
+    // prettier-ignore
     __symbols = [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-      'f',
-      'g',
-      'h',
-      'i',
-      'j',
-      'k',
-      'l',
-      'm',
-      'n',
-      'o',
-      'p',
-      'q',
-      'r',
-      's',
-      't',
-      'u',
-      'v',
-      'w',
-      'x',
-      'y',
-      'z',
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z',
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ],
     __base = 62,
     __paddingLeft = function(padding, val) {
@@ -133,7 +76,7 @@ console.log(shortid.gen());
             : 0,
         salts = self._salts()
       return elapsed === 0 ? salts : self._toBase(elapsed, __base) + salts
-    }, 
+    },
   }
   return {
     inst: function(opt) {
@@ -143,7 +86,7 @@ console.log(shortid.gen());
       return new ShortId(opt).gen()
     },
     uuid: function() {
-      return new ShortId({ salts: 4 }).gen()
+      return new ShortId({salts: 4,}).gen()
     },
-   }
+  }
 })

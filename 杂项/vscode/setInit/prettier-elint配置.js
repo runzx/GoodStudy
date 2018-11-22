@@ -43,18 +43,35 @@ eslint-plugin-html：
       "printWidth": 120, // 每行最大120字符
     }
   }
+
+
   eslint-plugin-prettier将其作为 ESLint 的一个插件
+  {
+    "plugins": ["prettier"],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  }
+
+  eslint-plugin-prettier 提供的 recommended 配置会自动添加 eslint-config-prettier 和 eslint-plugin-prettier，为你省去一些手动的配置。
   eslintConfig  // 可以简化为:
   {
     "extends": ["plugin:prettier/recommended"]
   }
 
-  eslint-plugin-prettier 提供的 recommended 配置会自动添加 eslint-config-prettier 和 eslint-plugin-prettier，为你省去一些手动的配置。
+   
   你想使用 Prettier 的规则而不是 ESLint 的，为防止 ESLint 报错，你需要使用 
-    eslint-config-prettier 来关闭所有可能引起冲突的规则。
-      "rules": {
-        "prettier/prettier": "error"
-      }
+  {
+    "extends": ["prettier"]     //  来关闭所有可能引起冲突的规则。eslint-config-prettier
+  }
+
+  JS代码中，加入  // prettier-ignore 下面就忽略相应格式化
+  html  <!-- prettier-ignore -->
+  css   /* prettier-ignore */
+  JSX    {/* prettier-ignore */}
+  Markdown   <!-- prettier-ignore -->
+  配置文件：  .prettierignore
+  
   vscode 配置：
   {
     "prettier.eslintIntegration": true,
