@@ -24,7 +24,7 @@ console.log(shortid.gen());
     root.shortid = self
   }
 })(this, function() {
-  var __initime = 1460332800000, //2016-04-11
+  var __initime = 1525737600000, // 20180508  // 2016-04-11 1460332800000
     // prettier-ignore
     __symbols = [
       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

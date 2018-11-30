@@ -1,0 +1,38 @@
+在浏览器中操作文件，多数情况下用到的是 File 对象，从 <input type='file' /> 元素获取
+1。 Blob 对象
+  Blob 对象表示一个不可变、原始数据的类文件对象。Blob 表示的不一定是JavaScript原生格式的数据。
+  Blob构造函数 Blob(array[, options])
+    array 是一个由ArrayBuffer, ArrayBufferView, Blob, string 等对象构成的 Array ，或者其他类似对象的混合体，
+      它将会被放进 Blob。string会被编码为UTF-8。
+    options 是一个可选的对象，它可能会指定如下两个属性：
+      type，默认值为 ""，它代表了将会被放入到blob中的数组内容的MIME类型。
+      endings，默认值为"transparent"，用于指定包含行结束符\n的字符串如何被写入。 它是以下两个值中的一个： 
+        "native"，代表行结束符会被更改为适合宿主操作系统文件系统的换行符，或者 
+        "transparent"，代表会保持blob中保存的结束符不变。
+
+    var content1 = ['This is my firt trip to an island'];
+    var blob1 = new Blob(content, {type: 'text/plain'});
+    var content2 = {name: 'Alice', age: 23};
+    var blob2 = new Blob([JSON.stringify(content2, null, 2)], {type: 'application/json'});
+  Blob实例属性
+    size, type
+  Blob实例方法
+    slice([start[, end[, contentType]]])
+
+2. File 对象
+  File构造函数
+    我们接触的多数关于 File 的操作都是读取，js也为我们提供了手动创建 File 对象的构造函数：
+    File(bits, name[, options])
+      bits (required) ArrayBuffer，ArrayBufferView，Blob，或者 Array[string] — 或者任何这些对象的组合。这是 
+        UTF-8 编码的文件内容
+      name [String] (required) 文件名称，或者文件路径.
+      options [Object] (optional) 选项对象
+        type: string, 表示将要放到文件中的内容的MIME类型。默认值为 '' 。
+        lastModified: 数值，表示文件最后修改时间的 Unix 时间戳（毫秒）。默认值为 Date.now()。
+  例：
+  var file1 = new File(['text1', 'text2'], 'test.txt', {type: 'text/plain'});
+  var file2 = new File([blob], 'test.png', {type: 'image/png'});
+  File实例属性
+    name, type, lastModified 时间戳,lastModifiedDate
+  File实例方法
+    slice([start[, end[, contentType]]])

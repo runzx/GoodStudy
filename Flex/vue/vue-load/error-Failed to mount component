@@ -1,0 +1,13 @@
+Failed to mount component: template or render function not defined
+
+vue-load > v12+
+  默认开启了 ES modules 模块，于是，要配合新的语法进行一些代码上的更改
+    可以在 vue-loader 的 options 里通过 esModule: false 配置来关闭 ES 模块
+    同步引入组件，正常用 import，而原来使用 require 引入 ES6 语法的文件（例如：export default {...}），现在需要多加一个 default 属性来引用
+      const upFile = require('./upFile.vue').default
+
+    异步引入组件，需要用动态 import 语法
+      export default {
+        upFile: () => import('./upFile.vue'),
+        // VueEditor,
+      }

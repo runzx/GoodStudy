@@ -12,4 +12,10 @@ npx 用来执行 npm 二进制执行文件，可以更加方便。
     npx -p node-bin@ node -v    // 可以指定某一次运行时node的版本
         -p选项可以指定你要安装的包的运行的$PATH
         node-bin只能用于 *nix 平台。这是Aria Stewart的杰作
-
+3。查询版本
+    npx xxx --version
+4. 也就是说 npx 会自动查找当前依赖包中的可执行文件，
+    如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装！
+    npx 甚至支持运行远程仓库的可执行文件，如
+        npx github:piuccio/cowsay hello
+        npx cowsay hello npx

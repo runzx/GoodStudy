@@ -1,11 +1,7 @@
-import { Agent, b } from "http";
+import { Agent, b } from 'http'
 
-export {
- Agent, b, c, rrr 
-};
+export { Agent, b, c, rrr }
 
-const tmp = [1, 2, 3];
-const {
- aq, dd, cc, bbb, ww 
-} = obj;
-res => {};
+const tmp = [1, 2, 3]
+const { aq, dd, cc, bbb, ww } = obj
+res => {}

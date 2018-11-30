@@ -42,3 +42,6 @@ ESLint 附带有大量的规则。你可以使用注释或配置文件修改你�
 
    "extends": "eslint:recommended"
     由于这行，所有在 规则页面 被标记为 “” 的规则将会默认开启。
+
+如果配置文件里有问题，则格式化不会执行
+  如没安装vue插件，而配置里有'plugin:vue/recommended',  
