@@ -1,0 +1,14 @@
+# tail /var/log/messages          //系统主日志文件
+# tail -20 /var/log/messages
+# tail -f /var/log/messages       //动态查看日志文件的尾部
+# tailf /var/log/secure           //认证、安全
+# tail /var/log/maillog           //跟邮件postfix相关
+# tail /var/log/cron              //crond、at进程产生的日志
+# tail /var/log/dmesg             //和系统启动相关
+# tail /var/log/audit/audit.log   //系统审计日志
+# tail /var/log/yum.log           //yum
+# tail /var/log/mysqld.log        //MySQL
+# tail /var/log/xferlog           //和访问FTP服务器相关
+# tail  /var/log/wtmp             //当前登录的用户（命令：w）
+# tail  /var/log/btmp             //最近登录的用户（命令last    ）
+# tail  /var/log/lastlog          //所有用户的登录情况（命令lastlog ）

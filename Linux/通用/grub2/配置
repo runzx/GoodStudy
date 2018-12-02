@@ -97,3 +97,8 @@ EOF
   # update grub
   if has_command update-grub; then
     update-grub
+
+  sudo gedit /etc/default/grub
+  在该文件末尾添加：
+# GRUB_THEME="/boot/grub/themes/主题包文件夹名称/theme.txt"
+GRUB_THEME="/boot/grub/themes/fallout-grub-theme-master/theme.txt"

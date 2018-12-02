@@ -1,0 +1,5 @@
+pm2日志切割 - pm2-logrotate
+  安装
+pm2 install pm2-logrotate
+
+设置详情：https://github.com/keymetrics/pm2-logrotate

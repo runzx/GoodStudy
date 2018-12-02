@@ -1,0 +1,54 @@
+1。 /etc/cron.daily/ 默认配置了(aliyun centos7已安装并运行)
+  #!/bin/sh
+
+  /usr/sbin/logrotate -s /var/lib/logrotate/logrotate.status /etc/logrotate.conf
+  EXITVALUE=$?
+  if [ $EXITVALUE != 0 ]; then
+      /usr/bin/logger -t logrotate "ALERT exited abnormally with [$EXITVALUE]"
+  fi
+  exit 0
+
+2。 logrotate.d 是一个目录， 该目录里面的所有文件都会被主动的读入 /etc/logrotate.conf 当中来进行
+  vim /etc/logrotate.conf
+    # 下面的设置是 "logrotate 的默认设置值" ，如果个别的文件设置了其他的参数，
+    # 则将以个别的文件设置为主，若该文件没有设置到的参数则以这个文件的内容为默认值！
+
+    weekly    #默认每个礼拜对登录文件进行一次 rotate 的工作
+    rotate 4  #保留几个登录文件呢？默认是保留四个！
+    create    #由于登录文件被更名，因此创建一个新的来继续储存之意！
+    dateext   #就是这个设置值！可以让被轮替的文件名称加上日期作为文件名喔！
+    #compress #在轮循任务完成后，已轮循的归档将使用gzip进行压缩。
+
+    include /etc/logrotate.d
+    # 将 /etc/logrotate.d/ 这个目录中的所有文件都读进来执行 rotate 的工作！
+    /var/log/wtmp {           #仅针对 /var/log/wtmp 所设置的参数(//当前登录的用户（命令：w）)
+        monthly               #每个月一次，取代每周！
+        create 0664 root utmp #指定新建文件的权限与所属帐号/群组
+        minsize 1M            #文件大小一定要超过 1M 后才进行 rotate （略过时间参数）
+        rotate 1              #仅保留一个，亦即仅有 wtmp.1 保留而已。
+    }
+    /var/log/btmp {           #最近登录的用户（命令last    ）
+        missingok             #在日志轮循期间，任何错误将被忽略，例如“文件无法找到”之类的错误。
+        monthly
+        create 0600 root utmp
+        rotate 1
+    }
+    # system-specific logs may be also be configured here.
+
+    # 这个 wtmp 可记录登陆者与系统重新开机时的时间与来源主机及登陆期间的时间。
+    # 由于具有 minsize 的参数，因此不见得每个月一定会进行一次喔！要看文件大小。
+    # 由于仅保留一个登录文件而已，不满意的话可以将他改成 rotate 5 吧！
+
+    delaycompress: 总是与compress选项一起用，delaycompress选项指示logrotate不要将最近的归档压缩，压缩将在下一次轮循周期进行。这在你或任何软件仍然需要读取最新归档时很有用。
+    notifempty: 如果日志文件为空，轮循不会进行。
+    postrotate/endscript: 在所有其它指令完成后，postrotate和endscript里面指定的命令将被执行。
+    
+  执行脚本：可调用外部指令来进行额外的命令下达，这个设置需与 
+    sharedscripts .... endscript 设置合用才行。至于可用的环境为：
+      prerotate：在启动 logrotate 之前进行的指令，例如修改登录文件的属性等动作；
+      postrotate：在做完 logrotate 之后启动的指令，例如重新启动 （kill -HUP） 某个服务！
+      Prerotate 与 postrotate 对于已加上特殊属性的文件处理上面，是相当重要的执行程序！
+  olddir
+    指定轮询后的日志文件存放在directory，必须和当前日志文件在同一个文件系统
+
+  kill -USR1亦通常被用来告知应用程序重载配置文件

@@ -1,0 +1,8 @@
+journalctl是centos7上专有的日志管理工具
+  日志的配置文件是/etc/systemd/journald.conf
+    .显示日志占据的硬盘空间
+      journalctl  --disk-usage
+    .指定日志文件占据的最大空间
+      journalctl   --vacuum-size=1G
+    .指定日志文件保存多久
+      journalctl   --vacuum-time=1years
