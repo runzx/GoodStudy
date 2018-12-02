@@ -1,0 +1,99 @@
+ 	default：定义默认启动的kernel或是操作系统
+ 		default num  # 默认启动第 num +1行选项，也就说default=0，则默认启动菜单第1行的操作系统
+     	timeout：定义等待进入选择kernel或操作系统菜单的时间
+ 
+     	splashimage：指定我们选择kernel或操作系统菜单后面那张图片。如果定义，这张图片需要用linux自带的软件xmp制作，在图形界面可以打开。图片的特点为：
+     1，必须是xpm的格式  
+     2，必须用gzip压缩   
+     3，最多使用14位的颜色位数  
+     4，分辨率640*480
+	title identify：指定一个kernel或是一个操作系统，linux中可以有多个title；identify是这个kernel或操作系统的识别符，可以随意写。
+ 
+     	root：用于指定grub所能识别的根，而不是根文件系统。
+ 
+     	kernel：用于指定系统的内核文件的位置
+ 
+     	initrd：帮助kernel完成系统的启动，例如加载根文件系统所在分区的驱动等。如果kernel本身有相应强大的功能，则不需要initrd
+
+grub是以hd来识别磁盘的，第一磁盘为hd0，第二个磁盘为hd1...，
+	而hd0,0表示第一个磁盘的第一个分区，hd0,1表示第一个磁盘的第二个分区
+	grub2分区命名方式有变，第一个分区现在是1而不是0，但第一个设备仍然以0开始计数，如(hd0, 1)表示第一块硬盘上的第一个分区。
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz)所以它的意思是：grub在第一个分区中找到grub这个目录，再找到这个图片文件作为背景。
+
+修改/boot/grub2/grub.cfg文件，其中的menuentry标签中的就是开机的时候，在屏幕上显示的待选择的系统。
+	我们可以采用整体移动menuentry标签中的内容
+	注意是在一对大括号之间的东西
+
+menuentry 'Fedora, with Linux 3.11.10-301.fc20.x86_64' --class fedora --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.11.10-301.fc20.x86_64-advanced-ffd1bd7c-37e8-4fbb-863b-26d901119d42' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	set root='hd0,msdos2'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd2,msdos2 --hint-efi=hd2,msdos2 --hint-baremetal=ahci2,msdos2 --hint='hd0,msdos2'  ffd1bd7c-37e8-4fbb-863b-26d901119d42
+	else
+	  search --no-floppy --fs-uuid --set=root ffd1bd7c-37e8-4fbb-863b-26d901119d42
+	fi
+	linux	/boot/vmlinuz-3.11.10-301.fc20.x86_64 root=UUID=ffd1bd7c-37e8-4fbb-863b-26d901119d42 ro vconsole.font=latarcyrheb-sun16  rhgb quiet LANG=zh_CN.UTF-8
+	initrd /boot/initramfs-3.11.10-301.fc20.x86_64.img
+}
+
+sudo update-grub 就可以使修改生效
+	更新Grub 2或用户主动运行grub-mkconfig -o /boot/grub/grub.cfg（曾经是update-grub
+Grub 2 包含下面几个部分：
+|
+|-- /boot/grub/grub.cfg 文件
+|-- /etc/grub.d/ 文件夹
+|-- /etc/default/grub 文件
+ grub.cfg 类似 Grub 中的 /boot/grub/menu.lst。里面的格式于 menu.lst 差不多，但是现在不允许你通过直接修改该文件到方式来修改启动项，因为该文件是在 执行"u
+	pdate-grub"或者update-grub2"之后，根据上面说到2、3两项动态生成到
+首先 /etc/grub.d/ 文件夹中定义各个启动项，其中的文件代表了一个或多个启动项，命名规范都是"两个数字_名称"，前面的两位数字确定这个或这多个启动项在启动界面的位置， 默认的 "00_"是预留给"00_header"的，"10_是预留给当前系统内核的，20_是预留给第三方程序的，除了这些你都可以使用，增加自己的，比如 05_ , 15_，	
+	数字越小越前面
+Grub 2 的最后一部分是 /etc/default/grub 文件，该文件主要是启动界面的配置，比如默认的启动项，等待用户选择启动项的时间等。文件内容很简单，就是一些键值对
+	GRUB_DEFAULT=0 -------->设置默认启动项，按menuentry顺序。比如要默认从第四个菜单项启动，数字改为3，若改为 saved，则默认为上次启动项。
+ 
+	GRUB_HIDDEN_TIMEOUT=0 默认为0，单系统时启动菜单自动隐藏，要取消自动隐藏菜单，改为大于0再sudo update-grub。(注意:单系统下/etc/grub.d/30_os- prober可能没引用这里的变量，如果修改这里不能显示菜单，还要修改 /etc/grub.d/30_os-prober，具体看下面修改部份)
+		GRUB_HIDDEN_TIMEOUT_QUIET=true
+ 
+	GRUB_TIMEOUT="3"----------->设置进入默认启动项的等候时间，默认值10秒，按自己需要修改
+
+	GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" ----------->添加内核启动参数，这个为默认
+	GRUB_CMDLINE_LINUX="noresume"--------->手动添加内核启动参数，比如 acpi=off noapic等可在这里添加，加 text 参数启动进入字符模式。
+ 
+# Uncomment to disable graphical terminal (grub-pc only)
+#GRUB_TERMINAL=console ---------->设置是否使用图形界面。去除前面#，仅使用控制台终端，不使用图形界面
+# The resolution used on graphical terminal
+# note that you can use only modes which your graphic card supports via VBE
+# you can see them in real GRUB with the command `vbeinfo'
+#GRUB_GFXMODE=640x480 设定图形界面分辨率，如不使用默认，把前面#去掉，把分辨率改为800x600或1024x768
+ 
+# Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true ---------->设置grub命令是否使用UUID，去掉#，使用root=/dev/sdax而不用root=UUDI=xxx
+# Uncomment to disable generation of recovery mode menu entrys
+#GRUB_DISABLE_LINUX_RECOVERY="true"----------->设定是否创建修复模式菜单项
+
+/etc/grub.d 文件夹详细修改方法
+ 
+　　再看下 /etc/grub.d 文件夹下的什么东东：
+　　00_header 	05_debian_theme 	10_linux 	20_memtest86+ 	30_os-prober 	40_custom README
+只要找到
+cat << EOF
+********
+********
+********
+EOF
+这类语句，EOF中间的文本会直接写入grub.cfg中相应位置
+下面是vimix主题的Install 
+  # Copy Vimix
+  cp -a Vimix /boot/grub/themes
+
+  # Set Vimix
+  grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
+  echo "GRUB_THEME=\"/boot/grub/themes/Vimix/theme.txt\"" >> /etc/default/grub
+
+  # update grub
+  if has_command update-grub; then
+    update-grub
