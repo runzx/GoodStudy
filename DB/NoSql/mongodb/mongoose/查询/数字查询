@@ -1,0 +1,5 @@
+1。 中文转数字 会出错 
+  parseFloat() 会返回 NaN
+  所以要加判断
+  { order_no: parseFloat(query.search) ? parseFloat(query.search) : 0 },
+  

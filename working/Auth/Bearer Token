@@ -1,0 +1,23 @@
+Bearer Token
+  凭证（credenbtial）
+  每次请求（call）
+  无状态的（Stateless）
+  响应头（Header）
+  认证（authentication）
+  响应（response）
+  会话信息（Session）
+  认证（authentication）
+  JSON Web Tokens，简写为JWTs
+  twitter明确说明的是使用bear token。
+  用BASE64编码的字符串放在http request 中的header Authorization中发送给服务端， 
+    这种方式叫HTTP基本认证(Basic Authentication)
+  MIME主要使用两种编码转换方式----Quoted-printable和Base64----将8位的非英语字符转化为7位的ASCII字符。
+  Base64，就是说选出64个字符----小写字母a-z、大写字母A-Z、数字0-9、符号"+"、"/"（再加上作为垫字的"="，实际上是65个字符）----作为一个基本字符集。然后，其他所有符号都转换成这个字符集中的字符。
+  Base64将三个字节转化成四个字节，因此Base64编码后的文本，会比原文本大出三分之一左右。
+  
+2. Bearer Token 的格式
+  Bearer XXXXXXXX
+    XXXXXXXX 的格式b64token ，ABNF 的定义：
+      b64token = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
+    写成 Regular Expression 即是：
+      /[A-Za-z0-9\-\._~\+\/]+=*/

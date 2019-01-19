@@ -9,3 +9,11 @@
     可以将 site.php 中大量定义的入口方法分离单独的文件中 (文件名称为小写单词, 如: sendmessage.inc.php )
         doWebXxx 分离到 we7_demo/inc/web/xxx.inc.php
         doMobileXxx 分离到 we7_demo/inc/mobile/xxx.inc.php
+    
+    http://we7.cc/app/index.php?i=1&j=2&c=entry&do=list&m=we7_demo
+        则会路由至 /addons/we7_demo/site.php 文件中的 doMobileList() 方法。
+
+    商城 /app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile
+        /addons/ewei_shopv2/site.php doMobileMobile
+    
+    向某一控制器（controller）、操作（action）或是行为（do）

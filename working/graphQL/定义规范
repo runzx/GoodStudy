@@ -1,0 +1,37 @@
+
+命名规范
+
+  scalar:首字母大写，尽量以单个的单词简单命名。
+    如Int String。
+  object:首字母大写吗，
+    如Deployment DeploymentStatus。
+  enum:首字母大写，如果enum对应object中的字段，则以object名称加上字段名称。
+    如DeploymentState。
+  interface:首字母大写，
+    如Node Actor。
+  union:首字母大写，
+    如PullRequestTimelineItem。
+  input object:和object一致。
+  query:首字母小写，如查询结果集为单个对象，则为对象名，如果为查询的结果集为多数组，则为对象的复数。如license查询返回的为license，
+  licenses查询方法返回的为[License]。
+
+mutation:首字母小写，根据 动词+object。可参考的动词:
+  add: 增加简单记录，影响单个对象，
+    如addStar。
+  create: 创建复杂记录，影响多个对象，
+    如createProject。
+  remove: 删除简单记录，影响单个对象，
+    如removeStar。
+  delete: 删除复杂记录，影响多个对象，
+    如deleteProject。
+  update: 更新记录，
+    如updateProject。
+
+类型
+  对象 Object
+    const User=new GraphQLObjectType({
+      name: 'Address',  // 必须
+      fields: {...}     // 必须
+    }
+  Input Object：输入对象
+    Object、Interface 和 Union 三种类型是不能作为输入对象类型的

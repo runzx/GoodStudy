@@ -1,0 +1,9 @@
+
+2015以前，Yehuda Katz 首先提出了装饰器。TypeScript在版本1.5（2015）中发布了对装饰器的支持以及许多ES6功能。
+Babel首先在版本5中实现了装饰器，但是在Babel 6中删除了它们，因为该提议仍在不断变化。
+  Logan Smyth创建了一个非官方的插件（babel-plugin-transform-decorators-legacy），它复制了Babel 5的行为; 从那以后，它在第一个Babel 7 alpha版本发布期间被移至官方Babel存储库
+在Babel 7.1.0中，我们引入了对这个新提案的支持，并且在使用@babel/plugin-proposal-decorators插件时默认启用它。
+
+新提案还支持私有字段和方法上的装饰器。我们还没有在Babel中实现这个功能（对于每个类，你可以使用装饰器或私有元素），但它很快就会出现。
+  新提议只允许点属性访问（foo.bar），可选地在end（foo.bar()）处使用参数。
+  如果需要更复杂的表达式，可以将它们包装在括号中：

@@ -1,0 +1,9 @@
+特点：
+  浏览器端发起XMLHttpRequests请求
+  node端发起http请求
+  支持Promise API
+  拦截请求和返回
+  转化请求和返回（数据）
+  取消请求
+  自动转化json数据
+  客户端支持抵御XSRF（跨站请求伪造）

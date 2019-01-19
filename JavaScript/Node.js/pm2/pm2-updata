@@ -1,0 +1,6 @@
+
+npm install pm2@lastest -g
+
+pm2 update
+
+pm2 reload all  // 热重启

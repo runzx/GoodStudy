@@ -1,0 +1,51 @@
+Schema
+  class GraphQLSchema
+  描述一个 GraphQL 服务器的功能。
+
+定义（Definitions）
+  class GraphQLScalarType // GraphQL 中表示标量的类型。
+  
+  class GraphQLObjectType // GraphQL 中包含字段的对象类型。
+  
+  class GraphQLInterfaceType  // GraphQL 中的接口类型，定义了实现该接口需要持有的字段。
+  
+  class GraphQLUnionType  // GraphQL 中的联合类型，定义一系列有效类型的合集。
+  
+  class GraphQLEnumType   // GraphQL 中的枚举类型，定义一系列有效值的合集。
+  
+  class GraphQLInputObjectType  // GraphQL 中的输入对象类型，表示一系列结构化的输入参数。
+  
+  class GraphQLList       // 类型包装器，表示被包装类型的列表。
+  
+  class GraphQLNonNull    // 类型包装器，表示被包装类型取值非空的版本。
+  
+
+谓词函数（Predicates）
+  function isInputType
+    判断某类型是否可以作为字段查询参数和指令的输入类型。
+  function isOutputType
+    判断某类型是否可以作为字段查询结果值的类型。
+  function isLeafType
+    判断某类型是否可以作为响应结果叶节点值的类型。
+  function isCompositeType
+    判断某类型是否可以作为一个选择集的父级上下文。
+  function isAbstractType
+    判断某类型是否为对象类型的组合。
+
+去包装修饰器（Un-modifiers）
+  function getNullableType
+    去掉非空包装，返回原先的类型。
+  function getNamedType
+    去掉非空和列表包装，返回原先的类型。
+
+标量类型（Scalars）
+  var GraphQLInt
+    表示整数的标量类型。
+  var GraphQLFloat
+    表示浮点数的标量类型。
+  var GraphQLString
+    表示字符串的标量类型。
+  var GraphQLBoolean
+    表示布尔值的标量类型。
+  var GraphQLID
+    表示 ID 的标量类型。

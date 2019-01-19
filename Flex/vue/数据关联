@@ -1,0 +1,20 @@
+data里的变量 双向数据绑定的
+  当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。
+    当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。
+  data:function(){
+	    return {
+	    	name:'tony',age:'41',
+	    	obj:{name:'tony',age:'41'},
+	    }
+	},
+  数组类型：vue 只观察数组的变异方法
+    增加数据：push()      
+    修改/删除数据：splice()
+    除了上面2个方法，还包括：pop()，shift()，unshift()，sort()，reverse()
+  对象新增属性：受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除
+    利用vue中的set方法:  
+      this.$set(this.obj,"sex","女");
+    利用克隆对象的方式 :
+      const newobj=Object.assign({}, this.obj);//克隆给新对象
+      newobj.sex="女";
+      this.obj=newobj;//重新赋值

@@ -1,0 +1,46 @@
+/*
+ * @Author: xiang.zhai 
+ * @Date: 2019-01-11 08:32:42 
+ * @Last Modified by: xiang.zhai
+ * @Last Modified time: 2019-01-12 00:21:14
+ https://www.prisma.io/blog/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a
+
+ */
+ 每一个 GraphQL 服务端应用的顶层，必有一个类型代表着所有进入 GraphQL API 可能的入口点，我们将它称之为 
+  Root 类型或 Query 类型。
+
+解析器函数需要四个参数
+  parent：前一个解析器调用的结果（更多信息）。
+    是当前字段的根字段得到的结果值,而这里已经是根查询了,所以值为undefined
+  args：解析器字段的参数。
+  context：每个解析程序可以读取/写入的自定义对象。
+  info：这就是我们将在本文中讨论的内容。
+
+export type GraphQLResolveInfo = {
+  fieldName: string;
+  fieldNodes: Array<FieldNode>;
+  returnType: GraphQLOutputType;
+  parentType: GraphQLCompositeType;
+  path: ResponsePath;
+  schema: GraphQLSchema;
+  fragments: { [fragmentName: string]: FragmentDefinitionNode };
+  rootValue: mixed;
+  operation: OperationDefinitionNode;
+  variableValues: { [variableName: string]: mixed };
+};
+
+fieldName： 如前所述，GraphQL架构中的每个字段都需要由解析器支持。该fieldName包含属于当前的解决该域的名称。
+fieldNodes：一个数组，其中每个对象表示剩余选择集中的字段。
+returnType：相应字段的GraphQL类型。
+parentType：此字段所属的GraphQL类型。
+path：      跟踪遍历当前字段（即解析程序）的遍历字段。
+schema：    GraphQLSchema表示可执行模式的实例。
+fragments： 作为查询文档一部分的片段映射。
+rootValue： rootValue传递给执行的参数。
+operation： 整个查询的AST 。
+variableValues：与查询一起提供的任何变量的映射对应于variableValues参数。
+
+  上面Flow定义的前五个键是特定于字段的
+  全局意味着这些键的值不会改变 - 无论我们谈论哪个解析器。
+    schema，fragments，rootValue，operation并且variableValues
+    将始终贯彻相同的值所有解析器。

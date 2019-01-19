@@ -1,0 +1,9 @@
+https://downloads.mariadb.org/mariadb/repositories/#mirror=shanghai-university&distro=Debian&distro_release=stretch--stretch&version=10.2
+
+sudo apt-get install software-properties-common dirmngr
+sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] https://mirrors.shu.edu.cn/mariadb/repo/10.2/debian stretch main'
+
+sudo apt-get update
+sudo apt-get install mariadb-server
+

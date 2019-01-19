@@ -1,0 +1,14 @@
+
+POST:
+  operationName: "m"
+  query: "query q {↵  Characters(start: 200) {↵    total↵    count↵  }↵}↵↵mutation m {↵  CharacterCreate(data: {name: "zhaixiang"}) {↵    _id↵    url↵  }↵}↵"
+  variables: {}
+
+  operationName: "q"
+  query: "query q {↵  Characters(start: 200) {↵    total↵    count↵  }↵}↵↵mutation m {↵  CharacterCreate(data: {name: "zhaixiang"}) {↵    _id↵    url↵  }↵}↵"
+  variables: {}
+
+  query,mutation 是分开请求，query内容可以都包含，通过operationName 指定此次请求的
+
+为了保证数据的完整性mutations是串形执行，而queries可以并行执行。
+

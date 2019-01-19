@@ -1,0 +1,31 @@
+ShellJS - Unix shell commands for Node.js
+  shelljs模块重新包装了child_process,调用系统命令更加简单。
+  shelljs是Unix Shell在Node.js API层的轻量级实现，可以支持Windows、Linux、OS X。你可以像在Unix命令行敲命令一样书写代码
+  http://www.ruanyifeng.com/blog/2015/05/command-line-with-node.html
+  https://www.kancloud.cn/outsider/clitool/313191
+  
+1. 重要方法介绍
+  exec()
+  ls()
+  ShellString()
+  ShellString.prototype.to(file)
+  ShellString.prototype.toEnd(file)
+2. shelljs API地址
+  https://github.com/shelljs/shelljs
+
+3. 常用 
+  //判定git命令是否可用
+  if (!shell.which('git')) {}
+  //先删除'out/Release'目录
+  shell.rm('-rf', 'out/Release');
+  //拷贝文件到'out/Release'目录
+  shell.cp('-R', 'stuff/', 'out/Release');
+  //切换当前工作目录到'lib'
+  shell.cd('lib');
+  //shell.ls('*.js')返回值是一个包含所有js文件路径的数组
+  shell.ls('*.js').forEach(function(file) {//遍历数组
+  //同步执行git命令提交代码
+  if (shell.exec('git commit -am "Auto-commit"').code !== 0) {
+      shell.echo('Error: Git commit failed');
+      shell.exit(1);
+  }
