@@ -1,0 +1,26 @@
+
+MongoDB支持二级索引。随着猫鼬，我们定义中的这些指标Schema 在 该 路径(field,path) 级别或schema级别
+  var animalSchema = new Schema({
+    name: String,
+    type: String,
+    tags: { type: [String], index: true } // field level
+  });
+
+  animalSchema.index({ name: 1, type: -1 }); // schema level
+
+当您的应用程序启动时，Mongoose会自动调用createIndex架构中的每个已定义索引。
+  Mongoose将按createIndex顺序调用每个索引，
+  并在所有createIndex调用成功或出现错误时在模型上发出'index'事件。
+  虽然很适合开发，但建议在生产中禁用此行为，因为创建索引会对性能产生重大影响。
+  通过设置禁止行为autoIndex的模式来的选项false，
+  或在全局范围内通过设置选项连接autoIndex到false。
+  mongoose.connect('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+  // or
+  mongoose.createConnection('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+  // or
+  animalSchema.set('autoIndex', false);
+  // or
+  new Schema({..}, { autoIndex: false });
+
+  index当索引构建完成或发生错误时，Mongoose将在模型上发出事件。
+    Animal.on('index', function(error) {}

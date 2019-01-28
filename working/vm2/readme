@@ -1,0 +1,24 @@
+vm2，安全的沙箱环境
+1. nodejs 官方标准库中有一个vm库
+  而Node.js标准库中的vm是不安全的，用户脚本可以轻易突破沙箱环境，获取主程序的Context！
+
+2. vm2就是专门为了解决vm的安全问题而诞生的。
+  const { VM } = require('vm2');
+  const vm = new VM({
+      timeout: 1000,
+      sandbox: {}
+  });
+
+  vm.run(`process.exit()`); // TypeError: process.exit is not a function
+
+  vm2 特性： https://github.com/patriksimek/vm2
+    运行不受信任的JS脚本
+    沙箱的终端输出信息完全可控
+    沙箱内可以受限地加载modules
+    可以安全地向沙箱间传递callback
+    死循环攻击免疫 while (true) {}
+
+  选项：
+    timeout - 脚本超时（以毫秒为单位）。
+    sandbox - VM的全局对象。
+    compiler- javascript（默认）coffeescript或自定义编译器功能。如果编译器设置为，库希望您预先安装coffee-script coffeescript。

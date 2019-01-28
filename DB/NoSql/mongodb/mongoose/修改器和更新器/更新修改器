@@ -24,4 +24,4 @@ findOneAndUpdate
 findByIdAndUpdate
   所有非atomic操作名称的顶级更新键都被视为设置操作：
 
-  传入对象会所覆盖原集合?
+  传入对象会所覆盖原集合? no 相当于加了$set
