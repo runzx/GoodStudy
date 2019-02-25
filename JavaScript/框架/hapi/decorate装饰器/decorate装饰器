@@ -1,0 +1,33 @@
+
+1。 定义：可以生成全局方法在 h,req,server,handler?
+  server.decorate(type, property, method, [options])
+    type - the interface being decorated. Supported types:
+      'handler' - adds a new handler type to be used in routes handlers.
+      'request' - adds methods to the Request object.
+      'server' - adds methods to the Server object.
+      'toolkit' - adds methods to the response toolkit.
+    property - the object decoration key name or symbol.
+    method - the extension function or other value.
+    options - (optional) supports the following optional settings:
+      apply - when the type is 'request', if true, the method function is invoked using the signature function(request) where request is the current request object and the returned value is assigned as the decoration.
+      extend - if true, overrides an existing decoration. The method must be a function with the signature function(existing) where:
+        existing - is the previously set decoration method value.
+          must return the new decoration function or value.
+          cannot be used to extend handler decorations.
+
+2。 excample:
+  const success = function () {
+
+      return this.response({ status: 'ok' });
+  };
+
+  server.decorate('toolkit', 'success', success);
+
+  server.route({
+      method: 'GET',
+      path: '/',
+      handler: function (request, h) {
+
+          return h.success();
+      }
+  });
