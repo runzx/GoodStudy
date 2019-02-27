@@ -1,0 +1,10 @@
+
+Sort operation used more than the maximum 33554432 bytes of RAM. Add an index, or specify a smaller limit
+  而Mongodb的sort操作是把数据拿到内存中再进行排序的，为了节约内存，默认给sort操作限制了最大内存为32Mb
+
+  修改默认内存配置，在Mongodb命令行窗口中执行如下命令即可：
+    db.adminCommand({setParameter:1, internalQueryExecMaxBlockingSortBytes:335544320})
+
+  创建索引，也比较简单：
+    db.yourCollection.createIndex({<field>:<1 or -1>})
+    db.yourCollection.getIndexes()  //查看当前collection的索引
