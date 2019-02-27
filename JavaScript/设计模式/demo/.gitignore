@@ -1,12 +1,10 @@
 #zx:
-demo/*
 .settings/
 .buildpath
 .project
 .idea/
 .vscode/
 %APPDATA%/
-node_modules/
 node_modules/*
 # Windows image file caches
 Thumbs.db
