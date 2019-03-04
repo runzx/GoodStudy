@@ -1,0 +1,61 @@
+GraphQL.js 是官方的 GraphQL 参考实现，
+  它从 2015 年 7 月 2 日发布 0.1.0 版
+  2018 新版效仿 React，版本号直接从 0.13 跳到 14.0
+
+  变更：
+    增加 Node v10 的支持，但放弃了 Node v4
+    拒绝无效的 Scalar 值转换（coerce 时更严格了）
+    解决 null 值与 default 值之间的二义性问题
+  新增：
+    在 SDL 中可以 extend 的类型增加了 schema、enum、input、union
+    导出更多与 SDL 相关的 AST 类型
+    支持 symbol.toStringTag
+    导出 getOperationRootType(schema, operationAST)
+    在 package.json 增加 sideEffects: false
+  修复：
+    修复自定义 enum 类型
+    升级到 Babel 7
+    提高了 Introspection query 的性能
+
+GraphQL服务器apollo-server迎来2.0版本更新，
+  集成了graphql-tools，自带Upload上传功能，自带服务器，
+  不再依赖express，koa这种服务器软件。
+
+BFF全称是Backends For Frontends(服务于前端的后端)
+  BFF就是服务器设计API时会考虑到不同设备的需求，也就是为不同的设备提供不同的API接口，
+  虽然它们可能是实现相同的功能，但因为不同设备的特殊性，它们对服务端的API访问也各有其特点，需要区别处理。
+
+每一个 GraphQL 类型 其实相当于 
+  mongo 里面的一个 collection，
+  或者 mongoose 里面的 Model, 
+
+GraphQL里面有一个类型的概念叫类型 （type），
+  每一个类型下面对应的是一个或多个字段，
+  每一个字段绑定了一个 resolver，
+  这个 resolver 的作用就是获取字段对应的数据。
+
+GraphQL查询语言本质上就是从对象中选择field，所有的GraphQL操作必须指明到最底层的field，
+  并且返回值为标量，以确保响应结果的结构明白无误，
+  所谓标量（scalar），也就是基本数据类型，比如String、int等
+  你必须添加嵌套的内部field直至所有的field都返回标量
+所谓Connection，就是可以关联查询，GraphQL就是通过Connection来实现只需要一次请求就可以获取全部需要的数据的功能的
+  Edge是GraphQL中的边，它表示Node之间的Connection
+  每个edgesfield都有一个nodefield和一个cursorfield。cursor是用来分页的。
+  Node是一个对象，它就是我们获取数据的节点
+
+GraphQL 自带一组默认标量类型：
+  Int：有符号 32 位整数。
+  Float：有符号双精度浮点值。
+  String：UTF‐8 字符序列。
+  Boolean：true 或者 false。
+  ID：ID 标量类型表示一个唯一标识符，通常用以重新获取对象或者作为缓存中的键。ID 类型使用和 String 一样的方式序列化；然而将其定义为 ID 意味着并不需要人类可读型。
+  都有自定义标量类型的方式。例如，我们可以定义一个 Date 类型：
+  枚举（enum），枚举类型是一种特殊的标量，它限制在一个特殊的可选值集合内。这让你能够：
+    验证这个类型的任何参数是可选值的的某一个
+    与类型系统沟通，一个字段总是一个有限值集合的其中一个值。
+  Interfaces
+    一个接口是一个抽象类型，它包含某些字段，
+  Union Types
+    联合类型的成员需要是具体对象类型；你不能使用接口或者其他联合类型来创造一个联合类型。
+  Input Types
+    

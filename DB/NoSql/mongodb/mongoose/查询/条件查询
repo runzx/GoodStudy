@@ -17,3 +17,5 @@
 
   Model.find({'$or' :  [ {'age':18} , {'name':'xueyou'} ] });
   查询 age等于18 或 name等于'xueyou' 的文档
+
+  'xxx':{$ne:0}

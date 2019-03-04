@@ -1,0 +1,76 @@
+1。 在指定的秒数后删除该文档
+
+  const Model = db.model('message', MessagesSchema)
+
+  Model.createIndexes(
+    MessagesSchema.index(
+      {time:1}, 
+      {expires:60*2}
+    ), 
+    function(err, info){    // 这回调函数是mongoose,用原生的ensureIndex,
+      // collection.ensureIndex is deprecated. Use createIndexes instead.
+      if(err) console.error(err);
+        console.info(info);
+    }
+  )
+
+2。指定到期时间
+
+  Model.createIndexes(
+    MessagesSchema.index(
+      {expires:1}, 
+      {expireAfterSeconds:0}
+    ), 
+    function(err, info){
+        if(err) console.error(err);
+    }
+  )
+
+3. mongoose 自动在启动时运行createIndex (这是mongodb方法)
+  初始化你定义的索引。 Mongoose 顺序处理每一个 createIndex ，
+  然后在model触发 'index' 事件。
+
+  createIndexes 是mongodb v3.2中的新功能。db.collection.createIndexes()是createIndexes命令的包装器 
+    在集合上创建一个或多个索引。
+  db.collection.createIndexes（[ keyPatterns，] options ）
+  
+  1，2中的createIndexes中的回调函数可能已过时！！
+
+4。在Mongoose中，您可以通过该字段的模式定义中的expires属性在Date字段上创建一个TTL索引：
+  // expire docs 3600 seconds after createdAt
+  new Schema({ 
+    createdAt: { 
+      type: Date, 
+      expires: 3600 
+      // 自动生成createdAt 索引，expireAfterSeconds=expire
+    }
+  });
+  
+  注意：
+    > MongoDB的数据到期任务每分钟运行一次，因此过期的文档可能会持续到其过期一分钟。
+    > 此功能需要MongoDB 2.2或更高版本。
+    > 由createAt设置为创建文档的当前时间，或添加一个默认值为您所建议的here。
+
+    > {createdAt：{type：Date，expires：3600，default：Date.now}}
+    你不能使用createIndex()去更改已经存在的TTL索引的expireAfterSeconds值，
+      如果想更改expireAfterSeconds，可以使用collMod命令，
+      否则你只能删除索引，然后重建了
+        db.runCommand({ 
+          collMod: "log_events",          // 集合名
+          index: { 
+            keyPattern: { createTime: 1 }, // createTime为具有TTL索引的字段名
+            expireAfterSeconds: 7200      // 修改后的过期时间(秒)
+          }
+        })
+
+5。 虽然已经实现了晚上集中自动删除的功能，但是还是担心删除过大数量时负荷问题。
+  看TTL索引在亿级别集合中删除140万过期数据的消耗
+  测试配置：
+     OS：Vm虚拟机
+     CPU: 4
+     内存：8
+  测试结果：
+    删除操作整个过程在90秒左右完成；
+    CPU最高占用90%，平均在50%
+    内存占用3G
+    

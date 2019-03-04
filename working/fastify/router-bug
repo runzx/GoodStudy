@@ -1,0 +1,7 @@
+const opt={
+  ...
+}
+fastify.get('/',opt,cb)
+fastify.get('/home',opt,cb1)
+  opt 用同一个，在onRequest里 reply._context.config 同样结果
+  config.url 应是系统自动生成，结果也是一样

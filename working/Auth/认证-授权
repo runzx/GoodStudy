@@ -1,0 +1,6 @@
+authentication 和 authorization
+  passport 是为了证明你张三确实是你张三，这就是 authentication；
+  ticket 机票是为了证明你张三确实买了票可以上飞机，这就是 authorization。
+
+  authentication  认证    isAuthenticated
+  authorization   授权    isAuthorized    scope

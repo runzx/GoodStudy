@@ -1,0 +1,4 @@
+
+1。windows 
+  bin 路径加入到环境变量 PATH 中
+  命令行窗口输入 gcc -v 和 g++ -v 进行测试

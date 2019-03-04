@@ -1,0 +1,47 @@
+安装
+  nam -g install eslint eslint-plugin-prettier eslint-config-prettier babel-eslint prettier eslint-plugin-html
+  
+
+Configuring Rules
+  要额外支持新的 ES6 全局变量，使用 { "env":{ "es6": true } }(这个设置会同时自动启用 ES6 语法支持)。
+  ecmaVersion - 默认设置为 5， 你可以使用 3、5、6、7 或 8 来指定你想要使用的 ECMAScript 版本。你也可以用使用年份命名的版本号指定为 2015（同 6），2016（同 7），或 2017（同 8）
+  sourceType - 设置为 "script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)。
+  {
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "parser": "esprima",
+    },
+    "rules": {
+        "semi": 2
+    }
+  }
+
+  指定解析器
+  ESLint 默认使用Espree作为其解析器，你可以在配置文件中指定一个不同的解析器，只要该解析器符合下列要求：
+    它必须是本地安装的一个 npm 模块。
+    它必须有兼容 Esprima 的接口（它必须输出一个 parse() 方法）
+    它必须产出兼容 Esprima 的 AST 和 token 对象。
+    parser: 'babel-eslint',
+
+ESLint 附带有大量的规则。你可以使用注释或配置文件修改你项目中要使用的规则。要改变一个规则设置，你必须将规则 ID 设置为下列值之一：
+  "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"]
+    }
+
+  "off" 或 0 - 关闭规则
+  "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
+  "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+
+  为了在文件注释里配置规则，使用以下格式的注释：
+    /* eslint eqeqeq: "off", curly: "error" */
+
+   "extends": "eslint:recommended"
+    由于这行，所有在 规则页面 被标记为 “” 的规则将会默认开启。
+
+如果配置文件里有问题，则格式化不会执行
+  如没安装vue插件，而配置里有'plugin:vue/recommended',  

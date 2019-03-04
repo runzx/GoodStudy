@@ -1,0 +1,107 @@
+
+ 可用的扩展点包括request请求扩展点以及以下server服务器扩展点：
+
+  'onPreStart' - 在启动连接侦听器connection listeners 之前调用。
+  'onPostStart' - 在连接侦听器启动后调用。
+  'onPreStop' - 在连接侦听器停止之前调用。
+  'onPostStop' - 在连接侦听器停止后调用。使用新的url解析器
+
+request-lifecycle
+Request lifecycle
+  Each incoming request passes through the request lifecycle. The specific steps vary based on the server and route configurations, but the order in which the applicable steps are executed is always the same. The following is the complete list of steps a request can go through:
+
+  onRequest   // 始终调用
+      可以通过request.setUrl（）和request.setMethod（）方法修改请求路径和方法。
+      always called when onRequest extensions exist.
+      the request path and method can be modified via the request.setUrl() and request.setMethod() methods. Changes to the request path or method will impact how the request is routed and can be used for rewrite rules.
+      request.route is unassigned. 未分配
+      request.url can be null if the incoming request path is invalid.
+      request.path can be an invalid path.
+      JSONP configuration is ignored for any response returned from the extension point since no route is matched yet and the JSONP configuration is unavailable.
+  Route lookup
+    如果未找到路由或路径违反HTTP规范，则跳至onPreResponse
+    lookup based on request.path and request.method.
+    skips to onPreResponse if no route is found or if the path violates the HTTP specification.
+  JSONP processing
+    解析来自request.query的JSONP参数。error则跳至onPreResponse
+    based on the route jsonp option.
+    parses JSONP parameter from request.query.
+    skips to Response validation on error.
+  Cookies processing
+
+    based on the route state option.
+    error handling based on failAction.
+  onPreAuth
+    无论是否执行认证，都会调用
+    called regardless if authentication is performed.
+  Authentication
+
+    based on the route auth option.
+  Payload processing
+
+    based on the route state option.
+    error handling based on failAction.
+  Payload authentication
+
+    based on the route auth option.
+  onCredentials
+    仅在执行身份验证时调用。
+    called only if authentication is performed.
+  Authorization   // 授权
+
+    based on the route authentication access option.
+  onPostAuth
+    无论是否执行认证，都会调用
+    called regardless if authentication is performed.
+  Headers validation
+
+    based on the route validate.headers option.
+    error handling based on failAction.
+  Path parameters validation
+
+    based on the route validate.params option.
+    error handling based on failAction.
+  JSONP cleanup
+    从request.query中删除JSONP参数 ? // 向不同域提交HTTP请求的方法称为JSONP
+    based on the route jsonp option.
+    remove the JSONP parameter from request.query.
+  Query validation
+
+    based on the route validate.query option.
+    error handling based on failAction.
+  Payload validation
+
+    based on the route validate.payload option.
+    error handling based on failAction.
+  State validation
+
+    based on the route validate.state option.
+    error handling based on failAction.
+  onPreHandler
+
+  Pre-handler methods
+
+    based on the route pre option.
+    error handling based on each pre-handler method's failAction setting.
+  
+  Route handler
+
+    executes the route handler.
+
+  onPostHandler
+    request.response中包含的响应可能会被修改（但不会分配新值）
+    the response contained in request.response may be modified (but not assigned a new value). To return a different response type (for example, replace an error with an HTML response), return a new response value.
+  Response validation
+
+    error handling based on failAction.
+  onPreResponse
+    总是被调用，除非请求被中止。
+    请注意，生成的任何错误都不会传递回onPreResponse以防止无限循环
+    always called, unless the request is aborted.
+    the response contained in request.response may be modified (but not assigned a new value). To return a different response type (for example, replace an error with an HTML response), return a new response value. Note that any errors generated will not be passed back to onPreResponse to prevent an infinite loop.
+  Response transmission
+
+    may emit a 'request' event on the 'error' channel.
+  Finalize request
+
+    emits 'response' event.

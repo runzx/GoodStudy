@@ -1,0 +1,29 @@
+
+1。 用户级配置文件
+  C:\Users\runzx\AppData\Roaming\Code\User\settings.json
+
+2。 格式插件 
+  eslint
+  prettier
+  npm i --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier
+  // 安装本地，全局可能会出问题
+  vue
+  npm i --save-dev babel-eslint eslint-plugin-html eslint-config-vue eslint-plugin-vue
+
+3. (){}[]配对颜色提示插件
+  Bracket Pair Colorizer
+4。vue语法插件
+  Vetur
+  Beautify    // 格式vue的html部分
+
+5。微信小程序插件 
+  minapp
+6。mongoDB插件
+  Azure Cosmos DB
+7。redis插件
+  Redis console
+8。rest 调试插件
+  REST Client
+
+
+

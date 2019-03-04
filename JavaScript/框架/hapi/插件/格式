@@ -1,0 +1,20 @@
+
+1。  当作为一个外部模块时, 你需要指定 pkg 属性:
+    exports.plugin = {
+        pkg: require('./package.json'),
+        register: async function (server, options) {
+          ...
+        }
+    };
+
+2。 插件很容易去实现，它的核心是一个拥有 
+    register 属性的对象。属性的值是一个拥有 async function (server, options) 签名的函数。 除此之外，
+    插件必须拥有 name 属性以及多个包括 
+    version 在内的可选属性。
+      const myPlugin = {
+          name: 'myPlugin',
+          version: '1.0.0',
+          register: async function (server, options) {
+
+          }
+      };

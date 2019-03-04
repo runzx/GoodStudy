@@ -1,0 +1,30 @@
+mongodb设置自动过期
+  创建索引的时候有一个options的选项，能够指定过期的时间
+
+  db.collection.createIndex(
+    {'create_time': 1}, 
+    {expireAfterSeconds: 3600}
+  )
+    // 这个field字段要么是date字段，要么是带有date字段的一个array
+    // TTL索引必须是单个字段索引。复合索引不支持TTL属性
+
+  在特定时间过期删除文档: 首先在保存BSON日期类型值的字段或BSON日期类型对象数组的字段上创建TTL索引，并指定expireAfterSeconds值为0
+    catbox-mongodb :
+      const collection = await this.db.collection(name);
+      await collection.createIndex(
+          { expiresAt: 1 }, 
+          { expireAfterSeconds: 0 });
+      this.collections[name] = collection;
+      
+    cache.set()时：ttl是传入的有效期
+      const expiresAt = new Date();
+      expiresAt.setMilliseconds(expiresAt.getMilliseconds() + ttl);
+
+      const record = {
+        value,
+        stored: new Date(),
+        ttl,
+        expiresAt     // 生命周期
+      };
+  官文：
+  https://docs.mongodb.com/manual/tutorial/expire-data/

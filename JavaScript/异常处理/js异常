@@ -1,0 +1,38 @@
+
+1。 错误分成两大类
+  操作失败：  正确编写的程序在运行时产生的错误。它并不是程序的Bug，反而经常是其它问题：
+    系统本身（内存不足或者打开文件数过多），
+    系统配置（没有到达远程主机的路由），
+    网络问题（端口挂起），
+    远程服务（500错误，连接失败）
+  程序员失误
+    读取 undefined 的一个属性
+    调用异步函数没有指定回调
+    该传对象的时候传了一个字符串
+    该传IP地址的时候传了一个对象
+  
+2。异常流程
+  async 里： 会一级级反回上一层 err()中处理
+    catch(err=>{})
+    或then(res=>{},err=>{})   
+    throw Error也一样处理。
+  普通函数体里, 或在上一层里捕获
+    可通过try捕获，
+    try{
+      const str='{"a":1,}'
+      const obj=JSON.parse(str)
+    }catch(e){
+      consolt.log(e.stack)
+    }
+3。hapi handler()
+  因为这是个async 体，要return 结果 
+    如果想把前面的异常自己处理，则要捕获异常
+    handler:async(req,h){
+      try{
+        const data = await xxxx()
+        return {errcode:0,data}
+      }catch(e){
+
+        return {errcode:9999,errms:'系统失败'}
+      }
+    }

@@ -43,3 +43,12 @@
     在$in操作符中只能使用正则表达式对象，例如:{name:{$in:[/^joe/i,/^jack/}}
     在使用隐式的$and操作符中，只能使用$regex，例如:{name:{$regex:/^jo/i, $nin:['john']}}
     当option选项中包含X或S选项时，只能使用$regex，例如:{name:{$regex:/m.*line/,$options:"si"}}
+3. $exists mongodb 也同样使用
+    // { name: { $exists: true }}
+    Thing.where('name').exists()
+    Thing.where('name').exists(true)
+    Thing.find().exists('name')
+
+    // { name: { $exists: false }}
+    Thing.where('name').exists(false);
+    Thing.find().exists('name', false);

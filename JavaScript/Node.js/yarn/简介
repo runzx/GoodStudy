@@ -8,4 +8,19 @@
     依赖关系确定性
     更好的网络性能
 
-2. 
+2. 开始新项目
+    yarn init
+添加依赖包
+    yarn add [package]
+    yarn add [package]@[version]
+    yarn add [package]@[tag]
+升级依赖包
+    yarn upgrade [package]              // npm update [package]
+    yarn upgrade [package]@[version]
+    yarn upgrade [package]@[tag]
+移除依赖包
+    yarn remove [package]
+安装项目的全部依赖
+    yarn
+    或者
+    yarn install

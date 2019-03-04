@@ -53,3 +53,14 @@ population
         }]
     Category定义：
         products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+
+5.  虚拟（virtual）属性/路径填充
+    BandSchema.virtual('members', {
+        ref: 'Person', // The model to use
+        localField: '_id', // Find people where `localField`
+        foreignField: 'band', // is equal to `foreignField`
+        // If `justOne` is true, 'members' will be a single doc as opposed to
+        // an array. `justOne` is false by default.
+        justOne: false,
+        options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
+    });

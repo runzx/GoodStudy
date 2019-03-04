@@ -1,0 +1,88 @@
+GraphQL 核心概念
+
+1. 模式定义语言（SDL）
+  类型 Person 例子:
+    type Person {
+      name: String!
+      age: Int!
+    }
+    type Post {
+      title: String!
+      author: Person!
+    }
+  操作类型(Operation type)：共三种类型：查询(query)、更新(mutation)、订阅(subscription)。
+  操作名称(Operation name)：为了方便调试和服务端打日志，最好给你的查询赋予语义化的命名。这样，无论你是在网络日志中或者GraphQL服务器上发现错误，你都可以通过名字很轻松的在代码库中定位问题，而不是靠猜测
+    可理解为 函数名
+  变量定义(Variable definitions)：当客户端向GraphQL服务器发送查询时，会存在查询文档不变，当某些字段会动态变化的情况。
+    因为GraphQL是静态类型的，它可以实时验证你是否传递了正确的变量。
+  选择集(selection set)：它是一次operation中需要的一组字段，或者被嵌套在其他的字段中。
+    GraphQL查询必须包含一个标识选择集的字段，且该字段返回的是对象类型，
+    选择集不能设置在返回值是标量类型（Scalar Types）的字段上，
+  片段名称(Fragment name): **片段(fragments )名在GraphQL文档中必须是唯一的。
+  
+2. 基本的查询
+  {
+    allPersons {    // 查询的 根字段
+      name
+    }
+  }
+  GraphQL 的主要优点之一是允许自然查询 嵌套的 信息
+  {
+    allPersons {
+      name
+      age
+      posts {
+        title     // 嵌套的
+      }
+    }
+  }
+3. 带参数的查询
+  每个 字段 都可以在 模式 中定义零个或多个参数
+
+4. 更改数据 mutation
+
+5. 订阅来实时更新 subscription
+  启动并保持与服务器的稳定连接。无论何时实际发生特定事件，服务器将相应的数据推送到客户端。
+
+6. 模式的定义 schema
+  特殊的 根 类型, 是客户端发送的请求的 入口点
+    type Query { ... }
+    type Mutation { ... }
+    type Subscription { ... }
+  为了启用之前的 allPersons 查询，Query 类型必须写成如下：
+    type Query {
+      allPersons: [Person!]!
+    }
+7. 解析函数 resolver()
+  当服务器收到一个查询时，它将调用查询的有效载荷中指定的字段的所有解析函数。
+8. 客户端
+  两款主流的 GraphQL 客户端 。 第一个是 Apollo Client，
+    第二款是 Relay，它是 Facebook 自家的 GraphQL 客户端，也是网络上唯一一个为性能而重度优化的客户端。
+  查询结果缓存：概念和策略
+    更有有效的一个方法是提前将数据正规化。这意味着将查询结果（可能有嵌套）扁平化，
+      然后 store 只存取能够通过全局唯一 ID 引用的对象。
+
+9。 服务器
+  默认解析器：GraphQL.js 为例，在解析器的父对象包含对应的字段的时候，就不必这个字段的指定解析器。
+  批量解析
+     DataLoader 的工具
+  内省：
+    但客户如何发现可以通过GraphQL API访问的内容？我们可以通过查询元字段向GraphQL询问此信息，该__schema元字段始终可用于规范的查询的根类型。
+    query {
+      __schema {
+        types {
+          name
+        }
+      }
+    }
+    {
+      __type(name: "Author") {
+        name
+        description
+      }
+    }
+10。 安全
+  1）超时
+    配置了5秒超时的服务器将停止执行任何执行时间超过5秒的查询。
+  2）最大查询深度
+  3）查询复杂性

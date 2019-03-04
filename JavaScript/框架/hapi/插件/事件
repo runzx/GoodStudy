@@ -1,0 +1,45 @@
+1。 定义事件位置：
+  server.decorate(type, property, method, [options])
+    使用自定义方法扩展各种框架接口，其中：
+      type - 正在装饰的界面。支持的类型：
+        'handler'- 添加要在路由处理程序中使用的新处理程序类型。
+        'request'- 向Request对象添加方法。
+        'server'- 向Server对象添加方法。
+        'toolkit'- 为响应工具包添加方法。
+      property - 对象修饰键名称或符号。
+      method - 扩展功能或其他值。
+
+2。 事件类
+  const EventEmitter = require('events'); // node原生类
+
+  class MyEmitter extends EventEmitter {}
+
+  const myEmitter = new MyEmitter();
+  myEmitter.on('event', () => { // 注册事件
+    console.log('触发事件');
+  });
+  myEmitter.emit('event');      // 触发事件
+  // 传任意数量的参数到监听器函数。 当监听器函数被调用时，this 关键词会被指向监听器所绑定的 EventEmitter 实例。
+  // 也可以使用 ES6 的箭头函数作为监听器。但 this 关键词不会指向 EventEmitter 实例：
+
+3。 使用以下方法与以下内容进行交互server.events：
+  server.event(events) - 注册申请活动。
+  server.events.emit(criteria, data) - 发出服务器事件。
+  server.events.on(criteria, listener) - 订阅所有活动。
+  server.events.once(criteria, listener) - 订阅
+  其他方法包括：server.events.removeListener(name, listener)， server.events.removeAllListeners(name)，和server.events.hasListeners(name)。
+
+4。
+  'log' 事件  function(event, tags)
+    channel-设置'internal'为内部产生的事件，
+      否则'app'由生成的事件server.log()。
+
+  'request'事件 function(request, event, tags)
+      channel - 其中之一
+        'app'- 由...生成的事件req.log()。
+        'error'- 如果响应具有500状态代码，则每个请求发出一次。
+        'internal' - 内部生成的事件。
+  'response'事件 function(request)
+  'route'事件 function(route)
+  'start'服务器时使用启动事件类型发出server.start()。该'start'事件处理程序使用的函数签名function()
+  'stop'事件 function()

@@ -1,0 +1,32 @@
+盒模型：
+  内容 (content)
+  内填充 (padding)
+  边框 (border)
+  外边距 (margin)
+
+  要增加或减少元素之间的距离时，应该用 margin 属性，margin 不会影响元素的大小。
+  W3C 盒模型认为元素的宽度（width）等于元素的 content，而不包括它的 padding 和 border, padding 和 border 被添加到元素的外层而无论元素本身有多大，这可能会让你的页面产生一些不可预测的后果。
+  传统盒模型认为元素的 width 等于元素的 content、padding 和 border 之和。
+
+设置 Margins 和 Paddings
+  你可以通过设置 padding-top、padding-right、padding-bottom 和 padding-left 来控制元素四个边的 padding，你还可以使用 padding 简写属性。
+
+  只有1 个值时，padding 应用于四个边：
+  /* 应用于四个边 */
+    padding: 1em;
+  如果有 2 个值，第一个值确定顶部和底部的 padding，第二个值确定左侧和右侧的 padding：
+  /* 垂直方向| 水平方向*/
+    padding: 5% 10%;
+  如果有 3 个值，则分别顺序为顶部、水平方向以及底部：
+  /* 顶部| 水平方向| 底部*/
+    padding: 1em 2em 2em; 
+  如果有 4 个值时，则顺序为顶部、右侧、底部、左侧：
+  /* 顶部| 右边| 底部| 左边*/
+    padding: 2px 1em 0 1em;
+3. content-box
+    默认值，标准盒子模型。 width 与 height 只包括内容的宽和高， 不包括边框（border），内边距（padding），外边距（margin）。
+  border-box
+    width 和 height 属性包括内容，内边距和边框，但不包括外边距。
+  /* 关键字 值 */
+    box-sizing: content-box;
+    box-sizing: border-box;

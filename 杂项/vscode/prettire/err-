@@ -1,0 +1,25 @@
+[eslint] Delete `␍` [prettier/prettier]
+
+
+改配置
+  npm remove eslint-plugin-html
+  npm i --save-dev eslint-plugin-vue eslint-plugin-prettier eslint prettier eslint-config-prettier
+  extends: [
+    'plugin:vue/essential'     // 
+    'plugin:prettier/recommended', 
+    "prettier/vue",   // 
+  ],
+
+  "prettier/prettier": [
+      "error",
+      {
+        semi: false,
+        singleQuote: true,
+        trailingComma: "all",
+        useTabs:true,
+        tabWidth:2,
+        jsxBracketSameLine: true,
+        // parser: "flow",
+        endOfLine: "auto",    // <auto|lf|crlf|cr>  用这个就没冲突了。
+      }
+    ],

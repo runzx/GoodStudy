@@ -1,0 +1,35 @@
+1. update()和findOneAndUpdate()
+  update()返回数据处理条数
+  findOneAndUpdate()返回处理后的数据
+  简单来说，你需要获取数据就用findOneAndUpdate()，
+    只需要修改数据而不关注修改后数据那就用update()。
+  
+  update（）：用于对集合中查询条件匹配的“一个或多个”文档执行原子更新操作。
+    它返回其响应中修改过的文档的数量。
+  findOneAndUpdate（）：的目的是在“单数”文档上处理更新语句，以及检索该“单数”文档的内容。
+    返回的状态取决于传递给操作的“new”选项的值。当true返回“修改”的文件。
+      在false任何修改之前返回“原始”文档的地方。后一种形式是默认选项。
+  简而言之。一个是用“批量”修改而不用担心结果中的文档内容。
+    另一个是修改单个文档并返回结果中的文档内容。
+
+  findOneAndUpdate()方法发出mongodb .findAndModify()
+  
+2. save()和update()
+  update比find之后save()效率高，因为这样不用读取整个文档。
+  Mongoose的update是MongoDB的update，但是Mongoose的save可能是MongoDB的插入或是update。
+  关于save，mongoose会自动diff新文档，只更改更新部分。这有利于原子性。
+  update不能触发中间件，validation默认不能，但是可以修改。
+3. update
+  更新数据 是$set操作，不会覆盖其它字段内容！
+
+    返回结果 {n:1,nModified:1,ok:1}
+
+  update upsert=true 没找到会创建新文档
+    返回结果 {n:1,nModified:0,ok:1,"upserted": [{index:0,_id:"xxxyy..."}}
+    内容会把查询的也更新进去
+      查询 如用_id:"5b95451acb1adb2bf0a4f9f0" 如果值符合ObjectId,就会用这作新文档的_id
+      不符合或path(字段)不是schema表中定义的throw error
+  updateMany()同上
+4. insertMany()
+  返回结果[{doc}]
+  参照schema定义会把所有path写入（默认或 空值）

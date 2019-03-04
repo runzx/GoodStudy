@@ -1,0 +1,59 @@
+Disable Transparent Huge Pages (THP)
+1。 centOS7
+  Create the init.d script.
+  Create the following file at 
+    /etc/init.d/disable-transparent-hugepages:
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          disable-transparent-hugepages
+# Required-Start:    $local_fs
+# Required-Stop:
+# X-Start-Before:    mongod mongodb-mms-automation-agent
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Disable Linux transparent huge pages
+# Description:       Disable Linux transparent huge pages, to improve
+#                    database performance.
+### END INIT INFO
+
+case $1 in
+  start)
+    if [ -d /sys/kernel/mm/transparent_hugepage ]; then
+      thp_path=/sys/kernel/mm/transparent_hugepage
+    elif [ -d /sys/kernel/mm/redhat_transparent_hugepage ]; then
+      thp_path=/sys/kernel/mm/redhat_transparent_hugepage
+    else
+      return 0
+    fi
+
+    echo 'never' > ${thp_path}/enabled
+    echo 'never' > ${thp_path}/defrag
+
+    re='^[0-1]+$'
+    if [[ $(cat ${thp_path}/khugepaged/defrag) =~ $re ]]
+    then
+      # RHEL 7
+      echo 0  > ${thp_path}/khugepaged/defrag
+    else
+      # RHEL 6
+      echo 'no' > ${thp_path}/khugepaged/defrag
+    fi
+
+    unset re
+    unset thp_path
+    ;;
+esac
+
+2. 
+  Make it executable.
+  Run the following command to ensure that the init script can be used:
+    sudo chmod 755 /etc/init.d/disable-transparent-hugepages
+3.Configure your operating system to run it on boot.
+  Use the appropriate command to configure the new init script on your Linux distribution.
+  Distribution	Command
+  Ubuntu and Debian	
+    sudo update-rc.d disable-transparent-hugepages defaults
+  SUSE	
+    sudo insserv /etc/init.d/disable-transparent-hugepages
+  Red Hat, CentOS, Amazon Linux, and derivatives	
+    sudo chkconfig --add disable-transparent-hugepages

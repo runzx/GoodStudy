@@ -1,0 +1,15 @@
+1071 ERROR: ER_TOO_LONG_KEY: Specified key was too long; 
+  max key length is 767 bytes
+
+  utf8所导致的，在latin1编码格式下，我设置了VARCHAR (512)类型为主键是没有问题的，而utf8则不行，是
+    由于utf8编码取的是3字节，也就说，只能容纳256个utf8编码格式的VARCHAR。
+
+  utf8mb4 是4字节，所以VARCHAR(256)就出错。
+    更改utf8这项要删除库重建才生效。
+  
+  my.cnf配置：  // 我在10.1.37-MariaDB-0+deb9u1 上修改没有用！！
+  default-storage-engine=INNODB
+  innodb_large_prefix=on
+  innodb_file_per_table=ON
+
+  // 升级10.2 ok!   mysqld 10.2.21-MariaDB-10.2.21+maria~stretch
