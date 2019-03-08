@@ -1,0 +1,19 @@
+P910nd打印服务器
+  安装cups，p910nd
+  $ sudo apt update
+  $ sudo apt upgrade
+  $ sduo apt install -y cups printer-driver-foo2zjs p910nd
+
+配置文件
+$ sudo nano /etc/default/p910nd
+内容
+  P910ND_NUM=0
+  P910ND_OPTS="-f /dev/usb/lp0"
+  P910ND_START=1
+
+$ sudo systemctl restart p910nd
+
+windows 安装
+  1. 使用tcp/ip地址
+    输入192.168.1.10, 这用pi3 (hosts解析 不行)
+    port 9100 协议：raw(R)
