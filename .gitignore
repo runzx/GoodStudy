@@ -7,7 +7,7 @@ demo/*
 .vscode/
 %APPDATA%/
 node_modules/
-node_modules/*
+# node_modules/*
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

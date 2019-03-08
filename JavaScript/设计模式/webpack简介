@@ -8,3 +8,70 @@
     "dev":"webpack --config ./webpack.dev.config.js --mode development"
 
   npm i webpack-dev-server html-webpack-plugin --save-dev
+
+  babel 安装    https://babel.docschina.org/docs/en/usage
+    webpack 下的配置
+      npm i --save-dev babel-loader @babel/core
+      在webpack.dev.config.js ：
+        module: {
+          rules: [
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+          ]
+        }
+      npm install @babel/preset-env --save-dev
+        为了让 preset 生效，你需要像下面这样定义你的 .babelrc 文件：
+
+        {
+          "presets": ["@babel/preset-env"]
+        }
+    //    
+    @babel v7的格式
+      npm i --save-dev @babel/core @babel/cli @babel/preset-env
+      npm i --save @babel/polyfill
+
+      .babelrc 
+    代码转换以插件的形式出现
+      npm install --save-dev @babel/preset-env
+       "preset" 来代替预先设定的一组插件
+       babel.config.js 的文件，现在 env preset 只会为目标浏览器中没有的功能加载转换插件
+       const presets = [
+        [
+          "@babel/env",
+          {
+            targets: {
+              edge: "17",
+              firefox: "60",
+              chrome: "67",
+              safari: "11.1",
+            },
+          },
+        ],
+      ];
+
+  @babel/polyfill 模块包括 core-js 和自定义 regenerator runtime 来模拟完整的 ES2015+ 环境。
+  npm i --save @babel/polyfill
+    env preset，其中有一个 "useBuiltIns" 选项，当设置为 "usage" 时，实际上将应用上面提到的最后一个优化，
+      只包括你需要的 polyfill。
+    如果我们没有将 env preset 的 "useBuiltIns" 选项的设置为 "usage" ，
+      就必须在其他代码之前 require 一次完整的 polyfill。
+
+  decorator   //stage 2  https://github.com/babel/babel/pull/7976
+    确保@babel/plugin-proposal-decorators来之前 @babel/plugin-proposal-class-properties
+    使用legacy: true模式时，@babel/plugin-proposal-class-properties必须在loose模式下使用才能支持@babel/plugin-proposal-decorators
+  "legacy": true  // 如果不为true,则装饰器不工作 
+    {
+      "plugins": [
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+      ]
+    }
+  // 导出类(exported class)装饰器如何放置？
+  {
+        "decoratorsBeforeExport": true
+  },
+  export @decorator class MyClass {}
+
+  // 或者
+  // decoratorsBeforeExport: true
+  @decorator
+  export class MyClass {}

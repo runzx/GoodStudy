@@ -1,0 +1,26 @@
+
+下参数公对find()操作有效：
+  tailable
+  sort
+  limit
+  skip
+  maxscan
+  batchSize
+  comment
+  snapshot
+  readPreference
+  hint
+以下参数仅对写操作（ update(), updateOne(), updateMany(), replaceOne(), findOneAndUpdate(), findByIdAndUpdate()）有效：
+
+  upsert
+  writeConcern
+  timestamps
+    如果timestamps已在schema中设置，将此选项设置为false可跳过该更新的时间戳。 
+    如果schema中选项中未启用timestamps，则无效。
+以下参数仅对find(), findOne(), findById(), findOneAndUpdate()和findByIdAndUpdate()操作有效：
+  lean
+以下参数对除except update(), updateOne(), updateMany(), remove(), deleteOne()和deleteMany()之外的所有操作都有效：
+  maxTimeMS
+以下参数对所有操作有效：
+  collation
+  session

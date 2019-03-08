@@ -13,5 +13,12 @@ module.exports={
     contentBase:path.join(__dirname,'./release'),
     open:true,
     port:9000
+  },
+  module:{
+    rules:[{
+      test:/\.js$/,
+      exclude:/(node_modules)/,
+      loader:"babel-loader"
+    }]
   }
 }
