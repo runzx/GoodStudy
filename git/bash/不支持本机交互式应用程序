@@ -1,0 +1,9 @@
+1. 不支持本机交互式应用程序
+  新版 Git for Windows 用的是 mintty 终端
+  winpty （ Git Bash 已自带）
+
+  winpty npx.cmd create-nuxt-app nuxt-mt
+  winpty vue.cmd create hello-world
+2. 在 Mintty 窗口下运行一些 Win 上的命令时会出现乱码（比如 ping, ipconfig 等）
+  winpty ping www.bosstg.cn
+
