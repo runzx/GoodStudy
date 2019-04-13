@@ -1,0 +1,17 @@
+nuxt 不能直接调试
+
+1. 配置
+"scripte":{
+  "debug": "node --inspect server/index.js",
+}
+
+vscode debug:
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach",
+      "port": 9229
+    },
+2。运行
+  npm run debug
+  vscode debug  // 可以设断点，服务器后台部分，浏览器里的估计不行

@@ -1,0 +1,37 @@
+
+1。 如果 create-nuxt-app 时选择axios
+  自动 安装 @nuxtjs/axios
+  nuxt.config.js
+    module.exports = {
+      modules: [
+        '@nuxtjs/axios',
+      ],
+
+      axios: {
+        // proxyHeaders: false
+      }
+    }
+
+2。 Component里使用
+  asyncData
+    async asyncData({ $axios }) {
+      const ip = await $axios.$get('http://icanhazip.com')
+      return { ip }
+    }
+  methods/created/mounted/etc
+    methods: {
+      async fetchSomething() {
+        const ip = await this.$axios.$get('http://icanhazip.com')
+        this.ip = ip
+      }
+    }
+3。 Store actions (including nuxtServerInit)
+  // In store
+  {
+    actions: {
+      async getIP ({ commit }) {
+        const ip = await this.$axios.$get('http://icanhazip.com')
+        commit('SET_IP', ip)
+      }
+    }
+  }

@@ -1,0 +1,6 @@
+
+2、项目安装
+
+1）npm install -g npx
+
+2) npx create-nuxt-app project-name

@@ -1,0 +1,19 @@
+"scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
+  },
+
+1.  改：
+  "dev": "cross-env NODE_ENV=development nodemon server/index.js 
+    --watch server --exec babel-node",
+  "start": "cross-env NODE_ENV=production node server/index.js --exec babel-node",
+
+2. babel配置文件
+  .babelrc
+  {
+    "presets":['es2015']
+  }
+3. 安装
+  npm i babel-preset-es2015

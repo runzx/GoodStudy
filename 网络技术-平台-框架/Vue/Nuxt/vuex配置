@@ -1,0 +1,25 @@
+Nuxt.js 会尝试找到应用根目录下的 store 目录，如果该目录存在，它将做以下的事情：
+  1。引用 vuex 模块
+  2。将 vuex 模块 加到 vendors 构建配置中去
+  3。设置 Vue 根实例的 store 配置项
+
+  nuxt 会自动生成
+    普通方式： store/index.js 返回一个 Vuex.Store 实例
+    模块方式： store 目录下的每个 .js 文件会被转换成为状态树指定命名的子模块 （当然，index 是根模块）
+
+    1）只需将状态state导出为 函数，将变量和操作作为 store/index.js 中的对象导出：
+      export const state = () => ({list: []})
+      export const mutations = { ... }
+    2）可以拥有 store/todos.js 文件,格式同上
+    3) nuxt 自动创建：
+      new Vuex.Store({
+        ... // index.js里内容
+        modules: {
+          todos: {
+            ...
+          }
+        }
+      })
+    
+    不需要在store目录下建模块目录modules/ !
+    不需要 import Vuex form 'vuex'...

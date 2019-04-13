@@ -1,0 +1,8 @@
+cross-env
+
+这个小插件主要解决 windows 下 无法设置 NODE_ENV=development 这个东西.
+   因为程序可以根据 NODE的环境变量,做出不同选择.
+
+"scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server --exec babel-node",
+}
