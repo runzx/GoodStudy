@@ -1,0 +1,30 @@
+https://cn.eslint.org/docs/user-guide/configuring
+
+1。自动查找配置文件：
+  .eslintrc.* 文件，或者直接在 package.json 文件里的 eslintConfig 字段指定配置
+
+2。
+  默认使用Espree作为其解析器
+  一个环境定义了一组预定义的全局变量：
+    browser - 浏览器环境中的全局变量。
+    node - Node.js 全局变量和 Node.js 作用域。
+    commonjs - CommonJS 全局变量和 CommonJS 作用域 (用于 Browserify/WebPack 打包的只在浏览器中运行的代码)。
+    shared-node-browser - Node.js 和 Browser 通用全局变量。
+    es6 - 启用除了 modules 以外的所有 ECMAScript 6 特性（该选项会自动设置 ecmaVersion 解析器选项为 6）。
+
+    "env": {
+        "browser": true,
+        "node": true
+    }
+  
+   支持使用第三方插件。在使用插件之前，你必须使用 npm 安装它。
+    plugins 关键字来存放插件名字的列表。插件名称可以省略 eslint-plugin- 前缀。
+
+  规则：
+    "off" 或    0 - 关闭规则
+    "warn" 或   1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
+    "error" 或  2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+  
+  一个配置文件可以从基础配置中继承已启用的规则。
+    "eslint:recommended" 的 extends 属性启用一系列核心规则，这些规则报告一些常见问题，
+    

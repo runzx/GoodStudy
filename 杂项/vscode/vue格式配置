@@ -1,0 +1,55 @@
+1。 install
+  install veter extension
+  Install Sass for sass syntax highlighting.
+  Install language-stylus for stylus syntax highlighting.
+  Install ESLint extension for linting vue and js files
+  // 如果用vue/essential 可不安装，vetur自带这配置
+  npm install --save-dev eslint eslint-plugin-vue 
+
+2. VS Code Config
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ]
+
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "parser": "vue",    // 也可不用这，直接加eslint.option
+      "singleQuote": true,
+      "proseWrap": "never",
+      // "printWidth": 130,
+      "semi": false
+    }
+  },
+
+  ],
+  "eslint.option": {
+    "extends": ["plugin:vue/essential"]
+  },
+
+3. .eslintrc.js // 可不用这，直接在用上面vs code config vetur 里加parser:vue
+  extends: ['plugin:vue/essential']   // veter 自带默认配置   
+  // 安装这'base','recommended','strongly-recommended'要重新安装
+  // vetur.validation.template: false
+  // yarn add -D eslint eslint-plugin-vue
+
+4. 在项目的根目录创建一个jsconfig.json或者tsconfig.json是include全部VUE文件和文件
+  jsconfig.json
+
+    {
+      "include": [
+        "./src/**/*"
+      ]
+    }
+  如果您使用Webpack的别名或TypeScript的路径映射来解析组件，则需要更新Vetur tsconfig.json或jsconfig.json。
+    {
+        "compilerOptions": {
+            "baseUrl": ".",
+            "paths": {
+                "components/*": [
+                    "src/components/*"
+                ]
+            }
+        }
+    }
