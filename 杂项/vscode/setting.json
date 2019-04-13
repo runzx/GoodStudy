@@ -1,0 +1,87 @@
+{
+  "window.zoomLevel": 1,
+  "editor": {
+    "fontSize": 20,
+    "tabSize": 2,
+    "insertSpaces": true,
+    "fontFamily": "Consolas, 'Courier New', monospace,'Fira Code','Input Mono','Inconsolata','Microsoft YaHei UI'",
+    "formatOnSave": false
+  },
+  "files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "eslintIntegration": false,
+    "bracketSpacing": true,
+    "trailingComma ": "none" // 尾随逗号
+    // "jsxBracketSameLine": false,
+    // "overrides": [
+    //   {
+    //     "files": "*.wxml",
+    //     "options": { "parser": "html" }
+    //   }
+    // ]
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    // "editor.formatOnSave": true
+  },
+
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+    // {
+    //   "language": "vue",
+    //   "autoFix": true
+    // }
+  ],
+  "eslint.option": {
+    // "plugins": "html",
+    // "baseConfig": {
+    //   "extends": ["eslint:recommended"] // "plugin:vue/recommended"
+    // }
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "minapp-vscode": {
+    "disableAutoConfig": true,
+    "wxmlFormatter": "prettier",
+    "prettier": {
+      "parser": "html",
+      "jsxBracketSameLine": false,
+      "bracketSpacing": false,
+      "jsxSingleQuote": true,
+      "singleQuote": true,
+      "printWidth": 80,
+      "semi": false
+    }
+  },
+
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      // "parser": "vue",
+      "singleQuote": true,
+      "proseWrap": "never",
+      // "printWidth": 130,
+      "semi": false
+    }
+  },
+  "eslint.enable": true
+}
