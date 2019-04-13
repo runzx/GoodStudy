@@ -1,0 +1,24 @@
+JSON web Token
+  JWT有三部分依顺序用点号（"."）链接而成：
+    1.header，2.payload，3.signature。
+      header={
+        "alg": "HS256",
+        "typ": "JWT"
+      }
+      payload是一组claim的值,
+        claim包含claim name和claim value。
+          前者是string类型，后者可以是任意的json对象。
+        claims有三种类型：reserved claim，public claim 和 private claim。
+        reserved claim是预先定义好的，推荐使用的一组claim，
+          iss(issuer 发布者), 
+          exp(expiration time 失效时间)，
+          iat(issued at): 在什么时候签发的
+          sub(subject 主题），
+          aud(audience 听众) 等
+      signature 就是用点号将header和payload联系起来，然后用header里面指定的加密方法进行加密后的字符串。
+        HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload),
+          secret)
+    链接之前需要用base64UrlEncoding加密。
+  HTTP的headers 参数里面的authorization里面，值的前面加Bearer关键字和空格。
+    authorization Bearer xxxx.yyyy.zzzz
+    除此之外，也可以在url和request body中传递。
