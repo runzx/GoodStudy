@@ -1,0 +1,29 @@
+sessionStorage和localStorage
+
+sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，
+  仅仅是会话级别的存储。
+
+而localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。
+
+浏览器的支持除了IE７及以下不支持外，其他标准浏览器都完全支持(ie及FF需在web服务器里运行)，
+
+localStorage和sessionStorage都具有相同的操作方法，
+  例如setItem、getItem和removeItem等
+  clear清除所有的key/value
+  点操作和[]
+    var storage = window.localStorage;
+    storage.key1 = "hello";
+    storage["key2"] = "world";
+    console.log(storage.key1);
+    console.log(storage["key2"]);
+
+  sessionStorage和localStorage提供的key()和length可以方便的实现存储的数据遍历，例如下面的代码：
+    var storage = window.localStorage;
+    for (var i=0, len = storage.length; i  <  len; i++){
+        var key = storage.key(i);
+        var value = storage.getItem(key);
+        console.log(key + "=" + value);
+    }
+
+npm-storage插件介绍 这是一个H5的缓存插件，在项目中经常会使用localStorage或sessionStorage来缓存数据，
+  https://github.com/catbea/npm-storage/releases
