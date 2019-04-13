@@ -1,10 +1,12 @@
 
+0. Linux
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python get-pip.py
+
 1. download get-pip.py
     wget https://bootstrap.pypa.io/get-pip.py
 
-2. sudo python get-pip.py
-
-    Upgrading pip
+2. Upgrading pip
     On Linux or macOS:
         pip install -U pip
     On Windows:
