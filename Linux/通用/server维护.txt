@@ -10,7 +10,8 @@
 3. ssh
     service sshd restart
 
-4.chmod -R 777 Conf
+4.  chmod -R 777 Conf
+    chown user1 file1
 
 5. /etc/hosts.deny  里： sshd: 179.61.135.65 是屏蔽此IP
 

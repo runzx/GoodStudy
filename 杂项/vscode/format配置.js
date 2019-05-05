@@ -1,4 +1,5 @@
 eslint 如不用.eslintrc 配置文件，可以在vscode config里
+在dell上不行， pc上可以，没找到原因？？
 "eslint.options": {
     "baseConfig": {
       "extends": [
