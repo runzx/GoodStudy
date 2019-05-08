@@ -1,0 +1,5 @@
+
+”-I INPUT 5” 部分, 改成你自己环境的
+  iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 465 -j ACCEPT 
+  iptables -I INPUT 6 -p tcp -m state --state NEW -m tcp --dport 993 -j ACCEPT 
+  iptables -I INPUT 7 -p tcp -m state --state NEW -m tcp --dport 995 -j ACCEPT

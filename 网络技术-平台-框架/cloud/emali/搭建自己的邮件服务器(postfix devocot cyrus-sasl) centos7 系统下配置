@@ -1,5 +1,9 @@
 搭建自己的邮件服务器(postfix devocot cyrus-sasl) centos7 系统下配置
 
+  https://cloud.tencent.com/developer/article/1326391
+  https://wiki2.dovecot.org/FrontPage?action=show&redirect=%E9%A6%96%E9%A1%B5
+  http://www.postfix.org/documentation.html
+  
 1.第一步
   设置域名MX 解析
 

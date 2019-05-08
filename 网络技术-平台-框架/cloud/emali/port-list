@@ -1,0 +1,14 @@
+
+POP3/SMTP协议
+接收邮件服务器：pop.exmail.qq.com ，使用SSL，端口号995
+发送邮件服务器：smtp.exmail.qq.com ，使用SSL，端口号465
+海外用户可使用以下服务器
+接收邮件服务器：hwpop.exmail.qq.com ，使用SSL，端口号995
+发送邮件服务器：hwsmtp.exmail.qq.com ，使用SSL，端口号465
+ 
+IMAP协议
+接收邮件服务器：imap.exmail.qq.com  ，使用SSL，端口号993
+发送邮件服务器：smtp.exmail.qq.com ，使用SSL，端口号465
+海外用户可使用以下服务器
+接收邮件服务器：hwimap.exmail.qq.com ，使用SSL，端口号993
+发送邮件服务器：hwsmtp.exmail.qq.com ，使用SSL，端口号465

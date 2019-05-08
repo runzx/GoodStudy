@@ -1,0 +1,10 @@
+
+
+alias_maps = hash:/etc/aliases  // 别名
+mailbox_size_limit = 0
+message_size_limit = 20480000
+
+
+/etc/aliases  // 别名 
+  mailer-daemon:  postmaster
+  postmaster:     root
