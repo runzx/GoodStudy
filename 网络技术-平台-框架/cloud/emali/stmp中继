@@ -1,0 +1,16 @@
+选择SMTP访问限制列表
+
+只有当邮件发送到服务器上的域或者系统用户发送时，Postfix才会中继电子邮件
+对于外发邮件，您需要简化中继限制，
+  以便经过身份验证的用户可以在任何位置发送电子邮件。
+/etc/postfix/main.cf
+  smtpd_recipient_restrictions = permit_sasl_authenticated, 
+      permit_mynetworks, reject_unauth_destination
+
+  permit_sasl_authenticated 允许经过身份验证的用户发送邮件，应该首先列出。
+  permit_mynetworks         允许已登录服务器的用户发送邮件。
+  reject_unauth_destination 阻止您的服务器为未配置它的域提供邮件。
+    永远不要删除最后的设置！这意味着始终允许经过身份验证的用户和本地用户在任何地方发送邮件。
+    允许非身份验证和非本地用户仅向此服务器负责的域发送邮件。
+    这些限制会阻止您的服务器被用作可以将垃圾邮件从任何人发送到任何地方的开放中继。
+

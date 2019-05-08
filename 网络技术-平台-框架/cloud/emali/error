@@ -1,0 +1,3 @@
+1. 没有log
+  service  rsyslog restart
+  再重启postfix, dovecot 
