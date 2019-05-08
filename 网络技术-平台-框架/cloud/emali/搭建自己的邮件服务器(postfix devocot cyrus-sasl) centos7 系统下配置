@@ -3,14 +3,14 @@
   https://cloud.tencent.com/developer/article/1326391
   https://wiki2.dovecot.org/FrontPage?action=show&redirect=%E9%A6%96%E9%A1%B5
   http://www.postfix.org/documentation.html
-  
+
 1.第一步
   设置域名MX 解析
 
   首先要有指定 ip 的 A 记录解析 @ A 111.111.111.111
   需要有 mail 二级域名的 A 记录解析 mail A 111.111.111.111
-  MX 记录解析 @ MX mail.yijiebuyi.cn.
-  TXT解析 @ TXT v=spf1 include:spf.mail.yijiebuyi.com ~all
+  MX 记录解析 @ MX mail.bosstg.cn.
+  TXT解析 @ TXT v=spf1 include:spf.mail.bosstg.cn ~all
 
 2. 第二步
   //停止 sendmail 服务
