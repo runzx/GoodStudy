@@ -1,0 +1,13 @@
+
+Chrome要求您提供至少192x192px图标和512x512px图标。但是你也可以提供其他尺码。 
+  Chrome使用最接近48dp的图标，例如，2x设备上的96px或3x设备的144px。
+"icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "200X200",
+      "type": "image/png"
+    },
+]
+
+设置地址栏主题颜色
+  <meta name="theme-color" content="#2F3BA2" />
