@@ -1,0 +1,59 @@
+web worker
+  Web Worker 是HTML5标准的一部分，这一规范定义了一套 API，它允许一段JavaScript程序运行在主线程之外的另外一个线程中。
+  专用线程Dedicated Worker和共享线程 Shared Worker
+    Dedicated Worker只能为一个页面所使用，
+    而Shared Worker则可以被多个页面所共享
+  var worker = new Worker("task.js");
+
+  worker线程数据通讯方式
+    通信是拷贝关系，即是传值而不是地址
+    postMessage方法传递了数据
+
+  在worker线程中，可以获得下列对象
+    1)     navigator对象
+    2)     location对象，只读
+    3)     XMLHttpRequest对象
+    4)     setTimeout/setInterval方法
+    5)     Application Cache
+    6)     通过importScripts()方法加载其他脚本
+    7)     创建新的Web Worker
+
+    worker线程不能获得下列对象
+    1)     DOM对象
+    2)     window对象
+    3)     document对象
+    4)     parent对象
+
+    在web中, 提供了两种方法来关闭Web Worker. 关闭指定的Worker之后, 相当于即,kill 掉该线程. 所以, 这里需要注意一下:
+      worker.terminate()  : 在外部终结该worker.
+      self.close()        : 在worker内部自动终结.
+      官方推荐是,使用self.close进行内部的自动关闭
+
+worker作用域
+  上面,在worker.js中,我们使用self来获取worker自带的方法.
+
+  self.addEventListener('message', function(e) {
+    self.postMessage(e.data);
+  }, false);
+  实际上, 在worker中, 他的全局索引就是self和this. 所以, 上面的代码可以简写为:
+
+  addEventListener('message', function(e) {
+    postMessage(e.data);
+  }, false);
+
+  能够访问的权限有:
+    The navigator object: window.navigator 相关属性和方法
+    The location object (read-only): 只读的window.location内容.
+    XMLHttpRequest  : 卧槽... 可以访问这个那就不得了了. worker就可以利用ajax来和后台进行通信了.
+    setInterval()相关时间函数
+
+    剩下的就是不能访问的了。
+
+   workers 运行在另一个全局上下文中,不同于当前的window. 
+   专用workers的情况下，DedicatedWorkerGlobalScope 对象代表了worker的上下文（专用workers是指标准worker仅在单一脚本中被使用；
+   共享worker的上下文是SharedWorkerGlobalScope对象
+   在worker内，不能直接操作DOM节点，也不能使用window对象的默认方法和属性。
+    然而你可以使用大量window对象之下的东西，
+    包括WebSockets，IndexedDB以及FireFox OS专用的Data Store API等数据存储机制。
+  workers和主线程间的数据传递通过这样的消息机制进行——双方都使用postMessage()方法发送各自的消息，使用onmessage事件处理函数来响应消息（消息被包含在Message事件的data属性中）。
+    这个过程中数据并不是被共享而是被复制。
