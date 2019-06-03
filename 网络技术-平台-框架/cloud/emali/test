@@ -1,0 +1,36 @@
+
+service iptables stop // 关闭防火墙
+
+telnet localhost 25   // 测试postfix 工作状态
+  Trying ::1...
+  Connected to localhost.
+  Escape character is '^]'.
+  220 mail.bosstg.cn ESMTP Postfix
+
+  mail from:<root@bosstg.cn>
+    250 2.1.0 Ok  // 回应此正常
+  rcpt to:843476168@qq.com
+  data
+  Subject:test mail
+  354 End data with .
+  #邮件主题
+  test mail content
+  #邮件内容
+  .
+  #.表示编写结束 发送邮件
+  250 2.0.0 Ok: queued as 06A98384B54
+  #发送成功
+  quit
+  #退出telnet
+
+telnet localhost 143   // 测试dovecot 工作状态
+  Trying 127.0.0.1...
+  Connected to localhost.
+  Escape character is '^]'.
+  * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE STARTTLS AUTH=PLAIN] Dovecot ready.
+
+doveconf protocols listen // 查看协议
+  protocols = imap pop3 lmtp
+  listen = *
+发邮件：
+  echo "邮件正文"  | mail -s "邮件标题"  user@sohu.com

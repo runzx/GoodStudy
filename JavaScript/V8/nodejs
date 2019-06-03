@@ -1,0 +1,43 @@
+
+V8 5.1 是 Node 6 使用的引擎，包含了 Crankshaft JIT 编译器；
+V8 5.8 则用于 Node 8.0 到 8.2，使用的是 Crankshaft 和 Turbofan 的混合体。
+V8 6.0 被包含在 Node 8.3（也可能是 8.4）里，
+Node.js 8（V8 v6.2/Chrome 62）及以上版本已完全支持异步方法
+Node.js 10（V8 v6.8/Chrome 68）及以上版本已完全支持异步迭代器（iterator）和生成器（generator）！
+
+V8 release v7.4   Published 22 March 2019 
+V8 v7.4 分支，在对应的 Chrome 74 Stable 版本
+  V8 无 JIT 模式（JIT-less V8）
+  发布 WebAssembly 多线程（WebAssembly Threads/Atomics）
+  V8 v7.2 添加了公共类字段语法支持。类的字段通过避免仅仅为了实例属性而需要定义构造函数来简化类的语法。
+  从 V8 v7.4 开始，您可以通过在前面添加一个＃前缀来将字段标记为私有。
+
+Node.js 10.15.3	Dubnium	2019-03-05	V8: 6.8.275.32
+Node.js 12.0.0		2019-04-23	      V8: 7.4.288.21
+Node.js 8.16.0	Carbon	2019-04-16	V8: 6.2.414.77
+Node.js 6.17.1	Boron	2019-04-03	  V8: 5.1.281.111
+
+V8 v5.5（Chrome 55 和 Node.js 7）和 
+V8 v6.8（Chrome 68 和 Node.js 10）
+
+1. V8 语法解析阶段：
+
+JS 的语法解析速度： 大约1MB/s；400k的JS代码，语法解析就需要~370ms
+可以通过 chrome://tracing，检查你代码的语法解析时间 (function eager(){...})();
+运行的代码尽量少:-)
+2. V8编译阶段：
+
+尽量写「静态类型」的代码
+WebAssembly 使用了 TurboFan
+3. V8 JS编码:
+
+Async/Await 比 Generators 快几乎1.5倍
+ES2015 的速度越来越接近 ES5
+4. V8 for Node.js:
+
+异步调试代码: node --inspect app.js
+浏览器: chrome://inspect
+5. V8 for browser:
+
+Coverage功能，检查运行代码的覆盖率
+

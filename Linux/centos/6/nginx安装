@@ -1,0 +1,19 @@
+cd /etc/yum.repos.d/
+ 
+vim nginx.repo
+
+填写如下内容：
+
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+
+yum install nginx -y
+安装完成，下面直接就可以启动Nginx了：
+
+/etc/init.d/nginx start
+
+chkconfig nginx on    #设为开机启动
+

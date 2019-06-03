@@ -1,0 +1,9 @@
+1. Cortana搜索框搜索打开“启用或关闭Windows功能”，向下滚动列表，即可看到“适用于Linux的Windows子系统”项。
+
+2. explorer.exe . 可在文件管理器中打开 Cortana搜索框搜索打开“启用或关闭Windows功能”，向下滚动列表，即可看到“适用于Linux的Windows子系统
+
+3。 在命令行中
+    WSL主要是一个命令行工具，因此当然，这个特性也适用于命令行。您可以通过访问
+        \\wsl$\{distro name}\   来找到发行版的文件，其中{distribo name}是正在运行的发行版的名称
+        \\wsl$\debian\home
+        

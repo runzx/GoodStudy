@@ -1,0 +1,16 @@
+
+同一个公钥是不能添加到不同的GitHub账号的
+
+1. ssh config
+  ~/.ssh/config
+    Host github.com-ingo-gruen  // 此名称为ssh从网址中取出，用于识别
+      User git
+      HostName github.com       // ssh会自动把上面Host转成此指定主机！
+      PreferredAuthentications publickey
+      IdentityFile ~/.ssh/github_rsa
+2. github 的网址要用ssh
+  git@github.com:ingo-gruen/ingo-gruen.github.io.git
+  然后把此处主机改成config 特定Host 
+  git@github.com-ingo-gruen:ingo-gruen/ingo-gruen.github.io.git
+
+3. git push 时ssh会转换host成 HostName指定的

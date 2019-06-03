@@ -1,0 +1,58 @@
+搭建自己的邮件服务器(postfix devocot cyrus-sasl) centos7 系统下配置
+
+  https://cloud.tencent.com/developer/article/1326391
+  https://wiki2.dovecot.org/FrontPage?action=show&redirect=%E9%A6%96%E9%A1%B5
+  http://www.postfix.org/documentation.html
+
+1.第一步
+  设置域名MX 解析
+
+  首先要有指定 ip 的 A 记录解析 @ A 111.111.111.111
+  需要有 mail 二级域名的 A 记录解析 mail A 111.111.111.111
+  MX 记录解析 @ MX mail.bosstg.cn.
+  TXT解析 @ TXT v=spf1 include:spf.mail.bosstg.cn ~all
+
+2. 第二步
+  //停止 sendmail 服务
+  /etc/init.d/sendmail stop
+
+  //卸载 sendmail 服务
+  yum remove sendmail
+
+  rpm -q postfix        // 检查系统是否已经安装了postfix服务器
+  postconf -a           // 检查postfix是否支持cyrus dovecot功能，如果不支持需重新安装更新的版本
+  postfix check         // 检查配置文件是否有语法错误
+
+  yum install postfix   dovecot
+  yum install cyrus-sasl-*
+
+  配置 postfix
+
+  vim /etc/postfix/main.cf
+
+myhostname=mail.yijiebuy.com  //这里要换成你自己的邮箱服务器 
+mydomain=yijiebuyi.com            //这里换成你自己的主机服务器
+myorigin = $mydomain          // 发送邮件的地址: xxx@myorigin
+
+inet_interfaces = all   ＃可以接收所有域名的邮件
+inet_protocols = ipv4
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,mail.$mydomain, www.$mydomain, ftp.$mydomain
+local_recipient_maps =
+mynetworks =0.0.0.0/0   ＃设置内网ip
+relay_domains = $mydestination
+home_mailbox = Maildir/
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated,reject_unauth_destination,permit_mynetworks
+smtpd_client_restrictions = permit_sasl_authenticated
+
+防火墙
+ iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 25 -j ACCEPT
+
+虚拟域名
+
+  virtual_users_list  ：
+    zhaixiang@bosstg.cn bosstg.cn/zhaixiang/    // 文本
+  postmap /etc/postfix/virtual_users_list // 配置好后用这生成xxx.db

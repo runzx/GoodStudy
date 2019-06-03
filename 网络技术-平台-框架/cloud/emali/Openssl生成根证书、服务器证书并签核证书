@@ -1,0 +1,61 @@
+Openssl生成根证书、服务器证书并签核证书
+
+1.修改Openssl配置文件CA目录：
+  cat /etc/pki/tls/openssl.cnf
+  dir = /etc/pki/CA
+2.生成根证书及私钥：
+  cd /etc/pki/CA
+  mkdir private crl certs newcerts #新建证书存放目录
+  echo '00' > serial  #新建serial文件并写入初始序列号00
+  touch index.txt     #新建index.txt空文件
+  openssl genrsa -out private/cakey.pem 1024 #生成CA根证书私钥
+  openssl req -new -x509 -key private/cakey.pem  -out cacert.pem #生成CA根证书
+3.生成服务器证书私钥、证书，可用于https服务器等。
+  openssl genrsa -out private/server.key 1024
+  openssl req -new -key private/server.key -out crl/server.csr #生成证书请求文件，可提供认证CA签核，或自签名。
+  openssl ca -in crl/server.csr -out certs/server.crt #自签名证书
+
+  // ca 证书的信息2次要一样！
+
+4. postfix  /etc/postfix/main.cf
+  smtpd_tls_key_file = /etc/pki/CA/private/server.key
+  smtpd_tls_cert_file = /etc/pki/CA/certs/server.crt
+  smtpd_tls_CAfile = /etc/pki/CA/cacert.pem
+
+  #smtpd_tls_cert_file=/etc/postfix/server.pem
+  #smtpd_tls_key_file=/etc/ssl/private/domain_tld.key
+  smtpd_tls_security_level = may
+  smtp_tls_security_level = may
+  smtpd_tls_ask_ccert = yes
+  smtpd_tls_loglevel = 1
+  smtp_tls_loglevel = 1
+  smtpd_tls_received_header = yes
+  smtpd_tls_session_cache_database = btree:/var/lib/postfix/smtpd_scache
+  smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_scache
+
+  /etc/postfix/master.cf
+  smtps     inet  n       -       n       -       -       smtpd
+    -o smtpd_tls_wrappermode=yes
+    -o smtpd_sasl_auth_enable=yes
+    -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+
+  /etc/dovecot/conf.d/10-ssl.conf
+  ssl = yes
+  ssl_cert = </etc/pki/dovecot/certs/dovecot.pem
+  ssl_key = </etc/pki/dovecot/private/dovecot.pem
+5 。测试
+    openssl s_client -connect mail.bosstg.cn:smtps
+  测试IMAP/POP SSL是否生效：
+    openssl s_client -connect mail.bosstg.cn:imaps  // 993
+    openssl s_client -connect mail.bosstg.cn:pops   // 995
+
+6. auth error!
+  imap-login: Info: Disconnected (no auth attempts):
+  因为ssl证书是自己生成，所以客户端可能安装时会出错，强行继续
+  调试跟踪： 更详细信息！
+  auth_verbose = yes  // 启用记录所有失败的身份验证尝试
+  auth_debug=yes      // 启用所有身份验证调试日志记录（也启用auth_verbose）。密码记录为<hidden>
+  mail_debug = yes    // 启用各种与邮件相关的调试日志记录，例如显示Dovecot在哪里查找邮件。
+  verbose_ssl = yes   // 启用日志记录SSL错误和警告。即使没有此设置，如果由于SSL错误而关闭连接，则会将错误记录为断开原因
+  auth_verbose_passwords = no | plain | sha1如果验证失败，此设置将记录使用的密码
+    设置为“sha1” “并且只记录密码的SHA1。

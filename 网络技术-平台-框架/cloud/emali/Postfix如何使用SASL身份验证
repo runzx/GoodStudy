@@ -1,0 +1,30 @@
+Postfix如何使用SASL身份验证
+  SMTP服务器网络外部的SMTP客户端需要一种不同的方式来获得“相同的网络”权限。为了满足这种需求，Postfix支持SASL身份验证（RFC 4954，以前称为RFC 2554）
+  在Postfix版本2.3之前，Postfix仅支持Cyrus SASL。
+    要找出将哪些SASL实现编译到Postfix中，请使用以下命令：
+      postconf -a（SMTP服务器中的SASL支持）
+      postconf -A（SMTP + LMTP客户端中的SASL支持）
+
+  Postfix SMTP服务器和Dovecot SASL之间的通信通过UNIX域套接字或TCP套接字进行
+    用UNIX域套接字来提高隐私性。
+      conf.d/10-master.conf:
+      2     service auth {
+      3       ...
+      4       unix_listener /var/spool/postfix/private/auth {
+      5         mode = 0660
+      6         # Assuming the default Postfix user and group
+      7         user = postfix
+      8         group = postfix        
+      9       }
+      10       ...
+      11     }
+      12 
+      13 conf.d/10-auth.conf
+      14     auth_mechanisms = plain login
+        第14行提供plain和login作为Postfix SMTP服务器的机制。
+  
+  默认情况下，Postfix SMTP服务器使用Cyrus SASL实现。如果应该使用Dovecot SASL实现，请指定smtpd_sasl_type值dovecot 而不是cyrus
+    /etc/postfix/main.cf:
+      smtpd_sasl_type = dovecot       // 使用Dovecot SASL实现
+      smtpd_sasl_path = private/auth  // unix套接字方式
+      smtpd_sasl_auth_enable = yes

@@ -1,0 +1,20 @@
+1. 没有log
+  service  rsyslog restart
+  再重启postfix, dovecot 
+
+2。 auth error!
+  imap-login: Info: Disconnected (no auth attempts):
+  因为ssl证书是自己生成，所以客户端可能安装时会出错，强行继续
+  调试跟踪： 更详细信息！
+  auth_verbose = yes  // 启用记录所有失败的身份验证尝试
+  auth_debug=yes      // 启用所有身份验证调试日志记录（也启用auth_verbose）。密码记录为<hidden>
+  mail_debug = yes    // 启用各种与邮件相关的调试日志记录，例如显示Dovecot在哪里查找邮件。
+  verbose_ssl = yes   // 启用日志记录SSL错误和警告。即使没有此设置，如果由于SSL错误而关闭连接，则会将错误记录为断开原因
+  auth_verbose_passwords = no | plain | sha1如果验证失败，此设置将记录使用的密码
+    设置为“sha1” “并且只记录密码的SHA1。
+
+3. 查看 
+  netstat -tunpl | grep dovecot
+  netstat -tunlp | grep :993
+  netstat -tunlp | grep :995
+  netstat -tunlp | grep :143

@@ -1,0 +1,12 @@
+
+
+alias_maps = hash:/etc/aliases  // 别名
+mailbox_size_limit = 0          // 邮箱大小
+message_size_limit = 20480000   // 单个邮件大小 20M
+
+104857600 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果
+
+
+/etc/aliases  // 别名 
+  mailer-daemon:  postmaster
+  postmaster:     root

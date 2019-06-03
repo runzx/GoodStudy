@@ -1,0 +1,19 @@
+
+POP3/SMTP协议
+接收邮件服务器：pop.exmail.qq.com ，使用SSL，端口号995
+发送邮件服务器：smtp.exmail.qq.com ，使用SSL，端口号465
+
+接收邮件服务器：mail.bosstg.cn ，，端口号110
+发送邮件服务器：mail.bosstg.cn ，SSL，端口号465
+ 
+IMAP协议
+接收邮件服务器：imap.exmail.qq.com  ，使用SSL，端口号993
+发送邮件服务器：smtp.exmail.qq.com ，使用SSL，端口号465
+
+接收邮件服务器：mail.bosstg.cn ，，端口号143
+发送邮件服务器：mail.bosstg.cn ，，端口号25
+
+smtp 
+  25应接受匿名连接，但不接受中继
+  465和587应拒绝匿名连接并允许中继
+

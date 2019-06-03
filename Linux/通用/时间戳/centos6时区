@@ -1,0 +1,6 @@
+
+date -R // 带时区时间
+date +%z  // 只显示时区值 -0400， +0800 东八区
+
+修改时区
+  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

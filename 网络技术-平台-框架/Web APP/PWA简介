@@ -27,3 +27,19 @@
   而采用Google定义了PWA需使用Material Design的设计风格，
   因此目前大部分网站都采取的是MD的设计（然而这种限制反而是对PWA本身的违背）。
   除了MD的设计，其中还包括app cache shell（分模块加载）、添加到桌面、全屏浏览、任务切换器中以单独任务存在，智能app引流横幅等一系列相关的东西。
+
+7. modeule
+  service worker
+  Web App Manifest
+  Push
+  Notifications
+  Add to Home Screen 
+  目前，Safari 对 Web App Manifest 和 Add to Home Screen 的支持有限，
+    并且不支持 Web 推送通知201905
+
+8。 App shell
+  App shell意图尽快加载最小的用户界面，然后缓存它，
+    以便在后续访问时可以离线使用，然后加载应用程序的所有内容。
+
+  chrome://inspect/#service-workers 并寻找您的网站来检查 Service Worker 是否已启用。
+  chrome://serviceworker-internals   来查看 Service Worker 详情

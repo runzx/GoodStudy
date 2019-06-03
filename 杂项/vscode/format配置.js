@@ -1,3 +1,14 @@
+eslint 如不用.eslintrc 配置文件，可以在vscode config里
+在dell上不行， pc上可以，没找到原因？？
+"eslint.options": {
+    "baseConfig": {
+      "extends": [
+          "eslint:recommended"
+      ] // "plugin:vue/recommended"
+  },
+}
+如果eslint 全局，则eslint-plugin-vue babel-eslint 要全局安装,
+不然eslint service 启动不了！！！
 {
   "window.zoomLevel": 1,
   "editor": {

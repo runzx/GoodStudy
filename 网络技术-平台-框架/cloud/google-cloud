@@ -1,0 +1,13 @@
+pub key 登录
+
+元数据里加 pub key 
+  enable-oslogin	FALSE
+
+如果要用帐号登录， 则 enable-oslogin	TRUE
+
+winscp 
+  sftp    sudo /usr/lib/openssh/sftp-server //debain os
+
+user 
+  runzx2006 adm dip video plugdev google-sudoers
+  zhaixiang:zhaixiang

@@ -1,0 +1,46 @@
+简单认证与安全层 (SASL）
+  在网络协议中用来认证和数据加密的构架
+  认证机制可支持代理认证, 这让一个用户可以承担另一个用户的认证。 
+  SASL同样提供数据安全层，这提供了数据完整验证和数据加密。
+  支持SASL的应用程序通常也支持 传输层安全 (TLS) 作为对SASL提供的服务的补充
+
+已经制定的SASL机制[1] 包括：
+  "EXTERNAL"， 认证信息在内容中(例如已经使用IPsec或传输层安全的协议)
+  "ANONYMOUS"， 对与未认证的客人的访问
+  "PLAIN"， 一个简单明文密码机制。PLAIN取代了LOGIN 机制。
+  "OTP"， 一个临时密码机制。 OTP取代了SKEY机制。
+  "SKEY", 一个S/KEY机制
+  "CRAM-MD5", 一个简单的基于HMAC-MD5的询问应答机制。
+  "DIGEST-MD5"， 是一个HTTP兼容的，基于MD5的询问应答机制。DIGEST-MD5提供了数据层安全。
+  "NTLM", 一个 NT LAN Manager认证机制。
+  "GSSAPI", 通过通用安全服务应用程序层的Kerberos V5 协议的安全认证。GSSAPI 提供了数据安全层。
+  GateKeeper Microsoft为Windows Live Messenger开发的一个询问应答机制。
+
+查看 smtp的SASL
+  telnet localhost 25
+  EHLO bosstg.cn    // 带虚拟域名时
+    250-mail.bosstg.cn
+    250-PIPELINING
+    250-SIZE 10240000
+    250-VRFY
+    250-ETRN
+    250-AUTH PLAIN
+    250-ENHANCEDSTATUSCODES
+    250-8BITMIME
+    250 DSN
+
+LOGIN方式
+  使用login方式的验证序列如下 （C：表示Client，S：表示Server）
+  C：auth login ------------------------------------------------- 进行用户身份认证 
+  S：334 VXNlcm5hbWU6 ----------------------------------- BASE64编码“Username:”
+  C：Y29zdGFAYW1heGl0Lm5ldA== ----------------------------------- 用户名，使用BASE64编码
+  S：334 UGFzc3dvcmQ6 -------------------------------------BASE64编码"Password:"
+  C：MTk4MjIxNA== ----------------------------------------------- 密码，使用BASE64编码
+  S：235 auth successfully -------------------------------------- 身份认证成功
+
+PLAIN方式
+  基于明文的SMTP验证，详见：http://www.ietf.org/internet-drafts/draft-ietf-sasl-plain-08.txt 
+  其发送用户名与口令的格式应该是
+    “<NULL>tim<NULL>tanstaaftanstaaf”
+      “tim”是用户名，后边的字符串是口令，
+      NULL是ASCII的0（所以无法使用telnet登录）。
