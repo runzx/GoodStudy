@@ -1,4 +1,6 @@
 
+prettier --write  './**/*.{js,json}'
+
 prettier --write --parser html './**/*.wxml'
 
 prettier --write --parser css './**/*.wxss'
