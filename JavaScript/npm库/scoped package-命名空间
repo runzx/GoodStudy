@@ -1,0 +1,8 @@
+scoped package就是在原来的包管理上新增了 命名空间
+  https://docs.npmjs.com/misc/scope.html
+
+  组成方式是：@scope/project
+
+1。 在引用时，也需要写全包的路径，包括其scope和project name，比如
+  const catbox = require('@hapi/catbox')
+
