@@ -1,0 +1,44 @@
+https://cn.vuejs.org/v2/cookbook/debugging-in-vscode.html
+
+1。chrome
+  Debugger for Chrome
+  Debugger for Firefox
+
+2.  Vue CLI 3，请设置并更新 vue.config.js 内的 devtool 属性：
+
+  module.exports = {
+    configureWebpack: {
+      devtool: 'source-map'
+    }
+  }
+
+3. 
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "vuejs: chrome",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}/src",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "vuejs: firefox",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}/src",
+      "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }]
+    }
+  ]
+}
+
+4. 
+  设断点
+  npm run serve
+  f5 开始调试运行
