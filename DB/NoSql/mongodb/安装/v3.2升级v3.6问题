@@ -1,0 +1,14 @@
+不能直接升级到v3.6 ,否则数据文件不兼容
+1. 先升级到v3.4, 设置新的文件格式
+
+2. mongo
+MongoDB shell version v3.4.10
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.10
+> db.adminCommand( { setFeatureCompatibilityVersion: "3.4" } )
+{ "featureCompatibilityVersion" : "3.4", "ok" : 1 }
+> exit
+
+3. 再升级到v3.6
+  debain 9 没有mongodb v3.4 要从8版里找
+  deb http://mirrors.aliyun.com/mongodb/apt/debian jessie/mongodb-org/3.4 main
