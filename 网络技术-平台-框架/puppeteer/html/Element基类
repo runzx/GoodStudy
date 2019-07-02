@@ -1,0 +1,19 @@
+Element是非常通用的基类，所有 Document对象下的对象都继承它
+
+Element.innerHTML 
+  是一个DOMString 表示这个元素的内容文本
+  Element.innerHTML 属性设置或获取HTML语法表示的元素的后代。
+Element.outerHTML 
+  是一个 DOMString获取该DOM元素及其后代的HTML文本.当设置它的时候,会从给定的字符串开始解析，替换自身。
+  属性获取描述元素（包括其后代）的序列化HTML片段。
+  它也可以设置为用从给定字符串解析的节点替换元素。
+
+1-获取元素常见的属性（class,id,type,value…）
+2-获取自定义的元素的属性（data-value,data-mess…）
+
+js
+  设置属性 .setAttribute("属性","值")
+  获取属性 .getAttribute("属性")
+jquery
+  设置属性 .attr("属性","值")
+  获取属性 .attr("属性")

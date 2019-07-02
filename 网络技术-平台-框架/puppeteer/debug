@@ -1,0 +1,8 @@
+
+puppeteer.launch(options)
+
+options:{
+  devtools: true, // 在page.$eval()中用debugger 设断点
+}
+
+
