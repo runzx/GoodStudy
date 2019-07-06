@@ -1,0 +1,12 @@
+npm ERR! code EPERM
+npm ERR! errno -4048
+npm ERR! syscall unlink
+npm ERR! Error: EPERM: operation not permitted, unlink 'D:\WWW\pd123\node_modules\.bcrypt.DELETE\lib\binding\bcrypt_lib.node'
+npm ERR!  { [Error: EPERM: operation not permitted, unlink 'D:\WWW\pd123\node_modules\.bcrypt.DELETE\lib\binding\bcrypt_lib.node']
+npm ERR!   cause:
+
+1. 删除 D:\WWW\pd123\node_modules\.bcrypt.DELETE 目录，如果不行，
+
+2. 可试试删除缓存
+  npm cache clean --force
+  重试，管理员权限，清除缓存 ：可以解决70%的npm使用问题

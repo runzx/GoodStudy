@@ -1,0 +1,11 @@
+
+1. windows
+  npm install --global --production windows-build-tools // run as Administrator
+
+2. On Unix
+  python (v2.7 recommended, v3.x.x is not supported)
+  make
+  A proper C/C++ compiler toolchain, like GCC
+
+3. npm install -g node-gyp
+

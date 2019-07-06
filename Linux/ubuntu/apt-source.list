@@ -1,0 +1,36 @@
+关于组件：apt 背后的故事
+
+main： 免费，Ubuntu 官方维护的自由软件
+restricted： 不免费，但是正规支持的，一般是设备专有驱动
+universe：免费，社区维护的自由软件
+multiverse：不免费，无正规支持，非自由软件
+关于更新：UbuntuUpdates
+
+security：重要的安全更新
+updates：非安全性更新，即不影响到系统安全的 bug 修补。
+proposed：预更新，小 beta 版，过后会进入[updates]或[security]。
+backports：新软件的反向导出，新软件为老系统编译的版本。
+
+18.10:
+
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic main restricted
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic-updates main restricted
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic universe
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic-updates universe
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic-updates multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic-security main restricted
+
+deb http://mirrors.aliyun.com/ubuntu/  cosmic-security universe
+
+deb http://mirrors.aliyun.com/ubuntu/  cosmic-security multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ cosmic-backports main restricted universe multiverse
+

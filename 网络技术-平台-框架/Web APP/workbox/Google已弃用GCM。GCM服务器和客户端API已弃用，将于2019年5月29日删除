@@ -1,0 +1,18 @@
+Google已弃用GCM。GCM服务器和客户端API已弃用，将于2019年5月29日删除
+  将GCM应用迁移到Firebase云消息传递（FCM），后者继承了可靠且可扩展的GCM基础架构以及许多新功能。请参阅 迁移指南以了解更多信息。
+    GCM和FCM SDK不能在应用程序中共存。
+    GCM令牌通过GoogleCloudMessaging.register()或InstanceID.getToken()将继续在FCM中检索，无需任何修改或续订。
+
+chrome使用了google自家的FCM（前身为GCM），firefox也是使用自家的服务。那么我们是否需要写不同的代码来兼容不同的浏览器所使用的服务呢？答案是并不用。
+  Push Service遵循Web Push Protocol，其规定了请求及其处理的各种细节，这就保证了，
+  不同的Push Service也会具有标准的调用方式。
+
+第一步就是浏览器发起订阅，生成一个PushSubscription对
+  Push Service会为每个发起订阅的浏览器生成一个唯一的URL，这样，我们在服务端推送消息时，向这个URL进行推送后，Push Service就会知道要通知哪个浏览器。
+    这个URL信息也在PushSubscription对象里，叫做endpoint。
+
+  Web Push中，为了保证客户端只会收到其订阅的服务端推送的消息（其他的服务端即使在拿到endpoint也无法推送消息），需要
+    对推送信息进行数字签名
+    Web Push中会有一对公钥与私钥。客户端持有公钥，而服务端持有私钥。客户端在订阅时，会将公钥发送给Push Service，而Push Service会将该公钥与相应的endpoint维护起来。而当服务端要推送消息时，会使用私钥对发送的数据进行数字签名，并
+      根据数字签名生成一个叫Authorization请求头
+

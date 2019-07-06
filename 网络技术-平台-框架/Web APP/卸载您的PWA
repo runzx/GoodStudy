@@ -1,0 +1,21 @@
+卸载您的PWA
+Android的
+  在Android上，卸载PWA的方式与卸载其他已安装的应用程序的方式相同。
+
+  打开应用程序抽屉。
+  向下滚动以查找“天气”图标。
+  将应用程序图标拖到屏幕顶部。
+  选择卸载。
+Chrome操作系统
+  在ChromeOS上，可以从启动器搜索框轻松卸载PWA。
+
+  打开发射器。
+  在搜索框中输入“ 天气 ”，您的天气PWA应出现在搜索结果中。
+  在Weather PWA上单击鼠标右键（alt-单击）。
+  点击从Chrome中删除...
+macOS和Windows
+  在Mac和Windows上，必须通过Chrome卸载PWA。
+
+  在新的浏览器标签中，打开chrome：// apps。
+  在Weather PWA上单击鼠标右键（alt-单击）。
+  点击从Chrome中删除...
