@@ -1,1 +1,44 @@
-SPU 
+SPU 产品，标准产品单位， 描述产品的共性
+  对应 
+  产品表spu
+    title   不创索引，单用分词
+    sub_title
+    category_id
+    brand_id
+    spg_id  品类id
+    saleable  是否上架
+    valid 是否有效
+    createdAt
+    updateAt
+
+SKU 库存进出计量的单位，最小不可分割的存货单元（具体商品）
+  库存字段？单店可以直接放sku表里
+  商品表 sku 
+    spu_id
+    title
+    images  url:{desc:[描述图],facade:[展示图]}
+    price   价格 
+    param   参数 {key1:value1,key2:value2}
+    saleable
+    valid
+    createdAt
+    updateAt
+
+  品类表（category)
+    name
+    parent_id 父分类id
+    if_parent  是否有下级分类
+    sort  排名指数
+
+
+  参数表
+
+  品牌表（brand)
+    name
+    image(logo url)
+    letter (首字母，查询用)
+
+  分类与品牌关联表 category_brand
+    category_id
+    brand_id
+    

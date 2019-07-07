@@ -1,0 +1,23 @@
+快递表  delivery
+  order_id
+  sku       json 
+  qa_id     质检员工号
+  de_id     发货员工号(打包员)
+  postid    快递单号
+  price     邮费
+  address_id  
+  warehouse_id 
+  ecp       快递公司
+  createdAt
+  
+退货表  backstock
+  order_id
+  sku       json
+  reason
+  qa_id
+  payment   退货金额
+  payment_type  
+  status
+  createdAt
+  
+

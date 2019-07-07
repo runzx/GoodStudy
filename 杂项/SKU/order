@@ -1,0 +1,21 @@
+订单表  order
+  code  流水号 string
+  type          1。店下交易，2。线上交易
+  shop_id
+  customer_id
+  amount  总价格
+  payment_type  1.信用卡
+  status        1.已下单
+  postage       邮费
+  weight        重量
+  voucher_id    一张代金券
+  createdAt
+  
+订单详情表  order_detail
+  order_id 
+  sku_id
+  price
+  actual_price  实际价格
+  num           数量
+
+

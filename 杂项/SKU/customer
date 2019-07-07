@@ -1,0 +1,20 @@
+会员等级表 level
+  level string
+  discount  折扣 0.85
+
+
+客户表  customer
+  username
+  password
+  wechat
+  tel
+  level_id
+  createdAt
+  updatedAt
+
+客户收货地址表 customer_address
+  customer_id
+  name
+  tel
+  address
+  prime   是否当成默认地埴

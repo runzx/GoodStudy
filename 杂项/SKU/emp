@@ -1,0 +1,35 @@
+部门表  dept
+  dname
+
+职位表  job
+  dname
+  job
+
+员工表  emp
+  wid   工号 string
+  ename
+  sex
+  married 婚否
+  education 教育情况
+  tel
+  email
+  address
+  job_id
+  dept_id
+  mgr_id    上司
+  hiredate  入职日期 
+  termdate  离职时期
+  status  1。在职级，2休假3。离职 4死亡
+
+角色  role
+  id 
+  role    '超级管理员' '管理员'
+
+用户  user
+  username
+  password
+  emp_id
+  role_id
+  status    1可用0禁用
+  createdAt
+  updatedAt

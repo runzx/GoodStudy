@@ -1,0 +1,4 @@
+
+
+更新 ChinaDNS 的国内 IP 路由表 /etc/chinadns_chnroute.txt
+wget -O /tmp/delegated-apnic-latest 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' && awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' /tmp/delegated-apnic-latest > /etc/chinadns_chnroute.txt

@@ -1,0 +1,13 @@
+OpenWrt 内建的 wget 不支持 TLS，无法下载 HTTPS 软件包
+
+# opkg update
+# opkg install wget ca-certificates
+
+安装 shadowsocks-libev 相关的包
+
+opkg update (多运行几次，我遇到过第一次update后找不到shadowsocks相关的包)
+
+opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-libev-ss-redir shadowsocks-libev-ss-rules shadowsocks-libev-ss-tunnel luci-app-shadowsocks-libev
+ss-local sock5
+ss-redir  透明代理
+ss-tunnel  隧道 dns

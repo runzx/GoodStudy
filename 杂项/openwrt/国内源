@@ -2,7 +2,15 @@
 执行 vi /etc/opkg/distfeeds.conf  
 
 中科大 反向代理
-http://openwrt.proxy.ustclug.org
+https://openwrt.proxy.ustclug.org/
 
 清华
 https://mirrors.tuna.tsinghua.edu.cn/openwrt/chaos_calmer/
+
+
+src/gz chaos_calmer_base http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/base
+src/gz chaos_calmer_luci http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/luci
+src/gz chaos_calmer_packages http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/packages
+src/gz chaos_calmer_routing http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/routing
+src/gz chaos_calmer_telephony http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/telephony
+src/gz chaos_calmer_management http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/management

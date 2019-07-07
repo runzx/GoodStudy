@@ -1,0 +1,12 @@
+购货券  voucher
+  购物券与客户关联
+  denomination  金额
+  condition 订单超过多少金额才能使用此券
+  start_date 有效期，开始期
+  end_date    截止期
+  max_num     发放最大额
+
+客户关联购物券表 voucher_customer
+  voucher_id
+  customer_id
+  

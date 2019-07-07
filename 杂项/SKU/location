@@ -1,0 +1,33 @@
+
+province
+  id
+  province  省
+
+city
+  id
+  city  城
+  province_id 
+
+warehouse 仓库表
+  id
+  city_id
+  address
+  tel
+
+warehouse_sku
+  warehouse_id
+  sku_id
+  num   库存数量
+  unit  库存单位
+
+shop 零食店
+  city_id
+  address
+  tel
+
+shop_sku  零食店库存
+  shop_id
+  sku_id
+  num
+  unit
+
