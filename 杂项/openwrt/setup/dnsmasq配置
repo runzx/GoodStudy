@@ -1,0 +1,57 @@
+配置文件是放在 /etc/dnsmasq.conf 
+
+resolv-file=/etc/resolv.dnsmasq.conf，
+  表示dnsmasq 会从这个指定的文件中寻找上游dns服务器。
+  同时取消 strict-order 前面的注册#号。
+
+no-hosts前面是不是已经有了#号，默认的情况下是有的，dnsmasq 会首先寻找本地的 hosts 文件
+  再去寻找缓存下来的域名, 
+  最后去上游dns 服务器寻找
+
+设置：listen-address=127.0.0.1，表示这个 dnsmasq 本机自己使用有效。
+  注意：如果你想让本机所在的局域网的其它电脑也能够使用上Dnsmasq，
+    应该把本机的局域网IP加上去：listen-address=192.168.1.123,127.0.0.1。
+  注意：如果想允许所有的用户使用你的DNS解析服务器，把listen-address去掉即可。
+
+还需要修改/etc/resolv.conf这个文件
+
+resolv.dnsmasq.conf中设置的是真正的Nameserver
+
+netstat -tunlp|grep 53 
+  查看状态
+tcp        0      0 0.0.0.0:5300            0.0.0.0:*               LISTEN      3249/ss-tunnel
+tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN      3448/dnsmasq
+tcp        0      0 :::53                   :::*                    LISTEN      3448/dnsmasq
+udp        0      0 0.0.0.0:5300            0.0.0.0:*                           3249/ss-tunnel
+udp        0      0 0.0.0.0:53              0.0.0.0:*                           3448/dnsmasq
+udp        0      0 :::53                   :::*                                3448/dnsmasq
+
+智能DNS加快解析速度。打开/etc/dnsmasq.conf文件，server=后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。
+
+
+#国内指定DNS
+server=/cn/114.114.114.114
+server=/taobao.com/114.114.114.114
+server=/taobaocdn.com/114.114.114.114
+#国外指定DNS
+server=/google.com/223.5.5.5
+
+云南DNS地址：
+
+202.98.96.68    // 20+ms
+222.172.200.68
+61.166.150.123
+
+mkdir /etc/dnsmasq.d
+echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
+
+wget -4 --no-check-certificate -O /etc/dnsmasq.d/accelerated-domains.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
+wget -4 --no-check-certificate -O /etc/dnsmasq.d/bogus-nxdomain.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/bogus-nxdomain.china.conf
+
+让其他不在列表中（即国外域名）都走代理解析
+echo "server=/#/127.0.0.1#5300" > gfwlist.conf
+
+/etc/init.d/dnsmasq restart以重启dnsmasq服务
+
+v17里自带
+/usr/sbin/dnsmasq -C /var/etc/dnsmasq.conf.cfg02411c -k -x /var/run/dnsmasq/dnsmasq.cfg0241

@@ -1,0 +1,9 @@
+Breed Web 恢复控制台
+
+CPU	MediaTek MT7620A ver 2, eco 6
+内存	128MB DDR2
+Flash	Winbond W25Q128 @ 24MHz (16MB)
+以太网	MediaTek MT7620A built-in 5-port 10/100M switch
+时钟频率	CPU: 580MHz, Bus: 193MHz
+编译日期	2016-07-06 [git-1462699]
+版本	1.0 (r899)
