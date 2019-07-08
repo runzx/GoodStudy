@@ -11,8 +11,9 @@ v18.06
 opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-libev-ss-redir shadowsocks-libev-ss-rules shadowsocks-libev-ss-tunnel luci-app-shadowsocks-libev
 ss-local sock5
 ss-redir  透明代理
-ss-tunnel  隧道 dns
-
+    // 不知为什么不能访问 www.google.com, 加ss-tunnul也行？
+ss-tunnel  隧道 dns // 服务端要开通相应upd端口，libev版 启动要加-u 
+    // python server版 没有-u 参数 
 v17.01
 opkg install shadowsocks-libev luci-app-shadowsocks-libev
 
