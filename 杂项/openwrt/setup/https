@@ -7,7 +7,20 @@ OpenWrt 内建的 wget 不支持 TLS，无法下载 HTTPS 软件包
 
 opkg update (多运行几次，我遇到过第一次update后找不到shadowsocks相关的包)
 
+v18.06
 opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-libev-ss-redir shadowsocks-libev-ss-rules shadowsocks-libev-ss-tunnel luci-app-shadowsocks-libev
 ss-local sock5
 ss-redir  透明代理
-ss-tunnel  隧道 dns
+    // 不知为什么不能访问 www.google.com, 加ss-tunnul也行？
+ss-tunnel  隧道 dns // 服务端要开通相应upd端口，libev版 启动要加-u 
+    // python server版 没有-u 参数 
+v17.01
+opkg install shadowsocks-libev luci-app-shadowsocks-libev
+
+src/gz reboot_core https://openwrt.proxy.ustclug.org/releases/17.01.7/targets/ramips/mt7620/packages
+src/gz reboot_base https://openwrt.proxy.ustclug.org/releases/17.01.7/packages/mipsel_24kc/base
+src/gz reboot_luci https://openwrt.proxy.ustclug.org/releases/17.01.7/packages/mipsel_24kc/luci
+src/gz reboot_packages https://openwrt.proxy.ustclug.org/releases/17.01.7/packages/mipsel_24kc/packages
+src/gz reboot_routing https://openwrt.proxy.ustclug.org/releases/17.01.7/packages/mipsel_24kc/routing
+src/gz reboot_telephony https://openwrt.proxy.ustclug.org/releases/17.01.7/packages/mipsel_24kc/telephony
+
