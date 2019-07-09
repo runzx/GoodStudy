@@ -1,0 +1,7 @@
+wsl alpine 3.9 不能安装 mongodb,mysql 报网卡上问题，
+
+用vm版v3.9 安装 mongodb4.0.5 其配置在
+    /etc/conf.d/mongodb 
+        MONGODB_IP='127.0.0.1' 这让其它主机不能访问 
+    它没有/etc/mongodb.conf配置方法
+    
