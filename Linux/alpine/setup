@@ -1,0 +1,26 @@
+源：
+清华大学：https://mirror.tuna.tsinghua.edu.cn/alpine/
+阿里云：https://mirrors.aliyun.com/alpine/
+中科大：http://mirrors.ustc.edu.cn/alpine/
+
+vi /etc/apk/repositories
+#http://dl-cdn.alpinelinux.org/alpine/v3.9/main
+#http://dl-cdn.alpinelinux.org/alpine/v3.9/community
+
+su
+apk add nodejs npm
+apk add git
+apk openrc    // rc-update, rc-status
+apk add openssh-server  
+或 apk add openssh
+  // /etc/ssh/sshd_config   // Port 
+rc-update add sshd // 启动自运行
+/etc/init.d/sshd start
+  error: 
+  touch /run/openrc/softlevel
+  /etc/init.d/sshd start
+
+ssh 登录要用root 名，不能用后取的名
+
+alpine没有使用fedora的systemctl来进行服务管理，使用的是RC系列命令
+rc-update主要用于不同运行级增加或者删除服务。
