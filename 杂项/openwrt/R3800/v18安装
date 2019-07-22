@@ -1,0 +1,10 @@
+
+1。 服务端要用shadowsocks-libev ss-server 才能支持ss-tunnel
+    才能解决google dns解析
+
+2。 ss-redir
+  Redir Rules
+    Ingress interfaces  加br-lan  // 没这就不能访问
+
+3。Source setting
+  Src default:    bypass    // 不加这会让没配置的ip都转发了

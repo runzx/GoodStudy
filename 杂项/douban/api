@@ -1,0 +1,21 @@
+
+电影列表API：
+  http://api.douban.com/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a&start=0&count=10
+
+电影详情API：
+  http://api.douban.com/v2/movie/subject/${event.movieid}?apikey=0df993c66c0c636e29ecbb5344252a4a
+
+列表使用这个： https://douban.uieee.com/v2/movie/in_theaters?start=0&count=20
+
+详情使用这个： https://douban.uieee.com/v2/movie/subject/id（这个把id替换成电影的id就好了）
+
+https://douban.uieee.com 
+https://douban-api.uieee.com 
+https://douban-api.now.sh 
+https://douban-api.zce.now.sh 
+https://douban-api-git-master.zce.now.sh 
+
+可以用以上代理 
+https://github.com/zce/douban-api-docs
+
+https://douban-api-docs.zce.me/

@@ -1,0 +1,8 @@
+
+opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade 
+
+
+https://openwrt.proxy.ustclug.org/releases/18.06.4
+
+wget https://github.com/shadowsocks/luci-app-shadowsocks/releases/download/v1.9.1/luci-a
+pp-shadowsocks_1.9.1-1_all.ipk
