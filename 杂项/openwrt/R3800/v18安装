@@ -4,7 +4,21 @@
 
 2。 ss-redir
   Redir Rules
-    Ingress interfaces  加br-lan  // 没这就不能访问
-
-3。Source setting
-  Src default:    bypass    // 不加这会让没配置的ip都转发了
+    General setting
+      Local-out default
+        checkdst
+      Ingress interfaces  
+        br-lan  // 没这就不能访问
+    Source setting
+      Src default:  checkdst
+        checkdst  // 没指定或配置的来源ip 默认 目的ip检查操作，要设成这！
+        bypass    // 没指定或配置的来源ip 默认 绕过
+        forword   // 没指定或配置的来源ip 默认 转发
+    Destination setting
+      Dst ip/net bypass     // 设ss的服务器ip
+        23.106.159.118
+        35.194.97.98
+      Dst ip/net bypass file
+        /etc/chnrout.txt    // 国内ip,绕过 格式：1.3.0.0/16 
+      Dst default
+        forward   // 默认转发实现 透明代理
