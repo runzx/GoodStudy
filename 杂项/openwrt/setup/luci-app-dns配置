@@ -1,0 +1,9 @@
+
+Resolv and Hosts Files
+  Additional Hosts files  // 自定义内网 解析
+    /etc/hosts.zx
+      192.168.1.10  pi3
+
+Advanced Setting
+  Additional servers file // servers-file=/etc/accelerated-domains.china.conf
+    /etc/accelerated-domains.china.conf // 放要指定的域名解析

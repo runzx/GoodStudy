@@ -1,4 +1,4 @@
-
+升级所有可升级的包
 opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade 
 
 

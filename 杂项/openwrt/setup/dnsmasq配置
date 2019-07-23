@@ -1,3 +1,18 @@
+当接受到一个DNS请求时，
+  Dnsmasq首先会查找/etc/hosts这个文件，
+  然后查找/etc/resolv.conf中定义的外部DNS。
+
+可以在 /etc/hosts 文件中只写主机名，然后用 Dnsmasq 来添加域名。
+  expand-hosts
+  domain=mehxample.com
+  // Dnsmasq 会自动把这些主机名扩展为完整的域名，比如 host2 会变为 host2.mehxample.com
+
+增加一个本地域名，会在/etc/hosts中进行查询，域名限制为只能本地解析，但不影响其他域名。这些被限制的域名只能从 /etc/hosts 或 DHCP 解析
+  #local=/localnet/
+
+# 重要！！这一行就是你想要泛解析的域名配置.
+  address=/hello.me/127.0.0.1 
+
 配置文件是放在 /etc/dnsmasq.conf 
 
 resolv-file=/etc/resolv.dnsmasq.conf，
@@ -7,6 +22,9 @@ resolv-file=/etc/resolv.dnsmasq.conf，
 no-hosts前面是不是已经有了#号，默认的情况下是有的，dnsmasq 会首先寻找本地的 hosts 文件
   再去寻找缓存下来的域名, 
   最后去上游dns 服务器寻找
+addn-hosts=/jffs/hosts
+  另加host文件放到了/jffs/hosts文件里
+
 
 设置：listen-address=127.0.0.1，表示这个 dnsmasq 本机自己使用有效。
   注意：如果你想让本机所在的局域网的其它电脑也能够使用上Dnsmasq，
@@ -16,6 +34,7 @@ no-hosts前面是不是已经有了#号，默认的情况下是有的，dnsmasq 
 还需要修改/etc/resolv.conf这个文件
 
 resolv.dnsmasq.conf中设置的是真正的Nameserver
+
 
 netstat -tunlp|grep 53 
   查看状态
