@@ -16,7 +16,11 @@ https://download-chromium.appspot.com/
         executablePath: './chromium/chrome.exe',
         headless: false
       });
+1.1 国内镜像
+    npm config set ELECTRON_MIRROR="https://npm.taobao.org/mirrors/electron/"
 
+    npm install --loglevel=info
+        //  --loglevel=info表示info级别的信息也要输出，方便我们了解npm的运行情况。
 2. 参数
     headless: false，即可启动其 GUI 界面，进行可视化调试
     timeout： 等待浏览器实例启动的最长时间（以毫秒为单位）。默认为30000（30秒）。通过0禁用超时
