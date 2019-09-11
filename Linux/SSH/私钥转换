@@ -1,0 +1,10 @@
+secureCRT默认生成的私钥为ssh2类型，
+  而mac中ssh默认使用的私钥为openssh类型
+    转换方法：securecrt >> tools >> Convert Private Key to OpenSSH Format。
+
+puTTY 私钥转ssh2类型
+  Conversions >> Export OpenSSH Key 
+
+如果不转换成ssh2类型，ssh 会报错：
+  Load key "/c/Users/runzx/.ssh/zhaixiang": invalid format
+

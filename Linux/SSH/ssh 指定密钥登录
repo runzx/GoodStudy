@@ -1,0 +1,3 @@
+ssh 默认密钥为 ~/.ssh/id_rsa
+
+ ssh zhaixiang@lsj.bosstg.cn -i ~/.ssh/zx
