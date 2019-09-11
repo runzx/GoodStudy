@@ -29,6 +29,8 @@
         $ sudo chown -R git:git /home/hapiZX 
 
 三　实现自动部署
+    chmod +x post-receive
+    
     post-receive
         这个hook在git服务器受到push请求，并且接受完代码提交时触发。
         具体代码体现：
