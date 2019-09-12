@@ -1,0 +1,39 @@
+SSH-2
+  使用PuTTY Key Generator使用“保存公钥”按钮保存密钥时，
+  它将以RFC 4716定义的格式保存。
+  例：
+---- BEGIN SSH2 PUBLIC KEY ----
+Comment: "github-example-key"
+AAAAB3NzaC1yc2EAAAABJQAAAQEAhl/CNy9wI1GVdiHAJQV0CkHnMEqW7+Si9WYF
+i2fSBrsGcmqeb5EwgnhmTcPgtM5ptGBjUZR84nxjZ8SPmnLDiDyHDPIsmwLBHxcp
+pY0fhRSGtWL5fT8DGm9EfXaO1QN8c31VU/IkD8niWA6NmHNE1qEqpph3DznVzIm3
+oMrongEjGw7sDP48ZTZp2saYVAKEEuGC1YYcQ1g20yESzo7aP70ZeHmQqI9nTyEA
+ip3mL20+qHNsHfW8hJAchaUN8CwNQABJaOozYijiIUgdbtSTMRDYPi7fjhgB3bA9
+tBjh7cOyuU/c4M4D6o2mAVYdLAWMBkSoLG8Oel6TCcfpO/nElw==
+---- END SSH2 PUBLIC KEY ----
+
+OpenSSH的
+  与流行的看法相反，这种格式不会被发生器保存。
+  但是它会生成并显示在标题为“粘贴到OpenSSH authorized_keys文件的公钥”的文本框中。要将其另存为文件，
+  您必须从文本框中手动复制并粘贴它。
+  对于上面显示的键，这将是：
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhl/CNy9wI1GVdiHAJQV0CkHnMEqW7+Si9WYFi2fSBrsGcmqeb5EwgnhmTcPgtM5ptGBjUZR84nxjZ8SPmnLDiDyHDPIsmwLBHxcppY0fhRSGtWL5fT8DGm9EfXaO1QN8c31VU/IkD8niWA6NmHNE1qEqpph3DznVzIm3oMrongEjGw7sDP48ZTZp2saYVAKEEuGC1YYcQ1g20yESzo7aP70ZeHmQqI9nTyEAip3mL20+qHNsHfW8hJAchaUN8CwNQABJaOozYijiIUgdbtSTMRDYPi7fjhgB3bA9tBjh7cOyuU/c4M4D6o2mAVYdLAWMBkSoLG8Oel6TCcfpO/nElw== github-example-key
+
+  密钥的格式只是ssh-rsa< signature> <注释>
+    并且可以通过重新排列SSH-2格式的文件来创建。
+
+重新生成公钥
+  如果您正在使用ssh-agent，您可能还可以访问ssh-keygen。在使用此工具之前，
+    您需要将现有的.ppk(PuTTY私钥)文件转换为OpenSSH私钥。
+      >打开PuTTY Key Generator
+      >在菜单栏上，单击“文件”> “加载私钥”
+      >选择您的id_rsa.ppk文件
+      >在菜单栏上，单击“转化”> “导出OpenSSH密钥”
+      >将文件另存为id_rsa，最好是无扩展名
+  
+  OpenSSH私钥，您可以使用ssh-keygen工具对密钥执行操作。
+    生成OpenSSH公钥文件：
+      ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
+
+转换
+  ssh-keygen -e -m RFC4716 -f ~/.ssh/id_ed25519 > ~/.ssh/exported_id_ed25519
