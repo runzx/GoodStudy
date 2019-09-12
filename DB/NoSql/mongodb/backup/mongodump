@@ -1,0 +1,9 @@
+
+mongodump -h localhost:27017
+  默认备份所有到 ./dump/下
+  -d 库名, 不指定备份所有库
+  -o 备份目录
+
+mongorestore -h localhost:27017 -d pd123 ./dump/pd123
+  恢复要指定备份文件path
+  

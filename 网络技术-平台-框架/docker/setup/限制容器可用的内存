@@ -18,3 +18,14 @@ docker run -it -m 300M --memory-swap -1 --name con1 u-stress /bin/bash
 -memory-swappiness	用于设置容器的虚拟内存控制行为。值为 0~100 之间的整数
 –kernel-memory	核心内存限制。格式同上，最小为 4M
 
+docker 也是通过内核的 cgroups 来做容器的资源限制
+    docker 为容器设置 CPU share 的参数是 -c --cpu-shares，它的值是一个整数
+    1.13 版本之后，docker 提供了 --cpus 参数可以限定容器能使用的 CPU 核数
+    --cpuset 参数让容器只运行在哪几个核上 --cpuset=1,3
+
+    所有和容器 CPU share 有关的配置都在 /sys/fs/cgroup/cpu/docker/<docker_id>/ 目录下面，其中 cpu.shares 保存了 CPU share 的值
+
+    目前 docker 支持对磁盘的读写速度进行限制
+    --blkio-weight 参数可以设置 block 的权重，这个权重和 --cpu-shares 类似，
+        它是一个相对值，取值范围是 10-1000，
+        当多个 block 去屑磁盘的时候，其读写速度和权重成反比。

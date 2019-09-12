@@ -1,0 +1,5 @@
+
+vi /etc/default/grub 倒数第二行增加 video=hyperv_fb:800x600
+grub2-mkconfig -o /boot/grub2/grub.cfg
+    如果是efi引导，还要执行下面的命令
+      grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg

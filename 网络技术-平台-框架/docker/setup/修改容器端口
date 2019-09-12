@@ -1,0 +1,25 @@
+1、使用 docker ps -a 命令找到要修改容器的 CONTAINER ID
+
+2、运行 docker inspect 【CONTAINER ID】 | grep Id 命令
+
+3、执行 cd /var/lib/docker/containers 命令进入找到与 Id 相同的目录
+
+4、停止 docker 引擎服务，systemctl stop docker 或者 service docker stop
+
+5、进入对应 Id 所在目录后，如上图所示，修改 hostconfig.json 和 config.v2.json ---- vi hostconfig.json
+  hostconfig.json
+    PortBindings:{
+         "6379/tcp": [
+        {
+          "HostIp": "",
+          "HostPort": "6379"
+        }
+      ]
+    }
+  
+  config.v2.json
+    ExposedPorts:{},
+    Ports:{}
+    
+    ExposedPorts":{"6379/tcp":{}},
+    "Ports":{"6379/tcp":[{"HostIp":"0.0.0.0","HostPort":"6379"}]},

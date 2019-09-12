@@ -1,0 +1,12 @@
+docker pull redis:5.0.5-alpine        // alpine 3.10
+docker run --name some-redis -d redis
+
+ docker run --name some-redis -d redis redis-server --appendonly yes
+  -v /docker/host/dir:/data
+  docker run -it --network some-network --rm redis redis-cli -h some-redis
+
+docker run -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+
+进入容器：
+  docker exec -it container_id /bin/bash
+  exit // 退出

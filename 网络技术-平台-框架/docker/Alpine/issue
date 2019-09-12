@@ -5,3 +5,31 @@ wsl alpine 3.9 不能安装 mongodb,mysql 报网卡上问题，
         MONGODB_IP='127.0.0.1' 这让其它主机不能访问 
     它没有/etc/mongodb.conf配置方法
     
+解决？
+    apk add ifupdown
+
+    /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+# eth3 是本机上的wifi连接
+auto eth3
+iface eth3 inet dhcp
+还是会报错
+/etc/init.d/networking restart
+ * Stopping networking ...
+ *   lo ...                                                                                              [ ok ]
+ * Starting networking ...
+ *   lo ...
+ip: ioctl 0x8942 failed: Invalid argument                                                                [ ok ]
+ *   eth3 ...
+udhcpc: socket(AF_INET,3,255): Permission denied
+但安装mongodb后
+# /etc/init.d/mongodb start
+ * Caching service dependencies ...
+Service `hwdrivers' needs non existent service `dev'                                                     [ ok ]
+ * /var/run/mongodb: creating directory
+ * /var/run/mongodb: correcting owner
+ * Starting mongodb ...                                                                                  [ ok ]
+DELL5460:/home/zhaixiang# /etc/init.d/mongodb status
+ * status: started

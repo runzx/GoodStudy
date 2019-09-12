@@ -1,0 +1,35 @@
+
+1. 当参数为对象时，无法自己生成cache key系统崩溃
+    要人工生成： (只有string, number, boolean能生成)
+    const add = (data) => {
+        return data.a + data.b;
+    };
+    server.method([
+            {
+                name: 'sum',
+                method: add,
+                options: {
+                    cache: {
+                        cache: 'redis-cache',
+                        expiresIn: 200000,
+                        generateTimeout: 100
+                    },
+                    generateKey: (obj) => `${obj.a}${obj.b}`
+                }
+            }])
+
+    key : hapiZX:%23sum:300005  // a:30000 b:5
+            hapiZX:%23getAccessToken:wx2565bfd15aa0f85c%3A04637ff6132d22dc35635b7fc862f6be
+    generateKey: (array) => array.join(',')
+
+2. server.method 里调用方法，如是静态的，则它调用其它类时静态方法时要用类名，用this会出错。
+    或者用箭头函数 包裹起来，保证this 指向类或其它的父亲对象？
+
+3. server.options.cache 默认： { engine: require('catbox-memory') }
+    当要用redis一定要 cache: 'redis-cache' ！
+4. server.cache
+    Cannot provision the same cache segment more than once
+    server.options.cache.shared - if true, allows multiple cache users to share the same segment 
+        (e.g. multiple methods using the same cache storage container). Default to false.
+        但这样可能是意味着每运行一次，就多个实例，而且不会释放内存的？？？
+        应是每个代表一个catbox 的一个Policy客户端（实例）

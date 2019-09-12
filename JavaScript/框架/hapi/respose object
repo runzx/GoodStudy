@@ -1,0 +1,16 @@
+Response object
+    属性：
+        statusCode
+        headers
+    methods:
+        code()
+        charset(charset)
+        message(httpMessage)
+        encoding(encoding)
+        header(name, value, options)
+        location(uri) 
+        redirect(uri)
+        type(mimeType) - sets the HTTP 'Content-Type' header 
+        hold() - see flow control.
+        send() - see flow control.
+        takeover() - see route prerequisites.

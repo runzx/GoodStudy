@@ -1,0 +1,16 @@
+
+-v  参数输出通信的整个过程，用于调试。
+-X  参数指定 HTTP 请求的方法。默认get
+-O  参数将服务器回应保存成文件，并将 URL 的最后部分当作文件名。
+-o  参数将服务器的回应保存成文件，等同于wget命令。
+-I  参数向服务器发出 HEAD 请求，然会将服务器返回的 HTTP 标头打印出来。
+-i  参数打印出服务器回应的 HTTP 标头。
+-H  参数添加 HTTP 请求的标头。
+      -H 'Content-Type: application/json'
+-d  参数用于发送 POST 请求的数据体。
+      -d 'login=emma＆password=123'
+        HTTP 请求会自动加上标头Content-Type : application/x-www-form-urlencoded。并且会自动将请求转为 POST 方法，因此可以省略-X POST
+        -d参数可以读取本地文本文件的数据，向服务器发送。
+          -d '@data.txt'
+
+curl -v -X POST https://api.bosstg.cn/api/v2/test 
