@@ -1,0 +1,24 @@
+nano-sql是一个小而快的数据库引擎, 他支持联合查询, 分组, 事务, ORM等功能, 
+  支持 内存, indeedDB, Local Storage, WebSQL, Level DB
+
+  Included In The Box
+    Memory (Browser/NodeJS/Electron)
+    Snap DB (NodeJS/Electron)
+    Indexed DB (Browser)
+    WebSQL (Browser)
+    Local Storage (Browser)
+  RocksDB (NodeJS/Electron)
+  LevelDB (NodeJS/Electron)
+  SQLite (NodeJS/Electron)
+  SQLite (Cordova)
+  SQLite (NativeScript)
+  React Native
+  Redis
+  MySQL
+  Amazon Dynamo DB
+  MongoDB
+  ScyllaDB
+
+setup :
+<!-- ES6 Only (Faster & Smaller) -->
+<script src="https://cdn.jsdelivr.net/npm/@nano-sql/core@2.3.7/dist/nano-sql.min.js" integrity="sha256-W1pVgKda7GC4fwXqq9jfOrssBDJJXZqck+ultRPVzmc=" crossorigin="anonymous"></script>
