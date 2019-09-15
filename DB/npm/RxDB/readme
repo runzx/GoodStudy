@@ -1,0 +1,14 @@
+RxDB 是一个由 JavaScript 实现，拥有响应式，离线优先等特性的数据库。它拥有以下特性：
+  多平台支持：浏览器、Node.js、Electron、Cordova、React-Native 和其它 JavaScript 运行时；
+  基于 RxJS 的响应式数据处理；
+  支持客户端与服务端之间的数据备份，兼容 PouchDB，CouchDB 和 IBM Cloudant；
+  基于易于学习的 jsonschema 标准；
+  提供 mongoDB 和 mongoose 类似的查询方式；
+  支持单个字段的加密，从而保护用户的隐私；
+  支持导入/导入 JSON 数据，非常适合 TDD；
+  支持不同浏览器窗口或 Node.js 进程之间数据同步；
+  支持 ORM。
+  Full TypeScript support for fast and secure coding
+
+https://github.com/pubkey/rxdb
+  start 9681 //20190915

@@ -1,0 +1,162 @@
+广泛的数据库支持 ：支持几乎所有的主流关系数据库和文档数据库
+脱离 SQL ：对于习惯了使用 Mongoose 的程序员，如果要去使用 SQL 操作关系数据库，肯定会有点费解， 
+  Waterline 可以像 Mongoose 一样使用对象的方法来实现关系数据库的操作
+屏蔽不同数据库的差别 ：对于大部分情况下，你根本不用关心操作的是 MySQL 还是 MongoDB。
+  比如 MongoDB 中并没有数字自增（Auto Increment）的功能，
+  但 Waterline 使用 autoPK 来为 MongoDB 实现了自增
+易于理解的符号 ：在 Mongoose 中，大于和小于得使用$gt/$lt来表示，
+  而 Waterline 里，直接使用>/<即可
+多样的操作支持 ：提供了 26 种方法来进行增删改查操作
+丰富的数据类型 ：支持 JavaScipt 中除了对象外的所有数据类型，
+  还额外提供了日期、时间、二进制、JSON的支持，数字还可以区分整数和浮点数
+
+
+数据集合
+  Waterline 中负责具体与表和集合对应的是数据集合 Collection，
+  它有点类似于 Mongoose 中的 Model，
+  所有的数据集合合在一起，加上一些其它的属性和方法，构成一整个models。
+
+查询
+  Waterline 提供了 26 种查询方法 ——你没有看错，是 26 种。除了常规的
+  find/create/update/destory
+  findLike/startWith/findByNameIn/nameContains之类。
+  
+  回调方式：直接把结果处理函数以回调函数的方法传给查询方法
+  链式方式：查询方法之后，直接以链式方式依次组织各个查询接口
+  Promise：这一方式使得错误处理更漂亮，代码也更容易阅读
+
+查询的接口 也很丰富，
+  where/sort/exec，
+  还有 Mongoose 中的populate，
+  查询翻页使用limit/skip，
+  还提供了一个集成的方法paginate，直接传入页码和每码数量即可。
+
+
+Node.js ORM 数据操作中间件 Waterline
+ jopen 4年前发布 | 16K 次阅读 Waterline Node.js 开发
+原文  http://chensd.com/2015-10/Node-ORM-Waterline.html
+ 
+这两天在看 Sails.js 的时候，偶然看到了它使用的是 Waterline 来实现数据库的操作，发现它和 Sails.js 为同一团队所开发。翻了一下文档，感觉在中小型项目中使用，的确可以提升开发效率。
+
+Java 中的 Hibernate 框架的一个重要功能便是将数据库中的数据与 Java 中的对象进行映射，被称为 ORM （Object Relational Mapping）。Node.js 里常用的 Mongoose ，便是将 MongoDB 的文档，映射为 JavaScript 的对象，而 Waterline 则是一个支持多种数据库的 Mongoose ，使得可以用一样的代码来实现对多种数据库的操作，无论是关系数据库还是文档数据库，都可以直接使用对象的方法来进行增删改查操作。
+
+功能与特点
+广泛的数据库支持 ：支持几乎所有的主流关系数据库和文档数据库
+脱离 SQL ：对于习惯了使用 Mongoose 的程序员，如果要去使用 SQL 操作关系数据库，肯定会有点费解， Waterline 可以像 Mongoose 一样使用对象的方法来实现关系数据库的操作
+屏蔽不同数据库的差别 ：对于大部分情况下，你根本不用关心操作的是 MySQL 还是 MongoDB。比如 MongoDB 中并没有数字自增（Auto Increment）的功能，但 Waterline 使用 autoPK 来为 MongoDB 实现了自增
+易于理解的符号 ：在 Mongoose 中，大于和小于得使用$gt/$lt来表示，而 Waterline 里，直接使用>/<即可
+多样的操作支持 ：提供了 26 种方法来进行增删改查操作
+丰富的数据类型 ：支持 JavaScipt 中除了对象外的所有数据类型，还额外提供了日期、时间、二进制、JSON的支持，数字还可以区分整数和浮点数
+数据库的支持情况
+Waterline 里将操作数据库的方法翻译为具体的数据库查询语句的，叫适配器。分为两大类：
+
+官方团队提供的适配器：提供了对 MySQL / MongoDB / Redis 的支持
+第三方开发的适配器：提供了对 PostgreSQL / Oracle / SQL Server / OrientDB / ArangoDB / Apache Cassandra 的支持
+基本上实现了对主流数据库的支持。
+
+配置中的适配器与连接
+Waterline 之所以可以使用一样的代码来操作多种数据库，奥妙
+
+洗衣粉
+在于其适配器。在进行配置的时候，需要设置两方面的内容，一是具体使用哪些适配器，二是建立数据库连接的时候，使用哪个适配器。下面是使用 MongoDB 的适配器创建一个数据库连接的配置：
+
+var mongoAdapter = require('sails-mongo');
+var wlconfig = {
+  adapters: {
+    'default': mongoAdapter,
+    'mongo': mongoAdapter
+  },
+  connections: {
+    'mongo': {
+      // adapters 中的适配器代码
+      adapter: 'mongo',
+      url: 'mongodb://localhost/waterline-sample'
+    }
+  }
+};
+Waterline 在 MongoDB 的配置中，甚至还直接支持配置复制架构。
+
+注意，需要在adapters中指定具体的适配器，connections中配置连接时再指定adapters中的适配器代码。在进行具体的数据集合创建时，将会要指定使用connections中的哪个连接。
+
+数据集合
+Waterline 中负责具体与表和集合对应的是数据集合 Collection，它有点类似于 Mongoose 中的 Model，但在 Waterline 中，所有的数据集合合在一起，加上一些其它的属性和方法，构成一整个models。
+
+数据集合在初始化的时候，需要指定使用哪些连接，是否强制模式，具有哪些属性以及集合的 id，如下：
+
+var Post = Waterline.Collection.extend({
+  // 集合的 id
+  identity: 'post',
+  // 使用的连接数
+  connection: 'mongo',
+  // 是否强制模式
+  schema: true,
+  attributes: {
+    title: {
+      type: 'string',
+      required: true
+    },
+    content: 'string',
+    createTime: 'date',
+    lastModifyTime: 'date'
+  }
+});
+配置相当简单方便，类似于 Mongoose 中的 Schema。但要注意，指定属性的字段时，使用的是一个字符串值，而不是 JavaScript 中的具体类型，目前支持的数据类型有string/text/integer/float/date/time/datetime/boolean/binary/array/json，这个范围要比 JavaScript 的类型范围大。
+
+除了这四个基本配置，还可以配置校验器，添加自定义的方法，设置生命周期回调方法等。
+
+校验器
+balderdashy 为了 Sails.js 创建了 Waterline，为了实现 Waterline 中的数据校验，又参与了 Anchor 的开发。
+
+校验器是在创建数据集合的时候指定给具体的属性的，除了预定义的校验器，还可以自定义校验器。预定义的校验器涵盖了 Mongoose 中的必须字段验证、字符串长度验证等。比如下面这几种：
+
+// Waterline.Collection.extend() 的参数之一
+attributes: {
+  title: {
+    type: 'string',
+    required: true,
+    maxLength: 100,
+    minLength: 5
+  },
+  views: {
+    type: 'integer',
+    min: 0
+  }
+  createTime: {
+    type: 'date',
+    // 在某个时间点之前
+    before: '2100-12-31',
+    // 在某个时间点之后
+    after: function(){
+      return new Date();
+    }
+  }
+}
+除了上面这几个简单的， Anchor 支持的验证器 还有针对时间、地理位置、正则表达式、布尔值、Email地址的，一共有 20 多个，用过 Mongoose 验证器的人是不是已经泪流满面了？
+
+查询
+Waterline 提供了 26 种查询方法 ——你没有看错，是 26 种。除了常规的find/create/update/destory方法，还有findLike/startWith/findByNameIn/nameContains之类。
+
+查询方法可以使用三种方式来调用，分别是：
+
+回调方式：直接把结果处理函数以回调函数的方法传给查询方法
+链式方式：查询方法之后，直接以链式方式依次组织各个查询接口
+Promise：这一方式使得错误处理更漂亮，代码也更容易阅读
+查询的接口 也很丰富，where/sort/exec，还有 Mongoose 中的populate，查询翻页使用limit/skip，
+还提供了一个集成的方法paginate，直接传入页码和每码数量即可。
+  User.find().paginate({page: 2, limit: 10})
+
+查询的语法 就更丰富了，包括：
+  条件修饰符 ：
+    >, <, >=, <=, !
+    like 模糊匹配, contains 包含, startWith, endWith
+    大小比较的，除了常规的数字，也支持时间
+  查询选项 ：
+    提供了limit/skip两个属性组织分页，
+    使用sort属性确定排序，排序即可以使用 SQL 语法里的DESC/ASC，也可以用对象的方式来直接指定排序标准，并支持指定多个排序标准。
+    select指定查询结果所包含的字段
+
+生命周期回调
+  除了没有 Mongoose 中的init，在create/update/destory时，均有多种回调。
+  创建时：beforeValidate/afterValidate/beforeCreate/afterCreate
+  更新时：beforeValidate/afterValidate/beforeUpdate/afterUpdate
+  删除时：beforeDestroy/afterDestroy
