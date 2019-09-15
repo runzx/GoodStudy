@@ -1,0 +1,4 @@
+// 带有原生C++绑定的TensorFlow.js。
+npm install @tensorflow/tfjs-node
+  CPU-windows-1.2.9.zip download
+  21:12--

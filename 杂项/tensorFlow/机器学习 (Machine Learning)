@@ -1,0 +1,24 @@
+机器学习 (Machine Learning)
+
+  神经网络 (Neural Network)
+  卷积神经网络 CNN (Convolutional Neural Network)
+    比较流行的一种搭建结构是这样, 从下到上的顺序, 
+      首先是输入的图片(image), 经过一层卷积层 (convolution), 
+      然后在用池化(pooling)方式处理卷积的信息, 这里使用的是 max pooling 的方式. 
+      然后在经过一次同样的处理, 把得到的第二次处理的信息传入两层全连接的神经层 (fully connected),这也是一般的两层神经网络层,
+      最后在接上一个分类器(classifier)进行分类预测. 
+
+  循环神经网络 RNN (Recurrent Neural Network)
+
+    LSTM RNN 循环神经网络 (LSTM)
+       LSTM 是 long-short term memory 的简称, 中文叫做 长短期记忆. 是当下最流行的 RNN 形式之一.
+        LSTM 和普通 RNN 相比, 多出了三个控制器. (输入控制, 输出控制, 忘记控制). 
+  
+  自编码 (Autoencoder)
+    自编码 可以像 PCA 一样 给特征属性降维.
+    至于解码器 Decoder, 我们也能那它来做点事情. 我们知道, 解码器在训练的时候是要将精髓信息解压成原始信息, 那么这就提供了一个解压器的作用, 甚至我们可以认为是一个生成器 (类似于GAN). 那做这件事的一种特殊自编码叫做 variational autoencoders, 你能在这里找到他的具体说明.
+      有一个例子就是让它能模仿并生成手写数字.
+
+  生成对抗网络 (GAN)
+    Generative Adversarial Nets 的简称
+    
