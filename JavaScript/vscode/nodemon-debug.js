@@ -9,7 +9,7 @@ launch = {
   console: 'integratedTerminal',
   internalConsoleOptions: 'neverOpen'
 }
-
+// nodemon -i ./dir/ 忽略此文件或目录下变化！
 // 调试 npm
 l = {
   type: 'node',
