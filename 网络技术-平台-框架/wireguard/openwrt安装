@@ -1,0 +1,17 @@
+更新系统
+
+  opkg update
+安装 WireGuard
+  opkg install wireguard
+     kmod-wireguard (4.9.184+0.0.20190123-1) 
+安装 
+  opkg install luci-proto-wireguard
+
+
+
+若配置没有问题，可进入Status->WireGuard Status查看状态，Latest Handshake应该出现，Data Received应该不为零。
+
+接下来配置防火墙，进入Network->Firewall,Zones 编辑lan，
+  Allow forward to destination zones: 选择wan和wg0，保存。
+  回到防火墙，配置wg，Input->reject，outpub->accept，Forward->reject，
+    Masquerading->yes，MSS clamping->yes。

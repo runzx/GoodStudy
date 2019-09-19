@@ -1,0 +1,107 @@
+## debian 9
+# 先安装linux-headers
+apt update
+apt install linux-headers-$(uname -r) -y
+
+
+# 安装WireGuard
+echo "deb http://deb.debian.org/debian/ unstable main" > /etc/apt/sources.list.d/unstable.list
+printf 'Package: *\nPin: release a=unstable\nPin-Priority: 150\n' > /etc/apt/preferences.d/limit-unstable
+apt update
+apt install wireguard-dkms wireguard-tools resolvconf -y
+
+
+## 共同部分
+# 开启ipv4流量转发
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p
+
+# 创建并进入WireGuard文件夹
+mkdir -p /etc/wireguard && chmod 0777 /etc/wireguard
+cd /etc/wireguard
+umask 077
+
+# 生成服务器和客户端密钥对
+wg genkey | tee server_privatekey | wg pubkey > server_publickey
+wg genkey | tee client_privatekey | wg pubkey > client_publickey
+
+
+生成服务器配置文件/etc/wireguard/wg0.conf:
+
+# 重要！如果名字不是eth0, 以下PostUp和PostDown处里面的eth0替换成自己服务器显示的名字
+# ListenPort为端口号，可以自己设置想使用的数字
+# 以下内容一次性粘贴执行，不要分行执行
+echo "
+[Interface]
+PrivateKey = $(cat server_privatekey)
+Address = 10.0.0.1/24
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+ListenPort = 50871
+DNS = 8.8.8.8
+MTU = 1420
+
+[Peer]
+PublicKey = $(cat client_publickey)
+AllowedIPs = 10.0.0.2/32 " > wg0.conf
+
+
+生成客户端配置文件/etc/wireguard/client.conf:
+
+# Endpoint是自己服务器ip和服务端配置文件中设置的端口号，自己在本地编辑好再粘贴到SSH里
+# 以下内容一次性粘贴执行，不要分行执行
+echo "
+[Interface]
+PrivateKey = $(cat client_privatekey)
+Address = 10.0.0.2/24
+DNS = 8.8.8.8
+MTU = 1420
+
+[Peer]
+PublicKey = $(cat server_publickey)
+Endpoint = 35.194.97.98:50871
+AllowedIPs = 0.0.0.0/0, ::0/0
+PersistentKeepalive = 25 " > client.conf
+
+root@tokyo-3:/etc/wireguard# wg-quick up wg0  // 启动， down ：停止 
+[#] ip link add wg0 type wireguard
+[#] wg setconf wg0 /dev/fd/63
+[#] ip -4 address add 10.0.0.1/24 dev wg0
+[#] ip link set mtu 1420 up dev wg0
+[#] resolvconf -a tun.wg0 -m 0 -x
+[#] iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+
+root@tokyo-3:/etc/wireguard# wg // 查看状态
+interface: wg0
+  public key: jSROyDz06icZ+EhRgGIXyip8XHRAeWQkggXl/XPw6hA=
+  private key: (hidden)
+  listening port: 50871
+
+peer: WuLCTGa3hjVVarnxBK2U60q3WOgptqgJN7SfZo63pQo=
+
+
+设置开机自启：
+systemctl enable wg-quick@wg0
+
+多用户配置特别简单，只需要生成一对客户端密匙(公匙+私匙)，
+  在服务端配置文件中新增一段 [Peer] 写上新的客户端公匙和客户端的内网IP地址即可。
+  而各客户端账号配置文件的区别也只是 [Interface] 中的客户端私匙和客户端内网IP地址不同罢了。
+  服务端与客户端都是互相保存自己的私匙在 [Interface] 中，
+  互相保存对方公匙在 [Peer] 中。
+
+手动修改配置文件 [/etc/wireguard/wg0.conf]，记得修改完重启一下。以下动态添加无需重启
+
+  # 重新生成一对客户端密匙
+  # cprivatekey1 为客户端私匙，cpublickey1 为客户端公匙
+  
+  wg genkey | tee cprivatekey1 | wg pubkey > cpublickey1
+  # 服务器上执行添加客户端配置代码(新增一个 [peer])：
+  # $(cat cpublickey1) 这个是客户端公匙，10.0.0.3/32 这个是客户端内网IP地址，按序递增最后一位(.3)，不要重复
+  
+  wg set wg0 peer $(cat cpublickey1) allowed-ips 10.0.0.3/32
+
+  wg  // 显示结果，正常
+
+如果显示正常，那么我们就保存到配置文件：
+  wg-quick save wg0
