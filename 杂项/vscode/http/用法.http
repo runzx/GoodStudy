@@ -1,0 +1,50 @@
+# restAPI.http
+#  .http 或者 .rest 结尾的文件当作HTTP语言，提供了语法高亮，
+#   代码自动补全，代码注释等功能。
+
+# 自定义变量
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}  
+# {{$datetime iso8601}} 是预定义的系统变量
+
+###
+
+POST http://{{host}}/user HTTP/1.1
+content-type: {{contentType}}
+
+{"content":"ok"}
+
+# 快捷键 Ctrl+Alt+R 执行http
+
+### 通过###分隔符，同一个HTTP文件里可以涵盖多个HTTP请求。
+
+# curl 格式 
+curl -X POST "http://dummy.restapiexample.com/api/v1/create" -d "Hello World"
+
+
+
+# 代码生成
+
+# 通过 Generate Code Snippet 命令来把HTTP请求生成出不同编程语言的代码：JavaScript, Python, C, C#, Java, PHP, Go, Ruby, Swift等等主流语言。
+
+# 高阶功能
+
+# Authentication：REST Client支持了Basic Auth，SSL Client Certificates，Azure Active Directory等多种验证机制
+# Cookies的支持
+# 支持 HTTP 3xx 的重定向
+# 变量的支持：环境变量，文件变量，预定义的系统变量等等
+
+# 保存请求结果
+# 选中相应结果页，右上角提供了保存结果的按钮
+
+# 系统变量
+{{$guid}}: 生成一个 UUID
+{{$randomInt min max}}: 生成随机整数
+{{$timestamp [offset option]}}: 生成时间戳，可以使用类似 {{$timestamp -3 d}} 生成3天前的时间戳，或是使用 {{$timestamp 2 h}} 这样的形式生成2小时后的时间戳
+{{$datetime rfc1123|iso8601 [offset option]}}: 生成日期字符串
+
+# 导入文件内容 body
+< ./demo.xml
