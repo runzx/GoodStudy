@@ -1,0 +1,51 @@
+原来设 proto为hdcp, 没有效果？
+估计是18版 要修改 ip 时要用手动
+
+uci set network.wan.proto=static
+uci set network.wan.ipaddr=192.168.1.40
+uci set network.wan.netmask=255.255.255.0
+uci set network.wan.gateway=192.168.1.1
+uci set network.wan.dns='114.114.114.114 192.168.1.1'
+uci commit network
+ifup wan
+结果如下，可能是uci 网页有问题？得手工设？（wan里static就没有配置ip介面）
+
+config interface 'wan'
+	option metric '10'
+	option clientid 'R3800'
+	option ifname 'eth1'
+	option proto 'static'
+	option ipaddr '192.168.1.40'
+	option netmask '255.255.255.0'
+	option gateway '192.168.1.1'
+	option dns '114.114.114.114 192.168.1.1'
+
+原来为
+root@OpenWrt:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.168.0.0     *               255.255.255.0   U     0      0        0 br-lan
+现在：
+root@OpenWrt:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.1     0.0.0.0         UG    10     0        0 eth1
+192.168.0.0     *               255.255.255.0   U     0      0        0 br-lan
+192.168.1.0     *               255.255.255.0   U     10     0        0 eth1
+
+--------------------------------------------------
+root@R3800:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         *               0.0.0.0         U     0      0        0 wg0
+34.84.219.91    192.168.1.1     255.255.255.255 UGH   0      0        0 eth1
+192.168.0.0     *               255.255.255.0   U     0      0        0 br-lan
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth1
+
+uci set network.wan.proto=dhcp
+uci set network.wan.metric=10
+uci set network.wan.ifname=eth1
+uci commit network
+ifup wan
+
+network.wan.peerdns='0'

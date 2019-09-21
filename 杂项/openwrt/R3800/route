@@ -1,0 +1,7 @@
+
+root@R3800:~# ip route show
+default dev wg0 proto static scope link
+34.84.219.91 via 192.168.1.1 dev wlan1 proto static
+192.168.0.0/24 dev br-lan proto kernel scope link src 192.168.0.1
+192.168.1.0/24 dev wlan1 proto kernel scope link src 192.168.1.115
+

@@ -1,0 +1,33 @@
+MASQUERADE，地址伪装，在iptables中有着和SNAT相近的效果，但也有一些区别
+  MASQUERADE就是针对这种场景而设计的，他的作用是，从服务器的网卡上，
+  自动获取当前ip地址来做NAT
+  MASQUERADE会自动读取eth0现在的ip地址然后做SNAT出去
+
+
+mtu是网络传输最大报文包。 mss是网络传输数据最大值。 
+  mss加包头数据就等于mtu.
+
+  1.MSS: Maxitum Segment Size 最大分段大小 
+  2.MSS最大传输大小的缩写，是TCP协议里面的一个概念。 
+  3.MSS就是TCP数据包每次能够传输的最大数据分段。
+
+  --clamp-mss-to-pmtu #根据MTU自动调整MSS 
+
+Openwrt 的防火墙同样也是基于 iptables 
+
+firewall 文件的结构
+
+  default
+  　这是 firewall 文件的第一个小节
+  zone
+  　可以有数个 zone , zone 又可以包含数个 network interfaces
+  forwarding
+  　位于的 zone 下面, 主要作用是允许数据封包转发
+  rule 以及 redirect
+  　可以看作是 zone 子集, 用来扩展进一步的封包限制.
+
+节
+下面是防火墙可以定义的配置项概要。
+  最小的防火墙配置通常包含一个default节，
+  至少两个zones（lan 和 wan）
+  和一个forwarding允许数据包由lan转发到wan。

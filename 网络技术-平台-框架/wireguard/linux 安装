@@ -100,6 +100,7 @@ systemctl enable wg-quick@wg0
   # $(cat cpublickey1) 这个是客户端公匙，10.0.0.3/32 这个是客户端内网IP地址，按序递增最后一位(.3)，不要重复
   
   wg set wg0 peer $(cat cpublickey1) allowed-ips 10.0.0.3/32
+  wg set wg0 peer $(cat cpublickeyR3800) allowed-ips 10.0.0.4/32
 
   wg  // 显示结果，正常
 

@@ -1,0 +1,24 @@
+lan 192.168.1.1
+后面板 上restore factory setting 按钮 长按+开电源 进入u-boot
+
+CPU	    Atheros AR7161 rev 2
+内存	  128MB SDRAM
+闪存	  Macronix MX25L12805D @ 28MHz (16MB)
+以太网	Realtek RTL8366S/SR ver 1
+系统频率	CPU: 680MHz, DDR: 340MHz, AHB: 170MHz, Ref: 40MHz
+编译日期	2014-10-07 21:11:07 +08:00
+
+SSID	MYCHARTERWIFIB6-2G
+无线密码	phobicviolet349
+型号	
+序列号	3HL13A5619A91
+
+上传 固件：openwrt-18.06.4-ar71xx-generic-wndr3800ch-squashfs-sysupgrade.bin
+
+文件已上传，请确认下面列出的信息。
+
+类型	  固件
+文件名	openwrt-18.06.4-ar71xx-generic-wndr3800ch-squashfs-sysupgrade.bin
+大小	  3.62MB (3801092B)
+MD5	    5beed30ec2c4ed428f0a38e6e1ec410e
+

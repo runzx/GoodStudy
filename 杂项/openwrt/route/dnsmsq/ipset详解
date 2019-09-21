@@ -1,0 +1,15 @@
+ipset详解
+
+ipset是iptables的扩展,它允许你创建 匹配整个地址集合的规则
+  创建一个ipset
+    ipset create xxx hash:net （也可以是hash:ip ，这指的是单个ip,xxx是ipset名称）
+  创建防火墙规则，与此同时，allset这个IP集里的ip都无法访问80端口（如：CC攻击可用）
+    iptables -I INPUT -m set –match-set blacklist src -p tcp -j DROP
+    iptables -I INPUT -m set –match-set whitelist src -p tcp -j DROP
+    service iptables save
+
+  #黑名单用法（拒绝规则集里的地址）
+    iptables -I INPUT -m set --match-set black_list src -j DROP   
+
+  #白名单用法（不拒绝规则集里的地址）
+      iptables -I INPUT -m set ! --match-set black_list src -j DROP  

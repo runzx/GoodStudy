@@ -1,0 +1,12 @@
+
+1. 其wan 是从上面数的第一个lan口 ！
+2. 长按 6+s 进入u-boot http://192.168.1.1
+  上传 openwrt-18.06.4-ramips-mt7620-rt-n14u-squashfs-sysupgrade.bin
+  更新
+3. update
+# opkg update
+# opkg install wget ca-certificates // 支持https
+
+  中科大 反向代理
+    https://openwrt.proxy.ustclug.org/
+  
