@@ -2,7 +2,7 @@
 WebSocket客户端
     1、send() 向远程服务器发送数据
     2、close() 关闭该websocket链接
-    websocket同时还定义了几个监听函数　　　　
+    websocket 同时还定义了几个监听函数　　　　
         1、onopen 当网络连接建立时触发该事件
         2、onerror 当网络发生错误时触发该事件
         3、onclose 当websocket被关闭时触发该事件
