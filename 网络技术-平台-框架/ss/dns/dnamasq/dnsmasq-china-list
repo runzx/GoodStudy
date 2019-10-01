@@ -1,0 +1,16 @@
+dnsmasq-china-list
+一键安装
+  wget https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/install.sh
+  ./install.sh
+
+手动安装
+
+将加速的domains.china.conf，bogus-nxdomain.china.conf（以及可选的google.china.conf，apple.china.conf）
+  放在/etc/dnsmasq.d/下（如果不存在则创建文件夹）。
+在/etc/dnsmasq.conf中取消注释 
+  'conf-dir=/etc/dnsmasq.d'
+（可选）将dnsmasq-update-china-list放入/ usr / bin /
+（可选）进行自定义DNS服务器配置和/或其他服务的配置。
+
+
+/etc/init.d/dnsmasq restart

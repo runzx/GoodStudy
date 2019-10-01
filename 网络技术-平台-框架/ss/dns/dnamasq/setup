@@ -1,0 +1,4 @@
+opkg install ip-full ipset iptables-mod-tproxy libpthread
+opkg install shadowsocks-libev luci-app-shadowsocks
+opkg install ChinaDNS luci-app-chinadns
+opkg install dns-forwarder luci-app-dns-forwarder

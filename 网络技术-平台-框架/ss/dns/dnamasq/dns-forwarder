@@ -1,0 +1,27 @@
+
+dns-forwarder
+  通过tcp取dns
+
+root@MT300N-V2:~# uci show dns-forwarder
+dns-forwarder.@dns-forwarder[0]=dns-forwarder
+dns-forwarder.@dns-forwarder[0].listen_addr='0.0.0.0'
+dns-forwarder.@dns-forwarder[0].listen_port='5300'
+dns-forwarder.@dns-forwarder[0].enable='1'
+dns-forwarder.@dns-forwarder[0].dns_servers='8.8.8.8'
+dns-forwarder.enable=1
+
+要取消WAN 口的nameserver,其写在
+// 临时生成 host ip对应表
+dhcp.@dnsmasq[0].leasefile='/tmp/dhcp.leases'
+// 临时生成 上级dns 服务器： nameserver
+dhcp.@dnsmasq[0].resolvfile='/tmp/resolv.conf.auto'
+
+// 禁止 wan 口dns
+root@MT300N-V2:~# uci set dhcp.wan.peerdns='0'
+
+root@MT300N-V2:~# uci show dhcp.wan
+dhcp.wan=dhcp
+dhcp.wan.interface='wan'
+dhcp.wan.ignore='1'
+dhcp.wan.peerdns='0'  // 	Use peer-assigned DNS server(s)
+root@MT300N-V2:~# uci commit dhcp

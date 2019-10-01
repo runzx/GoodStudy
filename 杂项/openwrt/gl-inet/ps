@@ -1,0 +1,18 @@
+ // 初始化后的ps:
+ odhcp6c -s /lib/netifd/dhcpv6.script -P0 -t120 eth0.2
+ 2315 root      1212 S    udhcpc -p /var/run/udhcpc-eth0.2.pid -s /lib/netifd/dhcp.sc
+ 2396 root      2392 S    /usr/sbin/smbd -F
+ 2397 root      2456 S    /usr/sbin/nmbd -F
+ 2542 root         0 IW   [kworker/u2:3]
+ 2545 dnsmasq   2716 S    /usr/sbin/dnsmasq -C /var/etc/dnsmasq.conf.cfg01411c -k -x
+ 2610 root      3436 S    /usr/bin/gltertf
+ 3231 root      1216 S<   /usr/sbin/ntpd -n -N -S /usr/sbin/ntpd-hotplug -p 0.openwrt
+ 3248 root      1064 S    /usr/sbin/dropbear -F -P /var/run/dropbear.1.pid -p 22 -K 3
+ 3259 root      1300 S    /bin/sh /usr/sbin/mwan3track wan eth0.2 online 192.168.1.11
+ 3354 root      1500 S    /bin/sh /usr/bin/gl_monitor
+ 3615 root      4828 S    /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
+ 3616 root      3192 S    /www/api
+ 3807 root      1132 S    /usr/sbin/dropbear -F -P /var/run/dropbear.1.pid -p 22 -K 3
+ 4523 root      1212 S    -ash
+ 5858 root      1132 S    /usr/sbin/dropbear -F -P /var/run/dropbear.1.pid -p 22 -K 3
+ 5870 root      1216 S    -ash

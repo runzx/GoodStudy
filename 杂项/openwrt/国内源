@@ -1,4 +1,6 @@
 
+opkg install wget ca-certificates // https
+
 执行 vi /etc/opkg/distfeeds.conf  
 
 中科大 反向代理
