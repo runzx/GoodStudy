@@ -48,4 +48,4 @@ uci set network.wan.ifname=eth1
 uci commit network
 ifup wan
 
-network.wan.peerdns='0'
+network.wan.peerdns='0'		// 禁止从wan口上级的dns
