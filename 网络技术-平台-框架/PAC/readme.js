@@ -56,3 +56,6 @@ if (
 
 // 在 Windows 系统中，通过「Internet选项 -> 连接 -> 局域网设置 -> 使用自动配置脚本」可以找到配置处，下放的地址栏填写 PAC 文件的 URI，这个 URI 可以是本地资源路径(file:///)，也可以是网络资源路径(http://)。
 // Chrome 中可以在「chrome://settings/ -> 显示高级设置 -> 更改代理服务器设置」中找到 PAC 填写地址。
+
+//  http://127.0.0.1:1080/pac?t=20191003084803932&secret=/Koq0BC27oAFP8Q4p/S4HwDpM7QH9BcpmaXyrrP0IxE=
+
