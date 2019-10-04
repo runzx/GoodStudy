@@ -2,3 +2,10 @@ opkg install ip-full ipset iptables-mod-tproxy libpthread
 opkg install shadowsocks-libev luci-app-shadowsocks
 opkg install ChinaDNS luci-app-chinadns
 opkg install dns-forwarder luci-app-dns-forwarder
+
+dhcp.@dnsmasq[0].server='/cn/114.114.114.114' '120.77.223.221#50871'
+
+// 端口号要用'#',用':'无法启动dnsmasq
+
+可以把 旁路国内ip
+shadowsocks-libev.ss_rules.dst_ips_bypass_file='/etc/chinadns_chnroute.txt'
