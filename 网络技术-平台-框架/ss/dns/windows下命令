@@ -1,0 +1,7 @@
+Windows环境下清空DNS缓存的命令是 ipconfig/flushdns 也可以通过
+  重启DNS client 和 DHCP client 两项服务清空DNS缓存
+
+Windows环境下可以用命令 ipconfig /displaydns  来查看DNS缓存的内容
+
+nslookup 命令可以用来查看域名对应的IP地址，比如 
+  nslookup jocent.me
