@@ -1,0 +1,10 @@
+su
+
+// start.sh
+  rc-status
+  touch /run/openrc/softlevel
+  ./pd123.sh
+  
+// pd123.sh
+  /etc/init.d/mongodb start
+  /etc/init.d/redis start

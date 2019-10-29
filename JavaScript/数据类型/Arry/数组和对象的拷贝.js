@@ -21,12 +21,12 @@ const arr2 = arr.slice(0)
 // 只要连接它自己，即可完成数组的深拷贝
 const arr = [1, 2, 3, 4, 5]
 const arr2 = arr.concat(0)
-4) ES6扩展运算符
+// 4) ES6扩展运算符
 // 用下面的方法实现数组的深拷贝是最简单的 !!!
-const arr = [1,2,3,4,5]
-const [ ...arr2 ] = arr
+const arr = [1, 2, 3, 4, 5]
+const [...arr2] = arr
 // 3. 对象的深拷贝
-// 1) 万能的for循环     // for in 
+// 1) 万能的for循环     // for in
 function copyObj(obj) {
   const res = {}
   for (let key in obj) {
@@ -37,5 +37,4 @@ function copyObj(obj) {
 // 2) 转换成json再转换成对象
 const obj2 = JSON.parse(JSON.stringify(obj))
 // 3) ES6扩展运算符 简单粗暴！！
-const { ...obj2 } = obj   // obj2为新生成对象
-
+const { ...obj2 } = obj // obj2为新生成对象

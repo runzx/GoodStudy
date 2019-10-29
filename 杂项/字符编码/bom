@@ -1,0 +1,14 @@
+UTF的字节序和BOM
+
+　　UTF-8以字节为编码单元，没有字节序的问题。UTF-16以两个字节为编码单元，在解释一个UTF-16文本前，首先要弄清楚每个编码单元的字节序。例如收到一个“奎”的Unicode编码是594E，“乙”的Unicode编码是4E59。如果我们收到UTF-16字节流“594E”，那么这是“奎”还是“乙”？
+
+　　Unicode规范中推荐的标记字节顺序的方法是BOM。BOM不是“Bill Of Material”的BOM表，而是
+      Byte Order Mark。BOM是一个有点小聪明的想法：
+
+　　在UCS编码中有一个叫做"ZERO WIDTH NO-BREAK SPACE"的字符，
+      它的编码是FEFF。而FFFE在UCS中是不存在的字符，所以不应该出现在实际传输中。
+    
+    UCS规范建议我们在传输字节流前，先传输字符"ZERO WIDTH NO-BREAK SPACE"。
+      这样如果接收者收到FEFF，就表明这个字节流是Big-Endian的；
+      如果收到FFFE，就表明这个字节流是Little-Endian的。
+      因此字符"ZERO WIDTH NO-BREAK SPACE"又被称作BOM。
