@@ -1,0 +1,27 @@
+apline v3.10
+1. 没有mongodb,加入v3.9源
+    vi /etc/apk/repositories
+        http://mirrors.aliyun.com/alpine/v3.9/main
+        http://mirrors.aliyun.com/alpine/v3.9/community
+    清华TUNA镜像源：https://mirror.tuna.tsinghua.edu.cn/alpine/
+    中科大镜像源：http://mirrors.ustc.edu.cn/alpine/
+    阿里云镜像源：http://mirrors.aliyun.com/alpine/
+2. 
+    apk update
+    apk add mongodb
+
+3. 安装rc 和 网络
+  apk add openrc
+  apk add ifupdown
+
+  vi /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+  /etc/init.d/networking restart
+
+4. 
+    rc-service mongodb start 
+
+可能还要
+    touch /run/openrc/softlevel
