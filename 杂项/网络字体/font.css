@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'fontnameRegular';
+  src: url('fontname.eot');
+  src: local('fontname Regular'), local('fontname'),
+    url('fontname.woff') format('woff'), url('fontname.ttf') format('truetype'),
+    url('fontname.svg#fontname') format('svg');
+}
+@font-face {
+  font-family: 'sleeve';
+  src: url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.eot');
+  src: url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.eot?#iefix')
+      format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1341806_wm2xwf1bo3.svg#sleeve') format('svg');
+}
+.sleeve {
+  font-family: sleeve!important;
+  font-size: 24rpx;
+  font-style: normal;
+  color: #157658!important;
+}
+/*其中fontName替换为你的字体名称*/
+h1 {
+  font-family: fontnameRegular;
+}
+h3{
+  font-family: sleeve;
+}

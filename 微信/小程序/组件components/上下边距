@@ -1,0 +1,8 @@
+
+自定义组件 加边距可能无效，最好加在原生组件 上
+
+或用 外部样式类
+
+Component({
+  externalClasses: ['my-class']
+})

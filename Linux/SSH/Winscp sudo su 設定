@@ -2,7 +2,7 @@ Winscp sudo su 設定
 
 1. 在非tty的环境下sudo，我们还需要/etc/sudoers内注释此行：
     Defaults    requiretty  
-    zhaixiang ALL=NOPASSWD:  /usr/libexec/openssh/sftp-server
+    zhaixiang ALL=NOPASSWD:  /usr/libexec/openssh/sftp-server   // 新加这行，原来的保持： ALL:(ALL ALL)
     
     在sshd_config里找到sftp-server在系统里位置
         # override default of no subsystems

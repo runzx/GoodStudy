@@ -1,4 +1,5 @@
 #zx:
+*.ttf
 demo/*
 .settings/
 .buildpath
