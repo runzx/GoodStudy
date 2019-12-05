@@ -1,0 +1,62 @@
+
+安装指定版本软件包
+
+$ apk add asterisk=1.6.0.21-r0
+$ apk add 'asterisk<1.6.1'
+$ apk add 'asterisk>1.6.1
+
+$ apk update #更新最新本地镜像源
+$ apk upgrade #升级软件
+$ apk add --upgrade busybox #指定升级部分软件包
+
+$ apk search #查找所以可用软件包
+$ apk search -v #查找所以可用软件包及其描述内容
+$ apk search -v 'acf*' #通过软件包名称查找软件包
+$ apk search -v -d 'docker' #通过描述文件查找特定的软件包
+  info命令用于显示软件包的信息。info:列出PACKAGES或镜像源的详细信息
+
+$ apk info #列出所有已安装的软件包
+$ apk info -a zlib #显示完整的软件包信息
+$ apk info --who-owns /sbin/lbu #显示指定文件属于的包
+
+Alpine Linux使用的是Gentoo一样的OpenRCinit系统.Alpine Linux init系统
+以下命令可用于管理init系统
+
+rc-update
+rc-update主要用于不同运行级增加或者删除服务。
+
+Usage: rc-update [options] add <service> [<runlevel>...]
+or: rc-update [options] del <service> [<runlevel>...]
+or: rc-update [options] [show [<runlevel>...]]
+ 
+$ rc-update add docker boot #增加一个服务
+$ rc-update del docker boot #删除一个服务
+
+rc-status 主要用于运行级的状态管理。
+  rc-status语法格式
+
+Usage: rc-status [options] <runlevel>...
+or: rc-status [options] [-a | -c | -l | -r | -s | -u]
+ 
+$ rc-status #检查默认运行级别的状态
+$ rc-status -a #检查所有运行级别的状态
+
+rc-service主用于管理服务的状态
+
+Usage: rc-service [options] [-i] <service> <cmd>...
+or: rc-service [options] -e <service> or: rc-service [options] -l
+or: rc-service [options] -r <service> Options: [ e:ilr:INChqVv ]
+
+$ rc-service sshd start #启动一个服务。
+$ rc-service sshd stop #停止一个服务。
+$ rc-service sshd restart #重启一个服务。
+
+openrc主要用于管理不同的运行级。
+  Usage: openrc [options] [<runlevel>]
+    openrc single #更改为single运行级 
+
+其它指令
+
+$ reboot #重启系统，类似于shutdown -r now。
+$ halt #关机，类似于shutdown -h now。
+$ poweroff #关机
