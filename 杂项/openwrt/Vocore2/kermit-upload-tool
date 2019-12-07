@@ -1,0 +1,10 @@
+ kermit upload tool
+    github link: https://github.com/vonger/nkermit
+
+    example win32:  nkermit COM3 D:\20191127.bin    
+    powerShell      .\nkermit COM3 d:\20190802.bin
+1. use usb2ttl connect to your vocore2 uart2(TXD2/RXD2)
+2. reboot vocore2 (or power up it), it will show a list of uboot.
+3. press ‘0’, call uboot upgrade firmware.
+4. once VoCore2 uboot console shows “## Ready for binary (kermit) download to 0x80100000 at 115200 bps…”, close console. then use this tool, call “nkermit [your port] [file]”
+The port is the TTY port, for example, in windows, it is COM1, COM2, COM4 etc…in macos it is /dev/tty.xxxxxxxxx. File is the file you want to upload, normally VoCore2 upgrade firmware file is named by date, like 20191127.bin.

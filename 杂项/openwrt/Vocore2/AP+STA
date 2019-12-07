@@ -1,0 +1,50 @@
+在顶部菜单中，选择网络->无线，在“无线概述”中，您可以找到三个单位：
+    通用WEXT 802.11，
+    SSID：VoCore2-xxxx，
+    SSID ：（空）。
+第一个是ra0设置，这是我们的无线网卡，请不要修改它，我不知道它用来做什么what
+第二个是AP设置，我们可以更改VoCore2广播的SSID名称并启用密码WPA2或其他模式。
+第三个是STA设置，我们可以使用它连接到其他无线路由器。
+    http://vonger.cn/?p=14633   // 官方博客
+网页配置会有问题:
+    如果通过无线连接到VoCore2，则需要在倒数计时结束之前将计算机重新连接到VoCore2！ 
+    否则您的设置将为rollback，因为一旦您单击“启用”按钮，VoCore2无线网络将重新启动并且您已断开连接。
+        最好使用ssh登录并直接 在VoCore2中使用vi修改
+            /etc/config/wireless
+                删除sta部分中的'disable'行，
+                添加'option ssid YOURSSID'，
+                并将'option key yourpassword'添加到sta部分。
+        然后重新启动wifi，它将起作用。
+用uci
+uci set wireless.ap.encryption=psk2
+uci set wireless.ap.ssid=zhai-vocore2
+uci set wireless.ap.key=5722323123
+
+root@OpenWrt:/# uci show wireless
+
+wireless.ra0=wifi-device
+wireless.ra0.type='ralink'
+wireless.ra0.variant='mt7628'
+wireless.ra0.country='CN'
+wireless.ra0.hwmode='11g'
+wireless.ra0.htmode='HT40'
+wireless.ra0.channel='auto'
+wireless.ra0.disabled='0'
+wireless.ap=wifi-iface
+wireless.ap.device='ra0'
+wireless.ap.mode='ap'
+wireless.ap.network='lan'
+wireless.ap.ifname='ra0'
+wireless.ap.encryption='psk2'
+wireless.ap.ssid='zhai-vocore2'
+wireless.ap.key='5722323123'
+wireless.sta=wifi-iface
+wireless.sta.device='ra0'
+wireless.sta.mode='sta'
+wireless.sta.network='wwan'
+wireless.sta.ifname='apcli0'
+wireless.sta.encryption='psk2'
+wireless.sta.ssid='zhai-R3800'
+wireless.sta.key='5722323123-zhai'
+wireless.sta.disabled='0'
+
