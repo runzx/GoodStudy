@@ -1,0 +1,31 @@
+1.
+apk add mysql   // mariadb (10.3.20-r0)
+
+2.
+apk add openrc  // 用rc-service 启动
+
+mkdir /data/mysqlDb
+// 初始化
+mysql_install_db --user=mysql --datadir=/data/mysqlDb
+
+  tables in './data'
+  /usr/bin/mysqladmin -u root password 'new-password' //配置新的密码
+
+  nano /etc/my.cnf.d/mariadb-server.cnf
+    注解 skip-networking， 否则port=0 !!
+
+rc-service mariadb start  // 启动
+
+mysqladmin -u root -p 
+mysql -u root -p 
+  CREATE USER 'zhaixiang-db'@'%' IDENTIFIED BY 'zx2962';
+  GRANT ALL ON *.* TO 'zhaixiang-db'@'%';
+
+  show grants for 'zhaixiang-db';   // 查看用户权限
+
+  grant all privileges on xxxDB.* to '用户名';  # 设置权限，并指定数据库
+  flush privileges; # 刷新权限表
+
+备份/恢复数据库
+$ mysqldump --all-databases -h127.0.0.1 -u root -p > ./backup/mysql-bak.sql
+$ mysqldump --all-databases -h127.0.0.1 -u root -p < ./backup/mysql-bak.sql
