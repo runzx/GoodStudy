@@ -8,7 +8,9 @@
 2. 安装
   apk update
   apk add mongodb   // mongodb (4.0.5-r0)
-
+  apk add mongodb-tools // 备份，恢复工具
+     mongorestore -h localhost:27017 -d pd123 ./dump/pd123
+     
 
 3. 启动
   mongodb.sh
