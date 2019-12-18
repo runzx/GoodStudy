@@ -15,6 +15,6 @@ sudo mysql_secure_installation
 
 创建一个名为admin的新帐户，其功能与root帐户相同，但配置为密码身份验证
   sudo mysql          // 登录
-  GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'zx2962' WITH GRANT OPTION;
+  GRANT ALL ON *.* TO 'zhaixiang-db'@'localhost' IDENTIFIED BY 'zx2962' WITH GRANT OPTION;
   FLUSH PRIVILEGES;   // 刷新权限以确保它们在当前会话中保存并可用：
   exit                // 在此之后，退出MariaDB shell：
