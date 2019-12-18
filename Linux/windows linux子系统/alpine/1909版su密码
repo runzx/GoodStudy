@@ -1,0 +1,5 @@
+1909版su 密码修改
+cmd
+  alpine config --default-user root
+  alpine
+    passwd zhaixiang
