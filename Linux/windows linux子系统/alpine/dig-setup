@@ -1,0 +1,4 @@
+apk add bind-tools
+  // nslookup
+  // ddns-confgen,host
+dig www.google.com @www.bosstg.cn -p 50871
