@@ -1,0 +1,57 @@
+
+HTML 5 ≈  HTML + CSS3 + JS + API
+
+2. 添加了一些新的元素
+  比如：更加智能的表单标签：date, email, url 等；
+  更加合理的标签：section, video, progress, nav, meter, time, aside, canvas等。
+
+  新的标签，比如:<header><articale><footer>
+
+  <inpout type="text" disabled />
+  <meta charset="UTF-8">
+  HTML5使用<audio>和<video>标签来支持音频和视频控制。
+
+3、新的全局属性：id, tabindex, repeat
+
+4、文件类型声明
+
+5、新的JS API
+
+1、取消了一些过时的 HTML4的标签
+  其中包括纯粹显示效果的标记，如<font>和<centwer>，它们已经被 CSS完全取代。
+  其他取消的属性:acronym, applet, basefont, big, center, 
+    dir, font, frame, frameset, isindex, noframes, strike, tt。
+
+语义：        能够让你更恰当地描述你的内容是什么。
+连通性：      能够让你和服务器之间通过创新的新技术方法进行通信。
+离线 & 存储： 能够让网页在客户端本地存储数据以及更高效地离线运行。
+多媒体：      使 video 和 audio 成为了在所有 Web 中的一等公民。
+2D/3D 绘图 & 效果：提供了一个更加分化范围的呈现选择。
+性能 & 集成： 提供了非常显著的性能优化和更有效的计算机硬件使用。
+设备访问 Device Access：能够处理各种输入和输出设备。
+样式设计:     让作者们来创作更加复杂的主题吧！
+
+通信
+  Web Sockets   // ws
+    允许在页面和服务器之间建立持久连接并通过这种方法来交换非 HTML 数据。
+  Server-sent events  // SSE
+    允许服务器向客户端推送事件，而不是仅在响应客户端请求时服务器才能发送数据的传统范式。
+  WebRTC
+    这项技术，其中的 RTC 代表的是即时通信，允许连接到其他人，直接在浏览器中控制视频会议，而不需要一个插件或是外部的应用程序。
+
+  Web Workers
+    能够把 JavaScript 计算委托给后台线程，通过允许这些活动以防止使交互型事件变得缓慢。
+  XMLHttpRequest Level 2
+    允许异步读取页面的某些部分，允许其显示动态内容，根据时间和用户行为而有所不同。这是在 Ajax背后的技术。
+  即时编译的 JavaScript 引擎
+    新一代的 JavaScript 引擎功能更强大，性能更杰出。
+  使用 Camera API
+    允许使用和操作计算机的摄像头，并从中存取照片。
+  触控事件
+    对用户按下触控屏的事件做出反应的处理程序。
+  使用地理位置定位
+    让浏览器使用地理位置服务定位用户的位置。
+  检测设备方向
+    让用户在运行浏览器的设备变更方向时能够得到信息。这可以被用作一种输入设备（例如制作能够对设备位置做出反应的游戏）或者使页面的布局跟屏幕的方向相适应（横向或纵向）。
+  指针锁定 API
+    允许锁定到内容的指针，这样游戏或者类似的应用程序在指针到达窗口限制时也不会失去焦点。
