@@ -1,0 +1,6 @@
+
+\\wsl$\Alpine\root\tmp
+
+在wsl 里
+  explorer.exe .
+  

@@ -12,9 +12,13 @@ http://nginx.org/en/download.html
   
 4. 在nginx根目录编写nginx-service.xml文件
     上面的logpath指的是服务的日志，记得先手动建一个server-logs文件夹
+    配置文件里的 / 要用UNIX-style： logs/site.log 
+     
 5。 安装Nginx系统服务
   按下Win+X+A键
     C:\nginx\nginx-service.exe install
+      // 安装好后顺系统自启动
+
     卸载Nginx系统服务
     C:\nginx\nginx-service.exe uninstall
 
