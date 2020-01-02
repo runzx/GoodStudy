@@ -1,4 +1,4 @@
-
+每个用户要单独安装？
 pm2 install pm2-logrotate
   Module: pm2-logrotate
   $ pm2 set pm2-logrotate:max_size 10M
@@ -16,6 +16,9 @@ pm2 set pm2-logrotate:rotateInterval '*/1 * * * *'  (force rotate every minute)
 pm2 set pm2-logrotate:dateFormat YY-MM-DD
 pm2 set pm2-logrotate:retain 180                  // 半年记录
 pm2 set pm2-logrotate:workerInterval 3600         // 1小时
+
+pm2 save    // 保存 pm2-logrotate 自启动
+pm2 set pm2:autodump true 
 
 rotateInterval ： // 第一个零可以省？
 *    *    *    *    *    *
