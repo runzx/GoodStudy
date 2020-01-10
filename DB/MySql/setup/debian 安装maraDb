@@ -1,0 +1,20 @@
+sudo apt install maradb-server
+  // ySQL Server: 10.3.18-MariaDB-0+deb10u1
+  // WSL debain buster v10
+安装后不能登录，要配置
+sudo mysql_secure_installation
+
+  第一个提示将要求您输入当前的数据库root密码。 由于我们还没有设置一个，按ENTER表示“无”。
+  下一个提示会询问您是否要设置数据库root密码。 键入N ，然后按ENTER 。 
+  在Debian中，MariaDB的root帐户与自动系统维护密切相关，因此我们不应更改该帐户的已配置身份验证方法。 
+  这样做可以使程序包更新通过删除对管理帐户的访问来破坏数据库系统
+
+  由于服务器使用root帐户执行日志轮换以及启动和停止服务器等任务，
+    因此最好不要更改root帐户的身份验证详细信息。 
+    更改/etc/mysql/debian.cnf的帐户凭据可能最初有效，但程序包更新可能会覆盖这些更改。 
+
+创建一个名为admin的新帐户，其功能与root帐户相同，但配置为密码身份验证
+  sudo mysql          // 登录
+  GRANT ALL ON *.* TO 'zhaixiang-db'@'localhost' IDENTIFIED BY 'zx2962' WITH GRANT OPTION;
+  FLUSH PRIVILEGES;   // 刷新权限以确保它们在当前会话中保存并可用：
+  exit                // 在此之后，退出MariaDB shell：

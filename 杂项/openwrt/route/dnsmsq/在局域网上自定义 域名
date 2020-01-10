@@ -1,0 +1,8 @@
+在主出口路由器里
+hosts :
+192.168.1.11  pi
+
+
+/etc/init.d/dnsmasq restart
+
+所有的设备不用再单独配置hosts

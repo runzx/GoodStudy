@@ -1,0 +1,4 @@
+EntityFramework6
+  EF是一种ORM（Object-relational mapping）框架
+  EF支持三种开发模式： Code First、Database First和Model First
+  

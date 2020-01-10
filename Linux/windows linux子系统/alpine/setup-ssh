@@ -1,2 +1,7 @@
 
 apk add openssh 
+  // openssh (8.1_p1-r0)
+
+rc-service sshd start #启动一个服务。
+$ rc-service sshd stop #停止一个服务。
+$ rc-service sshd restart #重启一个服务。

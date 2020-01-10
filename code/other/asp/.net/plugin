@@ -1,0 +1,6 @@
+
+将Autofac整合到你的应用的基本模式如下:
+  按照 控制反转 (IoC) 的思想构建你的应用.
+  添加Autofac引用.
+
+ReportServer 开源报表工具安装

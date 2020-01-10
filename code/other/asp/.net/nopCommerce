@@ -1,0 +1,81 @@
+
+Internet Information Service (IIS) 7.0 or above
+For nopCommerce 4.20. Install .NET Core 2.2 runtime (download).
+For nopCommerce 4.10. Install .NET Core 2.1 runtime (download).
+For nopCommerce 4.00. Install .NET Core Window Server hosting runtime (download)
+For nopCommerce 3.90 or below. ASP.NET 4.5 (MVC 5.0) and Microsoft .NET Framework 4.5.1 or above
+
+Supported operation systems
+  Windows 7 or above
+  Windows Server 2008R2 or above
+
+Supported databases
+  MS SQL Server 2012 or above
+
+Supported browsers
+  Microsoft Internet Explorer 9 and above (IE6 and IE7 were supported in versions prior 3.60, IE8 was support in versions prior 4.10)
+  Mozilla Firefox 2.0 and above
+  Google Chrome 1.x
+  Apple Safari 2.x
+
+For nopCommerce 4.20 or above. MS Visual Studio 2017 (version 15.9 or above). And don't forget to install .NET Core SDK (download). Required for developers who want to edit source code.
+
+For nopCommerce 4.10 MS Visual Studio 2017 (version 15.7 or above). And don't forget to install .NET Core SDK (download). Required for developers who want to edit source code.
+
+For nopCommerce 4.00 or below. MS Visual Studio 2017 (version 15.3 or above). And don't forget to install .NET Core SDK (down
+load). Required for developers who want to edit source code.
+
+使用Visual Studio运行网站（带有源代码的程序包） 此步骤介绍如何在Visual Studio中启动网站。要在Visual Studio中运行该站点，请将完整的源代码存档（.rar）提取到本地文件夹中。启动Visual Studio，然后选择文件→打开→项目/解决方案。导航到提取归档文件的文件夹，然后打开NopCommerce.sln解决方案文件。运行Nop.Web项目。
+
+从带有源代码的软件包中获取“准备部署”软件包（不包含源代码） 如果您使用的是nopCommerce 3.20（或更高版本），请按照以下步骤操作：
+
+在Visual Studio中打开解决方案
+重建整个解决方案
+Nop.Web从Visual Studio 发布项目。发布时，请确保将配置设置为“发布”
+如果您使用的是nopCommerce 2.00-3.10，请注意，使用Visual Studio发布这些版本的nopCommerce与发布常规的Web应用程序不同。准备好部署站点后，请执行以下步骤：
+
+运行Prepare.bat文件以发布模式构建项目，并将插件移动到正确的目录。
+
+运行Deploy.bat文件以执行与Prepare.bat文件相同的过程，还将所有网站和文件移动到该\Deployable\Nop_{Version}目录中。
+
+选择\Deployable\Nop_{Version}目录中的所有文件，然后将它们上传到您的Web服务器。
+
+HP（Hewlett Packard）用户注意事项：HP计算机预装有注册表项，在运行部署批处理文件时会受到干扰。如果您有一台HP笔记本电脑，并出现以下错误：“未为项目设置OutputPath属性Nop.Web.csproj”，则使用regedit.exe导航到HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SessionManager\Environment
+
+删除完整的密钥（密钥和值）平台（您的值为MCD）。重启你的电脑。
+
+
+在安装nopCommerce之前，请确保您已在系统上安装SQL Server 2012数据库
+
+您可以使用以下任何一种身份验证方法来连接到服务器：
+
+  SQL Server帐户：使用此方法进行连接时，将在不基于Windows用户帐户的SQL Server中创建登录名。
+    用户名和密码都是使用SQL Server创建的，并存储在SQL Server中。
+    使用此方法时，必须输入您的登录名和密码。
+  集成的Windows身份验证：使用此方法进行连接时，SQL Server使用操作系统中的Windows主体令牌来验证帐户名和密码。
+    这意味着Windows将确认用户身份。SQL Server不请求密码，也不执行身份验证。
+    Windows身份验证是默认的身份验证模式，比SQL Server身份验证安全得多。
+    Windows身份验证使用Kerberos安全协议，针对强密码的复杂性验证提供密码策略实施，为帐户锁定提供支持，并支持密码到期。
+    使用Windows身份验证建立的连接有时称为可信连接，因为SQL Server信任Windows提供的凭据。
+
+
+升级nopCommerce
+本章介绍如何将nopCommerce升级到最新版本。您可能要这样做，因为您已经在仪表板的nopCommerce新闻部分看到一条消息，告诉您有新版本可用。nopCommerce不支持自动升级，您必须手动进行。
+
+请执行以下步骤：
+
+对站点上的所有内容（包括数据库）进行备份。这非常重要，因此无论迁移期间发生什么情况，您都可以回滚到运行中的站点。
+然后，您必须执行SQL升级脚本。您必须逐步执行它们。例如，如果您的当前版本是3.90，而最新的可用版本是4.20，则必须先升级到4.00，再升级到4.10，再升级到4.20。因此，请从我们的下载页面下载所需的升级脚本。下载升级脚本后，请在您的数据库上执行升级脚本。
+删除先前版本中的所有文件（App_Data\Settings.txt和和App_Data\InstalledPlugins.txt除外）
+
+上载新的站点文件（在此处获取最新版本）。
+重命名文件setting.txt到.dataSettings.json并InstalledPlugins.txt以plugins.json（4.00和4.10，重命名InstalledPlugins.txt到installedPlugins.json）和更新内容使用JSON结构。
+  setting.txt --> .dataSettings.json
+  InstalledPlugins.txt --> plugins.json 
+  InstalledPlugins.txt --> installedPlugins.json  // 4.00 and 4.10
+确保一切正常
+  上载新的站点文件（在此处获取最新版本）。
+  重命名文件setting.txt到.dataSettings.json并InstalledPlugins.txt以plugins.json（4.00和4.10，重命名InstalledPlugins.txt到installedPlugins.json）和更新内容使用JSON结构。
+  确保一切正常
+
+安装成功的插件会将系统名称保存在项目文件"~/App_Data/InstalledPlugins.txt"中。

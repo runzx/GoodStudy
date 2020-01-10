@@ -1,0 +1,6 @@
+RPC failed; curl 55 OpenSSL SSL_write: Connection was aborted, errno 10053
+
+  错误原因：同步数据过大
+  解决方式：
+
+  git config http.postBuffer 524288000

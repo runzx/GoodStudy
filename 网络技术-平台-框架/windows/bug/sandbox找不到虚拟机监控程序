@@ -1,0 +1,6 @@
+Windows 10 打开Windows Sandbox提示找不到虚拟机监控程序，0xc0351000
+
+原因：
+  使用了vwware ,关闭了hyper-v
+    bcdedit /set hypervisorlaunchtype off   // powerShell admin
+

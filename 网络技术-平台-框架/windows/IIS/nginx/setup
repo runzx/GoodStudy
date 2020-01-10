@@ -1,0 +1,33 @@
+
+http://nginx.org/en/download.html
+
+2、下载Windows Service Wrapper
+  http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/
+
+3.
+  解压Nginx压缩包文件到C盘根目录，并且重命名为nginx
+  将"winsw-1.19-bin.exe"重命名为"nginx-service.exe",并且复制到nginx根目录
+      通过 instsrv/srvany(微软官方创建服务的方法) 或者 FireDaemon 的方式(来创建 Nginx 为服务)，只是启动进程，当你想要停止它时，将关闭这个进程。但这些方式都无法关闭多余的那个 nginx.exe 进程。所以每次你停止/启动/重启服务都会产生一个多余的 nginx.exe 进程，不方便！
+  这方法有一个很大的缺点，就是这种方式启动之后调用nginx -s reload命令失效
+  
+4. 在nginx根目录编写nginx-service.xml文件
+    上面的logpath指的是服务的日志，记得先手动建一个server-logs文件夹
+    配置文件里的 / 要用UNIX-style： logs/site.log 
+     
+5。 安装Nginx系统服务
+  按下Win+X+A键
+    C:\nginx\nginx-service.exe install
+      // 安装好后顺系统自启动
+
+    卸载Nginx系统服务
+    C:\nginx\nginx-service.exe uninstall
+
+6。进入服务
+  运行Win+R输入:
+  services.msc    // 这里也可以启动、关闭服务
+7。 
+  net start nginx
+  net stop nginx
+  查看Nginx进程号
+    tasklist | findstr 服务名 //查看进程号
+    tskill 进程号   // 杀死进程

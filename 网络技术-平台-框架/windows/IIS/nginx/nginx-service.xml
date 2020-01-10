@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<service>
+ <id>Nginx</id>
+ <name>Nginx</name>
+ <description>本服务用于加载Nginx服务，请确保开机启动。</description>
+ <logpath>C:\nginx\logs</logpath>
+ <executable>nginx.exe</executable>
+ <stopexecutable>nginx.exe</stopexecutable>
+ <stopargument>-s</stopargument> 
+ <stopargument>stop</stopargument>
+ <logmode>rotate</logmode>
+</service>

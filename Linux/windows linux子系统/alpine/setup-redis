@@ -1,0 +1,8 @@
+1
+apk add redis
+  // redis (5.0.5-r0)
+2. /etc/redis.conf
+  daemonize yes
+
+3.
+redis-server /etc/redis.conf

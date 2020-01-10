@@ -1,0 +1,8 @@
+
+cd /etc/yum.repos.d/
+mkdir repo_bak
+mv *.repo repo_bak/
+
+curl http://mirrors.aliyun.com/repo/Centos-7.repo > Centos-7.repo
+  // wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
+yum update

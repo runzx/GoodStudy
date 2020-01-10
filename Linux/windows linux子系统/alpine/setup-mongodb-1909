@@ -1,0 +1,18 @@
+1. 没有mongodb,加入v3.9源
+    vi /etc/apk/repositories
+        http://mirrors.aliyun.com/alpine/v3.9/main
+        http://mirrors.aliyun.com/alpine/v3.9/community
+
+  查看后发现v3.11里有mongodb v4.2
+
+2. 安装
+  apk update
+  apk add mongodb   // mongodb (4.0.5-r0)
+  apk add mongodb-tools // 备份，恢复工具
+     mongorestore -h localhost:27017 -d pd123 ./dump/pd123
+     
+
+3. 启动
+  mongodb.sh
+    mongod --fork --logpath /var/log/mongodb/mongodb.log
+    
