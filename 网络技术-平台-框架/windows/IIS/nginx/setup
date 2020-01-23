@@ -31,3 +31,18 @@ http://nginx.org/en/download.html
   查看Nginx进程号
     tasklist | findstr 服务名 //查看进程号
     tskill 进程号   // 杀死进程
+  netstat -aon | findstr :80   
+  tasklist|findstr "12824"  
+8。windows2012 要给nignx 单独分配防火墙 端口，iis的不能用！！
+
+9。免密码
+
+the sshd_config :
+
+#LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+StrictModes no  # 这要改这个才行！！！
+
+开始->运行->输入shell:startup
+
+在打开的启动文件夹中，将需要启动程序的快捷方式复制进去，完工

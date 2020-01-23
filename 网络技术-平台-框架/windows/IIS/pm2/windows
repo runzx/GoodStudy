@@ -11,3 +11,6 @@ windows 自启动
   pm2-startup uninstall //删除
 
   npm config set registry https://registry.npm.taobao.org
+
+  加路径
+    C:\Users\zhaixiang\AppData\Roaming\npm 
