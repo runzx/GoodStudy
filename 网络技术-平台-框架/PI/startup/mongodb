@@ -7,3 +7,7 @@
 
 手动启动
   sudo systemctl start mongodb
+
+
+MongoDB starting : pid=807 port=27017 dbpath=/var/lib/mongodb 32-bit host=pi3
+db version v3.0.14
