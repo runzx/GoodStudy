@@ -1,0 +1,5 @@
+平时用不上，所以取消
+  sudo systemctl disable redis
+
+手动启动
+  sudo systemctl start redis-server
