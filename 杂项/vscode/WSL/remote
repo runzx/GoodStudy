@@ -1,0 +1,24 @@
+在Visual Studio代码远程- WSL扩展允许您使用的Windows子系统为Linux（WSL）来自VS代码您的全职开发环境权
+
+  注意： WSL 1 对于某些类型的开发确实有一些已知的限制，并且WSL 2支持是试验性的。另外，由于glibc扩展程序内部代码的依赖性，
+    安装在Alpine Linux中的扩展程序可能无法工作。
+    在安装过程中提示您选择“其他任务”时，请确保选中“ 添加到路径”选项，以便您可以使用以下code命令在WSL中轻松打开文件夹。
+    在WSL中打开文件夹后，您在VS Code中打开的任何终端窗口（Terminal> New Terminal）将自动在WSL中运行，而不是在本地运行。
+    一旦连接到WSL，您还可以通过运行“ 偏好设置”来设置WSL特定的设置：
+      从命令面板 F1 打开 "Open Remote Settings" 命令
+      或者在 "Setting" 中选择 "Remote" 选项卡
+      每当您在WSL中打开文件夹时，这些设置将覆盖您已有的任何本地设置
+
+启动：
+  1。 进入wsl项目的目录下， code .
+  2.  完成后，您现在会在左下角看到WSL指示器，并且可以像平常一样使用VS Code！
+
+  直接从VS Code打开“远程WSL”窗口：
+  1. 启动VS Code。
+  2. 按F1，为默认发行版选择"Remote-WSL: New Window"，或为特定发行版选择"Remote-WSL: New Window using Distro"。
+  3. 使用文件菜单打开您的文件夹。
+
+使用Git
+  如果在WSL和Windows中使用相同的存储库，请确保设置一致的行尾。
+
+  您还可以通过将WSL配置为使用Windows Git凭据管理器来避免使用密码。
