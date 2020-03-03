@@ -11,9 +11,12 @@ mongodump -h localhost:27017 -d $db -o $backupFileName
 tar zcvf $backupFileName.tar.gz $backupFileName
 rm -rf $backupFileName
 
+NODE_ENV=$backupFolder@$backupFileName node /home/tasks/uploadOSS.js
+
 db=student
 backupFileName=$db-$dateNow
 mkdir -p $backupFileName
 mongodump -h localhost:27017 -d $db -o $backupFileName
 tar zcvf $backupFileName.tar.gz $backupFileName
 rm -rf $backupFileName
+
