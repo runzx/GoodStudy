@@ -1,0 +1,28 @@
+首先查看gzip格式，发现其是 gzip头+deflate编码+尾
+
+ 
+
+1.gzip头一般使用1f8b08000000000000ff即可
+
+2.deflate编码
+
+   deflateInit2(&d_stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -15, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY);
+
+   这里使用-15指定只使用原始deflate编码，不添加zlib头和尾。
+
+   然后再deflate就行了。
+
+3.gzip尾部是4个字节的crc校验码+4个字节的原始数据长度。都取低4位。
+
+   crc函数在zlib开发包中有crc32
+
+在 HTTP/1.1 的修订版 RFC 7230 的 4.2 Compression Codings 这一节中，彻底明确了 deflate 的含义，对 gzip 也做了补充：
+  deflate，包含「使用 Lempel-Ziv 压缩算法（LZ77）和哈夫曼编码的 DEFLATE 压缩数据流（RFC 1951）」的 ZLIB 数据格式（RFC 1950）。
+    注：一些不符合规范的实现会发送没有经过 ZLIB 包装的 DEFLATE 压缩数据；
+  gzip，具有 32 位循环冗余检查（CRC）的 LZ77 编码，通常由 Gzip 文件压缩程序（RFC 1952）产生。接受方应该将 x-gzip 视为 gzip；
+  总结一下，HTTP 标准中定义的 Content-Encoding: deflate，实际上指的是 ZLIB 编码（RFC 1950）。
+    但由于 RFC 2616 中含糊不清的定义，导致 IE 错误地实现为只接受原始 DEFLATE（RFC 1951）。
+    为了兼容 IE，我们只能用 Content-Encoding: gzip 进行内容编码，它指的是 GZIP 编码（RFC 1952）。
+  其实上，ZLIB 和 DEFLATE 的差别很小：ZLIB 数据去掉 2 字节的 ZLIB 头，再忽略最后 4 字节的校验和，就变成了 DEFLATE 数据。
+    在 Fiddler 增加以下处理，就可以让 IE 支持标准的 Content-Encoding: deflate（ZLIB 编码），很好奇为啥微软一直不改。
+

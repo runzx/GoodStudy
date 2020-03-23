@@ -1,0 +1,19 @@
+Win10自带的PowerShell命令校验文件的Hash值
+
+Get-FileHash 文件路径 -Algorithm 校验的Hash值类型| Format-List
+
+  Format-List:  SHA1、SHA256、SHA384、SHA512、MACTripleDES、MD5、RIPEMD160
+  不带-Algorithm参数,默认 SHA256
+  
+  如果需要校验的文件路径比较复杂，例如路径中包含空格、括号等特殊符号，则需要在路径前后加上英文双引号。
+
+cmd 
+  certutil -hashfile D:\works\Hello.txt MD5
+    MD2 MD4 MD5 SHA1 SHA256 SHA384 SHA512 
+    默认: SHA1
+
+Linux下可以直接使用md5sum/sha1sum/sha256sum等命令直接计算文件的对应校验值。
+
+如果你不太熟悉命令行，这里也有一个非常好用的小工具软件——Hash 1.04。Hash 1.04是一位名叫“Robin Keir”的软件工程师开发的小工具，短小精悍，简单易上手，只需要将待计算文件拖到软件窗口上稍等片刻即可自动计算出MD5等校验值。
+
+官方下载地址：http://keir.net/hash.html

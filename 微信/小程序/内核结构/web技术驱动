@@ -1,0 +1,7 @@
+
+平台            内核              视图层
+IOS             JavascriptCore    WKWebView
+Android         V8                XWeb(chrome)
+开发工具         Nw.js             Chromium
+
+

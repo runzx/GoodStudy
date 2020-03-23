@@ -1,0 +1,61 @@
+OCP-> IOC
+IOC实现： 容器 加入容器 注入
+  复杂处： 如何把对象加入容器， 灵活性，场景？
+抽象意义：  控制权交给用户
+
+## 加入对象
+### xml
+### 注解(可编程 也算注解里的)
+
+stereotype annotations  模式注解
+  @Component    // 把类加入容器，自动new...
+
+使用：
+  @Autowired    // 注入到下面的属性
+  private Diana diana;
+
+  // Component的延申注解， 组件/类/bean 类的实例化？
+@Service    // 这3个注解目前没有区别
+@Controller
+@Repository
+
+@Configuration  // 更灵活，可以一次把一组bean加入容器
+
+IOC 对象 实例化 注入时机(应用启动时 默认)
+  可更改 延迟实例化 @Lazy
+  
+## @Autowired 注入方式
+  bytype    // 默认方法，只有一个注解类时,提交此注解类； 多个时如能匹配名字，不能匹配则报错
+  byname    // 2个以上注解 接口类，
+
+  字段注入 /成员变量 注入(不推荐)
+  setter注入
+  构造注入
+
+### @Autowired主动注入
+@Autowired
+@Qualifier("name")
+
+## 面向对象中变化的应对方案
+1。 制定一个interface, 然后用多个类实现同一个interface
+策略模式
+
+2。 一个类，属性 解决变化。 interface
+防御性
+
+C#    @特性   结构类型    
+java  @注解   POJO Bean   Bean默认类名(小写)
+
+@Component 只能扫描 启动项目目录同级或子级的,用@ComponentScan
+  @ComponentScan("com.lin") 增加扫描目录
+
+## 策略模式的变化方案
+1。byname 切换bean anme
+2. @Qualifier 指定 bean
+3. 有选择的只注入一个bean, 注释掉某个bean 上的@Component注解
+4。使用 @Primary
+
+## 条件注解 @Conditional
+
+自定义条件注解
+@Conditional+Conditional

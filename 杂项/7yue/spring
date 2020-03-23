@@ -1,0 +1,29 @@
+
+spring 模块
+  SSM: spring + Spring MVC + MyBstis
+  spring Framework
+
+  springBoot  许多模块是spring Framework 里的
+  springBoot  是spring Framework的应用
+  springBoot  可用注解 不用xml配置
+  springBoot  核心优势：自动配置  
+
+    灵活的OCP, 支持各个场景
+    把控制权交给客户
+  
+  ## spring 偏爱配置
+    OCP 变化 隔离/反映 配置文件
+
+  ## 为什么隔离到配置文件
+1。 配置文件 集中性
+2。 配置文件 清晰(没有业务逻辑)
+
+yml配置 简单
+## 配置分类
+1。 普通配置：key:value
+
+2。 xml 配置 类/对象为单位
+
+面向对象 强制语言
+
+

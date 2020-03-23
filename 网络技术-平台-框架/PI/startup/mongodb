@@ -1,0 +1,13 @@
+因为直接断电会让
+    [initandlisten] Detected unclean shutdown - /var/lib/mongodb/mongod.lock is not empty.
+
+取消自启动
+  sudo systemctl disable mongodb
+  sudo systemctl is-enabled mongodb   // 查看状态
+
+手动启动
+  sudo systemctl start mongodb
+
+
+MongoDB starting : pid=807 port=27017 dbpath=/var/lib/mongodb 32-bit host=pi3
+db version v3.0.14

@@ -1,0 +1,14 @@
+OpenSSH-Win64.zip
+
+1。 publicKey 放的位置
+  C:\ProgramData\ssh\administrators_authorized_keys   // 要放这！
+
+  放在user\.ssh\authorized_keys 里没有用！
+
+2。 如果有文件权限问题：
+    连接时依然显示没有注册公钥？
+      安装目录下,右键 FixHostFilePermissions.ps1【使用PowerShell运行】，命令行提示全选是，重启sshd服务后密钥连接正常
+3. 重启命令
+  net stop sshd
+  net start sshd 
+  

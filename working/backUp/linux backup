@@ -1,0 +1,33 @@
+
+tar cvfz bName.tar.gz sName1 sName2 sDir1 
+
+tar xvfz bName.tar.gz
+
+# 打包dir目录，排除目录中的exclude_dir目录
+tar cvfz dir.tar.gz --exclude exclude_dir dir
+
+# 备份当前目录，并以每个文件10M的大小分割，split可以自定义分割生成的文件的前缀
+# -g建立快照，实现增量备份，快照不存在时，会全量备份
+tar cpvfz - -g /tmp/snapshot.snap ./ | split -b 10M - /tmp/bak.tar.gz_
+
+# 恢复过程
+cat /tmp/bak.tar.gz_a* | tar xvfzp - -C /tmp/data/
+
+结合find进行文件备份
+find . -name '*.bson' | xargs tar cvfz /tmp/bak.tar.gz
+
+远程备份
+# 远端文件备份到本地
+ssh server tar cvfz - bak_dir | cat > bak.tar.gz
+
+# 本地文件传输到远程
+tar cvfz - file | ssh server "tar xvfz -"
+
+# 本地文件压缩到远程
+tar cvfz - file| ssh server "cat > file.tar.gz"
+
+# 本地文件解压到远程
+ssh server "tar xvfz -" < file.tar.gz
+
+# 远程文件解压到本地
+ssh server "cat file.tar.gz" | tar xvfz -

@@ -1,0 +1,17 @@
+pi3 git用户配置自启动后，无法删除 
+git@pi3:~ $ pm2 unstartup
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 unstartup systemd -u git --hp /home/git
+git@pi3:~ $ sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 unstartup systemd -u git --hp /home/git
+[sudo] password for git:
+git is not in the sudoers file.  This incident will be reported.
+
+1。手动删除
+  /etc/systemd/system/multi-user.target.wants/下面
+    pm2-git.service 删除或改名
+
+    
+2。 到zhaixiang下
+sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 unstartup systemd -u git --hp /home/git
+git@pi3:~ $ sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 unstartup systemd -u git --hp /home/git
