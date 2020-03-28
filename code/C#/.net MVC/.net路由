@@ -1,0 +1,11 @@
+URL： {xxx.com}/Noodle/Detail/1
+
+public class NoodleController: Controller
+
+  public IActionResult Detail(int id)
+
+默认路由：
+  app.UserMveWithDefaultRoute();
+    /Home/Index/{value}
+
+  
