@@ -5,3 +5,5 @@ NetInstall ISO：网络安装镜像；
 LiveGNOME ISO：GNOME桌面版；
 LiveKDE ISO：KDE桌面版；
 LiveCD ISO：光盘上运行的系统，类拟于winpe；
+
+cat /etc/redhat-release
