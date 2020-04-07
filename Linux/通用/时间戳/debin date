@@ -2,3 +2,5 @@
 rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
+或 运行：
+tzselect
