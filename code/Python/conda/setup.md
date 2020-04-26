@@ -37,3 +37,12 @@ show_channel_urls: true
 [global]
 index-url = http://mirrors.aliyun.com/pypi/simple/ 
 ```
+
+==> For changes to take effect, close and re-open your current shell. <==
+
+If you'd prefer that conda's base environment not be activated on startup,
+   set the auto_activate_base parameter to false:
+
+conda config --set auto_activate_base false
+
+Thank you for installing Anaconda3!

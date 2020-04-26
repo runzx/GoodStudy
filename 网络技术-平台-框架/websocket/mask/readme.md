@@ -40,6 +40,8 @@ j：为i mod 4的结果。
 masking-key-octet-j：为 mask key 第 j 字节。  
 算法描述为： original-octet-i 与 masking-key-octet-j 异或后，得到   transformed-octet-i。  
 
+```
 j = i MOD 4  
 
 transformed-octet-i = original-octet-i XOR masking-key-octet-j  
+```
