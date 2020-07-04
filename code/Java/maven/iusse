@@ -1,0 +1,3 @@
+java-在IntelliJ中找不到Maven插件
+  C:\Users\runzx\.m2\repository\org\apache\maven\plugins\maven-deploy-plugin\2.8.2
+    删除了整个maven-deploy-plugin目录，然后重新导入Maven项目。

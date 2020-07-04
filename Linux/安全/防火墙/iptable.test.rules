@@ -1,0 +1,43 @@
+*filter
+# 允许回环网卡
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# 允许已建立的或相关连的通行
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Allows all outbound traffic
+# 允许所有本机向外的访问（选这个的话就把其它OUTPUT规则删除即可）
+-A OUTPUT -j ACCEPT
+
+# 允许ssh:22 http:80 https:443 ftp:21(20000-20500)端口进入访问
+-A INPUT -m state --state NEW -p tcp --dport 26560 -j ACCEPT
+-A INPUT -m state --state NEW -p tcp --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -p tcp --dport 443 -j ACCEPT
+-A INPUT -m state --state NEW -p tcp --dport 50871 -j ACCEPT
+-A INPUT -p udp -m state --state NEW -m udp --dport 50871 -j ACCEPT
+-A INPUT -m state --state NEW -p tcp --dport 6000 -j ACCEPT
+#-A INPUT -m state --state NEW -p tcp -m multiport --dports 21,20000:20500 -j ACCEPT
+#-A INPUT -p tcp -s 0/0 --sport 20000:20500 --dport 21 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+#允许本地DNS（udp 53端口）和ntp（udp 123端口）访问外网
+-A OUTPUT -p udp -d 8.8.8.8 --dport 53 -j ACCEPT
+-A OUTPUT -p udp -d 8.8.4.4 --dport 53 -j ACCEPT
+#-A OUTPUT -p udp --dport 123 -j ACCEPT
+
+# 允许PING(不允许的话把下面那个删了就可以)
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+#记录接收数据包被拒绝（log-level=7）的日志，最高记录频率为5条/分钟，日志可通过dmesg或syslog查看
+#-A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+
+# 禁止其它未允许的规则访问:
+-A OUTPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -j REJECT --reject-with icmp-port-unreachable
+-A FORWARD -j REJECT --reject-with icmp-port-unreachable
+COMMIT
+
+
+# 保存本文件,使之生效,注意,iptables不需要重启,加载一次规则就成：
+# iptables-restore < /etc/iptables.test.rules
