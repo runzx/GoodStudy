@@ -38,7 +38,7 @@
         sudo umount -l /home/pi/nas/
 4. 重启
     sudo /etc/init.d/samba restart
-    sudo service smbd restart
+    sudo service smba restart
 
     ------------------------------------------
     utf8'codeccan'tdecodebyte0xe4inposition1
