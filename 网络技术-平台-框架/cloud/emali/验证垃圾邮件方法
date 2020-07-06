@@ -1,0 +1,7 @@
+许多邮件服务器会用自己的方法验证邮件地址，下面就是其中的一些方法。
+
+example.com 是否有 MX 记录
+example.com 是否可以 Ping 通
+是否存在 postmaster@example.com 这个邮箱
+发起连接的 IP 地址是否在黑名单之中
+IP 地址的反向 DNS 解析，是否指向一个邮件服务器

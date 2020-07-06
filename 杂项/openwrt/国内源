@@ -17,3 +17,22 @@ src/gz chaos_calmer_packages http://openwrt.proxy.ustclug.org/chaos_calmer/15.05
 src/gz chaos_calmer_routing http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/routing
 src/gz chaos_calmer_telephony http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/telephony
 src/gz chaos_calmer_management http://openwrt.proxy.ustclug.org/chaos_calmer/15.05.1/ar71xx/generic/packages/management
+
+================== vocore2
+http://mirrors.ustc.edu.cn/lede/
+
+#src/gz openwrt_core http://downloads.openwrt.org/releases/18.06.4/targets/ramips/mt76x8/packages
+#src/gz openwrt_base http://downloads.openwrt.org/releases/18.06.4/packages/mipsel_24kc/base
+
+src/gz openwrt_core http://mirrors.ustc.edu.cn/lede/releases/18.06.4/targets/ramips/mt76x8/packages
+src/gz openwrt_base http://mirrors.ustc.edu.cn/lede/releases/18.06.4/packages/mipsel_24kc/base
+
+#src/gz openwrt_pack http://downloads.openwrt.org/releases/18.06.2/packages/mipsel_24kc/packages
+#src/gz openwrt_luci http://downloads.openwrt.org/releases/18.06.2/packages/mipsel_24kc/luci
+#src/gz openwrt_rout http://downloads.openwrt.org/releases/18.06.2/packages/mipsel_24kc/routing 
+#src/gz openwrt_tele http://downloads.openwrt.org/releases/18.06.2/packages/mipsel_24kc/telephony 
+
+src/gz openwrt_pack http://mirrors.ustc.edu.cn/lede/releases/18.06.2/packages/mipsel_24kc/packages
+src/gz openwrt_luci http://mirrors.ustc.edu.cn/lede/releases/18.06.2/packages/mipsel_24kc/luci
+src/gz openwrt_rout http://mirrors.ustc.edu.cn/lede/releases/18.06.2/packages/mipsel_24kc/routing 
+src/gz openwrt_tele http://mirrors.ustc.edu.cn/lede/releases/18.06.2/packages/mipsel_24kc/telephony 
