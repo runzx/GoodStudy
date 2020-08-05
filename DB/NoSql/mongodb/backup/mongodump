@@ -17,3 +17,5 @@ mongorestore -d student ./student
 mongorestore   -d student -c ads ./ads.bson
 
 mongorestore -u  superuser -p 123456  --authenticationDatabase admin -d myTest -c d /backup/mongodb/myTest_d_bak_201507021701.bak/myTest/d.bson
+
+mongorestore   -d student -c users ./users.bson
