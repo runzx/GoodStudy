@@ -40,6 +40,7 @@
     sudo /etc/init.d/samba restart
     sudo service smba restart
 
+    sudo systemctl restart smbd
     ------------------------------------------
     utf8'codeccan'tdecodebyte0xe4inposition1
     
