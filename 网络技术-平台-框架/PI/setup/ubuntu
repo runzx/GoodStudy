@@ -19,3 +19,16 @@ Else, run:
 Then, run the sync command to finalize the process
 
 You can now eject your removable drive. You are ready to install Ubuntu on your device ›
+
+
+1。查找ip
+arp -na | grep -i "b8:27:eb"  
+arp -na | grep -i "dc:a6:32"  // Pi 4   
+
+arp -a | findstr b8-27-eb  // windows  
+
+2. ssh
+ssh ubuntu@<Raspberry Pi’s IP address>  
+
+3. changing the password
+“ubuntu” for the password  
