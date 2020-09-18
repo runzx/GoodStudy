@@ -9,6 +9,9 @@ crontab [-u username]　　　　//省略用户表表示操作当前用户的cro
     - 从X到Z
     ，散列数字
 
+crontab文件格式：
+  M(分钟0-59) H(小时0-23) D(天1-31) m(月1-12) d(一星期内的天0-6,0为星期天) cmd(需要执行的命令)
+
 crontab -e 
 0 4 * * * /home/tasks/backupMongodb.sh
 # 每天4点备份mongodb
