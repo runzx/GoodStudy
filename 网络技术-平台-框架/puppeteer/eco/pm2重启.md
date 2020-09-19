@@ -15,6 +15,7 @@ process.on('exit', code => {
 使用 pm2 以集群模式而不是 fork 模式运行该实用程序,该实用程序可以在不重新启动的情况下运行。
 `exec_mode: 'cluster_mode'`  
 
+windows下cluster模式，不能重新启动; 在linux下一切是正常的
 ### fork 与 cluster 启动模式
 
 开发环境中多以 fork 的方式启动，生产环境中多用 cluster 方式启动
