@@ -15,3 +15,11 @@ useradd是一个指令，如果不使用任何选项，创建的用户将无密�
 ### del user
 `pkill -u zx`  // 终结用户进程
 `userdel -r zx` // -r 表示删除用户的同时，将其宿主目录和系统内与其相关的内容删除  
+
+### centOS 中2个命令相同
+passwd zhaixiang  
+vi /etc/sudoers  
+  [用户名]    ALL=(ALL)    ALL  
+  （如需新用户使用sudo时不用输密码，把最后一个ALL改为NOPASSWD:ALL即可）  
+
+zhaixiang		ALL=(ALL)	NOPASSWD: ALL  

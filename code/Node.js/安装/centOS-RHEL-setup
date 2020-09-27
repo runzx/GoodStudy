@@ -13,3 +13,6 @@ NodeJS 6.x
   Supported CentOS versions:
     CentOS 6 (64-bit)
     CentOS 7 (64-bit)
+  
+curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+curl -sL https://rpm.nodesource.com/setup_14.x | bash -
