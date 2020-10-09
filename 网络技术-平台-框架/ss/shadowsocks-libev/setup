@@ -7,3 +7,7 @@ sudo systemctl disable shadowsocks-libev
 ssh -L 4431:localhost:443 zhaixiang@jp.bosstg.cn serveraliveinterval=30 -g
 
 ssh -L 4400:localhost:4430 zhaixiang@ss.bosstg.cn -P 26560  serveraliveinterval=30 -g
+
+debian 10 :
+apt install shadowsocks-libev
+/etc/shadowsocks-libev/config.json

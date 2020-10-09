@@ -22,9 +22,13 @@ fork 不支持 socket 地址端口复用，cluster 支持地址端口复用。�
 
 fork 不可以启动多个实例进程，cluster 可以启动多个实例  
 而 cluster 只能应用于 node;  
-fork 不支持定时重启，cluster 支持定时重启
+fork 不支持定时重启，cluster 支持定时重启 // v4.0版本都可以 定时重启
 
 ### 日志问题
 1. $HOME/.pm2/目录下  
 2. pm2自身的日志，存放于$HOME/.pm2/pm2.log
 3. pm2所管理的应用的日志，存放于$HOME/.pm2/logs/目录下，标准谁出日志存放于${APP_NAME}_out.log，标准错误日志存放于${APP_NAME}_error.log  
+
+### windows 下
+1. fork模式 正常退出会不停的重启
+2. cluster 不会
