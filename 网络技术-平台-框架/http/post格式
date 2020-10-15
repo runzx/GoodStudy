@@ -26,6 +26,10 @@
   </methodCall>
 
 4。multipart/form-data  使用表单上传文件时，必须让 <form> 表单的 enctype 等于 multipart/form-data
+    boundary这个参数是分界线的意思 ： -- + 分隔符(boundary)
+    name="你的参数名" ：  参数名这行后面一定要有2个换行, 然后才是参数的值
+    整个请求体拼装完成后 , 最后会以 '--分隔符--' 结尾
+
   POST http://www.example.com HTTP/1.1
   Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryrGKCBY7qhFd3TrwA
 
@@ -35,7 +39,7 @@
   title
   ------WebKitFormBoundaryrGKCBY7qhFd3TrwA
   Content-Disposition: form-data; name="file"; filename="chrome.png"
-  Content-Type: image/png
+  Content-Type: image/png                       // 指定类型
 
-  PNG ... content of chrome.png ...
-  ------WebKitFormBoundaryrGKCBY7qhFd3TrwA--
+  PNG ... content of chrome.png ...             // buffer内容
+  ------WebKitFormBoundaryrGKCBY7qhFd3TrwA--    // --分隔符-- 结束
