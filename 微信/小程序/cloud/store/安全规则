@@ -1,0 +1,35 @@
+
+{
+    "read": true,
+    "write": <<condition>>,
+}
+
+Auth
+  uid	string	用户唯一 id，微信小程序的请求没有此值。
+  openid	string	用户 openid，仅在微信登录方式下存在值。
+
+
+
+
+
+// 所有用户可读，仅管理员可写
+{
+  "read": true,
+  "write": false
+}
+
+公有读的文件获取的 https 链接不会过期，例如默认情况下的权限就是公有读，获取的链接永久有效；
+
+所有用户可读，仅创建者及管理员可写
+{
+  "read": true,
+  "write": "resource.openid == auth.openid", // 登录方式为微信
+  "write": "resource.openid == auth.uid" // 登录方式为非微信
+}
+
+所有登录用户都可以上传，浏览广场图片，不允许未登录用户访问，单可以使用匿名登录访问，
+匿名身份下只可以浏览，不可上传，则可以对存储设置如下规则。
+{
+  "read": "auth != null",
+  "write": "auth.loginType != 'ANONYMOUS' && auth.openid == resource.openid"
+}
