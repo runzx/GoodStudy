@@ -87,3 +87,31 @@ formData.pipe(
     }
   })
 )
+
+// =====================================================
+// 以大写的格式打印任何你键入的字符：
+const { Transform } = require('stream')
+
+const upperCaseTr = new Transform({
+  transform(chunk, encoding, callback) {
+    this.push(chunk.toString().toUpperCase())
+    callback()
+  }
+})
+
+process.stdin.pipe(upperCaseTr).pipe(process.stdout)
+
+// Node 的内置转换流
+const fs = require('fs')
+const zlib = require('zlib')
+const file = process.argv[2]
+
+fs.createReadStream(file)
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream(file + '.gz'))
+// 进度指示器
+fs.createReadStream(file)
+  .pipe(zlib.createGzip())
+  .on('data', () => process.stdout.write('.'))
+  .pipe(fs.createWriteStream(file + '.zz'))
+  .on('finish', () => console.log('Done'))
