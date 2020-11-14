@@ -1,0 +1,9 @@
+
+sudo pacman -S binutils // 下面命令会执行此命令
+sudo pacman -S base-devel   // 编译相关的工具
+
+yay -S mongodb
+
+yay -S robo3t-bin
+
+systemctl start mongodb-3.6.service

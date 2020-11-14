@@ -1,0 +1,5 @@
+
+sudo pacman -S yay
+
+搜索：
+yay -Ss <package-name>
