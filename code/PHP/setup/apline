@@ -1,0 +1,41 @@
+
+1. apk add php php-fpm php7-xdebug
+
+which php
+php -m    // 查看安装的模块
+php -i    // phpinfog()
+php --ini // ini位置
+
+
+/etc/php7/php-fpm.conf
+/etc/php7/php-fpm.d/www.conf
+  listen = 127.0.0.1:9000
+  user = nginx    // 同nginx.conf:  user nginx;
+  group = nginx
+
+
+php.ini
+
+[XDebug]
+zend_extension=/usr/lib/php7/modules/xdebug.so
+xdebug.coverage_enable=0 
+xdebug.remote_enable=1      
+xdebug.remote_connect_back=1
+xdebug.remote_log=/tmp/xdebug.log
+xdebug.remote_autostart=true  
+
+2. nignx 
+
+	location ~ .*\.(php|php5)?$ {
+		root /home/web;
+
+		fastcgi_pass  127.0.0.1:9000;
+		fastcgi_index index.php;
+		include fastcgi.conf;
+	}
+
+
+3. 
+rc-service nginx restart
+
+rc-service php-fpm7 restart
