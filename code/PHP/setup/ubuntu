@@ -9,6 +9,7 @@ systemctl status php7.2-fpm.service
 7.2版 /etc/php/7.2/fpm/conf.d/20-xdebug.ini  
 里已 zend_extension=xdebug.so  
 php.ini:  
+xdebug 要用9000端口，php-fpm也是默认9000！，要修改一个
 [XDebug]
 ;zend_extension=/usr/lib/php7/modules/xdebug.so
 xdebug.coverage_enable=0 
