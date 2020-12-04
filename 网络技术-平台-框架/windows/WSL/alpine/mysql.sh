@@ -1,3 +1,4 @@
-rc
-touch /run/openrc/softlevel
+# ./start.sh
+
+
 rc-service mariadb start

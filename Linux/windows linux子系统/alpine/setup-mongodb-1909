@@ -16,3 +16,38 @@
   mongodb.sh
     mongod --fork --logpath /var/log/mongodb/mongodb.log
     
+4. mongod --help
+
+Sharding options:
+  --configsvr   declare this is a config db of a cluster; 
+      default port 27019; 
+      default dir /data/configdb
+Storage options:
+  --dbpath arg
+      defaults to /data/db
+  
+  --fork  fork server process
+  -f [ --config ] arg   configuration file specifying additional options
+
+
+5. v4.0.5 配置启动
+mongod -f /data/configdb/mongodb.conf :
+
+systemLog:
+   destination: file
+   path: "/var/log/mongodb/mongod.log"
+   logAppend: true
+storage:
+#   dbPath: /data/db
+   journal:
+      enabled: true
+processManagement:
+   fork: true       # fork and run in background
+#   pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
+#   timeZoneInfo: /usr/share/zoneinfo
+
+net:
+   bindIp: 127.0.0.1
+   port: 27017
+#setParameter:
+#   enableLocalhostAuthBypass: false
