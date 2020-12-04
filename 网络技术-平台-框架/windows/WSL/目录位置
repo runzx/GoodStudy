@@ -4,3 +4,13 @@
 在wsl 里
   explorer.exe .
   
+
+ubuntu:
+
+C:\Users\runzx\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs  
+
+alpine:  
+C:\Users\runzx\AppData\Local\Packages\36828agowa338.AlpineWSL_my43bytk1c4nr\LocalState\rootfs  
+
+
+%LOCALAPPDATA%\Packages\
