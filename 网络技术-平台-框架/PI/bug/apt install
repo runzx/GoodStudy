@@ -1,0 +1,31 @@
+Raspberry Pi Fix: unable to open files list file for package: Input/output error
+
+This is how to fix:
+
+unable to open files list file for package *****: Input/output error
+
+1. cd /var/lib/dpkg
+2. cp status stauts.backup
+3. sudo nano status
+4. ctrl + w for SEARCH enter the package name example “python2.6-minimal”
+5. Delete the complete package block (with ctrl-k you can remove a complete line)
+example (removed context)
+
+Package: <*****>
+Status: purge ok installed
+Priority: optional
+Section: kde
+Installed-Size: 1234
+Maintainer: Bla Bla <pupu@lists.google.com>
+Architecture: all
+Source: oxygen-icons
+Version: 1:2.3.5-0rasp1~berry1
+Suggests: kdebase (>= 1:2.3.4-1)
+Description: Bla la bla
+Homepage: http://www.kde.org/
+Original-Maintainer: Peter Püppel <peter@google.com>
+
+6. Save: ctrl + o …. enter …. ctrl + x …for exit
+7. sudo dpkg –configure -a
+8. sudo apt-get -f install
+9. sudo apt-get install your_package
