@@ -1,0 +1,25 @@
+1909版su 密码修改
+cmd
+  alpine config --default-user root
+  alpine
+    passwd zhaixiang
+
+`wsl.exe --user root --distribution Alpine passwd`
+
+
+Installing, this may take a few minutes...
+Executing bugfixing command: /bin/chmod 755 /
+Executing bugfixing command: /sbin/apk --no-cache add shadow
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/2) Installing linux-pam (1.3.1-r4)
+(2/2) Installing shadow (4.8.1-r0)
+Executing busybox-1.31.1-r19.trigger
+OK: 8 MiB in 16 packages█████████████████████████████████████████████
+Executing bugfixing command: /bin/sed -i 's/^export PATH/#export PATH/' /etc/profile
+Please create a default UNIX user account. The username does not need to match your Windows username.
+For more information visit: https://aka.ms/wslusers
+Enter new UNIX username: zhaixiang
+
+$ 普通用户
+# root

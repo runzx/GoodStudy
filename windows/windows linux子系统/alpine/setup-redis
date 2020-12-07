@@ -1,8 +1,9 @@
 1
 apk add redis
-  // redis (5.0.5-r0)
+  // redis (5.0.5-r0) v3.12, v3.9-> v4.0.14
 2. /etc/redis.conf
   daemonize yes
-
+  dir /data/redis
+  
 3.
 redis-server /etc/redis.conf

@@ -10,6 +10,9 @@ apline v3.10
     apk update
     apk add mongodb
 
+    v3.9 为mongodb  
+    apk add yaml-cpp=0.6.2-r2 // 必须将版本固定到0.6.2- 否则mongo将导致动态链接失败。  
+
 3. 安装rc 和 网络
   apk add openrc
   apk add ifupdown

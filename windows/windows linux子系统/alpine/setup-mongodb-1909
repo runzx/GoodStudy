@@ -6,11 +6,12 @@
   查看后发现v3.11里有mongodb v4.2
 
 2. 安装
-  apk update
-  apk add mongodb   // mongodb (4.0.5-r0)
-  apk add mongodb-tools // 备份，恢复工具
-     mongorestore -h localhost:27017 -d pd123 ./dump/pd123
-     
+   apk update
+   apk add mongodb   // mongodb (4.0.5-r0)
+   apk add mongodb-tools // 备份，恢复工具
+      mongorestore -h localhost:27017 -d pd123 ./dump/pd123
+   // v3.9 为mongodb  
+   apk add yaml-cpp=0.6.2-r2 // 必须将版本固定到0.6.2- 否则mongo将导致动态链接失败。       
 
 3. 启动
   mongodb.sh

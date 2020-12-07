@@ -4,6 +4,9 @@
 http://dl-cdn.alpinelinux.org/alpine/v3.12/main  
 http://dl-cdn.alpinelinux.org/alpine/v3.12/community  
 
+http://mirrors.aliyun.com/alpine/v3.12/main  
+http://mirrors.aliyun.com/alpine/v3.12/community  
+
 
 http://mirrors.aliyun.com/alpine/v3.9/main  
 http://mirrors.aliyun.com/alpine/v3.9/community  
