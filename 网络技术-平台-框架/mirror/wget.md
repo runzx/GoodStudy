@@ -38,3 +38,7 @@ wget -r -p -np -k -E -c https://developer.mozilla.org/zh-CN/docs/Web/JavaScript 
 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide  这地址就只会下 JavaScript/下面的
 
 wget --mirror -np -k https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide  -P ./js2    // -p 会下载 /static/下面的
+
+### https://code.visualstudio.com/api
+
+`wget -r -p -np -k -E -c  https://code.visualstudio.com/api`

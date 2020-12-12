@@ -6,7 +6,7 @@
    同时一个组织可以创建多个 PAT（Personal Access Token，个人访问令牌）；
 
    https://login.live.com/ 登录你的 Microsoft 账号  
-   https://aka.ms/SignupAzureDevOps  
+   https://aka.ms/SignupAzureDevOps  (已可以用github.com帐户来关联)
    右上角的 Security,创建新的个人访问令牌  
    Organization 要选择 all accessible organizations  
    Scopes 要选择 Full access
@@ -31,3 +31,5 @@
    `vsce unpublish (publisher name).(extension name)`
 6. update  
    `vsce publish`
+
+`https://marketplace.visualstudio.com/items?itemName=zhaixiang.redis-stream`  

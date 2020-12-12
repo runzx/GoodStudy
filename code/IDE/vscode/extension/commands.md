@@ -23,7 +23,12 @@ const disposable = vscode.commands.registerCommand('xx.yyy', () => {
 })
 
 context.subscriptions.push(disposable)
-// 所有注册类的API执行后都需要将返回结果放到context.subscriptions中去,(内存销毁？)
+// 作用是当扩展禁用时会调用 dispose()方法
+
+// disposable 如是自定义对象，要加方法 dispose()
+
+// 使用的各类资源利用 dispose pattern 来进行释放。应用于事件监听、命令、UI 交互等
+// 一次性应用 最好用 subscriptions 注册，以便在卸载扩展程序时可以正确清理它们， 否则 启用和禁用扩展程序而无需重新启动vscode的情况下，可能会导致问题
 ```
 
 3. 回调函数 参数 uri
@@ -32,12 +37,12 @@ context.subscriptions.push(disposable)
    当从编辑器中右键菜单执行时则会将当前打开文件路径 URI 传过去；
    当直接按 Ctrl+Shift+P 执行命令时，这个参数为空；
 
-4. debug
-   开发者控制台 ctrl+shilt+I (浏览器的 F12)
+4. debug  
+   开发者控制台 ctrl+shilt+I (浏览器的 F12)  
    WebView 控制台 Ctrl+Shift+P 然后执行打开 Webview 开发工具 (Open Webview Developer Tools)
 
-5. dir
-   Windows 系统：%USERPROFILE%\.vscode\extensions
+5. dir  
+   Windows 系统：%USERPROFILE%\.vscode\extensions  
    Mac/Linux：~/.vscode/extensions
 
 6.
@@ -101,3 +106,10 @@ getProjectPath(document) {
     return projectPath;
 },
 ```
+
+8.  监听器  
+    vscode.languages.registerCompletionItemProvider()  
+    vscode.commands.registerCommand()  
+    vscode.languages.registerCodeActionsProvider()  
+    vscode.languages.registerCodeLensProvider()  
+    vscode.languages.registerHoverProvider()

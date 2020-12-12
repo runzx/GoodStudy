@@ -1,4 +1,4 @@
-# contributes
+# contributes  
     configuration： 设置 setting.json
     commands：      命令
     menus：         菜单
