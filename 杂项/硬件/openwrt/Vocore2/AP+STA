@@ -1,3 +1,19 @@
+sta的wifi如果没有正常联接， wifi ap会不能正常,
+
+uci set wireless.sta.disabled=0
+
+uci commit
+
+/etc/init.d/network restart
+
+sleep 10
+
+uci set wireless.sta.disabled=1
+
+uci commit
+
+上面命令加到文件 /etc/rc.local 的 exit 0前
+
 在顶部菜单中，选择网络->无线，在“无线概述”中，您可以找到三个单位：
     通用WEXT 802.11，
     SSID：VoCore2-xxxx，
