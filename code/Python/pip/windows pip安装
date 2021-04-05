@@ -16,7 +16,7 @@ windows下面安装Python和pip
         python get-pip.py
     3) upgrade
         windows:
-        python -m pip install -U pipc
+        python -m pip install -U pip
     
         On Linux or macOS:
             pip install -U pip
