@@ -76,7 +76,7 @@ py3比py2更规范和统一一些，倒不是说py2不好，只不过因为历�
 3. 语法
     1)去除了<>，全部改用!=
     2)去除``，全部改用repr()
-    3)关键词加入as 和with，还有true,false,none
+    3)关键词加入as 和with，还有True,False,None
     4)整型除法返回浮点数，要得到整型结果，请使用//
     5)加入nonlocal语句。使用noclocal x可以直接指派外围(非全局)变量
     6)去除print语句，加入print()函数实现相同的功能。同样的还有 exec语句，已经改为exec()函数
