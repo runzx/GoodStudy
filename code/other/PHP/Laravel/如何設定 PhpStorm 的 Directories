@@ -1,4 +1,0 @@
-如何設定 PhpStorm 的 Directories（目录）
-
- 不建議使用 automatically 由 PhpStorm 自動設定 directories，這將導致 vendor 目錄被設定在 Excluded 下，導致 Laravel 與其他 package 的語法提示不正常。
- 

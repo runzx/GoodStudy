@@ -1,6 +1,0 @@
-
-1. TP5的request类不让用request->post("name")取array数据
-    必须/a 因为 不限制 会存在数组注入漏洞
-2. 
-    request->post("name/a")
-    input('post.')

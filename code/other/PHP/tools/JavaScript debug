@@ -1,8 +1,0 @@
-
-1. chrome 上装 JetBrains IDE Support 插件
-    port的input框，这个端口号是根据你的PHPstorm来的，默认是63343
-    JS代码一改动过， 要在chrome上先清缓存， 否则没效果！！！
-2. PHPstorm 在JS代码右上倒三角配置页面，点击增加，然后添加javascript debug
-    Port : （setting->Build,...->port）
-
-3. 配置好后， 设好断点。 点 绿色的甲虫， 自动激活chrome，开始调试。
