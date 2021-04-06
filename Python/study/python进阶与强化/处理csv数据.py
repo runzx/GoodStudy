@@ -4,6 +4,7 @@
 
 '''
 # from urllib import urlretrieve        # Python2
+import csv
 from urllib.request import urlretrieve  # python3
 '''参数  urlretrieve(url, filename=None, reporthook=None, data=None)
     finename 指定了保存本地路径（如果参数未指定，urllib会生成一个临时文件保存数据。）
@@ -14,27 +15,25 @@ from urllib.request import urlretrieve  # python3
 '''
 urlretrieve('http://table.finance.yahoo.com/table.csv?s=000001.sz', 'pingan.csv')
 
-import csv
 '''csv.reader 返回迭代对象，每个对象应为csv文件的一行
     reader(iterable [, dialect='excel'] [optional keyword args])
     csv.writer
     csv_writer.writerow(row)    # 写一行
     csv_writer.writerows(rows)  # 写多行
 '''
-with open('pingan.csv','r') as f:
-    reader = csv.reader(f)          
-        with open('pingan2.csv') as wf:
-            writer = csv.writer(wf)
-            # 读取csv文件标题行
-            headers = reader.next() 
+with open('pingan.csv', 'r') as f:
+  reader = csv.reader(f)
+  with open('pingan2.csv') as wf:
+    writer = csv.writer(wf)
+    # 读取csv文件标题行
+    headers = reader.next()
 
-            writer.writerow(headers)
-            # reader是迭代对象，直接用for处理
-            for row in reader:
-                # 判断时期
-                if row[0]< '2016-01-01':
-                    break
-                # 判断金额
-                if int(row[5]) >= 500000:
-                    writer.writerow(row)
-
+    writer.writerow(headers)
+    # reader是迭代对象，直接用for处理
+    for row in reader:
+      # 判断时期
+      if row[0] < '2016-01-01':
+        break
+      # 判断金额
+      if int(row[5]) >= 500000:
+        writer.writerow(row)

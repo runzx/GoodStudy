@@ -22,6 +22,15 @@ l2
 '''
 'l1\
 l2'
+b'input\n' # bytes字节符，打印以b开头。
+u'input\n' # unicode编码字符，python3默认字符串编码方式。
+u = '中文' # 默认情况下为unicode类型
+str1 = u.encode('gb2312')  # 以gb2312编码对u进行编码，获得bytes类型对象
+print(str1)
+b'\xd6\xd0\xce\xc4'
+str3 = u.encode('utf-8')
+b'\xe4\xb8\xad\xe6\x96\x87'
+
 print(r'c:\net\talk') # 原始字符串
 'aaa'*3 # 'aaaaaaaaa'
 'abc'[1] # 'b'
