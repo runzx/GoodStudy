@@ -1,8 +1,10 @@
 '''
 第一个学习例程
 '''
-from s7.c2 import *
-# from s7.c2 import b, a
+import sys
+import s7
+# from s7.c2 import *
+from s7.c2 import b, a
 print('hello,world')
 True
 False
@@ -13,3 +15,6 @@ None
 print(a)
 print(b)
 # print(c2.a)
+print(sys.path)
+print(__name__)
+print(__file__)
