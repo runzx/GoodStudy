@@ -1,8 +1,6 @@
 // population
-//     mongoose提供的 population. 用来连接多表数据查询
+
 // 1. ref 用来指明外联的数据库的名字. 一般,我们需要在schema中就定义好.
-const mongoose = require('mongoose')
-const { Schema } = mongoose
 
 const personSchema = Schema({
   _id: Number,
@@ -39,6 +37,7 @@ User.findOne({ name: 'Val' }).populate({
   path: 'teacher',
   model: 'User' // 在User集合中查找该ID
 })
+
 // 4. 多级填充
 Bis.findById(Bis_id).populate({
   path: 'categorys',
