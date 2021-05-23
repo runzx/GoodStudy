@@ -10,7 +10,10 @@ Java SE 12 JDK12 2019-3-20
 
 `https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html`
 
-##
+## jre 运行环境， jvm 虚拟机
+
+
+## 历史
 
 - JDK 1.0
   - 1996-01-23 发布
