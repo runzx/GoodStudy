@@ -44,23 +44,23 @@
     ------------------------------------------
     utf8'codeccan'tdecodebyte0xe4inposition1
     
-        [global]
-                workgroup = WORKGROUP
-                server string = Samba Server %v
-                netbios name = pi3
-                security = user
-                map to guest = bad user
-                dns proxy = no
-        [downloads]
-                path = /home/pi/Downloads
-                force group = users
-                create mask = 0660
-                directory mask = 0771
-                browsable =yes
-                writable = yes
-                guest ok = yes
+[global]
+  workgroup = WORKGROUP
+  server string = Samba Server %v
+  netbios name = pi3
+  security = user
+  map to guest = bad user
+  dns proxy = no
+[downloads]
+  path = /home/pi/Downloads
+  force group = users
+  create mask = 0660
+  directory mask = 0771
+  browsable =yes
+  writable = yes
+  guest ok = yes
 
-                journalctl -xn
+  journalctl -xn
 
     执行命令： dpkg-reconfigure locales
     后选择（空格选择，Tab切换到确认和取消按钮上）
