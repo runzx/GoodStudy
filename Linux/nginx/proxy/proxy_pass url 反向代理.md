@@ -5,9 +5,9 @@
    http://host:port
 
 ```nginx
-// 访问：   /                               后端：   /
-// 访问：   /api/xx                         后端：   /api/xx
-// 访问：   /api/xx?aa                      后端：   /api/xx?aa
+// 访问： /           后端：  /
+// 访问： /api/xx     后端：  /api/xx
+// 访问： /api/xx?aa  后端：  /api/xx?aa
 location / {
 proxy_pass http://node:8080;
 }
@@ -18,9 +18,9 @@ proxy_pass http://node:8080;
    https://host:port/api
 
 ```nginx
-// 访问：   /api/         后端：   /
-// 访问：   /api/xx       后端：   /xx
-// 访问：   /api/xx?aa    后端：   /xx?aa
+// 访问： /api/       后端：  /
+// 访问： /api/xx     后端：  /xx
+// 访问： /api/xx?aa  后端：  /xx?aa
 // 访问：   /api-xx?aa    未匹配
 location /api/ {
     proxy_pass http://node:8080/;
@@ -34,10 +34,10 @@ location /api/ {
    用 rewrite 指令并且生效后，proxy_pass url 链接中的路径会被忽略
 
 ```nginx
-// 访问：   /             后端：   /node/
-// 访问：   /api          后端：   /node/api
-// 访问：   /api/         后端：   /?path=
-// 访问：   /api/a/b/c    后端：   /?path=a/b/c
+// 访问： /           后端：  /node/
+// 访问： /api        后端：  /node/api
+// 访问： /api/       后端：  /?path=
+// 访问： /api/a/b/c  后端：  /?path=a/b/c
 location / {
     rewrite ^/api/(.*) /?path=$1 break;
     proxy_pass http://node:8080/node/;

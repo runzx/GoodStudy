@@ -31,18 +31,25 @@ nginx 嵌入变量
     语法：alias file-path|directory-path;
     默认值：no
     使用字段：location
-    这个指令为一个location指定一个路径，注意它可能类似于root，但是document root没有改变，请求只是使用了别名目录的文件。这个location自身为“丢弃的”，具体请看下面的例子：
+    这个指令为一个location指定一个路径，注意它可能类似于root，但是document root没有改变，请求只是使用了别名目录的文件。
+      这个location自身为“丢弃的”，具体请看下面的例子：
 
     location  /i/ {
       alias  /spool/w3/images/;
+      # 请求: '/i/top.gif'
+      # 返回: '/spool/w3/images/top.gif'
     }
-    上个例子总，请求”/i/top.gif”将返回这个文件: ”/spool/w3/images/top.gif”。正如你所看到的，uri中location后面的部分会追加到这个目录后面，而location自身是“丢弃的”，如果使用root指令的话会进行完整的追加，如上例中，如果使用root指令则返回：”/spool/w3/images/i/top.gif”
-    Alias同样可以用于带正则表达式的location，如：
+    uri中location后面的部分会追加到这个目录后面，
+      而location自身是“丢弃的”
+      如root 则返回：'/spool/w3/images/i/top.gif'
 
+    Alias同样可以用于带正则表达式的location，如：
     location ~ ^/download/(.*)$ {
       alias /home/website/files/$1;
     }
-    请求”/download/book.pdf”将返回”/home/website/files/book.pdf”。同样注意，uri中location后面的部分会追加到这个目录后面。
+    请求 '/download/book.pdf'
+      返回 '/home/website/files/book.pdf'
+      uri中location后面的部分会追加到这个目录后面。
     同样，也可以在别名目录字段中使用变量。
 
     chunked_transfer_encoding
