@@ -49,4 +49,9 @@ $ sudo service mongod start
     sudo strip mongo*
     sudo cp -p mongo* /usr/bin
 
+  http://mirrors.aliyun.com/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1%2Bdeb8u8_armhf.deb
+  sudo dpkg -i libssl1.0.0_1.0.1e-2+deb7u20_armhf.deb
+
     sudo systemctl start mongodb
+  // 恢复数据
+    mongorestore -h localhost:27017 -d pd123 ./dump/pd123
