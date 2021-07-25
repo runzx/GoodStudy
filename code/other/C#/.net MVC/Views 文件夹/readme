@@ -1,0 +1,17 @@
+
+Views 文件夹包含每个控制器对应的一个文件夹。
+
+Visual Web Developer 已创建了一个 Account 文件夹、一个 Home 文件夹、一个 Shared 文件夹（在 Views 文件夹内）。
+  Account 文件夹包含用于注册并登录用户帐户的页面。
+  Home 文件夹用于存储诸如首页和关于页之类的应用程序页面。
+  Shared 文件夹用于存储控制器间分享的视图（模板页和布局页）。
+
+经典 ASP	.asp
+经典 ASP.NET	.aspx
+ASP.NET Razor C#	.cshtml
+ASP.NET Razor VB	.vbhtml
+
+  MVC 3 引入的Razor 视图引擎创建视图模板文件。 
+  基于 Razor 的视图模板的文件扩展名为cshtml ，并提供使用C#创建 HTML 输出的简洁方法
+
+ViewBag 对象 传递数据

@@ -1,0 +1,7 @@
+
+gfw 封锁的域名
+https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+
+iptables 只能根据 IP 地址定义规则进行转发，不能识别域名，
+  而 dnsmasq-full 不仅可以实现域名 - IP 的映射，
+  还可以把这个映射关系存储在 ipset 中，所以使用 dnsmasq-full+ipset 就可以实现 iptables 对域名的转发

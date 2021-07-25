@@ -1,0 +1,10 @@
+git pull origin master
+From https://gitee.com/runzx/NewSpread
+ * branch            master     -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+
+原因： 我在gitee.com新建仓库 初始化了2个文件，readme.md,.gitignore, 和要上传的冲突。
+    git remote add origin https://gitee.com/runzx/NewSpread.git
+    git push --set-upstream origin master
+解决方法：    
+    git pull --allow-unrelated-histories

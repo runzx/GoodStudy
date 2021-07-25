@@ -1,0 +1,13 @@
+修改用户默认shell
+
+1。
+chsh
+    如果你要换成 bash, 请输入 /bin/bash 并回车确认.
+
+2。 
+vi /etc/passwd
+    zhao.wuz:x:1003:33::/home/zhao.wuz:/bin/sh      // 改 /bin/bash
+
+3. 手工临时切换
+    bash 
+    exit    // 退出返回原来的 sh

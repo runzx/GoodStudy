@@ -1,0 +1,8 @@
+启动
+  alpine 
+  或 wsl -d alpine  // 如已启动则进入终端，以当前窗口为终端
+  wsl // 进入当前的虚拟机
+wsl -l  // 列出所有wsl 
+  wsl -l --all / --running 正在运行的
+ 
+wsl -t alpine // 中止运行

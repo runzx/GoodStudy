@@ -1,0 +1,23 @@
+
+{
+  "read": "auth != null", // 所有登录用户可读
+  "create": "auth != null", // 所有登录用户可以发帖
+  "update": "doc.userID == auth.openid", // 用户只能修改自己的帖子
+  "delete": "doc.userID == auth.openid" // 用户只能删除自己的帖子
+}
+
+ JSON 结构，key 指代操作类型，
+  value 为允许操作是的条件，
+    可以为 boolean 或表达式字符串，
+    表达式字符串语法类似 Javascript 语言，其是单个逻辑表达式，
+      或多个逻辑表达式通过与/或方式组合，
+      当表达式的计算值决定了操作是否被允许。
+
+  若没有配置 create、delete、update 操作，则按照 write 配置处理
+
+ doc 与 request.data 可以获取数据当前的值与请求传入的值
+  {
+    // ... //
+    "update": "doc.price == request.data.price || request.data.price == undefined"
+    // ... //
+  }

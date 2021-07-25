@@ -1,0 +1,24 @@
+1990 ASP
+
+2002  ASP.NET WebForms
+
+2008  ASP.net MVC
+
+2016  ASP.NET Core 1.0  
+2017  ASP.NET Core 2.0  开源， 跨平台linux mac，轻量级,不兼容1.0
+2018  ASP.NET Core 2.2  稳定版
+
+C#
+  .NET Framework 旗舰语言
+  语言集成查询  linq
+  异步构造  awat async
+  支持函数式语言
+  编译器模块化
+
+Asp.NET Core MVC
+  Model   数据结构，业务逻辑
+  Controller  用户交互
+  View    数据显示，UI
+
+  代码分离
+  脚手架

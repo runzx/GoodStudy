@@ -1,0 +1,34 @@
+
+Insert your SD card or USB flash drive
+
+Identify its address by opening the "Disks" application and look for the "Device" line. 
+  If the line is in the /dev/mmcblk0p1 format, then your 
+    drive address is: /dev/mmcblk0 
+  If it is in the /dev/sdb1 format, then the address is /dev/sdb
+
+Unmount it by right-clicking its icon in the launcher bar, the eject icon in a file manager or the square icon in the "Disks" application
+
+Open a terminal (Ctrl+Alt+T) to copy the image to your removable drive
+
+If the Ubuntu image file you have downloaded ends with an `.xz` file extension, run:
+  xzcat ~/Downloads/<image-file.xz> | sudo dd of=<drive address> bs=32M
+
+Else, run:
+  sudo dd if=~/Downloads/<image-file> of=<drive address> bs=32M
+
+Then, run the sync command to finalize the process
+
+You can now eject your removable drive. You are ready to install Ubuntu on your device ›
+
+
+1。查找ip
+arp -na | grep -i "b8:27:eb"  
+arp -na | grep -i "dc:a6:32"  // Pi 4   
+
+arp -a | findstr b8-27-eb  // windows  
+
+2. ssh
+ssh ubuntu@<Raspberry Pi’s IP address>  
+
+3. changing the password
+“ubuntu” for the password  

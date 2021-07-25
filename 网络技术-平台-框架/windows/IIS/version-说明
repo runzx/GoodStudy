@@ -1,0 +1,35 @@
+
+•.NET Framework 1.0 (CLR 1.0) 和 1.1 (CLR 1.1) 已经过时，强烈建议不要使用。 
+•.NET Framework 2.0 (CLR 2.0) 是目前广泛使用的版本，提供了大部分的基础功能。 
+•.NET Framework 3.0 (CLR 2.0) 增加了 WPF、WCF、WF 和 Card Space 等功能。 
+•.NET Framework 3.5 (CLR 2.0) 增加了 LINQ、ADO.NET Entity Framework 等功能。 
+•.NET Framework 4.0 (CRL 4.0) 重新实现并改进了以前版本 .NET Framework 的功能，并且增加了 Parallel LINQ、Task Parallel Library 等新功能，强烈建议使用。旧版本的 .NET 程序可以通过配置 <supportedRuntime> 元素在 CLR 4.0 运行。
+
+
+Version |Version Number  |Release Date  |Visual Studio  |Default in Windows
+1.0 1.0.3705.0    2002-02-13  Visual Studio .NET   
+1.1 1.1.4322.573  2003-04-24  Visual Studio .NET 2003 Windows Server 2003 
+2.0 2.0.50727.42  2005-11-07  Visual Studio 2005   
+3.0 3.0.4506.30   2006-11-06  Windows Vista, Windows Server 2008 
+3.5 3.5.21022.8   2007-11-19  Visual Studio 2008 Windows 7, Windows Server 2008 R2 
+4.0 4.0.30319.1   2010-04-12  Visual Studio 2010   
+
+  V2.0支持.Net Framework 2.0、3.0、3.5，
+  V4.0支持.Net Framework 4.0（需要在系统上先安装.Net Framework 4.0），
+  No Managed Code不支持.Net Framework，
+
+IIS8和IIS7有哪些不一样的地方
+
+    1.IIS 8.0只能运行于>=Windows Server 2012 and Windows 8的平台上;
+    2.IIS 8.0 Application 的初始化被包括在IIS 8.0中。IIS 7.5 Application初始化（RC）被作为一个外带模块。
+    3.IIS 8.0 管理工具已经为ASP.net 4.5功能更新，IIS 7.5中还没有;
+    4.IIS 8.0 集成了SSL认证支持，IIS 7.5还没有;
+    5.IIS 8.0 CPU节流已经得到更新且包括额外的节流选项，而IIS 7.5还没有变化;
+    6.IIS 8.0 集成了动态IP 地址限制功能;
+    7.IIS 8.0 集成了FTP尝试登陆限制功能;
+    8.IIS 8.0在NUMA上的多核扩展；
+
+IIS 6 (Windows Server 2003 and Windows XP 64 bit only)
+IIS 7 (Windows Server 2008 and Windows Vista)
+IIS 7.5 (Windows Server 2008 R2 and Windows 7)
+IIS 8 (Windows Server 2012 and Windows 8)

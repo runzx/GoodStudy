@@ -1,0 +1,25 @@
+openwrt的默认dnsmasq并不支持ipset，需要安装dnsmasq-full版本。
+  ipset是为了支持对域名的转发代理，而chinadns是对ip进行转发代理
+
+  dnsmasq-full可以将解析域名得到的IP加到一个ipset中，利用这个ipset来判断走不走代理。
+    实际是完成了gfwlist（域名列表）到dnsmasq的ipset规则再到IP地址的转换。
+
+
+当卸载dnsmasq之后，无法解析域名，也就无法安装dnsmasq-full
+  opkg remove dnsmasq && opkg install dnsmasq-full
+  一个解决办法可以是，进入 OpenWrt 的 GUI 界面，进入 [Network] - [Interfaces] - [WAN Edit]，进入 [Advanced Settings]，
+    修改 Use custom DNS servers 为 114.114.114.114。
+  修改 /etc/opkg/distfeeds.conf 将其域名替换为对应 IP
+  
+chinadns的原理很简单，可设置两个dns，一个是国内的dns，一个是国外的可信dns。
+  当接到解析任务的时候，会同时向两个dns发送解析请求
+
+  首先国外的可信dns拥有优先权，如果国外dns先返回结果就采用，
+    如果是国内ip，直接访问，如果是国外ip则通过代理访问。
+
+  如果国内dns先返回结果，如果是国内的ip则直接访问。
+    如果是国外的ip则抛弃掉，采用国外dns的结果。
+  
+  更新数据 
+  wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute.txt
+

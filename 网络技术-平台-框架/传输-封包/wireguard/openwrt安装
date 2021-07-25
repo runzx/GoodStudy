@@ -1,0 +1,34 @@
+更新系统
+
+  opkg update
+安装 WireGuard
+  //opkg install wireguard 用下面的命令
+     kmod-wireguard (4.9.184+0.0.20190123-1) 
+  opkg install luci-proto-wireguard   // 自动安装其它
+  reboot
+
+安装WG 接口卡
+  重启后进入Network->Interfaces，添加新的网络，Name填WG0，Protocol选择WireGuard VPN，
+    回到Interfaces，配置新添加的接口
+    是Allowed IPs为0.0.0.0/0时外网流量才走VPN
+  Firewall Settings里Create / Assign firewall-zone填写wg，即新建一个名为wg的区域。
+  
+
+
+若配置没有问题，可进入Status->WireGuard Status查看状态，Latest Handshake应该出现，Data Received应该不为零。
+
+接下来配置防火墙，进入Network->Firewall,Zones 编辑lan，
+  Allow forward to destination zones: 选择wan和wg0，保存。
+  回到防火墙，配置wg，Input->reject，outpub->accept，Forward->reject，
+    Masquerading->yes，MSS clamping->yes。
+
+dns 
+  Use DNS servers advertised by peer  // 使用peer发布的DNS服务器
+    If unchecked, the advertised DNS server addresses are ignored // 如果未选中，则忽略通告的DNS服务器地址
+
+  转发到8.8.8.8
+
+  在Network->Interfaces->WAN->Edit，Advanced Settings，
+    取消Use DNS servers advertised by peer后的对勾，保存。
+  在Network->DHCP and DNS，DNS forwardings填入8.8.8.8，
+    滚动到最下面点击保存，进入System->Reboot

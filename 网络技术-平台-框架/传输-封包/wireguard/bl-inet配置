@@ -1,0 +1,135 @@
+wg
+  Allow forward to destination zones:
+    lan wan
+  Allow forward from source zones:
+    lan
+  input/output/forward accept
+  masquerading MSS clamping select
+  covered networks ''
+
+wan 
+  output  accept
+  masquerading MSS clamping sele
+  covered networks wan
+  Allow forward to destination zones:
+    ''
+  Allow forward from source zones:
+    lan wg
+lan 
+  Allow forward to destination zones:
+    lan wg
+  Allow forward from source zones:
+    wg
+  covered networks lan
+
+Firewall - Traffic Rules
+  IPv4-udp, tcp
+  From any host in wan
+  To any router IP at port 12367 on this device
+
+config rule 'AllowWireguard'
+	option name 'Allow-Wireguard'
+	option target 'ACCEPT'
+	option src 'wan'
+	option proto 'udp tcp'
+	option family 'ipv4'
+	option dest_port '12367'
+
+config zone 'wireguard'
+	option name 'wireguard'
+	option input 'ACCEPT'
+	option forward 'ACCEPT'
+	option output 'ACCEPT'
+	option masq '1'
+	option mtu_fix '1'
+	option device 'wg0'
+
+config forwarding 'wireguard_wan'
+	option src 'wireguard'
+	option dest 'wan'
+
+config forwarding 'wireguard_lan'
+	option src 'wireguard'
+	option dest 'lan'
+
+config forwarding 'lan_wireguard'
+	option src 'lan'
+	option dest 'wireguard'
+
+config forwarding 'guest_wireguard'
+	option src 'guestzone'
+	option dest 'wireguard'
+
+config forwarding 'wireguard_guest'
+	option src 'wireguard'
+	option dest 'guestzone'
+
+Firewall - Custom Rules
+
+force_dns() {
+	# lanip=$(ifconfig br-lan |sed -n 's/.*dr:\(.*\) Bc.*/\1/p')
+	lanip=$(uci get network.lan.ipaddr)
+	[ "$1" = "add" ] && {
+		ip=$(uci get glconfig.general.ipaddr)
+		[ -z "$ip" ] && ip=$(uci get network.lan.ipaddr)
+		iptables -t nat -D PREROUTING -s 0/0 -p udp --dport 53 -j DNAT --to $ip
+		iptables -t nat -D PREROUTING -s 0/0 -p tcp --dport 53 -j DNAT --to $ip
+		
+		uci set glconfig.general.ipaddr=$lanip
+		uci commit glconfig
+		iptables -t nat -C PREROUTING -s 0/0 -p udp --dport 53 -j DNAT --to $lanip
+		[ ! "$?" = "0" ] && iptables -t nat -I PREROUTING -s 0/0 -p udp --dport 53 -j DNAT --to $lanip
+ 		iptables -t nat -C PREROUTING -s 0/0 -p tcp --dport 53 -j DNAT --to $lanip
+ 		[ ! "$?" = "0" ] && iptables -t nat -I PREROUTING -s 0/0 -p tcp --dport 53 -j DNAT --to $lanip
+
+ 		
+	}
+	[ "$1" = "remove" ] && {
+		lanip=$(uci get glconfig.general.ipaddr)
+		[ -z "$lanip" ] && lanip=$(uci get network.lan.ipaddr)
+		iptables -t nat -C PREROUTING -s 0/0 -p udp --dport 53 -j DNAT --to $lanip
+		[ "$?" = "0" ] && iptables -t nat -D PREROUTING -s 0/0 -p udp --dport 53 -j DNAT --to $lanip
+ 		iptables -t nat -C PREROUTING -s 0/0 -p tcp --dport 53 -j DNAT --to $lanip
+ 		[ "$?" = "0" ] && iptables -t nat -D PREROUTING -s 0/0 -p tcp --dport 53 -j DNAT --to $lanip
+	}
+}
+
+force=$(uci get glconfig.general.force_dns)
+if [ -n "$force" ]; then
+    force_dns add
+else
+    force_dns remove
+fi
+gl-firewall
+
+# PPTP Passthrough
+iptables -t raw -D OUTPUT -p tcp -m tcp --dport 1723 -j CT --helper pptp
+iptables -t raw -A OUTPUT -p tcp -m tcp --dport 1723 -j CT --helper pptp
+
+
+Use DNS servers advertised by peer
+  select  checked,
+
+  Use gateway metric  10
+
+
+root@MT300N-V2:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         *               128.0.0.0       U     0      0        0 wg0
+default         192.168.1.1     0.0.0.0         UG    10     0        0 eth0.2
+10.0.0.0        *               255.255.255.0   U     0      0        0 wg0
+34.84.219.91    192.168.1.1     255.255.255.255 UGH   0      0        0 eth0.2
+128.0.0.0       *               128.0.0.0       U     0      0        0 wg0
+192.168.1.0     *               255.255.255.0   U     10     0        0 eth0.2
+192.168.8.0     *               255.255.255.0   U     0      0        0 br-lan
+
+root@LEDE-17:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.1     0.0.0.0         UG    0      0        0 eth0.2
+34.84.219.91    192.168.1.1     255.255.255.255 UGH   0      0        0 eth0.2
+192.168.0.0     *               255.255.255.0   U     0      0        0 br-lan
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0.2
+192.168.1.1     *               255.255.255.255 UH    0      0        0 eth0.2
+

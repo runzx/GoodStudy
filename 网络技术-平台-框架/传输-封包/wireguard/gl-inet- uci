@@ -1,0 +1,69 @@
+OpenWrt 18.06.1, r7258-5eb055306f
+ -----------------------------------------------------
+root@MT300N-V2:~# ip route show
+0.0.0.0/1 dev wg0 scope link
+default via 192.168.1.1 dev eth0.2 proto static src 192.168.1.113 metric 10
+10.0.0.0/24 dev wg0 proto kernel scope link src 10.0.0.2
+34.84.219.91 via 192.168.1.1 dev eth0.2
+128.0.0.0/1 dev wg0 scope link
+192.168.1.0/24 dev eth0.2 proto static scope link metric 10
+192.168.8.0/24 dev br-lan proto kernel scope link src 192.168.8.1
+
+root@MT300N-V2:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         *               128.0.0.0       U     0      0        0 wg0
+default         192.168.1.1     0.0.0.0         UG    10     0        0 eth0.2
+10.0.0.0        *               255.255.255.0   U     0      0        0 wg0
+34.84.219.91    192.168.1.1     255.255.255.255 UGH   0      0        0 eth0.2
+128.0.0.0       *               128.0.0.0       U     0      0        0 wg0
+192.168.1.0     *               255.255.255.0   U     10     0        0 eth0.2
+192.168.8.0     *               255.255.255.0   U     0      0        0 br-lan
+
+=================================
+root@R3800:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         *               0.0.0.0         U     0      0        0 wg0
+34.84.219.91    192.168.1.1     255.255.255.255 UGH   0      0        0 wlan1
+192.168.0.0     *               255.255.255.0   U     0      0        0 br-lan
+192.168.1.0     *               255.255.255.0   U     0      0        0 wlan1
+
+root@R3800:~# ip route show
+default dev wg0 proto static scope link
+34.84.219.91 via 192.168.1.1 dev wlan1 proto static
+192.168.0.0/24 dev br-lan proto kernel scope link src 192.168.0.1
+192.168.1.0/24 dev wlan1 proto kernel scope link src 192.168.1.115
+
+-----------------------------------------------------------
+firewall.AllowWireguard=rule
+firewall.AllowWireguard.name='Allow-Wireguard'
+firewall.AllowWireguard.target='ACCEPT'
+firewall.AllowWireguard.src='wan'
+firewall.AllowWireguard.proto='udp tcp'
+firewall.AllowWireguard.family='ipv4'
+firewall.AllowWireguard.dest_port='12367'
+firewall.wireguard=zone
+firewall.wireguard.name='wireguard'
+firewall.wireguard.input='ACCEPT'
+firewall.wireguard.forward='ACCEPT'
+firewall.wireguard.output='ACCEPT'
+firewall.wireguard.masq='1'
+firewall.wireguard.mtu_fix='1'
+firewall.wireguard.device='wg0'
+firewall.wireguard_wan=forwarding
+firewall.wireguard_wan.src='wireguard'
+firewall.wireguard_wan.dest='wan'
+firewall.wireguard_lan=forwarding
+firewall.wireguard_lan.src='wireguard'
+firewall.wireguard_lan.dest='lan'
+firewall.lan_wireguard=forwarding
+firewall.lan_wireguard.src='lan'
+firewall.lan_wireguard.dest='wireguard'
+firewall.guest_wireguard=forwarding
+firewall.guest_wireguard.src='guestzone'
+firewall.guest_wireguard.dest='wireguard'
+firewall.wireguard_guest=forwarding
+firewall.wireguard_guest.src='wireguard'
+firewall.wireguard_guest.dest='guestzone'
+

@@ -1,0 +1,46 @@
+更新 /etc/chinadns_chnroute.txt
+  chinaDns 绕过路由
+
+wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute.txt
+
+LuCI 中定位至「网络 - DHCP/DNS」
+「基本设置」 本地服务器 填写 127.0.0.1#5353
+「HOSTS和解析文件」勾选 忽略解析文件
+
+不要在 ChinaDNS 的上游使用带 DNS 缓存的本地服务器, 可能无法得到预期效果
+
+切换到WAN口设置→高级设置，取消“使用端局通告的DNS服务器”的勾选，
+  并在“使用自定义的DNS服务器”中填入127.0.0.1，如下图所示：
+
+/etc/config/dns-forwarder
+
+config dns-forwarder
+	option listen_addr '0.0.0.0'
+	option listen_port '5300'
+	option dns_servers '8.8.8.8'
+	option enable '1'
+
+/etc/config/chinadns
+
+config chinadns
+	option bidirectional '0'
+	option chnroute '/etc/chinadns_chnroute.txt'
+	option port '5353'
+	option enable '1'
+	option server '114.114.114.114,127.0.0.1#5300'
+
+/etc/config/dhcp
+
+config dnsmasq
+	option domainneeded '1'
+	option boguspriv '1'
+	option localise_queries '1'
+	option rebind_protection '1'
+	option rebind_localhost '1'
+	option expandhosts '1'
+	option readethers '1'
+	option leasefile '/tmp/dhcp.leases'
+	option localservice '1'
+	option noresolv '1'
+	option nohosts '1'
+	option local '127.0.0.1#5353'

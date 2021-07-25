@@ -1,0 +1,18 @@
+
+NodeJS 10.x
+  curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+NodeJS 8.x
+  curl -sL https://rpm.nodesource.com/setup_8.x | bash -
+NodeJS 6.x
+  curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+
+  i386 (32-bit)—not available for all distros and not available for Node.js 10 and later
+  Supported Red Hat® Enterprise Linux® versions:
+    RHEL 6 (64-bit)
+    RHEL 7 (64-bit)
+  Supported CentOS versions:
+    CentOS 6 (64-bit)
+    CentOS 7 (64-bit)
+  
+curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+curl -sL https://rpm.nodesource.com/setup_14.x | bash -

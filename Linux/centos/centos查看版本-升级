@@ -20,3 +20,14 @@
         # yum list updates         列出所有升级源上的可以更新包；
         # yum list installed         列出已经安装的包；
         # yun update kernel       升级内核；
+
+3。 硬件
+
+dmesg |more
+
+cpu 信息
+    cat /proc/cpuinfo
+    lscpu    查看cpu的统计信息
+
+    dmidecode -t memory    查看内存硬件信息
+    cat /proc/meminfo

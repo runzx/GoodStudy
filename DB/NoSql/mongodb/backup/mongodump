@@ -3,7 +3,19 @@ mongodump -h localhost:27017
   默认备份所有到 ./dump/下
   -d 库名, 不指定备份所有库
   -o 备份目录
+mongodump 
 
 mongorestore -h localhost:27017 -d pd123 ./dump/pd123
   恢复要指定备份文件path
   
+mongorestore -d student -c btcads --dir ./btcads.bson
+
+mongodump -d student
+mongorestore -d student ./student
+
+--恢复单表
+mongorestore   -d student -c ads ./ads.bson
+
+mongorestore -u  superuser -p 123456  --authenticationDatabase admin -d myTest -c d /backup/mongodb/myTest_d_bak_201507021701.bak/myTest/d.bson
+
+mongorestore   -d student -c users ./users.bson

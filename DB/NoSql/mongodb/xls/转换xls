@@ -1,0 +1,14 @@
+拷入文件
+  explorer.exe .
+
+1。将 bisInfo.xlsx 另存为 bisInfo.csv
+
+2。执行 imongoimport命令
+
+mongoimport  -d student -c bisInfo --type csv --headerline  --file bisInfo.csv
+
+  headline:指明第一行是列名，不需要导入
+  如果excel里面有中文、特殊符号，会抛出以下异常：exception:Invalid UTF8 character detected
+    先将该csv文件编码转为 utf-8
+
+mongoimport  -d student -c btcBusinessConfig --type csv --headerline  --file btcBusinessConfig.csv

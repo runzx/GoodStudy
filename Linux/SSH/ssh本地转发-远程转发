@@ -29,7 +29,7 @@
     -N 不执行脚本或命令，即通知 sshd 不运行设定的 shell 通常与 -f 连用
     -T 不分配 TTY 只做代理用
     -q 安静模式，不输出 错误/警告 信息
-
+    -g 允许远程 连接到listen_port 上，否则只能本地使用此端口。
     保持长时间连接
         TCPKeepAlive  yes   # sshd
         或 ssh -o TCPKeepAlive=yes

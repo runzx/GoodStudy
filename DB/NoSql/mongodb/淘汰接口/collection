@@ -1,0 +1,31 @@
+// mongodb接口
+1. count()
+  准确计数，请使用countDocuments()
+  估计数量，请使用estimatedDocumentCount()
+
+2. group()
+  aggregate(pipeline, options, callback)
+
+3. dropAllIndexes()
+  dropIndexes()
+
+4. ensureIndex()
+  createIndexes ()
+
+5. findAndModify()
+  findOneAndUpdate, findOneAndReplace or findOneAndDelete
+
+6. findAndRemove()
+  findOneAndDelete ()
+
+7. insert()
+  insertOne, insertMany or bulkWrite
+
+8. remove()
+  deleteOne, deleteMany or bulkWrite
+
+9. save()
+  insertOne, insertMany, updateOne or updateMany
+
+10. update()
+  updateOne, updateMany or bulkWrite

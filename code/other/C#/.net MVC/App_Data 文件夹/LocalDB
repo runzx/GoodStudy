@@ -1,0 +1,20 @@
+LocalDB是按需启动并在用户模式下运行的 SQL Server Express 数据库引擎的轻型版本
+  LocalDB 数据库文件保存在 web 项目的应用_Data文件夹中
+  因为它不能与 IIS 一起使用
+
+<add name="MovieDBContext" 
+   connectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-MvcMovie;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\Movies.mdf" 
+   providerName="System.Data.SqlClient" 
+/>
+
+连接字符串的名称必须与DbContext类的名称匹配。
+实际上，不需要添加 MovieDBContext 连接字符串。 
+  如果未指定连接字符串，实体框架将使用DbContext类的完全限定名称
+  （在此情况下 MvcMovie.Models.MovieDBContext）
+  在用户目录中创建一个 LocalDB 数据库
+
+  数据库大小的限制为10GB。
+  LocalDB则支持存储过程
+  LocalDB不会创建任何系统服务，LocalDB进程会根据需要自动启动、停止。应用程序只需连接“Data Source=(localdb)\v11.0”，LocalDB就会作为应用程序的子进程启动。随着连接的终止，LocalDB进程也会随之停止
+  LocalDB支持AttachDbFileName属性，允许开发者指定数据库文件位置
+  

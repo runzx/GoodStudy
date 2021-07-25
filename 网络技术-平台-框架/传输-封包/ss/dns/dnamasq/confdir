@@ -1,0 +1,13 @@
+1. 修改dnsmasq配置：
+
+新建目录  /etc/dnsmasq.d ，然后执行：
+  uci get dhcp.@dnsmasq[0].confdir
+    如果返回值为 uci: Entry not found 或者其他非  /etc/dnsmasq.d 的值，则执行：
+  uci add_list dhcp.@dnsmasq[0].confdir=/etc/dnsmasq.d
+  uci commit dhcp
+
+如果需要增加缓存条数，对应需要执行：
+  uci get dhcp.@dnsmasq[0].cachesize
+    如果返回值为 uci: Entry not found ，则执行（缓存条数酌情设置）：
+  uci add_list dhcp.@dnsmasq[0].cachesize=10000
+  uci commit dhcp

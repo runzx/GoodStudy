@@ -1,5 +1,0 @@
-php 数组 追加，修改
-
-array_push(array,value1,value2...)
-    前2个必须
-    返回新数组元素个数 

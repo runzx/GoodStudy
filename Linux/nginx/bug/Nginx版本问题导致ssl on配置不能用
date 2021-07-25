@@ -1,0 +1,7 @@
+Nginx版本问题导致ssl on配置不能用
+    升级到了1.15
+        nginx: [warn] the "ssl" directive is deprecated, use the "listen ... ssl" 
+
+    新的写法是
+        listen 443 ssl;
+        # ssl on;

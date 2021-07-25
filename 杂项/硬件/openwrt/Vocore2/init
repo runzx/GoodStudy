@@ -1,0 +1,72 @@
+
+1.用稳定的电源（例如USB充电器）连接到3.6V〜6.0V和GND。
+注意：小心，高压会损坏您的VoCore。
+2.如果一切正常，则30秒钟后，您将在计算机热点列表中找到VoCore2。
+3.连接到VoCore2热点。
+4.a使用ssh或putty或类似工具登录到VoCore2（root / vocore）。
+4.b使用USB2TTL，请检查“通过USB2TTL连接到VoCore”部分。
+
+重要事项：UART speed is 115200bps, 8bits, no even, 1 stop bit
+
+通过USB2TTL连接到VoCore:
+    1.将USB2TTL.TXD连接到VoCore2.RXD2，将USB2TTL.RXD连接到VoCore2.TXD2，将USB2TTL.GND连接到VoCore2.GND。
+    2.在计算机上将串行应用程序（例如，用于Windows PuTTy/terterm，用于Mac，Linux的kermit）设置为115200bps，8个数据位，无偶数，1个停止位。
+    3.打开VoCore2的电源，现在您应该找到一些文本输出。
+
+
+连接到您的本地无线网络（AP + STA模式）
+本教程适用于固件20190316（默认）或更高版本，基于openwrt 18.06.2。
+
+教程请检查初学者：OpenWrt 18.06稳定版
+
+本教程适用于基于openwrt cc的固件20170527（已淘汰）。
+
+注意：请将您的固件升级到20190316或更高版本，该版本已过期。
+
+视频教程（需要USB2TTL）：youtube
+
+1.通过USB2TTL连接到VoCore。
+
+2.在控制台（UART控制台）中运行命令。
+
+3.设置网络以启用dhcp（从您的热点获取ip）。
+uci delete network.wwan
+uci set network.wwan=interface
+uci set network.wwan.proto=dhcp
+uci commit
+
+4.设置防火墙以允许通过您的热点访问Internet。
+uci del_list firewall.@zone[1].network=wwan
+uci add_list firewall.@zone[1].network=wwan
+uci set firewall.@zone[1].input=ACCEPT
+uci set firewall.@zone[1].output=ACCEPT
+uci set firewall.@zone[1].forward=ACCEPT
+uci set firewall.@zone[1].masq=1
+uci set firewall.@zone[1].mtu_fix=1
+uci commit
+
+5.设置无线以启用ap + sta模式。
+uci set wireless.sta.ssid="zhai-R3800"
+uci set wireless.sta.key="5722323123-zhai"
+uci set wireless.sta.network=wwan
+uci set wireless.sta.disabled=0
+uci commit
+
+注意：将[TARGET AP SSID]替换为您要连接的目标apssid，[TARGET AP PASSWORD]是它的密码。
+
+5.重新启动网络，它将正常工作。
+/etc/init.d/network restart
+
+6.（option）一旦ap + sta完全启动，请在配置中将其禁用，因此，如果下次您的目标ap丢失，您仍然可以连接到VoCore2。
+把下面代码写入  /etc/rc.local ，每次启动自动运行
+uci set wireless.sta.disabled=0
+uci commit
+/etc/init.d/network restart
+
+sleep 10
+uci set wireless.sta.disabled=1
+uci commit
+
+注意：最好将三行复制到/etc/rc.local
+
+http://vonger.cn/?p=2691        // 官网博客

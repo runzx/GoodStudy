@@ -1,0 +1,53 @@
+因为直接断电会让
+    [initandlisten] Detected unclean shutdown - /var/lib/mongodb/mongod.lock is not empty.
+
+取消自启动
+  sudo systemctl disable mongodb
+  sudo systemctl is-enabled mongodb   // 查看状态
+
+手动启动
+  sudo systemctl start mongodb
+
+
+MongoDB starting : pid=807 port=27017 dbpath=/var/lib/mongodb 32-bit host=pi3
+db version v3.0.14
+
+20200326  解决掉电后 mongod.lock 问题，
+  自动删除此文件，因为systemctl enable mongodb 
+    systemd 在 /lib/systemd/system/mongodb.service
+      可用systemctl cat mongodb 查看内容
+
+# /lib/systemd/system/mongodb.service
+[Unit]
+Description=An object/document-oriented database
+Documentation=man:mongod(1)
+
+[Service]
+User=mongodb
+ExecStart=/usr/bin/mongod --config /etc/mongodb.conf
+
+[Install]
+WantedBy=multi-user.target
+
+增加：ExecStartPre=/bin/rm  /var/lib/mongodb/mongod.lock
+
+EnvironmentFile字段：指定当前服务的环境参数文件。
+  该文件内部的key=value键值对，可以用$key的形式，在当前配置文件中获取。
+ExecStart字段：定义启动进程时执行的命令
+
+EnvironmentFile=/etc/sysconfig/sshd
+ExecStart=/usr/sbin/sshd -D $OPTIONS
+  变量$OPTIONS就来自EnvironmentFile字段指定的环境参数文件
+  
+ExecReload字段：重启服务时执行的命令
+ExecStop字段：停止服务时执行的命令
+ExecStartPre字段：启动服务之前执行的命令
+ExecStartPost字段：启动服务之后执行的命令
+ExecStopPost字段：停止服务之后执行的命令
+
+所有的启动设置之前，都可以加上一个连词号（-），表示"抑制错误"，即发生错误的时候，
+  不影响其他命令的执行。比如，
+  EnvironmentFile=-/etc/sysconfig/sshd（注意等号后面的那个连词号），
+    就表示即使/etc/sysconfig/sshd文件不存在，也不会抛出错误。
+
+注，因为是systemctl 启动，所以修改 /etc/init/mongodb 是没有用的。

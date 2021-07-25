@@ -1,6 +1,0 @@
-flex 
-1. 确定主轴，交叉轴
-    flex-direction: row / column;   // row 时主轴为水平
-        row-reverse, column-reverse // 反方向
-    justify-content:                // 主轴对齐
-    align-items:                    // 交叉轴对齐

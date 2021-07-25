@@ -1,0 +1,12 @@
+1. node_modules 必须在小程序根目录下（即 
+  project.config.js 中的 miniprogramRoot 字段
+  也可以存在于小程序根目录下的各个子目录中。但是不允许 node_modules 在小程序根目录外
+
+2. 开发者工具中的菜单栏：工具 --> 构建 npm
+
+3. 勾选“使用 npm 模块”选项：
+
+首先 node_modules 目录不会参与编译、上传和打包中，
+  所以小程序想要使用 npm 包必须走一遍“构建 npm”的过程，
+  在最外层的 node_modules 的同级目录下会生成一个 miniprogram_npm 目录，
+    里面会存放构建打包后的 npm 包，也就是小程序真正使用的 npm 包。

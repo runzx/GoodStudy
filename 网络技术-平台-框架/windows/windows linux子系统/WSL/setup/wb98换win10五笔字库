@@ -1,0 +1,15 @@
+
+windows字库文件位置:
+    C:\Windows\InputMethod\CHS
+    取得管理员权限: ChsWubiNew.lex (14361版本)或ChsWubi.lex(其它版本)
+    安全-->高级--修改文件的所有者为 administrators 
+    1803+ 要换 ChsWubiNew.lex
+    然后替换原字库即可
+    完成替换后, 再添加五笔输入法 ( 如果已经打开, 请先删除, 注销后, 再替换 )
+
+2. 说明
+    1. 微软五笔最长只支持4码，且不支持z键。这是软件本身限制，本人无法改进。
+    2. 码表格式为编码在前，词条在后，词条与编码、编码与编码用空格分隔。如果你的码表不是这种格式，请先将其转为此格式，可以考虑使用“多多码表编辑器”（http://chinput.com/article-6-1.html）。
+    3. 为了安装成功，请确保微软五笔未处于使用状态，否则安装程序会因码表被锁定而失败。建议您先将微软五笔卸载，重启Windows，然后再运行本程序，安装完码表后再重新装上微软五笔。
+        http://git.oschina.net/xionghuaidong/public/tree/master/downloads
+        http://98wb.ys168.com/

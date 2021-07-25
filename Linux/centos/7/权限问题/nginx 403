@@ -1,0 +1,9 @@
+SELinux设置为开启状态（enabled）的原因  
+
+ /usr/sbin/sestatus 查看状态
+
+  vi /etc/selinux/config
+    #SELINUX=enforcing
+    SELINUX=disabled
+
+重启生效。reboot。

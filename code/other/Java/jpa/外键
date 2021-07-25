@@ -1,0 +1,8 @@
+通过实体jpa创建数据表时，会自动生成物理外键
+
+不生成 物理外键 (jpa 有bug) 
+
+  @org.hibernate.annotations.ForeignKey(name = “none”)
+  此方法已被废弃
+
+  最好解决方案 不用jpa来自动生成表，手工sql生成！

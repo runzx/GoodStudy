@@ -1,0 +1,5 @@
+
+1. Model.remove()
+  替代：
+  Model.deleteOne()
+  Model.deleteMany()

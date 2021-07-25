@@ -1,0 +1,6 @@
+v18 通过Luci图形界面修改是不行的。
+
+uci set network.lan.ipaddr=192.168.0.1
+uci commit network
+ifup lan
+

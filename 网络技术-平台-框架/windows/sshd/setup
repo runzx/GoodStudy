@@ -1,0 +1,23 @@
+
+https://github.com/PowerShell/Win32-OpenSSH/releases
+
+C:\Users\zx\OpenSSH-Win64>powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+[SC] SetServiceObjectSecurity 成功
+[SC] ChangeServiceConfig2 成功
+[SC] ChangeServiceConfig2 成功
+sshd and ssh-agent services successfully installed
+
+开启防火墙15822
+netsh advfirewall firewall add rule name=sshd dir=in action=allow protocol=TCP localport=15822
+
+win2012以上
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 15822
+
+配置文件：
+%programdata%\ssh\sshd_config
+  C:\ProgramData\ssh\sshd_config
+  
+net start sshd
+
+自启动  powershell
+Set-Service sshd -StartupType Automatic

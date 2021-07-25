@@ -1,9 +1,0 @@
-PHP－cgi 端口设置
-
-1. windows下
-	php-cgi.exe -b 127.0.0.1:9000 -c d:\phpstudy\php\php.ini
-	
-2. linux
-	/etc/php-fpm.d/www.conf中配置：
-		listen = 127.0.0.1:9000
- 

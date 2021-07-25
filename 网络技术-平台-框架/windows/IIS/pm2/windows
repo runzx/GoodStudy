@@ -1,0 +1,16 @@
+最好用 bash
+  git的
+
+windows 自启动
+  npm install pm2-windows-startup -g
+
+  pm2-startup install
+
+  pm2 save
+
+  pm2-startup uninstall //删除
+
+  npm config set registry https://registry.npm.taobao.org
+
+  加路径
+    C:\Users\zhaixiang\AppData\Roaming\npm 

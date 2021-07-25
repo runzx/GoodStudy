@@ -1,0 +1,4 @@
+UCI的配置文件全部存储在/etc/config目录下。
+
+使用 uci 设置后，必须调用
+  uci commit firewall   // 配置才会生效

@@ -1,0 +1,18 @@
+UCS有两种格式：UCS-2和UCS-4
+  UCS-2就是用两个字节编码，
+  UCS-4就是用4个字节（实际上只用了31位，最高位必须为0
+
+UCS-2有2^16=65536个码位，
+UCS-4有2^31=2147483648个码位。
+  最高位为0的最高字节分成2^7=128个group。
+    每个group再根据次高字节分为256个plane。
+      每个plane根据第3个字节分为256行 (rows)，
+        每行包含256个cells。
+        当然同一行的cells只是最后一个字节不同，其余都相同。
+  group 0的plane 0被称作Basic Multilingual Plane, 即BMP。或者说UCS-4中，高两个字节为0的码位被称作BMP。
+  将UCS-4的BMP去掉前面的两个零字节就得到了UCS-2。在UCS-2的两个字节前加上两个零字节，就得到了UCS-4的BMP。而目前的UCS-4规范中还没有任何字符被分配在BMP之外。
+
+UCS-2编码(16进制)  UTF-8 字节流(二进制)
+0000 - 007F	      0xxxxxxx
+0080 - 07FF	      110xxxxx 10xxxxxx
+0800 - FFFF	      1110xxxx 10xxxxxx 10xxxxxx

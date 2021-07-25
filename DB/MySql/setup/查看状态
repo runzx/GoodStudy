@@ -1,0 +1,8 @@
+配置文件的位置
+mysql --help | grep 'Default options' -A 1
+
+在mysql里
+  status;
+  help;
+  show variables like 'port'; // 查看端口号
+  show variables like 'skip_networking';

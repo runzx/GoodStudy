@@ -1,0 +1,8 @@
+bash
+  tar
+  tar -cf xx.tar ./dump   // 把dump目录下所有文件备份
+  tart -xf xx.tar         // 把xx.tar 恢复到 ./dump 目录下
+  
+  mongodump -d student    // 备份 student 库，默认到 ./dump 下
+  mongodump -d student  ./dump/student  // 恢复 student 库, 从./dump/student
+  

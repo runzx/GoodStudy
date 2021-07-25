@@ -1,0 +1,45 @@
+查看用户登录历史
+此命令会读取 /var/log/wtmp文件；/var/log/btmp可以显示远程登陆信息。
+
+  last
+
+  last -t 20150226160404
+  显示这个时间戳之前的登陆历史
+
+查看命令历史
+每个用户都有一份命令历史记录
+查看$HOME/.bash_history
+  
+  history
+
+查看当前登录用户信息
+who命令：
+who缺省输出包括用户名、终端类型、登陆日期以及远程主机。
+who /var/log/wtmp
+可以查看自从wtmp文件创建以来的每一次登陆情况
+
+lastlog 列出所有用户最近登录的信息
+  引用的是/var/log/lastlog文件中的信息，包括login-name、port、last login time
+
+lastb  列出失败尝试的登录信息
+
+
+清空日志文件：
+
+# echo > /var/log/wtmp
+# echo > /var/log/btmp
+# echo > /var/log/lastlog
+
+清除Bash历史
+你可以在执行命令时，指定Bash不保存执行历史：
+
+$ <空格>command
+在要执行命令前加一个空格。
+
+清除当前登录session的历史：
+
+$ history -r
+
+清除所有历史：
+
+$ history -cw

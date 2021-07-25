@@ -1,0 +1,9 @@
+
+v18.06
+opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-libev-ss-redir shadowsocks-libev-ss-rules shadowsocks-libev-ss-tunnel luci-app-shadowsocks-libev
+
+配置关键 
+
+uci show network.wan
+
+network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871

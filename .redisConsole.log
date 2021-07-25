@@ -1,6 +1,0 @@
-{"id":"V8lrJegDTB7aY0XE","command":"KEYS","arguments":"*"}
-{"id":"TG1YFSg5yUZbafEh","command":"GET","arguments":"\"pd123:%23getMpConf:mp_bis_id_5b8129adf889de57ac494f6f\""}
-{"id":"UZLJS18qW2u6Dtbi","command":"GET","arguments":"pd123:%23getMpConf:mp_bis_id_5b8129adf889de57ac494f6f"}
-{"id":"F0xQWkNrg1ywCm69","command":"KEYS","arguments":"*"}
-{"id":"tuW0g9qKGNbTJwVx","command":"GET","arguments":"\"pd123:%23getMpConf:mp_bis_id_5b8129adf889de57ac494f6f\""}
-{"id":"Tzow06Et2PqsfK39","command":"GET","arguments":"pd123:%23getMpConf:mp_bis_id_5b8129adf889de57ac494f6f"}

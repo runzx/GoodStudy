@@ -1,0 +1,60 @@
+每个用户要单独安装？
+pm2 install pm2-logrotate
+  Module: pm2-logrotate
+  $ pm2 set pm2-logrotate:max_size 10M
+  $ pm2 set pm2-logrotate:retain 30             // 30个文件循环归档日志，第31个会被删除
+  $ pm2 set pm2-logrotate:compress false
+  $ pm2 set pm2-logrotate:dateFormat YYYY-MM-DD_HH-mm-ss
+  $ pm2 set pm2-logrotate:workerInterval 30     // 30秒检查一次
+  $ pm2 set pm2-logrotate:rotateInterval 0 0 * * *  // 1天切割一次，0：00
+  $ pm2 set pm2-logrotate:rotateModule true
+
+pm2 set pm2-logrotate:max_size 1K                   (1KB)
+pm2 set pm2-logrotate:compress true                 (compress logs when rotated)
+pm2 set pm2-logrotate:rotateInterval '*/1 * * * *'  (force rotate every minute)
+
+pm2 set pm2-logrotate:dateFormat YY-MM-DD
+pm2 set pm2-logrotate:retain 180                  // 半年记录
+pm2 set pm2-logrotate:workerInterval 3600         // 1小时
+
+pm2 save    // 保存 pm2-logrotate 自启动
+pm2 set pm2:autodump true 
+
+rotateInterval ： // 第一个零可以省？
+*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    |
+│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+│    │    │    │    └───── month (1 - 12)
+│    │    │    └────────── day of month (1 - 31)
+│    │    └─────────────── hour (0 - 23)
+│    └──────────────────── minute (0 - 59)
+└───────────────────────── second (0 - 59, OPTIONAL)
+设置用户的配置
+sudo pm2 logrotate -u zhaixiang
+[PM2] Getting logrorate template /usr/lib/node_modules/pm2/lib/templates/logrotate.d/pm2
+[PM2] Logrotate configuration added to /etc/logrotate.d/pm2
+pm2-zhaixiang :
+/root/.pm2/pm2.log /root/.pm2/logs/*.log {
+        rotate 12
+        weekly
+        missingok
+        notifempty
+        compress
+        delaycompress
+        copytruncate
+        create 0640 zhaixiang zhaixiang
+}
+
+daily:              日志文件将按日轮循。其可用值为‘daily’，‘weekly’或者‘yearly’。
+rotate 12:          一次将存储12个归档日志。对于第13个归档，时间最久的归档将被删除。
+dateext:            日志文件以创建日期命名。
+missingok:          在日志轮转期间，任何错误将被忽略，例如“文件无法找到”之类的错误。
+notifempty:         如果日志文件为空，轮转不会进行。
+compress:           在轮转任务完成后，已轮循的归档将使用gzip进行压缩。
+delaycompress:      总是与compress选项一起用，delaycompress选项指示logrotate不要将最新的轮转文件压缩，而等到下一次轮转的时候再执行压缩！这样最新的轮转文件是一个可读的而不是压缩包文件。
+copytruncate:       用于还在打开中的日志文件，把当前日志备份并截断。
+nocopytruncate      备份日志文件但是不截断。
+mail:               轮转的日志文件发送到指定的E-mail 地址。
+prerotate/endscript: 轮转以前需要执行的命令，这两个关键字必须单独成行。
+postrotate/endscript: 轮转以后需要执行的命令，这两个关键字必须单独成行。

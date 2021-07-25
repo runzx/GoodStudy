@@ -1,0 +1,97 @@
+//  samba共享
+//  https://www.howtoforge.com/tutorial/debian-samba-server/
+
+1. 安装samba:
+    python 要在2版本下安装！
+    sudo update-alternatives --config python
+    
+    sudo apt-get install -y samba
+2. 配置共享，/etc/samba/smb.conf
+    备份：sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
+    sudo nano /etc/samba/smb.conf
+        [global]
+                workgroup = WORKGROUP
+                server string = Samba Server %v
+                netbios name = debian
+                security = user
+                map to guest = bad user
+                dns proxy = no
+        [mnt]
+                path = /mnt
+                force group = users
+                create mask = 0660
+                directory mask = 0771
+                browsable =yes
+                writable = yes
+                guest ok = yes
+    [mnt]，这个就是我们要共享出的目录的名字，可以任何取。
+    path就是我们共享的目录
+    guest ok就是谁都可以访问，匿名用户，因为家庭网络大多数都是自己访问，不需要用户名密码啥的，当然也可以自己添加。
+    netbios name = debian : Open the command prompt and enter "//debian" to open a file explorer:
+3. 给共享的目录权限，让用户有权限访问
+    sudo chmod -R 777 /mnt
+    添加 Samba 用户
+        smbpasswd -e 用户名 # 激活用户
+    挂载USB移动硬盘（将移动硬盘挂载在/home/pi/nas/目录下面）
+        sudo mount /dev/sda1 /home/pi/nas/
+    卸载USB移动硬盘的时候会提示设备忙(Device is busy)，只需要加上 –l 参数就行了
+        sudo umount -l /home/pi/nas/
+4. 重启
+    sudo /etc/init.d/samba restart
+    sudo service smba restart
+
+    sudo systemctl restart smbd
+    ------------------------------------------
+    utf8'codeccan'tdecodebyte0xe4inposition1
+    
+[global]
+  workgroup = WORKGROUP
+  server string = Samba Server %v
+  netbios name = pi3
+  security = user
+  map to guest = bad user
+  dns proxy = no
+[downloads]
+  path = /home/pi/Downloads
+  force group = users
+  create mask = 0660
+  directory mask = 0771
+  browsable =yes
+  writable = yes
+  guest ok = yes
+
+  journalctl -xn
+
+    执行命令： dpkg-reconfigure locales
+    后选择（空格选择，Tab切换到确认和取消按钮上）
+    en_US.ISO-8859-1
+    en_US.UTF-8
+    zh_CN.GBK
+    zh_CN.UTF-8
+    之后确认，再选择zh_CN.GBK为默认编码。不能选zh_CN.UTF-8为默认编码，否则mysql启动时就会报编码错误。
+
+    ----------------------------------------------
+
+5. 安装信息 jessie 20170413
+Setting up samba-libs:armhf (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up libsmbclient:armhf (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up python-ldb (2:1.1.20-0+deb8u1) ...
+Setting up python-dnspython (1.12.0-1) ...
+Setting up python-ntdb (1.0-5) ...
+Setting up python-tdb (1.3.6-0+deb8u1) ...
+Setting up python-crypto (2.6.1-5+deb8u1) ...
+Setting up python-samba (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up samba-common (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up samba-common-bin (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up samba-dsdb-modules (2:4.2.14+dfsg-0+deb8u5) ...
+Setting up tdb-tools (1.3.6-0+deb8u1) ...
+update-alternatives: using /usr/bin/tdbbackup.tdbtools to provide /usr/bin/tdbbackup (tdbbackup) in auto mode
+Setting up libfile-copy-recursive-perl (0.38-1) ...
+Setting up update-inetd (4.43) ...
+Setting up samba (2:4.2.14+dfsg-0+deb8u5) ...
+Adding group `sambashare' (GID 121) ...
+Done.
+Setting up attr (1:2.4.47-2) ...
+Setting up samba-vfs-modules (2:4.2.14+dfsg-0+deb8u5) ...
+Processing triggers for libc-bin (2.19-18+deb8u7) ...
+Processing triggers for systemd (215-17+deb8u6) ...

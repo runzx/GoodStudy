@@ -1,0 +1,25 @@
+启动程序叫做procd
+
+Linux的启动入口为 （init/main.c）
+  start_kernel()
+    该函数的最后会调用rest_init()（init/main.c），
+      该函数创建两个内核线程init和kthreadd之后，
+      进入死循环，即所谓的0号进程
+        if (!run_init_process("/etc/preinit") ||
+          !run_init_process("/sbin/init") ||
+          !run_init_process("/etc/init") ||
+          !run_init_process("/bin/init") ||
+          !run_init_process("/bin/sh"))
+
+
+  然后依次执行/etc/rc.d中S开头的脚本，参数为boot
+
+  这些脚本先拷贝到/etc/init.d下，然后通过/etc/rc.common脚本，
+    将init.d的脚本链接到/etc/rc.d目录下，
+    并且根据 这些脚本中的START和STOP的关键字，
+    添加K${STOP}和S${START}的前缀，这样就决定了脚本的先后的运行次序。
+
+  openwrt的启动主要是两个阶段，
+    preinit主要是完成系统的初始化
+      （如文件系统的准备、模块的加载）
+    rcS主要依次 启动各个模块。

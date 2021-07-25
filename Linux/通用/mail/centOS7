@@ -1,0 +1,6 @@
+aliyun centOS7x64
+    yum install postfix dovecot
+    Installed:
+        dovecot.x86_64 1:2.2.36-3.el7_7.1
+    Updated:
+        postfix.x86_64 2:2.10.1-7.el7

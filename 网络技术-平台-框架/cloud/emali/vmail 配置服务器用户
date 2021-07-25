@@ -1,0 +1,4 @@
+step1 配置服务器用户
+$ groupadd -g 5000 vmail   #组号为5000,组名为vamil
+$ useradd -u 5000 -g vmail -s /usr/bin/nologin -d /home/vmail -m vmail
+  #用户号为5000，属于用户组vmail，没有登录shell的权限，主目录为/home/vmail并自动创建，最后这个用户就叫vamil了。

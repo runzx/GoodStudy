@@ -1,0 +1,87 @@
+Python 
+    高阶动态语言
+
+1. print函数
+    Python 2 的 print 声明已经被 print() 函数取代
+
+2. Unicode
+　　Python 2 有 ASCII str() 类型，unicode() 是单独的，不是 byte 类型。
+　　现在， 在 Python 3，我们最终有了 Unicode (utf-8) 字符串，以及一个字节类：byte 和 bytearrays
+3. 整除
+    float(3)/2 或 3/2.0 代替在我的 Python 3 脚本保存在 Python 2 中的 3/2 
+
+
+----------------------------------------------
+
+1. print不再是语句，而是函数，比如原来是 print 'abc' 现在是 print('abc')但是 python2.6+ 可以使用 from __future__ import print_function 来实现相同功能>  
+2. 在Python 3中，没有旧式类，只有新式类，也就是说不用再像这样 class Foobar(object): pass 显式地子类化object但是最好还是加上. 主要区别在于 old-style 是 classtype 类型而 new-style 是 type类型
+3. 原来1/2（两个整数相除）结果是0，现在是0.5了python 2.2+ 以上都可以使用 from __future__ import division 实现改特性, 同时注意 // 取代了之前的 / 运算
+4. 新的字符串格式化方法format取代%错误, 从 python2.6+ 开始已经在str和unicode中有该方法, 同时 python3依然支持 % 算符
+6. xrange重命名为range同时更改的还有一系列内置函数及方法, 都返回迭代器对象, 而不是列表或者 元组, 比如 filter, map, dict.items 等
+7. !=取代  <   >  python2 也很少有人用  <  >  所以不算什么修改
+8. long重命名为int不完全对, python3 彻底废弃了 long+int 双整数实现的方法, 统一为 int , 支持高精度整数运算.
+9. except Exception, e变成except (Exception) as e只有 python2.5 及以下版本不支持该语法. python2.6 是支持的. 不算新东西
+10. exec变成函数类似 print() 的变化, 之前是语句.
+
+简单补充下
+    * 主要是类库的变化, 组织结构变了些. 但功能没变. urlparse - >  urllib.parse 这样的变化
+    * 最核心的变化它没有说, 对 bytes 和 原生 UNICODE 字符串的支持, 删除了 unicode 对象, str 为原生 unicode 字符串, bytes 替代了之前的 str 这个是最核心的.
+    * 其它... 貌似不怎么重要了.
+
+import在Python3中默认使用绝对路径导入了，这是因为相对路径的导入是具有歧义的
+
+
+py3比py2更规范和统一一些，倒不是说py2不好，只不过因为历史原因或一开始设计思路问题，变得有些复杂
+    print的改动，去掉了没必要的关键字，换句话说能用函数的就用函数解决，
+        轻量级语法+丰富的库，不搞特化，exec和!=、<>也差不多基于同样的思想（但是对于exec来说，有个问题需要确认，下面说）
+    int和long合并，新老类合并，跟上面一样的原因，统一化，
+        简单说就是如果A能实现B全部的功能，或者B能从A简单构造出来，则B没必要存在了
+    range，map之类的返回迭代器也是基于同样的理由，要实现py2的range，只需要list(range(...))，但反过来，py2要实现迭代器版本的，就只能增加一个xrange，而无法从range直接得到（range会消耗内存）
+    字符串改为unicode保存，新增字节串，也是为了顺应时代吧，这条貌似被褒奖得非常多，然而我还是要说，把编码问题搞清楚最重要，搞不清楚的人用什么都有可能出问题，只是概率大小的区别
+    最后说下exec的问题，因为我不用py3，没深入研究，希望懂的人直接回复，不然我还得装一个研究下。。
+    py作为动态语言，其作用域的变量的值可以大致看做是用{变量名:值}的形式存放在dict中，事实上global域就是这样，不过函数局部变量比较特殊，是在编译时就确定了数量的，所以可以用数组存放，
+        比如def f():    
+            a = 1    
+            b = 2    
+            print a + b
+        其中a和b并不是做成{a:1,b:2}的形式，内部实现是一个数组，大致是[1,2]这样（当然不是list，实际上CPython虚拟机是用一个类似Tuple的对象），然后存取都可以直接用偏移来做，这样执行速度提升很明显，因为绝大多数程序的绝大多数运算，都是在函数内部，这个情况在绝大多数语言中也都是成立的
+        但如果有exec就有问题了：
+            def f():    
+                a = 1    
+                exec "b = 2"    
+                print a + b
+            这样我们可以给局部变量域动态增减变量，编译器无法感知，因为exec执行的字符串可能是动态生成的，编译器无法感知，
+                所以py2对这种情况的做法是，如果一个函数含有exec，则这个函数的局部变量域的访问方式会和正常的函数不一样，
+                改为用类似global域的dict这种形式所以这就要求编译器感知到一个函数是否含有exec，
+                因此exec作为语言关键字是必要的，如果作为函数，编译器可能很难感知到了，因为py可以把函数赋值给其他名字的变量，或者给原本就有的函数名赋值一个其他函数
+
+    https://docs.python.org/3/whatsnew/3.0.html
+    https://segmentfault.com/a/1190000000618286
+        使用 __future__ 模块
+        print 函数
+        Integer division
+        Unicode
+        xrange
+        Raising exceptions
+        Handling exceptions
+        next() 函数 和 .next() 方法
+        For 循环变量和全局命名空间泄漏
+        比较不可排序类型
+        通过 input() 解析用户的输入
+        返回可迭代对象，而不是列表
+2.编码
+    py3.x源码文件默认使用utf-8编码，这就使得以下代码是合法的：
+    >>> 中国 = 'china'
+    >>>print(中国)
+3. 语法
+    1)去除了<>，全部改用!=
+    2)去除``，全部改用repr()
+    3)关键词加入as 和with，还有True,False,None
+    4)整型除法返回浮点数，要得到整型结果，请使用//
+    5)加入nonlocal语句。使用noclocal x可以直接指派外围(非全局)变量
+    6)去除print语句，加入print()函数实现相同的功能。同样的还有 exec语句，已经改为exec()函数
+
+Python 历史
+    Python的作者，Guido von Rossum，确实是荷兰人。1982年，Guido从阿姆斯特丹大学(University of Amsterdam)获得了数学和计算机硕士学位。
+    1989年，为了打发圣诞节假期，Guido开始写Python语言的编译/解释器。Python来自Guido所挚爱的电视剧Monty Python's Flying Circus (BBC1960-1970年代播放的室内情景幽默剧，以当时的英国生活为素材)。他希望这个新的叫做Python的语言，能实现他的理念(一种C和shell之间，功能全面，易学易用，可拓展的语言)。
+    1991年，第一个Python编译器(同时也是解释器)诞生。它是用C语言实现的，并能够调用C库(.so文件)。从一出生，Python已经具有了：类(class)，函数(function)，异常处理(exception)，包括表(list)和词典(dictionary)在内的核心数据类型，以及模块(module)为基础的拓展系统。

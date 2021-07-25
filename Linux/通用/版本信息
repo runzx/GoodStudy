@@ -1,0 +1,4 @@
+
+ cat /etc/os-release
+
+ cat /proc/version    // 内核

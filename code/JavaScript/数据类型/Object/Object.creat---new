@@ -1,0 +1,9 @@
+
+比较	    new	                    Object.create
+构造函数	保留原构造函数属性	      丢失原构造函数属性
+原型链	  原构造函数prototype属性	  原构造函数/（对象）本身
+作用对象	function	               function和object
+
+Object.create(null)和{}创建控对象的区别
+  create创建的对象，没有任何属性，显示No properties，我们可以把它当作一个非常纯净的map来使用
+  

@@ -1,0 +1,60 @@
+
+随着系统托管越来越多的域和用户，给每个用户分配自己的UNIX系统帐户变得越来越不可取。
+
+使用Postfix virtual（8）邮箱传递代理，每个收件人地址都可以拥有自己的虚拟邮箱。与虚拟别名域不同，
+  虚拟邮箱域不需要从每个收件人地址到其他地址的笨拙转换，
+  并且虚拟邮箱地址的所有者不需要拥有UNIX系统帐户。
+
+Postfix virtual（8）邮箱传递代理通过单独的表查找用户邮箱的路径名，uid和gid，这些表使用收件人的邮件地址进行搜索。通过用“ /”终止邮箱路径名来打开Maildir样式传递。
+
+如果您发现烦恼多个表的想法，请记住您可以将信息迁移（一旦可行）到SQL数据库。如果采用这种方式，请确保查看本文档顶部的“本地文件与数据库”部分。
+
+这是虚拟邮箱域“ example.com”的示例：
+ 1 /etc/postfix/main.cf:
+ 2     virtual_mailbox_domains = example.com ...more domains...
+ 3     virtual_mailbox_base = /var/mail/vhosts
+ 4     virtual_mailbox_maps = hash:/etc/postfix/vmailbox
+ 5     virtual_minimum_uid = 100
+ 6     virtual_uid_maps = static:5000
+ 7     virtual_gid_maps = static:5000
+ 8     virtual_alias_maps = hash:/etc/postfix/virtual
+ 9 
+10 /etc/postfix/vmailbox:
+11     info@example.com    example.com/info
+12     sales@example.com   example.com/sales/
+13     # Comment out the entry below to implement a catch-all.
+14     # @example.com      example.com/catchall
+15     ...virtual mailboxes for more domains...
+16 
+17 /etc/postfix/virtual:
+18     postmaster@example.com postmaster
+第2行：virtual_mailbox_domains设置告诉Postfix example.com是所谓的虚拟邮箱域。如果您省略此设置，则Postfix将拒绝邮件（拒绝中继访问）或将其无法传递（例如example.com的邮件循环回我自己）。
+  切勿将虚拟MAILBOX域名列为mydestination域名！
+  切勿将虚拟MAILBOX域名列为虚拟ALIAS域！
+
+第3行：virtual_mailbox_base参数指定所有虚拟邮箱路径名的前缀。如果有人犯错，这是一种安全机制。它可以防止邮件在整个文件系统中传递。
+
+第4,10-15行：virtual_mailbox_maps参数指定具有mailbox (or maildir)路径名的查找表，该路径名由虚拟邮件地址索引。
+  在此示例中，info@example.com的邮件转到/var/mail/vhosts/example.com/info 的 mailbox，
+  而sales@example.com的邮件转到位于/var/mail/vhosts/example.com/sales/ 的 maildir。
+
+第5行：virtual_minimum_uid指定邮箱或maildir所有者的UID的下限。如果有人犯错，这是一种安全机制。它可以防止将邮件写入敏感文件。
+
+第6、7行：virtual_uid_maps和virtual_gid_maps参数指定所有虚拟邮箱均由固定的uid和gid 5000拥有。如果这不是您想要的，请指定按收件人的邮件地址搜索的查找表。
+
+第14行：带注释的条目（＃后面的文本）显示了如何实现全部虚拟邮箱地址。准备接收大量垃圾邮件，以及以any@example.com之名发送的退回垃圾邮件。
+  切勿在虚拟ALIAS文件中放置虚拟MAILBOX通配符！！
+
+第8、17、18行：如您所见，可以将虚拟别名与虚拟邮箱混合使用。
+  能将postmaster@example.com 重定向到本地 postmaster
+  可以使将地址重定向到 远程地址:  info@bosstg.cn 843476168@qq.com
+
+第18行：此示例假定在main.cf中，mydestination参数设置下列出了$myorigin。如果不是这种情况，请在虚拟别名表条目的右侧指定一个明确的域名，否则邮件将进入错误的域。
+  更改虚拟文件后执行“postmap /etc/postfix/virtual”命令，
+  更改vmailbox文件后执行“postmap /etc/postfix/vmailbox”，
+  更改main.cf文件后执行命令“postfix reload”。
+
+注意：邮件传递是通过使用virtual_uid_maps和virtual_gid_maps指定的收件人的UID / GID特权进行的。 Postfix 2.0及更早版本将不会在世界可写的父目录中创建mailDIR。您必须先创建它们，然后才能使用它们。 
+  Postfix可能能够自行创建邮箱文件，具体取决于父目录的写许可权，但提前创建邮箱文件更安全。
+
+在virtual（8）手册页中提供了有关虚拟邮箱传递代理的更多详细信息。

@@ -1,0 +1,33 @@
+
+idea 不支持maven 3.6.3
+
+1. download v3.6.1 
+  https://archive.apache.org/dist/maven/maven-3/3.6.1/binaries/
+
+2. 解压 到目录，设置路径
+ set PATH="C:\tools\apache-maven-3.6.1\bin";%PATH%
+
+   Make sure JAVA_HOME is set to the location of your JDK
+
+3. 添加到windows 环境变量 path
+
+4. 提速 maven下载包，从ali的镜像
+
+  C:\Users\runzx\.m2\setting.xml 改 C:\tools\apache-maven-3.6.1\settings.xml
+  C:\Users\runzx\.m2\repository  改 C:\tools\apache-maven-3.6.1\repository
+
+  修改maven安装目录下的 conf/settings.xml 文件，在标签内添加如下内容：
+<mirror>
+    <id>nexus-aliyun</id>
+    <mirrorOf>central</mirrorOf>
+    <name>Nexus aliyun</name>
+    <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+</mirror>
+
+或加 idea中可以直接配置
+<localRepository>C:\Users\runzx\.m2\repository</localRepository>
+
+我们勾选"Always update snapshots"前面的复选框，
+  "Maven home directory"  我们选择我们maven解压包所在的位置。
+  "User settings file"    就选择我们改过的settings.xml文件。
+  "Local Repository"      就选择我们在本地创建的仓库位置。

@@ -1,0 +1,11 @@
+
+
+
+Hostname	OpenWrt
+Model	VoCore2
+Architecture	MediaTek MT7628AN ver:1 eco:2
+Firmware Version	OpenWrt 18.06.4 r7808-ef686b7292 / LuCI openwrt-18.06 branch (git-19.170.32094-4d6d8bc)
+Kernel Version	4.14.131
+Local Time	Thu Jun 27 12:24:03 2019
+Uptime	0h 5m 23s
+Load Average	0.19, 0.29, 0.17

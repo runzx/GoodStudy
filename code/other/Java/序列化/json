@@ -1,0 +1,11 @@
+springBoot 集成 jackson
+aliyun  fastjson
+
+jackson 配置设定
+  spring:
+      property-name-stragegy: SNAKE_CASE    // 驼峰命名
+      serialization: 
+          WRITE_DATES_AS_TIMESTAMPS: true   // 时间戳 / ISO字符串
+  
+隐藏字段
+在字段上面：  @JsonIgnore
