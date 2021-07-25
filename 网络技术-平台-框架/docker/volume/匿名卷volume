@@ -1,0 +1,20 @@
+Dockerfile 里定义匿名卷
+
+VOLUME data/db
+VOLUME ['/logs']
+
+可用docker volume ls 查看容器的内容
+实际存入path
+    /var/lib/docker/volumes/
+
+zhaixiang@Acer:~$ sudo ls /var/lib/docker/volumes
+1555d1042911ccbec7bfecacede4d93be7f61ba58fc937cd84e3ff4e9b6edb7b  metadata.db
+
+    sudo ls /var/lib/docker/volumes/1555d1042911ccbec7bfecacede4d93be7f61ba58fc937cd84e3ff4e9b6edb7b/_data
+collection-0--3060671131808840479.wt  index-3--3060671131808840479.wt  storage.bson
+collection-2--3060671131808840479.wt  index-5--3060671131808840479.wt  WiredTiger
+collection-4--3060671131808840479.wt  index-6--3060671131808840479.wt  WiredTigerLAS.wt
+collection-9--3060671131808840479.wt  journal                          WiredTiger.lock
+diagnostic.data                       _mdb_catalog.wt                  WiredTiger.turtle
+index-10--3060671131808840479.wt      mongod.lock                      WiredTiger.wt
+index-1--3060671131808840479.wt       sizeStorer.wt
