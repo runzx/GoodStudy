@@ -6,4 +6,8 @@ opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-lib
 
 uci show network.wan
 
-network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871
+uci set network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871
+uci commit network
+
+uci set dhcp.wan.peerdns='0'
+uci commit dhcp
