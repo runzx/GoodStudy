@@ -1,4 +1,5 @@
 
+0. 发行时使用Linux kernel 3.10, systemd 208 (在RHEL 7·2中升级到219),和GNOME 3.8。CentOS 7于2014-07-07发布，完整更新于2020-08-06结束。
 
 1. （7.0-1406：7 July 2014)，目前有些企业已经在使用。它是基于3.2版本内核的，已经不再区分32和64位。
     （7.4-1708：2017-09-13) 3.10.0-693.17.1.el7.x86_64
@@ -228,7 +229,7 @@
         setsebool   设置Policy的布尔值，以启用或停用某项Policy
         chcon       改变文件或文件夹的content标记
 
-10 查看Selinux的状态
+10. 查看Selinux的状态
     # /usr/sbin/sestatus -v 
     临时关闭
         setenforce 0 
