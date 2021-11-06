@@ -38,5 +38,4 @@ dir=/home/downloads
 ```
 
 3. `https://github.com/ngosang/trackerslist` Tracker
-   s  
-    aria2.conf: bt-tracker=udp://p4p.arenabg.ch:1337/announce,http://p4p.arenabg.com:1337/announce
+   aria2.conf: bt-tracker=udp://p4p.arenabg.ch:1337/announce,http://p4p.arenabg.com:1337/announce
