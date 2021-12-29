@@ -1,0 +1,5 @@
+spec  specification 规格  attribute
+  规格名  key     key_id
+  规格值  value   value_id
+  code 码 唯一编码  '2$1-42#3-10#4-15'
+  
