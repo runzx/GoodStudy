@@ -6,4 +6,50 @@ opkg install shadowsocks-libev-config shadowsocks-libev-ss-local shadowsocks-lib
 
 uci show network.wan
 
-network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871
+uci set network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871
+      // Network -> Interfaces -> WAN -> EDIT -> Use DNS servers advertised by peer
+uci commit network
+
+uci set dhcp.wan.peerdns='0'
+uci commit dhcp
+
+
+# 使用作者的软件源  http://openwrt-dist.sourceforge.net/
+wget http://openwrt-dist.sourceforge.net/packages/openwrt-dist.pub
+opkg-key add openwrt-dist.pub
+
+vim /etc/opkg/customfeeds.conf
+ x86_64 替换为你自己硬件的 CPU 架构名，可用 opkg print-architecture 命令查询。
+  R3800 arch mips_24kc 10
+
+src/gz openwrt_dist http://openwrt-dist.sourceforge.net/packages/base/x86_64
+src/gz openwrt_dist_luci http://openwrt-dist.sourceforge.net/packages/luci
+
+
+# https://linhongbo.com/posts/shadowsocks-on-openwrt/
+
+# 选择 固件 https://firmware-selector.openwrt.org/
+
+# 国内镜像源
+清华大学：mirrors.tuna.tsinghua.edu.cn/openwrt
+
+中科大：mirrors.ustc.edu.cn/openwrt
+
+腾讯：mirrors.cloud.tencent.com/openwrt
+      mirrors.aliyun.com/openwrt
+
+    /etc/opkg/distfeeds.conf
+进入OpenWrt后台管理页面，系统→软件包→配置，在opkg/distfeeds.conf，将 downloads.openwrt.org 修改为以上网址即可。
+
+
+bypass  
+120.24.93.243
+119.29.120.21    // ssgg
+144.34.178.157    // ss
+149.28.156.31     // sg
+
+
+# OpenWrt 21.02 支持 ssl
+
+# chinadns_chnroute.txt
+ wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > ./chinadns_chnroute.txt

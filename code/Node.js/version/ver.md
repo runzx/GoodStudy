@@ -1,6 +1,6 @@
 # version
 
-## v12  2019-2022/4/30
+## v12 2019-2022/4/30
 
 1. v8 7.4
 2. Private Class Fields
@@ -8,7 +8,7 @@
 4. TLS 升级为 1.3
 5. GCC 6 和 glibc 2.17, N-API 升级为版本 4
 
-## v14  2020-2023/4/30
+## v14 2020-2023/4/30
 
 1. v8 8.1-8.4
 2. Optional Chaining 可选链 ` user.address?.['city']`
@@ -20,7 +20,7 @@
 8. Top-Level Await 顶级 await 支持
 9. 使用异步迭代器`for await (const chunk of readable) `
 
-## v15  2020-2021/6/1
+## v15 2020-2021/6/1
 
 1. v8 8.6
 2. Promise.any()
@@ -30,4 +30,12 @@
 6. unhandled rejections 默认抛出
 7. npm 7
 8. AbortController
-9. 
+9.
+
+## v16 2021/4/20
+
+1. v8 9.0
+2. btoa 与 atob 与浏览器环境保持了一致
+3. setTimeout(), setInterval(timeOut, ()=>{})
+4. Node-API v8
+5. npm 7

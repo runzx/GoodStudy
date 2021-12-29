@@ -1,0 +1,25 @@
+1. GL-MT300N-V2
+
+MediaTek MT7628AN ver:1 eco:2
+	OpenWrt 19.07.8 r11364-ef56c85848 / LuCI openwrt-19.07 branch git-21.189.23240-7b931da
+升级bin
+openwrt-19.07.8-ramips-mt76x8-gl-mt300n-v2-squashfs-sysupgrade.bin
+
+opkg install shadowsocks-libev-config  shadowsocks-libev-ss-redir shadowsocks-libev-ss-rules  luci-app-shadowsocks-libev
+
+uci show network.wan
+
+uci set network.wan.peerdns=0   // 才能让dns 转www.bosstg.cn 50871
+uci commit network
+
+uci set dhcp.wan.peerdns='0'
+uci commit dhcp
+
+2. 官网： https://docs.gl-inet.com/en/3/release_notes/
+  v3.203 版 里没有高级配置进uci
+
+3. dns
+阿里云公共DNS
+223.5.5.5
+
+/cn/223.5.5.5
