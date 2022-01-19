@@ -22,6 +22,47 @@
 
 - `iptables-save > /etc/sysconfig/iptables`
 
+## firewall 管理应用 fw3 `https://openwrt.org/docs/guide-user/firewall/firewall_configuration`
+
+1. /etc/config/firewall， /etc/firewall.user 保存
+2. /etc/init.d/firewall 启动的时候由 UCI 进行解码并且生成 iptables 规则生效
+3. `/etc/init.d/firewall restart` 重启防火墙
+
+```conf
+; /etc/config/firewall
+config include
+    option path '/etc/firewall.user'
+; 默认 type 'script', reload '0',
+; iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE 放这文件里
+config include 'shadowsocks'
+    option type 'script'
+    option path '/var/etc/shadowsocks.include'
+    option reload '1'
+
+config include 'ss_rules'
+    option path '/etc/firewall.ss-rules'
+    option reload '1'
+
+```
+
+## static route `https://openwrt.org/docs/guide-user/network/routing/routes_configuration`
+
+1. /etc/config/network
+
+```conf
+config route
+    option gateway '192.168.1.39'
+    option interface 'lan'
+    option target '192.168.2.0'
+    option netmask '255.255.255.0'
+    
+config route 'route_example_1'
+    option interface 'lan'
+    option target '172.16.123.0'
+    option netmask '255.255.255.0'
+    option gateway '172.16.123.100'
+```
+
 ## MASQUERADE（伪装）
 
 1. MASQUERADE 是最常用的处理目标，因为大多数情况下，路由器并没有一个固定的 IP 地址。我们的路由器是通过 PPPoE 拨号上网或者是通过 DHCP 自动分配的 IP 地址。这 个处理目标和 SNAT 处理目标作用是一样的，区别就是它不需要指定源地址。
