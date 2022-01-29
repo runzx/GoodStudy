@@ -4,7 +4,7 @@
      CREATE USER 'pig'@'192.168.1.101_' ;
         % 从任意远程主机登陆，localhost 本地；也可是设定主机
         密码可以为空，如果为空则该用户可以不需要密码登陆服务器
-    
+    要允许本地登录，单纯只配置一个 % 是不够的 (应该是说对这种方式是不够的)，需要同时配置一个 locahost 的账号。
 2. 授权:
     GRANT privileges ON databasename.tablename TO 'username'@'host'
         privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，
