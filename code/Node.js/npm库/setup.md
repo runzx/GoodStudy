@@ -16,6 +16,15 @@ legacy-peer-deps=true
 
 
 ## yarn
+# 项目下配置文件  .yarnrc
+"registry" "https://repo.huaweicloud.com/repository/npm/"
+"cache-folder" "~/.cache/yarn_cache"
+# yarn不再支持 .npmrc 配置文件
+# v2  .yarnrc.yml
+# "Berry" 是 Yarn 2 发布序列的代号，同时也是我们的 代码仓库 的名称
+yarn set version latest
+
+
 yarn config get registry
 yarn config set registry https://registry.npm.taobao.org/
 
