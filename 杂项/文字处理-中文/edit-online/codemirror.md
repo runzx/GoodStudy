@@ -15,7 +15,7 @@ options = {
 ## event
 
 1. "change" (instance: CodeMirror, changeObj: object)
-   每次更改编辑器的内容时 ​​ 触发。
+   每次更改编辑器的内容时 触发。
 2. "focus" (instance: CodeMirror, event: Event)
    只要编辑器集中精力，就会触发。
 3. "blur" (instance: CodeMirror, event: Event)

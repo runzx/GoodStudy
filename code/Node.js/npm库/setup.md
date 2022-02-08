@@ -1,11 +1,17 @@
 # setup
 
 ```sh
-npm config get registry
+# 查询npm全局目录
+npm root -g
 
+# 查询npm缓存目录
+npm config get cache
+# C:\Users\runzx\AppData\Roaming\npm-cache
+
+
+npm config get registry
 # 新的域名 registry.npm.taobao.org 域名将于 2022 年 05 月 31 日零时起停止服务。
 npm config set registry https://registry.npmmirror.com
-
 
 npm config set registry http://mirrors.cloud.tencent.com/npm/
 
