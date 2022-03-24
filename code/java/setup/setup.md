@@ -10,11 +10,34 @@ Java SE 12 JDK12 2019-3-20
 
 `https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html`
 
-## jre 运行环境， jvm 虚拟机
+## setup sdk
 
+1. windows setup
+2. java -vesion
+3. 环境变量 JAVA_HOME、CLASSPATH 和 PATH
+   1. JAVA_HOME 默认情况下是`C:\Program Files\Java\jdk1.8.0_291`
+   2. CLASSPATH `.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;`
+   3. PATH `%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin`
+   4. 默认会配置 `C:\Program Files\Common Files\Oracle\Java\javapath`(安装程序会拷入 java.exe,javac.exe,javaw.exe,jshell.exe)
+4. 多版本 配置
+   1. JAVA_HOME_17 = D:\codeing\tools\java\jdk-17.0.2
+   2. JAVA_HOME_8 = C:\Program Files\Java\jdk1.8.0_291
+   3. JAVA_HOME = %JAVA_HOME_17% 此时为　v17
+
+## jre 运行环境
+
+1. jvm 虚拟机
+2. java 核心类库，支持文件
+
+## java 平台
+
+1. java SE 标准版 桌面程序
+2. java EE 企事版 Web 程序
+3. java ME 微型版 移动设备
 
 ## 历史
 
+- 1995 sun 公司
 - JDK 1.0
   - 1996-01-23 发布
 - JDK 1.1
@@ -31,6 +54,7 @@ Java SE 12 JDK12 2019-3-20
   - 自动装箱、泛型、动态注解、枚举、可变长参数、遍历循环
 - JDK 1.6/6.0
   - 2006-04 提供动态语言支持、提供编译 API 和卫星 HTTP 服务器 API，改进 JVM 的锁，同步垃圾回收，类加载
+- 2010 oracel 收购 sun
 - JDK 1.7/7.0
   - 2011-07-28 发布
   - 提供 GI 回收器、加强对非 Java 语言的调用支持（JSR-292,升级类加载架构
