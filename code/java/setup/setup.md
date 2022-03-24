@@ -20,9 +20,10 @@ Java SE 12 JDK12 2019-3-20
    3. PATH `%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin`
    4. 默认会配置 `C:\Program Files\Common Files\Oracle\Java\javapath`(安装程序会拷入 java.exe,javac.exe,javaw.exe,jshell.exe)
 4. 多版本 配置
-   1. JAVA_HOME_17 = D:\codeing\tools\java\jdk-17.0.2
-   2. JAVA_HOME_8 = C:\Program Files\Java\jdk1.8.0_291
-   3. JAVA_HOME = %JAVA_HOME_17% 此时为　v17
+   1. JAVA_17 = D:\codeing\tools\java\jdk-17.0.2
+   2. JAVA_8 = C:\Program Files\Java\jdk1.8.0_291
+   3. JAVA_HOME = %JAVA_17% 此时为　 v17
+   4. JAVA_HOME_17 会认 JAVA_HOME 先赋值%JAVA_HOME_17%, 此时 JAVA_HOME_17 还没定义
 
 ## jre 运行环境
 
