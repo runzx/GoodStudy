@@ -17,6 +17,9 @@ Java SE 12 JDK12 2019-3-20
 3. 环境变量 JAVA_HOME、CLASSPATH 和 PATH
    1. JAVA_HOME 默认情况下是`C:\Program Files\Java\jdk1.8.0_291`
    2. CLASSPATH `.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;`
+      - 更好的做法是，不要设置 CLASSPATH！ 会污染整个系统环境
+      - 默认的当前目录 '.' 对于绝大多数情况都够用了
+      - 建议通过 `-cp` 命令传入 
    3. PATH `%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin`
    4. 默认会配置 `C:\Program Files\Common Files\Oracle\Java\javapath`(安装程序会拷入 java.exe,javac.exe,javaw.exe,jshell.exe)
 4. 多版本 配置
