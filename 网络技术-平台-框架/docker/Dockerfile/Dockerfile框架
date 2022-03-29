@@ -1,14 +1,14 @@
 
 
 一份Dockerfile一般包含下面几个部分,
-    基础镜像：以哪个镜像作为基础进行制作，用法是FROM 基础镜像名称
-    维护者信息：需要写下该Dockerfile编写人的姓名或邮箱，用法是MANITAINER 名字/邮箱
-    镜像操作命令：对基础镜像要进行的改造命令，比如安装新的软件，进行哪些特殊配置等，常见的是RUN命令
-    容器启动命令：当基于该镜像的容器启动时需要执行哪些命令，常见的是CMD命令或ENTRYPOINT
+    基础镜像：以哪个镜像作为基础进行制作, 用法是FROM 基础镜像名称
+    维护者信息：需要写下该Dockerfile编写人的姓名或邮箱, 用法是MANITAINER 名字/邮箱
+    镜像操作命令：对基础镜像要进行的改造命令, 比如安装新的软件, 进行哪些特殊配置等, 常见的是RUN命令
+    容器启动命令：当基于该镜像的容器启动时需要执行哪些命令, 常见的是CMD命令或ENTRYPOINT
 
-    FROM指定基础镜像，如果镜像名称中没有制定TAG, 默认为latest。
-    RUN命令默认使用/bin/sh Shell执行，默认为root权限。如果命令过长需要换行，需要在行末尾加\\。
-    CMD 命令也是默认在/bin/sh Shell中执行，并且默认只能有一条，如果是多条CMD命令则只有最后一条执行。
+    FROM指定基础镜像, 如果镜像名称中没有制定TAG, 默认为latest。
+    RUN命令默认使用/bin/sh Shell执行, 默认为root权限。如果命令过长需要换行, 需要在行末尾加\\。
+    CMD 命令也是默认在/bin/sh Shell中执行, 并且默认只能有一条, 如果是多条CMD命令则只有最后一条执行。
         用户也可以在docker run命令创建容器时指定新的CMD命令来覆盖Dockerfile里的CMD。
 
 1 指定容器运行的用户
@@ -26,7 +26,7 @@
         ADD html.tar /var/www
 6 CMD与ENTRYPOINT
     ENTRYPOINT容器启动后执行的命令, 让容器执行表现的像一个可执行程序一样, 
-        与CMD的区别是不可以被docker run覆盖，会把docker run后面的参数当作传递给ENTRYPOINT指令的参数。
+        与CMD的区别是不可以被docker run覆盖, 会把docker run后面的参数当作传递给ENTRYPOINT指令的参数。
         Dockerfile中只能指定一个ENTRYPOINT, 如果指定了很多, 只有最后一个有效。
         docker run命令的-entrypoint参数可以把指定的参数继续传递给ENTRYPOINT。
 7 挂载数据卷
@@ -36,19 +36,19 @@
     使用ENV设置
     ENV APACHE_RUN_USER www-data
 9 使用 Supervisord
-    CMD只有一个命令, 当需要运行多个服务怎么办呢？最好的办法是分别在不同的容器中运行，通过--link进行连接，比如先前实验中用到的web, app, db容器。
-        如果一定要在一个容器中运行多个服务可以考虑用Supervisord来进行进程管理，方式就是将多个启动命令放入到一个启动脚本中。
+    CMD只有一个命令, 当需要运行多个服务怎么办呢？最好的办法是分别在不同的容器中运行, 通过--link进行连接, 比如先前实验中用到的web, app, db容器。
+        如果一定要在一个容器中运行多个服务可以考虑用Supervisord来进行进程管理, 方式就是将多个启动命令放入到一个启动脚本中。
     首先安装Supervisord, 添加下面内容到Dockerfile,
         RUN apt-get install -yqq supervisor
         RUN mkdir -p /var/log/supervisor
     拷贝配置文件到指定的目录,
         COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-    其中supervisord.conf文件需要放在/home/lihong/docker文件夹下，文件内容如下,
+    其中supervisord.conf文件需要放在/home/lihong/docker文件夹下, 文件内容如下,
         [supervisord]
         nodaemon=true
         [program:apache2]
         command=/bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2ctl -D FOREGROUND"
-    如果有多个服务需要启动可以在文件后继续添加[program:xxx], 比如如果有ssh服务，可以增加[program:ssh]。
-        修改CMD命令，启动Supervisord,
+    如果有多个服务需要启动可以在文件后继续添加[program:xxx], 比如如果有ssh服务, 可以增加[program:ssh]。
+        修改CMD命令, 启动Supervisord,
             CMD ["/usr/bin/supervisord"]
 

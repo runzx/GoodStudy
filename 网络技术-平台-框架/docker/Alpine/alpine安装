@@ -1,31 +1,31 @@
 
 1. 安装设置,base,networking
     setup-alpine
-        安装到硬盘： 先选sda(可用?查看有哪些硬盘可安装），然后再选sys
+        安装到硬盘： 先选sda(可用?查看有哪些硬盘可安装）, 然后再选sys
     软件源：
         直接url：
             https://mirrors.aliyun.com/alpine/v3.6/main/
             #可以编辑源文件 /etc/apk/repositories
     子时区设置-Shanghai      # Asia
     SSH:
-        #修改配置文件 /etc/ssh/sshd_config，
-        #如果要想使用root用户远程管理，需要修改参数为：
+        #修改配置文件 /etc/ssh/sshd_config, 
+        #如果要想使用root用户远程管理, 需要修改参数为：
             PermitRootLogin yes
         service sshd restart
         #将ssh服务配置为开机自动启动
             rc-update add sshd
     issus:
-        它采用了musl libc和busybox以减小系统的体积和运行时资源消耗，同时还提供了自己的包管理工具apk。
-        Alpine Linux使用了musl，可能和其他Linux发行版使用的glibc实现会有些不同。
-        musl实现的DNS服务不会使用resolv.conf文件中的search和domain两个配置，通过DNS来进行服务发现时需要注意。
-        Alpine Linux的内核都打了grsecurity/PaX补丁，并且所有的程序都编译为Position Independent Executables (PIE) 以增强系统的安全性。
-        update命令会从各个镜像源列表下载APKINDEX.tar.gz并存储到本地缓存，一般在
+        它采用了musl libc和busybox以减小系统的体积和运行时资源消耗, 同时还提供了自己的包管理工具apk。
+        Alpine Linux使用了musl, 可能和其他Linux发行版使用的glibc实现会有些不同。
+        musl实现的DNS服务不会使用resolv.conf文件中的search和domain两个配置, 通过DNS来进行服务发现时需要注意。
+        Alpine Linux的内核都打了grsecurity/PaX补丁, 并且所有的程序都编译为Position Independent Executables (PIE) 以增强系统的安全性。
+        update命令会从各个镜像源列表下载APKINDEX.tar.gz并存储到本地缓存, 一般在
             /var/cache/apk/     (Alpine在该目录下)、 
             /var/lib/apk/
             /etc/apk/cache/     下。
     #网卡配置文件
         /etc/network/interfaces
-    因为Alpine采用的是musl libc，不是通常用的glibc，在使用DNS时，Alpine（musl libc）在DNS解析文件/etc/resolv.conf中，不使用domain或 search选项。
+    因为Alpine采用的是musl libc, 不是通常用的glibc, 在使用DNS时, Alpine（musl libc）在DNS解析文件/etc/resolv.conf中, 不使用domain或 search选项。
     
 2. 安装软件
     apk add 
@@ -36,7 +36,7 @@
         apk add 'asterisk<1.6.1'
     del:卸载并删除
         apk del openssh openntp vim
-    upgrade:升级当前已安装的软件包，（通过-u或--upgrade选择指定）
+    upgrade:升级当前已安装的软件包, （通过-u或--upgrade选择指定）
         apk add --upgrade busybox   #指定升级部分软件包
     搜索
         apk search -v 'acf*'        #通过软件包名称查找软件包
@@ -87,8 +87,8 @@
         PermitRootLogin yes
 
 
-    reboot      #重启系统，类似于shutdown -r now。
-    halt        #关机，类似于shutdown -h now。
+    reboot      #重启系统, 类似于shutdown -r now。
+    halt        #关机, 类似于shutdown -h now。
     poweroff    #关机
 4. docker
     安装
@@ -103,22 +103,22 @@
     以下是一个绝对的新手指南
         将高山ISO映像刻录到CD
         将CD放入新电脑并打开电源。确保计算机能够从CD启动。您的手册为电脑或BIOS可以帮助。
-        等待文本登录：出现，键入root，然后按Enter键。
+        等待文本登录：出现, 键入root, 然后按Enter键。
         运行setup-alpine脚本
         选择您的键盘布局。如果你不知道你的键盘布局选择us。在这里us被选中。
             然后我选择了us的变种。
-        主机名称，这将是您的计算机的名称，您可以按Enter键，如果要使用默认名称
-        选择你的网卡，大多数人都可以随意默认（按回车）
-            大多数人会使用DHCP，所以请再次输入，或者输入您的静态IP地址
-            系统会询问您是否要进行任何手动网络配置，按Enter键进行编号
+        主机名称, 这将是您的计算机的名称, 您可以按Enter键, 如果要使用默认名称
+        选择你的网卡, 大多数人都可以随意默认（按回车）
+            大多数人会使用DHCP, 所以请再次输入, 或者输入您的静态IP地址
+            系统会询问您是否要进行任何手动网络配置, 按Enter键进行编号
         键入您的root密码两次。
-        选择一个时区，你可以按一下列表？。如果你想要一个子区，例如非洲，输入非洲并按enter键？将会给你一个非洲地区的清单。
-        按f选择最快的镜像，e 自己配置镜像源表。
-        选择一个SSH服务器，这样可以远程管理您的机器。OpenSSH是大发行版的使用，DropBear是一个小型的SSH替换。选择没有最好的安全。
-        选择一个NTP客户端，这样可以使用Internet时间服务器来保持计算机的时间准确。Openntpd是大发行版的使用，而Chrony是一个很小的替代品。
-        选择要安装Alpine的磁盘，例如，sda是计算机中的第一个磁盘。
-            现在选择如何使用它，对于本指南，选择sys，这将把整个操作系统安装到硬盘上
-            您有机会退出，输入Y继续
+        选择一个时区, 你可以按一下列表？。如果你想要一个子区, 例如非洲, 输入非洲并按enter键？将会给你一个非洲地区的清单。
+        按f选择最快的镜像, e 自己配置镜像源表。
+        选择一个SSH服务器, 这样可以远程管理您的机器。OpenSSH是大发行版的使用, DropBear是一个小型的SSH替换。选择没有最好的安全。
+        选择一个NTP客户端, 这样可以使用Internet时间服务器来保持计算机的时间准确。Openntpd是大发行版的使用, 而Chrony是一个很小的替代品。
+        选择要安装Alpine的磁盘, 例如, sda是计算机中的第一个磁盘。
+            现在选择如何使用它, 对于本指南, 选择sys, 这将把整个操作系统安装到硬盘上
+            您有机会退出, 输入Y继续
                 zx:
                     安装sys在/dev/sda上
                         installing system on /dev/sda3
@@ -126,13 +126,13 @@
                         inittramfs:creating /boot/initramfs-hardened
                         /boot is device /dev/sda1
 
-        安装完成，您将被要求重新启动。键入重新启动并按Enter键
-        拿出CD，你的电脑应该使用你的硬盘启动阿尔卑斯山。
+        安装完成, 您将被要求重新启动。键入重新启动并按Enter键
+        拿出CD, 你的电脑应该使用你的硬盘启动阿尔卑斯山。
     继续设置您的计算机
         Alpine Linux软件包管理 （如何在Alpine上添加/删除软件包）
         高山启动服务 （配置服务在下次重启时自动启动）
         设置ssh服务器 （使用ssh是远程管理您的方式的好方法）
-        教程和Howtos （各种教程，包括如何设置XFCE桌面）
+        教程和Howtos （各种教程, 包括如何设置XFCE桌面）
     
     时区...设置
         setup-timezone      //中国： PRC

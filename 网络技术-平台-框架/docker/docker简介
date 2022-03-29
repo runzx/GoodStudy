@@ -1,18 +1,18 @@
 
 Docker镜像
     1. 镜像就是文件
-    2. 分层，每层只读
+    2. 分层, 每层只读
 
 Docker容器
     1. 相当于VM
-    2. 每层只读，最上层可写
+    2. 每层只读, 最上层可写
 
 Docker仓库
     1. 传输
     2. hub.docker.com 国内c.163.com
     3. 可自己建镜像中心
 Docker安装
-    1. windows下，下载docker-toolbox
+    1. windows下, 下载docker-toolbox
     2. linux:
         1) Redhat&CentOS 64bit ver 3.10
         2) Ubuntn 64bit ver >3.10
@@ -27,15 +27,15 @@ Docker安装
         docker images [options] [reoository][:TAG]
         docker images 查看列表
             REPOSITORY：仓库名称
-            TAG：标签名，一个仓库可以有若干个标签对应不同的镜像，默认都是latest
-            IMAGE ID：镜像ID, 镜像的唯一标识符是镜像ID.有的时候同一个镜像可以有不同的TAG，但实际指向的是同一个镜像ID。TAG可以理解为镜像的别名。
-            CREATED：创建时间，注意不是本地的pull时间
+            TAG：标签名, 一个仓库可以有若干个标签对应不同的镜像, 默认都是latest
+            IMAGE ID：镜像ID, 镜像的唯一标识符是镜像ID.有的时候同一个镜像可以有不同的TAG, 但实际指向的是同一个镜像ID。TAG可以理解为镜像的别名。
+            CREATED：创建时间, 注意不是本地的pull时间
             SIZE：镜像大小
         docker pull hello-world 下载。。
         docker pull nginx 
     4.Docker网络
         1）Bridge 端口映射 :主机eth0 -> docker0 Bridge 的 veth ->容器（Docker Container）eth0
-        2) Host 没有自己的地址，和主机用同一网卡
+        2) Host 没有自己的地址, 和主机用同一网卡
         3) None
     5. 运行
         1）前端运行
@@ -62,7 +62,7 @@ Docker安装
             使用#来注释
             FROM 指令告诉 Docker 使用哪个镜像作为基础
             接着是维护者的信息
-            RUN开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get 来安装了一些软件
+            RUN开头的指令会在创建中运行, 比如安装一个软件包, 在这里使用 apt-get 来安装了一些软件
         docker build  -t jpress:latest .    //-t指定TAG
         docker run -d -p 8888:8080 jpress
             通过localhost:8888/jpress 访问
@@ -70,37 +70,37 @@ Docker安装
             docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=000000 -e MYSQL_DATABASE=jpress hub.c.163.com/library/mysql:latest 
 
 版本
-    Docker 会每月发布一个 edge 版本(17.03, 17.04, 17.05...)，每三个月发布一个 stable 版本(17.03, 17.06, 17.09...)，企业版(EE) 和 stable 版本号保持一致，但每个版本提供一年维护。
+    Docker 会每月发布一个 edge 版本(17.03, 17.04, 17.05...), 每三个月发布一个 stable 版本(17.03, 17.06, 17.09...), 企业版(EE) 和 stable 版本号保持一致, 但每个版本提供一年维护。
     Docker 的 Linux 发行版的软件仓库也从以前的https://apt.dockerproject.org / https://yum.dockerproject.org 变更为
         目前的 https://download.docker.com/。
         软件包名变更为 docker-ce(社区版) 和 docker-ee(企业版)。
-        旧的仓库和包名(docker-engine)依旧可以使用，但不确定什么时候会被废弃，docker-engine 的版本号也变成了 17.03.0~ce-0 这种的版本号。
+        旧的仓库和包名(docker-engine)依旧可以使用, 但不确定什么时候会被废弃, docker-engine 的版本号也变成了 17.03.0~ce-0 这种的版本号。
 
     Windows 要求 win 10 pro 并且开启 Hyper-V虚拟化
         Windows下载 https://download.docker.com/win/stable/InstallDocker.msi
-        不符合以上条件的可以去官网下载Docker-Tool-Box，来模拟Docker 的运行环境，也是可以学习的。
+        不符合以上条件的可以去官网下载Docker-Tool-Box, 来模拟Docker 的运行环境, 也是可以学习的。
 
     Cent OS 中安装Docker
-        系统官方推荐是要7.3，系统必须64位的.
+        系统官方推荐是要7.3, 系统必须64位的.
         旧版本的Docker的软件包名为docker或docker-engine。如果以前安装过就要卸载
             $ sudo yum remove   docker \ 
                                 docker-common \ 
                                 container-selinux \ 
                                 docker-selinux \ 
                                 docker-engine
-        另外原来/var/lib/docker/目录下的镜像，容器，数据卷，网络等都会保留
+        另外原来/var/lib/docker/目录下的镜像, 容器, 数据卷, 网络等都会保留
 
         使用 repository 安装
             第一次安装新版本需要配置一下新版 docker 的 repository
             设置存储库
             repository 设置对于Docker CE和 Docker EE来说有些不一样。
-            安装yum-utils，它提供yum-config-manager可以用来配置repo：
+            安装yum-utils, 它提供yum-config-manager可以用来配置repo：
             $ sudo yum install -y yum-utils
             使用以下命令设置稳定版 repository ：
             $ sudo yum-config-manager \
                 --add-repo \
                 https://download.docker.com/linux/centos/docker-ce.repo
-            如果需要的话可以开启edge版本的更新，这个 repository 包含在上面的repo文件中，但默认情况下禁用。可以用下面的命令开启：
+            如果需要的话可以开启edge版本的更新, 这个 repository 包含在上面的repo文件中, 但默认情况下禁用。可以用下面的命令开启：
             $ sudo yum-config-manager --enable docker-ce-edge
             要禁用edge更新：
             $ sudo yum-config-manager --disable docker-ce-edge
@@ -110,7 +110,7 @@ Docker安装
             安装最新版本docker
             Docker CE sudo yum install docker-ce
             Docker EE sudo yum install docker-ee
-            如果这是在添加Docker存储库之后第一次刷新包索引，会提示接受GPG密钥，并且将显示密钥的指纹。验证指纹是否正确，如果是，请接受密钥。
+            如果这是在添加Docker存储库之后第一次刷新包索引, 会提示接受GPG密钥, 并且将显示密钥的指纹。验证指纹是否正确, 如果是, 请接受密钥。
             从 https://download.docker.com/linux/centos/gpg 检索密钥
             导入 GPG key 0x621E9F35:
             用户ID     : "Docker Release (CE rpm) <docker@docker.com>"
@@ -118,7 +118,7 @@ Docker安装
             来自       : https://download.docker.com/linux/centos/gpg
             是否继续？[y/N]：y
             安装特定版本的docker
-            生产系统中不可能总是用最新版本，需要安装特定版本的话也是比较简单的。yum list命令列出可用版本：
+            生产系统中不可能总是用最新版本, 需要安装特定版本的话也是比较简单的。yum list命令列出可用版本：
             $ yum list docker-ce  --showduplicates |sort -r
             列出并按版本号排序。
             然后选择需要的版本安装：
@@ -128,7 +128,7 @@ Docker安装
             $ sudo systemctl start docker
             docker通过运行hello-world 验证是否已正确安装。
             $ sudo docker run hello-world
-            被墙掉的小伙伴可能会报错，要不先试试 docker version 命令的输出：
+            被墙掉的小伙伴可能会报错, 要不先试试 docker version 命令的输出：
             Client:
             Version:      17.03.0-ce
             API version:  1.26
@@ -146,18 +146,18 @@ Docker安装
             OS/Arch:      linux/amd64
             Experimental: false
             也基本证明了安装正确。
-            或者注册一个daoCloud的账号，配置一下docker加速器国内访问也就没什么问题了。
+            或者注册一个daoCloud的账号, 配置一下docker加速器国内访问也就没什么问题了。
             升级docker
-            这种方式安装之后如果需要升级，只需要再次更新下yum包索引。$ sudo yum makecache fast 然后继续选择需要安装的版本即可。
+            这种方式安装之后如果需要升级, 只需要再次更新下yum包索引。$ sudo yum makecache fast 然后继续选择需要安装的版本即可。
             卸载docker
             Docker CE : sudo yum remove docker-ce
             Docker EE : sudo yum remove docker-ee
-            不会自动删除主机上的镜像，容器，数据卷或自定义配置文件。要删除所有镜像，容器和卷：
+            不会自动删除主机上的镜像, 容器, 数据卷或自定义配置文件。要删除所有镜像, 容器和卷：
             $ sudo rm -rf /var/lib/docker
             下载软件包安装
             Docker CE：
             访问 https://download.docker.com/linux/centos/7/x86_64/stable/Packages/ 并下载.rpm要安装的Docker版本的文件。
-            安装Docker，将下面的路径更改为您下载Docker包的路径。
+            安装Docker, 将下面的路径更改为您下载Docker包的路径。
             $ sudo yum install /path/to/package.rpm
 
 
@@ -172,7 +172,7 @@ Docker安装
     sudo systemctl daemon-reload
     sudo systemctl restart docker
 =======
-默认情况下，docker命令使用Unix socket与Docker引擎通讯。只有root用户和docker组用户才可以访问Unix socket，处于安全考虑Linux一般不会直接用root用户，因此更好的做法是将docker用户加入docker用户组。s
+默认情况下, docker命令使用Unix socket与Docker引擎通讯。只有root用户和docker组用户才可以访问Unix socket, 处于安全考虑Linux一般不会直接用root用户, 因此更好的做法是将docker用户加入docker用户组。s
     sudo groupadd docker
     sudo usermod -aG docker $USER
 
