@@ -26,11 +26,13 @@
       "path": "D:\\codeing\\tools\\java\\jdk-17.0.2",
     },
   ],
-  "java.home": "D:\\codeing\\tools\\java\\jdk-17.0.2", // 已弃用
+
 
   // 于启动 Java 语言服务器的 JDK 主文件夹的绝对路径
 "java.jdt.ls.java.home": "D:\\codeing\\tools\\java\\jdk-17.0.2",
 // 没指定上面，按 JDK_HOME,JAVA_HOME, PATH 搜索满足的java版本
+
+  "java.home": "D:\\codeing\\tools\\java\\jdk-17.0.2", // 已弃用
 ```
 
 ## creat project
