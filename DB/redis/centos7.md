@@ -17,6 +17,10 @@ logfile /var/log/redis_6379.log
 
 #  
 cp utils/redis_init_script /etc/init.d/redis_6379
+# restart
+sudo /etc/init.d/redis_6379 stop
+sudo /etc/init.d/redis_6379 start
+
 # 添加服务
 chkconfig --add redis_6379
 #  开机自启动
