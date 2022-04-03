@@ -8,7 +8,7 @@
 3.  数据卷（Volume）、或者 绑定宿主目录
     1.  数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡
 4.  启动
-    1.  docker run
+    1.  docker run --name xxx imagesName
     2.  docker run -t -i ubuntu:18.04 /bin/bash 
         1.  启动一个 bash 终端，允许用户进行交互
         2.  -t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， 
@@ -18,12 +18,14 @@
         2.  `docker container restart containerID`
 5.  守护态运行
     1.  后台运行而不是直接把执行命令的结果输出在当前宿主机下
-    2.  -d 参数来实现
-    3.  输出结果 查看: `docker logs containerID | containerName` 
+    2.  `-d` 参数来实现
+    3.  容器是否会长久运行，是和 docker run 指定的命令有关，和 -d 参数无关。
+    4.  输出结果 查看: `docker logs containerID | containerName` 
         1.   -n100 显示最后 100行
 6.  终止
     1.  `docker container stop containerID | containerName`
     2.  `docker stop containerID | containerName`
+    3.  `docker stop $(docker ps -q)`停止所有容器
 7.  查看 
     1.  `docker container ls -a` all
     2.  `docker container ls -l` latest 
