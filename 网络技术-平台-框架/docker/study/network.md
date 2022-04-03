@@ -9,11 +9,11 @@
 
 ## 容器 互联
 
-1. 创建网络 docker network create -d bridge my-net
+1. 创建网络 `docker network create -d bridge my-net`
    1. -d 类型 bridge, overlay (swarm node)
    2. 默认为 bridge 172.17.0.0
-   3. docker network ls 查看所有网桥
-   4. docker inspect bridge 查看 某网桥 详情
+   3. `docker network ls` 查看所有网桥
+   4. `docker inspect bridge` 查看 某网桥 详情
    5. `docker network create --driver bridge --subnet 192.168.3.0/16 --gateway 192.168.3.0 zhai-home`
 2. docker run -it --rm --name busybox1 --network my-net busybox sh
    1. 连接 到 my-net 网络

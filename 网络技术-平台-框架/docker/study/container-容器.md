@@ -29,6 +29,7 @@
 7.  查看 
     1.  `docker container ls -a` all
     2.  `docker container ls -l` latest 
+    3.  `docker system df`  查看 镜像 尺寸
 8.  进入容器
     1.  `docker exec -it containerID bash`
     2.  ps -ef 可以看到所有进程

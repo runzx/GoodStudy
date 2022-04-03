@@ -28,6 +28,9 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: 123456
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+# docker_default   bridge    local
+# mongo mongo-express 能解析而成相应ip 172.18.0.2,3
+# docker-mongo-1 docker-mongo-express-1 容器名也能解析 
 ```
 
 3. `docker exec -it mongo3.6 mongo` 进入mongo-cli
