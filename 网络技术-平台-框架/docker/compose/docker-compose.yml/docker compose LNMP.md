@@ -206,3 +206,4 @@ services:
 6. 停止服务 `docker-compose down`
 7. 验证 Compose 文件格式 `docker-compose config`
 8. 查看服务容器的输出 `docker-compose logs [options] [SERVICE...]` 不同的颜色来区分
+9. v2版 docker compose 
