@@ -1,3 +1,11 @@
+<!--
+ * @Author: zhaix
+ * @Date: 2022-03-28 11:14:19
+ * @LastEditTime: 2022-04-19 13:02:12
+ * @LastEditors: Do not edit
+ * @FilePath: \goodstudy\code\java\setup\setup.md
+ * @Description: 
+-->
 #
 
 Java SE 版本 JDK 版本 发布时间
@@ -10,6 +18,7 @@ Java SE 12 JDK12 2019-3-20
 
 `https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html`
 
+`https://www.oracle.com/java/technologies/downloads/#java8`
 ## setup sdk
 
 1. windows setup
