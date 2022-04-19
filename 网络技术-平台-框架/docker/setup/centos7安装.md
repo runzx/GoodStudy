@@ -1,3 +1,11 @@
+<!--
+ * @Author: zhaix
+ * @Date: 2022-03-28 11:14:21
+ * @LastEditTime: 2022-04-19 11:28:12
+ * @LastEditors: Do not edit
+ * @FilePath: \goodstudy\网络技术-平台-框架\docker\setup\centos7安装.md
+ * @Description: 
+-->
 # centOS7 安装
 
 1. 删除旧版 
@@ -37,6 +45,8 @@ vi /etc/docker/daemon.json
 {
   "registry-mirrors": ["https://aj2rgad5.mirror.aliyuncs.com"]
 }
+#  命令方式
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://2be16b36.m.daocloud.io
 
 # 加入 docker 用户组命令
 # sudo usermod -aG docker USER_NAME
