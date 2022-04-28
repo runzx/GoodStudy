@@ -9,6 +9,7 @@
 # 导出类似, docker的导出, 方便移动等
 1.  wsl --export Ubuntu D:/ubuntu.tar
     1.  D:/ubuntu_dir : 导入到那个目录，导入成功，有 ext4.vhdx 文件
+    2.  `wsl --export Ubuntu D:\zx\vm\wsl\Ubuntu-v2.tar`
 2.  wsl --import Ubuntu D:/ubuntu_dir  D:/ubuntu.tar
 3.  wsl --import Ubuntu d:\ubuntu_dir  d:\ubuntu.tar --version 2  // WSL2
 
