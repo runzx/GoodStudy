@@ -14,6 +14,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
 
 ```
 3. `sudo yum install -y mongodb-org`
+   1. `mongo --version`
 4. vim /etc/mongod.conf
    1. bindIp: localhost,  172.18.87.34
 5. sudo systemctl start mongod
