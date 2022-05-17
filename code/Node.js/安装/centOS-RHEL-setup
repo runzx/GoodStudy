@@ -16,3 +16,5 @@ NodeJS 6.x
   
 curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 curl -sL https://rpm.nodesource.com/setup_14.x | bash -
+
+curl -fsSL https://rpm.nodesource.com/setup_16.x | sudo bash - 
