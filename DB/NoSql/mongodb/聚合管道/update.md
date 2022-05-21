@@ -3,9 +3,9 @@
 0. `https://docs.mongoing.com/mongodb-crud-operations/update-documents/updates-with-aggregation-pipeline`
 1. 包括以下阶段
 
-   1. $addFields  --> $set          向文档添加新字段
-   2. $project    --> $unset        重新整形流中的每个文档
-   3. $replaceRoot--> $replaceWith  用指定的嵌入文档替换文档
+   1. $addFields --> $set 向文档添加新字段
+   2. $project --> $unset 重新整形流中的每个文档
+   3. $replaceRoot--> $replaceWith 用指定的嵌入文档替换文档
 
 2. 表达性更强的 update 语句
    1. 根据当前字段值表示条件更新，
@@ -74,4 +74,22 @@ db.students3.updateMany({}, [
 db.students4.updateOne({ _id: 2 }, [{ $set: { quizzes: { $concatArrays: ['$quizzes', [8, 6]] } } }])
 
 // 测验分数 添加 到具有 **_id**的文档中
+
+// 直接 加入一个新元素，然后通过 数组 长度 修改 countView 值
+WallNews.findByIdAndUpdate(res.id,
+  [
+    {
+      $set: {
+        viewer: {
+          $cond: {  // 三元表达式
+            if: { $in: [userInfo.uid, '$viewer'] },
+            then: '$viewer',
+            else: { $concatArrays: ['$viewer', [userInfo.uid]] }
+          }
+        }
+      }
+    },
+    { $set: { countView: { $size: "$viewer" } }, }
+  ]).then()
+
 ```
