@@ -68,6 +68,7 @@ security:
 
 ### 常用 命令
 
+0. mongo 172.18.87.32:27017/admin // 默认是 test 库
 1. mongo --port 27017 -uroot -pxxx admin 登录 Mongodb
 2. db.shutdownServer() 关闭 DB
 3. mongod -f /xxx/mongod.conf 重启
@@ -93,7 +94,8 @@ security:
       1. `rs.addArb("172.18.87.30:27017")`
    2. 如果没反应
       1. 在 主节点 设置
-
+5. 主 节点 降为 从节点
+   1. rs.stepDown(10) // 10s 默认60s, 要大于 secondaryCatchUpPeriodSecs 10 秒
 ```js
 db.adminCommand({
   setDefaultRWConcern: 1,
@@ -101,6 +103,18 @@ db.adminCommand({
     w: 2
   }
 })
+
+// 一次初始化
+config = {
+  _id: 'brV2',
+  members: [
+    { _id: 0, host: '172.18.87.34:27017' },
+    { _id: 1, host: '172.18.87.32:27017' },
+    { _id: 2, host: '172.18.87.30:27017', arbiterOnly: true }
+  ]
+}
+
+rs.initiate(config)
 ```
 
 5.  移除 rs.remove("172.18.87.30:27017")
@@ -110,9 +124,9 @@ db.adminCommand({
 ```js
 rs.status()
 
-"health" : 1, 
+"health" : 1,
 // 代表机器正常
-"stateStr" : "PRIMARY",  
+"stateStr" : "PRIMARY",
 // 代表是主节点，可读写，其中有以下几下状态
 1. STARTUP：刚加入到复制集中，配置还未加载
 2. STARTUP2：配置已加载完，初始化；
@@ -125,4 +139,18 @@ rs.status()
 9. FATAL：出错。查看日志grep “replSet FATAL”找出错原因，重新做同步
 10. PRIMARY：主节点
 11. SECONDARY：备份节点
+
+rs.conf() // 查看配置
+
+//  重新配置
+rs.config() // 会让联接断开一会，不要生产时使用
 ```
+
+### 节点属性
+
+1. 主节点 priority 至少为 1
+2. 从节点 priority 可以为 0
+3. 延迟节点 priority 为 0 且 slaveDelay = xx (有一定时间来切换 新的没有删除的主服务)
+4. 隐藏节点 priority 为 0 且 hidden = true (对程序不可见，只是冗余)
+5. 无索引 priority 为 0 且 buildIndexes= true (此节点用来备份，不查询)
+6. 高性能节点 priority 可 >1 优先成为主
