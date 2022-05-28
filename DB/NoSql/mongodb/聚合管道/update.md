@@ -35,7 +35,7 @@ db.students2.updateMany({}, [
   // 变量 ROOT 指的是正在修改的当前文档
 
   { $set: { modified: '$$NOW' } }
-  // $set 阶段 将修改的字段更新到当前日期时间
+  // $s3. et 阶段 将修改的字段更新到当前日期时间
   // 将聚合变量 NOW 用于
 ])
 
@@ -92,4 +92,70 @@ WallNews.findByIdAndUpdate(res.id,
     { $set: { countView: { $size: "$viewer" } }, }
   ]).then()
 
+```
+
+3.  findAndModify() fields Projection (v4.4) 可以接受 聚合表达式和语法
+    1.  "$user.name" 字段名称或 虚线字段名称（如果该字段位于嵌入文档中）前加上美元符号$
+    2.  MongoDB 4.4 开始，$投影运算符只能出现在字段路径的末尾；例如"field.$" 或"fieldA.fieldB.$"
+    3.  不能同时包含$slice数组的 a 和嵌入在数组中的字段
+
+```js
+// v4.4
+{ field: [ 1, 2, 3, "$someExistingField" ] }
+{ field: { status: "Active", total: { $sum: "$existingArray" } } }
+
+find( {}, { "instock": { $slice: 1 }, "instock.warehouse": 0 } )
+// 以前的版本中，投影应用两个投影并返回数组
+  // {$slice: 1} instock中的第一个元素
+  // {instock.warehouse: 0 } 不显示此字段
+// 从 MongoDB 4.4 开始，要获得相同的结果，请使用 db.collection.aggregate()具有两个单独 $project阶段的方法。
+
+// can accept an aggregation pipeline for the update. The pipeline can consist of the following stages:
+
+// $addFields and its alias $set
+// $project and its alias $unset
+// $replaceRoot and its alias $replaceWith.
+db.students2.insertMany( [
+   {
+      "_id" : 1,
+      "grades" : [
+         { "grade" : 80, "mean" : 75, "std" : 6 },
+         { "grade" : 85, "mean" : 90, "std" : 4 },
+         { "grade" : 85, "mean" : 85, "std" : 6 }
+      ]
+   },
+   {
+      "_id" : 2,
+      "grades" : [
+         { "grade" : 90, "mean" : 75, "std" : 6 },
+         { "grade" : 87, "mean" : 90, "std" : 3 },
+         { "grade" : 85, "mean" : 85, "std" : 4 }
+      ]
+   }
+] )
+
+db.students2.findAndModify( {
+  query: {  "_id" : 1 },
+  update: [
+    {
+      $set: { "total" : { $sum: "$grades.grade" } }
+    }
+  ],  // The $set stage is an alias for ``$addFields`` stage
+   new: true
+} )
+
+// Use Variables in let v5.0
+db.cakeFlavors.insertMany( [
+   { _id: 1, flavor: "chocolate" },
+   { _id: 2, flavor: "strawberry" },
+   { _id: 3, flavor: "cherry" }
+] )
+
+db.cakeFlavors.findAndModify( {
+   query: {
+      $expr: { $eq: [ "$flavor", "$$targetFlavor" ] }
+   },
+   update: { flavor: "orange" },
+   let: { targetFlavor: "cherry" }
+} )
 ```
