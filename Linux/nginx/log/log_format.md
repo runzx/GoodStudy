@@ -17,5 +17,5 @@
    2. `escape=defaul` 空串"" -> "-"， 
       1. "\x04\x01\x00Pg)\xA7\xEA\x00"
       2. 中文 转 {"name":"中"} -> {\x22name\x22:\x22\xE4\xB8\x22}
-   3. `escape=none` 不转换，如果有 特殊码 winscp 内置编辑器不能打开，显示 
-      1. " Pg)ш " 在notepad++里
+   3. `escape=none` 不转换，如果有 特殊码 winscp 内置编辑器不能打开
+      1. "\x04\x01\x00Pg)\xA7\xEA\x00" -> " Pg)ш " 在notepad++里
