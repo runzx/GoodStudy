@@ -32,7 +32,8 @@ yarn set version latest
 
 
 yarn config get registry
-yarn config set registry https://registry.npm.taobao.org/
+yarn config set registry https://mirrors.cloud.tencent.com/npm/
+# https://registry.npm.taobao.org/
 
 yarn cache clean
 
