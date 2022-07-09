@@ -17,3 +17,4 @@
    1. node_mirror: https://npm.taobao.org/mirrors/node/
    2. npm_mirror: https://npm.taobao.org/mirrors/npm/
    3. 配置文件 settings.txt
+8. err: status 1: 用管理员身份运行
