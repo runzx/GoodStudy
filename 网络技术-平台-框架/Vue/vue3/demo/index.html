@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="vue.3.2.37.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{message}}
+  </div>
+
+</body>
+<script>
+  const { createApp } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      return {
+        message: 'hello,zx'
+      }
+    }
+  }
+  createApp(app).mount('#app')
+</script>
+
+</html>
