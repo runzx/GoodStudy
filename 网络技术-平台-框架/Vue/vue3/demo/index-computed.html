@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="vue.3.2.37.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="firstname">
+    <input type="text" v-model="lastname">
+    <div>{{fullName}}</div>
+  </div>
+  <!-- 
+  watch() 监听 变量改变时 回调 
+  reactive deep包装
+  小程序 observers()
+ -->
+
+</body>
+<script>
+  const { createApp, ref, reactive, watch, computed } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      const firstname = ref('')
+      const lastname = ref('')
+      const fullName = computed(() => firstname.value + lastname.value)
+      return {
+        firstname, lastname, fullName
+      }
+    }
+  }
+  createApp(app).mount('#app')
+</script>
+
+</html>
