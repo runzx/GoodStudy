@@ -42,7 +42,11 @@
       <li>{{index}}--{{item}}</li>
     </ul>
     <!-- 
-  双向 绑定 v-model ref 包装变量
+  双向 绑定 ref 包装变量 -> 响应式对象
+  ref 包装 数值，对象 用reactive(obj)
+  v-model 接管value属性
+  vue2自动包装成响应对象,
+  vue3 要显式 包装 响应对象 ref,reactive
  -->
     <input type="text" v-model="age">
   </div>
