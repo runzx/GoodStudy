@@ -30,6 +30,11 @@
         console.log('newVal:', newVal, oldVal)
         fullName.value = name.firstname + name.lastname
       })
+      watch(() => name.firstname, (newVal, oldVal) => {
+        // 只监听 对象某个 属性
+        console.log('newVal:', newVal, oldVal)
+        fullName.value = name.firstname + name.lastname
+      })
       return {
         name, fullName
       }
