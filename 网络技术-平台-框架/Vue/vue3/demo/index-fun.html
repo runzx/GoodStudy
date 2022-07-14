@@ -8,11 +8,12 @@
   <div id="app">
     <input type="text" v-model="firstname">
     <input type="text" v-model="lastname">
-    <div>{{fullName}}</div>
+    <div>{{getFullname()}}</div>
   </div>
   <!-- 
   computed() 监听 变量改变时 计算 新的结果 
   返回值 是只读
+  表达式可用函数(小程序只能用wxs)
  -->
 
 </body>
@@ -23,9 +24,12 @@
       // 入口函数
       const firstname = ref('')
       const lastname = ref('')
-      const fullName = computed(() => firstname.value + lastname.value)
+
+      function getFullname() {
+        return firstname.value + lastname.value
+      }
       return {
-        firstname, lastname, fullName
+        firstname, lastname, getFullname
       }
     }
   }
