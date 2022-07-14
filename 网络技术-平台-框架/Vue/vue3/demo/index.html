@@ -41,18 +41,22 @@
     <ul v-for="item,index in titles">
       <li>{{index}}--{{item}}</li>
     </ul>
-
+    <!-- 
+  双向 绑定 v-model ref 包装变量
+ -->
+    <input type="text" v-model="age">
   </div>
 
 </body>
 <script>
-  const { createApp } = Vue
+  const { createApp, ref } = Vue
   const app = {
     setup() {
       // 入口函数
+      const age = ref(28)
       function onClick(e) {
         console.log('e:', e)
-        alert('hello')
+        alert(age.value)
       }
       return {
         message: 'hello,zx',
@@ -61,8 +65,9 @@
         urlImg: 'https://cd-1256314569.cos.ap-chengdu.myqcloud.com/2.jpg',
         attr: 'href',
         onClick,
-        flag: false,
-        titles: ['七秀', '长歌', '藏剑']
+        flag: true,
+        titles: ['七秀', '长歌', '藏剑'],
+        age,
       }
     }
   }
