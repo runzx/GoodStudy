@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="vue.3.2.37.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <test-c></test-c>
+    <testC></testC>
+  </div>
+  <!-- 
+ 
+ -->
+
+</body>
+<script>
+  const { createApp, ref, reactive, watch, computed } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      return {
+      }
+    }
+  }
+  const vm = createApp(app)
+  // 组件在mount 前 注册
+  vm.component('testC', {
+    template: '<div>hello</div>'
+  })
+  vm.mount('#app')
+</script>
+
+</html>
