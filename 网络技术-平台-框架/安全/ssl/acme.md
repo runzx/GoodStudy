@@ -9,11 +9,11 @@
 
    1. http 和 dns 验证
       1. http 方式需要在你的网站根目录下放置一个文件, 来验证你的域名所有权
-         1. `acme.sh  --issue  -d mydomain.com -d www.mydomain.com  --webroot  /home/wwwroot/mydomain.com/`
+         1. `acme.sh  --issue  -d bosstg.cn -d ssgg.bosstg.cn  --webroot  /home/wwwroot/mydomain.com/`
          2. 指定域名, 并指定域名所在的网站根目录. acme.sh 会全自动的生成验证文件, 并放到网站的根目录, 然后自动完成验证. 最后会聪明的删除验证文件.
       2. 如果你用的 apache, nginx 服务器, 或者反代, acme.sh 还可以智能的从 nginx 的配置中自动完成验证, 你不需要指定网站根目录
-         1. `acme.sh --issue  -d mydomain.com   --apache`
-         2. `acme.sh --issue  -d mydomain.com   --nginx`
+         1. `acme.sh --issue  -d ssgg.bosstg.cn   --apache`
+         2. `acme.sh --issue  -d ssgg.bosstg.cn   --nginx`
       3. acme.sh 在完成验证之后, 会恢复到之前的状态, 都不会私自更改你本身的配置
    2. 手动 dns 方式, 手动在域名上添加一条 txt 解析记录, 验证域名所有权.
       1. acme.sh 将无法自动更新证书，每次都需要手动再次重新解析验证域名所有权。
