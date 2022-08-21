@@ -1,35 +1,42 @@
-Generating a startup script
+# pm2 自启动
+
+0. Generating a startup script
+
+```sh
   pm2 startup [ubuntu | ubuntu14 | ubuntu12 | centos | centos6 | arch | oracle | amazon | macos | darwin | freebsd | systemd | systemv | upstart | launchd | rcd | openrc]
-  禁用启动系统
+  # 禁用启动系统
     pm2 unstartup
-  如果出成下面提示，复制运行sudo su ....
+  # 如果出成下面提示，复制运行sudo su ....
     [PM2] You have to run this command as root. Execute the following command:
       sudo su -c "env PATH=$PATH:/home/unitech/.nvm/versions/node/v4.3/bin pm2 startup <distribution> -u <user> --hp <home-path>
+```
 
-1。 启动所有要管理的应用程序后，可以通过键入以下命令将列表保存到预期/意外的服务器重启：
-  pm2 save
-    以查看more ~/.pm2/dump.pm2
-  手动复活流程
-    这将恢复以前保存的进程（通过pm2保存）：
-  pm2 resurrect
-  用户权限
-    假设您希望启动脚本在另一个用户下执行。
-    只需使用-u <username>选项和--hp <user_home>：
-      pm2 startup centos -u zhaixiang --hp /home/zhaixiang
-2。 更新启动脚本
-  要更新启动脚本（例如，如果您通过NVM更改了Node.js版本），请运行以下命令：
-    pm2 unstartup
-    pm2 startup
-3。 SystemD安装检查
-  # Check if pm2-<USER> service has been added
-    $ systemctl list-units
-  # Check logs
-    $ journalctl -u pm2-<USER>
-  # Cat systemd configuration file
-    $ systemctl cat pm2-<USER>
-  # Analyze startup
-    $ systemd-analyze plot > output.svg
-  要有效地等待该机器在线运行PM2：
+1. 启动所有要管理的应用程序后，可以通过键入以下命令将列表保存到预期/意外的服务器重启：
+   `pm2 save`
+   以查看 more ~/.pm2/dump.pm2
+   手动复活流程
+   这将恢复以前保存的进程（通过 pm2 保存）：
+   pm2 resurrect
+   用户权限
+   假设您希望启动脚本在另一个用户下执行。
+   只需使用-u <username>选项和--hp <user_home>：
+   `pm2 startup centos -u zhaixiang --hp /home/zhaixiang`
+2. 更新启动脚本
+   要更新启动脚本（例如，如果您通过 NVM 更改了 Node.js 版本），请运行以下命令：
+   `pm2 unstartup`
+   `pm2 startup`
+3. SystemD 安装检查
+
+```sh
+  #  Check if pm2-<USER> service has been added
+systemctl list-units
+  # -  Check logs
+journalctl -u pm2-<USER>
+  # - Cat systemd configuration file
+systemctl cat pm2-<USER>
+  # - Analyze startup
+systemd-analyze plot > output.svg
+  # 要有效地等待该机器在线运行PM2：
     [Unit]
     Wants=network-online.target
     After=network.target network-online.target
@@ -38,9 +45,11 @@ Generating a startup script
 
     [Install]
     WantedBy=multi-user.target network-online.target
+```
 
-4. 运行pm2 startup 结果：
+4. 运行 pm2 startup 结果：
 
+```sh
 [root@izwz9fn7x0vybz20vmgg7az pd123]# pm2 startup centos
 [PM2] Init System found: systemd
 -----------------------------------------------------------
@@ -87,3 +96,4 @@ $ pm2 save
 
 [PM2] Remove init script via:
 $ pm2 unstartup centos
+```
