@@ -12,7 +12,7 @@
    - `~\AppData\Local\Yarn\Data\global`
    - `yarn config set global-folde global-path`
 4. windows
-
+	- global bin目录放到path中, vue才能生效
 5. linux
 
 `export PATH=$PATH:/the/path/to/yarn/global/bin/`
