@@ -1,7 +1,7 @@
 # setup debain 11.3
 1.  debian11 5.10.0-13-amd64
 2.  debian-live-11.3.0-amd64-standard.iso 没桌面版 1G
-3.  apt install openssl-server
+3.  apt install openssl-server (apt install ssh)
 4.  systemctl enable ssh
 5.  nano /etc/sudoers
     1.  zhaixaing  ALL=(ALL:ALL) NOPASSWD:ALL
