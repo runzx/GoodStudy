@@ -37,6 +37,7 @@ yarn config set registry https://mirrors.cloud.tencent.com/npm/
 
 yarn cache clean
 
+yarn config set registryy https://registry.npmmirror.com
 ```
 
 ### test
