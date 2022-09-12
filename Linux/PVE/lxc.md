@@ -16,4 +16,22 @@
 ## KVM 的英文全称为 Kernel-based Virtual Machine
 1. 基于硬件的完全虚拟化，注意是硬件级别的
 2. 更好的隔离性和安全性
-## 
+## conf 
+1. /etc/pve/lxc/100.conf
+
+```
+arch: amd64
+cores: 4
+features: nesting=1
+hostname: alpine315
+memory: 8096
+net0: name=eth0,bridge=vmbr0,gw=192.168.3.1,hwaddr=92:75:0A:5A:ED:2B,ip=192.168.3.38/24,type=veth
+onboot: 1
+ostype: alpine
+rootfs: local-lvm:vm-100-disk-0,size=40G
+swap: 8096
+unprivileged: 1
+
+```
+
+2. /var/lib/lxc/100/config

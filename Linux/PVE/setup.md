@@ -39,3 +39,5 @@ sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /us
 1. `pct list`
 2. `pct enter VMID` 进入lxc 内， 
    1. `passwd`修改密码
+
+### https://ciasm.blog.csdn.net/article/details/125688877
