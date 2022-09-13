@@ -41,3 +41,6 @@ sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /us
    1. `passwd`修改密码
 
 ### https://ciasm.blog.csdn.net/article/details/125688877
+
+### iusse
+1. thinkCentre M82 安装后不能启动： 升级BIOS (iso 制作盘)

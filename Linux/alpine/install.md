@@ -2,10 +2,13 @@
 1. 国内源
    -  `sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories`
    -  apk update
+   -  apk upgrade   // 升级到次版本号最新 3.15.0 -> 3.15.6
+   -  cat /etc/os-release
 2. apk add openssh-server
    1. rc-update add sshd  // 自动启动
    2. /etc/init.d/sshd restart
    3. apk add openssh-sftp-server
+   4. apd add openssh-client
 3. apk add docker
    1. rc-update add docker boot // 开机自启动
    2. service docker start
@@ -26,6 +29,6 @@ vi /etc/docker/daemon.json
 
 ## adduser
 1. adduser zhaixiang
-2. ssh-genenkey
+2. ssh-keygen
 3. .ssh/authorized_keys   // 600
 4. sudo /usr/lib/ssh/sftp-server // winscp
