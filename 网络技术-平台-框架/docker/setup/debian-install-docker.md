@@ -26,7 +26,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 {
   "registry-mirrors": [
     "https://7fff2b1x.mirror.aliyuncs.com",
-    "https://docker.mirrors.ustc.edu.cn",
+    "https://docker.mirrors.ustc.edu.cn"
   ]
 }
 ```
