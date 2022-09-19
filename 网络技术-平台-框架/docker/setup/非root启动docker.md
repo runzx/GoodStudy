@@ -8,3 +8,4 @@
    - 在虚拟机上进行测试，可能需要重新启动虚拟机才能使更改生效
    - 在 Linux 上，您还可以运行以下命令来激活对组的更改
      - `newgrp docker `
+4. `sudo usermod -aG docker $USER  && newgrp docker`
