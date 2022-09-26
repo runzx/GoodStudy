@@ -1,6 +1,7 @@
 # openmediavault
 1. 在 2022 年 6 月 30 日，openmediavault 5.x 将成为 EOL
 2. admin / openmediavault 默认密码
+3. 
 ```
 openmediavault_6.0.24-amd64.iso
 
