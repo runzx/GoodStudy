@@ -32,7 +32,7 @@ sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /us
 
 ### error
 1. .../pve/dists/bullseye/InRelease 401 
-   1. /etc/apt/sources.list.d/pve-enterprise.list 注释 pve源
+   1. nano /etc/apt/sources.list.d/pve-enterprise.list 注释 pve源
 
 
 ### lxc 密码修改
