@@ -33,6 +33,14 @@ dmesg | grep -e DMAR -e IOMMU
 
 1. 更新内核
 ```sh 
+nano /etc/modules
+
+vfio
+vfio_iommu_type1
+vfio_pci
+vfio_virqfd
+
+
 root@pve:~# update-initramfs -u
 update-initramfs: Generating /boot/initrd.img-5.15.53-1-pve
 Running hook script 'zz-proxmox-boot'..
@@ -58,6 +66,10 @@ root@pve:~# lspci -n -s 01:00.0
 
 echo "options vfio-pci ids=10de:1140" > /etc/modprobe.d/vfio.conf
 
+root@pve:~# dmesg | grep -e DMAR -e IOMMU
+[    0.061783] DMAR: IOMMU enabled
+[   10.890533] AMD-Vi: AMD IOMMUv2 driver by Joerg Roedel <jroedel@suse.de>
+[   10.890536] AMD-Vi: AMD IOMMUv2 functionality not available on this system
 ```
 
 3. 让PCI-e设备的资源直接分配给虚拟机，即 PCI直通
