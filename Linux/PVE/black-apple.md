@@ -42,9 +42,9 @@ boot: order=ide2;virtio0
 echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs -k all -u
 
 
-# 安装的第一阶段后，VM 将快速连续重新启动 2 或 3 次，每次都必须手动选择“macOS Installer”条目
+# 安装的第一阶段后，VM 将快速连续重新启动 2 或 3 次，每次都必须手动选择 'macOS Installer' 条目
 
-# 安装已接近完成，macOS安装程序条目消失了，因此请选择要启动的主磁盘的名称（我的称为Main）
+# 安装已接近完成，'macOS Installer' 条目消失了，因此请选择要启动的主磁盘的名称（我的称为Main）
 
 # 接下来还有一次重启。之后再次选择“主要”条目，这次你终于可以进入蒙特雷了！
 
@@ -93,4 +93,4 @@ echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs
 ### log
 1. host i5-2320 CPU @ 3.00GHz 16G内存 
 2. install 14:20 -> 14:50 第一阶段  `macOS Monterey`
-3. 14:50 -> 第二阶段 `macOS Installer`
+3. 14:50 -> 第二阶段 15:50 `macOS Installer` cpu 10+
