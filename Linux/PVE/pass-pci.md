@@ -61,6 +61,15 @@ vfio                   36864  5 vfio_iommu_type1,vfio_pci
 
 root@pve:~# lspci -nn | grep NV
 01:00.0 3D controller [0302]: NVIDIA Corporation GF117M [GeForce 610M/710M/810M/820M / GT 620M/625M/630M/720M] [10de:1140] (rev a1)
+
+root@brv2:~# lspci -nn | grep -Ei 'vga|display'
+00:02.0 VGA compatible controller [0300]: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller [8086:0102] (rev 09)
+# br-demo
+# 8086:0102 即为显卡的硬件id
+nano /etc/modprobe.d/vfio.conf
+options vfio-pci ids=8086:0102
+
+
 root@pve:~# lspci -n -s 01:00.0
 01:00.0 0302: 10de:1140 (rev a1)
 
