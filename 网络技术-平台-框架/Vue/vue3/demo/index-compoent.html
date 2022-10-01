@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="vue.3.2.37.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <test-c></test-c>
+
+    <test-a></test-a>
+  </div>
+  <!-- 
+ 
+ -->
+
+</body>
+<script>
+  const { createApp, ref, reactive, watch, computed } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      return {
+      }
+    }
+  }
+  const vm = createApp(app)
+  // 组件在mount 前 注册
+  vm.component('testC', {
+    template: '<div>hello C</div> <input />'
+  })
+  vm.component('testA', {
+    template: '<div>hello A</div> <input />'
+  })
+  vm.mount('#app')
+</script>
+
+</html>

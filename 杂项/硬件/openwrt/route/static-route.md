@@ -2,11 +2,11 @@
 
 ## 各网段 内部通讯
 
-0. `route add -net 192.168.2.0 netmask 255.255.255.0 gateway 192.168.1.39` 增加静态路由，uci 好象失效,重启后要重配置
+0. `route add -net 192.168.2.0 netmask 255.255.255.0 gateway 192.168.1.38` 增加静态路由，uci 好象失效,重启后要重配置
 
 - `ip route get 192.168.2.177` 查看效果
 - /etc/config/network 保存位置
-- `route add -net 192.168.3.0 netmask 255.255.255.0 gateway 192.168.1.38`
+- `route add -net 192.168.3.0 netmask 255.255.255.0 gateway 192.168.1.39`
 1. `iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE` 192.168.3.1 路由器上防火墙加这条
 
 - 由于家用路由器 WAN 口固化了 NAT，只能用 NAT 转换

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="vue.3.2.37.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="name.firstname">
+    <input type="text" v-model="name.lastname">
+    <div>{{fullName}}</div>
+  </div>
+  <!-- 
+  watch() 监听 变量改变时 回调 
+  reactive deep包装
+  小程序 observers()
+ -->
+
+</body>
+<script>
+  const { createApp, ref, reactive, watch } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      const fullName = ref('')
+      const name = reactive({
+        firstname: '', lastname: ''
+      })
+      watch(name, (newVal, oldVal) => {
+        console.log('newVal:', newVal, oldVal)
+        fullName.value = name.firstname + name.lastname
+      })
+      watch(() => name.firstname, (newVal, oldVal) => {
+        // 只监听 对象某个 属性
+        console.log('newVal:', newVal, oldVal)
+        fullName.value = name.firstname + name.lastname
+      })
+      return {
+        name, fullName
+      }
+    }
+  }
+  createApp(app).mount('#app')
+</script>
+
+</html>

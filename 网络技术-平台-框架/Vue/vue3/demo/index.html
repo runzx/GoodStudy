@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="vue.3.2.37.js"></script>
+  <!-- 
+    <script src="https://unpkg.com/vue@3"></script>
+   -->
+</head>
+
+<body>
+  <div id="app">
+    {{message}}
+    <!-- 
+      v-text, v-html 会覆盖 标签 里面内容
+     -->
+    <div v-text="message">显示文本</div>
+    <!-- 
+      v-bind 给标签 值 赋值
+      可用表达式 动态 传值
+      简写 :[attr]="url"
+     -->
+    <img :src="urlImg">
+    <a v-bind:[attr]="url">www.bosstg.cn</a>
+    <!-- 
+      v-on  监听函数 简写: @xxx=""
+     -->
+    <div @click="onClick" v-html="message1" v-if="flag"></div>
+    <!-- 
+      条件 渲染
+      v-show doc里有，样式控制不显示, 适用于频繁切换
+      v-if,v-else-if, v-else doc不加载(沉浸)
+     -->
+    <div v-show="flag">v-show</div>
+    <!-- 
+      列表 渲染
+      v-for
+      加在 li上会更好 in可用of代替
+      可对数组， 对象 遍历
+      对象 (value,key,idx)
+      -->
+    <ul v-for="item,index in titles">
+      <li>{{index}}--{{item}}</li>
+    </ul>
+    <!-- 
+  双向 绑定 ref 包装变量 -> 响应式对象
+  ref 包装 数值，对象 用reactive(obj)
+  v-model 接管value属性
+  vue2自动包装成响应对象,
+  vue3 要显式 包装 响应对象 ref,reactive
+ -->
+    <input type="text" v-model="age">
+  </div>
+<!-- 
+  watch() 监听
+ -->
+</body>
+<script>
+  const { createApp, ref } = Vue
+  const app = {
+    setup() {
+      // 入口函数
+      const age = ref(28)
+      function onClick(e) {
+        console.log('e:', e)
+        alert(age.value)
+      }
+      return {
+        message: 'hello,zx',
+        message1: '<h3>点击</h3>',
+        url: 'http://api.bosstg.cn/',
+        urlImg: 'https://cd-1256314569.cos.ap-chengdu.myqcloud.com/2.jpg',
+        attr: 'href',
+        onClick,
+        flag: true,
+        titles: ['七秀', '长歌', '藏剑'],
+        age,
+      }
+    }
+  }
+  createApp(app).mount('#app')
+</script>
+
+</html>

@@ -42,4 +42,4 @@
 - STOP 19 暂停（同 Ctrl + Z）
 
 5. 批量 kill
-   - ps -ef|grep java|awd '{print $2}'| xargs kill -9
+   - ps -ef|grep java|awk '{print $2}'| xargs kill -9
