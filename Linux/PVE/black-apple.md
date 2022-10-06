@@ -7,9 +7,9 @@
    3. git clone https://github.com/thenickdude/OSX-KVM.git
    4. cd OSX_KVM/scripts/monterdy
    5. make Monterey-recovery.img
-   6. `pct pull 100 /root/OSX-KVM/scripts/monterty/Monterey-recovery.img /var/lib/vz/template/ios/Monterey-recovery.img` // 编译好的模版 拷贝到宿主机
-      1. `pct pull 103 /home/zhaixiang/OSX-KVM/BaseSystem.img monterey-recovery.img /var/lib/vz/template/ios/monterey-recovery.img`
-   7. wget https://github.com/thenickdude/KVM-Opencore/releases/download/v15/OpenCore-v15.ios.gz
+   6. `pct pull 100 /root/OSX-KVM/scripts/monterty/Monterey-recovery.img /var/lib/vz/template/iso/Monterey-recovery.img` // 编译好的模版 拷贝到宿主机
+      1. `pct pull 103 /home/zhaixiang/OSX-KVM/BaseSystem.img /var/lib/vz/template/iso/monterey-recovery.img`
+   7. wget https://github.com/thenickdude/KVM-Opencore/releases/download/v15/OpenCore-v15.iso.gz
       1. 硬盘映像 v17 cpu 4th+
    8. gzip -d OpenCore-v15.iso.gz
 4. install VM use OpenCore.iso
@@ -94,3 +94,11 @@ echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs
 1. host i5-2320 CPU @ 3.00GHz 16G内存 
 2. install 14:20 -> 14:50 第一阶段  `macOS Monterey`
 3. 14:50 -> 第二阶段 15:50 `macOS Installer` cpu 10+
+
+4. dell 5383 install macOS
+   1. 21:30 -> 22:18 restart 
+   2. 'macOS installer' 22:18 -> 22:36 2th restart
+   3. 'macOS-monterey' 22:36 -> 22:40 3th restart
+   4. 'macOS-monterey' 22:40 -> 22:41 4th restart
+      1. 选语言
+      2. 22:53 end

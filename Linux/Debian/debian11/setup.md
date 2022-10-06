@@ -10,6 +10,7 @@
 
 6. 快照 3.5G
 7. http://mirrors.163.com/debian 速度不行 
+8. `dpkg-reconfigure tzdata` 时区
 
 ## source 
 1. `sudo sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list`
