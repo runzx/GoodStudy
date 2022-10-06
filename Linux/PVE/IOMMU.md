@@ -24,7 +24,14 @@ vfio_virqfd
 nano /etc/modprobe.d/vfio.conf 
 #  将显卡的供应商-设备 ID 传递给 vfio 驱动
 # 供应商-设备 ID 可以在上面脚本的输出的 [] 中找到，多个设备用 , 分隔
-options vfio-pci ids=device_id1,device_id2 disable_vga=1
+root@pve:~# lspci -n -s 00:02.0
+00:02.0 0300: 8086:9bc5 (rev 05)
+
+options vfio-pci ids=8086:9bc5 disable_vga=1
+
+nano /etc/pve/qemu-server/100.conf
+args: -device 
+args: -cpu 'host,+kvm_pv_unhalt,+kvm_pv_eoi,hv_vendor_id=NV43FIX,kvm=off'
 
 # 在 PVE 宿主机的中禁用其他显卡驱动，防止这些驱动在 vfio 前加载
 nano /etc/modprobe.d/blacklist.conf
@@ -52,4 +59,10 @@ reboot
 # 直通 AMD RX460 除了 主 GPU（Primary GPU） 外的选项都需要勾选
 
 # 直通之后 PVE 自带的 VNC 可能会卡在白苹果界面，其实系统已经正常启动，可以使用 MacOS 自带的 VNC 进行连接
+
+
+
+# hell
+args: -set device.hostpci0.x-igd-gms=1
+hostpci0: 0000:00:02.0,legacy-igd=1
 ```
