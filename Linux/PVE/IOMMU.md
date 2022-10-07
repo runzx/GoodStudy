@@ -1,7 +1,8 @@
 # iommu
 1. Intel VT-d 和 AMD-Vi 的通用名称
 2. VT-d 指的是直接输入/输出虚拟化(Intel Virtualization Technology for Directed I/O)
-
+3. “iommu=pt”不是必须的，PT模式只在必要的时候开启设备的IOMMU转换，可以提高未直通设备PCIe的性能，建议添加。
+4. 
 ```sh
 nano /etc/default/grub
 
@@ -51,6 +52,7 @@ blacklist radeon
 
 # 更改并重启
 update-initramfs -u
+# update-initramfs -u -k all
 reboot
 
 # 分配显卡
@@ -60,9 +62,13 @@ reboot
 
 # 直通之后 PVE 自带的 VNC 可能会卡在白苹果界面，其实系统已经正常启动，可以使用 MacOS 自带的 VNC 进行连接
 
+# 检查它是否确实已启用
+dmesg | grep -e DMAR -e IOMMU -e AMD-Vi
 
+# 单独的 IOMMU组, 通过以下方式检查
+find /sys/kernel/iommu_groups/ -type l
 
-# hell
-args: -set device.hostpci0.x-igd-gms=1
-hostpci0: 0000:00:02.0,legacy-igd=1
+# 方案2 helloZhing 教程。没测试过
+args: -device vfio-pci,host=00:02.0,addr=0x02,x-igd-gms=1,x-igd-opregion=on
+machine: pc-q35-6.1
 ```

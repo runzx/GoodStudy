@@ -1,4 +1,5 @@
 # windows 10 
+1. 安装后关闭 休眠;
 ```sh
 creating vzdump archive '/var/lib/vz/dump/vzdump-qemu-101-2022_10_07-01_54_12.vma.zst'
 
@@ -26,3 +27,6 @@ usb1: host=046d:c534,usb3=1
 vga: none
 vmgenid: 263ab987-c250-4b62-ad30-b5446a1e5c73
 ```
+2. 返回宿主机显示钩子脚本
+   1. 要加黑名单的不行
+   2. `git clone https://github.com/HelloZhing/pvevm-hooks.git` sh角本

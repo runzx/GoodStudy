@@ -23,8 +23,12 @@
 ```sh
 nano /etc/pve/qemu-server/101.conf
 # 添加 
-# intel cpu
 args: -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu Haswell,vendor=GenuineIntel,+kvm_pv_eoi,+kvm_pv_unhalt,+hypervisor,+invtsc,kvm=on
+
+# 自 QEMU Q35 机器型号 6.1 起，需要为具有直通设备的虚拟机禁用 ACPI PCIe 热插拔支持，这就是最后一个参数的作用。
+-global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off
+# intel cpu
+-cpu host,kvm=on,vendor=GenuineIntel,+kvm_pv_unhalt,+kvm_pv_eoi,+hypervisor,+invtsc
 
 # 此处添加了 USB 键盘，因为 macOS 不支持 QEMU 的默认 PS/2 键盘。
 # 已禁用 MSI，以便 USB 控制器修复 USB 3 设备通过时 QEMU 死机。
@@ -59,7 +63,7 @@ echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs
       1. disk2 opencore 镜像盘
       2. disk0 安装系统的虚拟hd
       3. 把 disk2s1 覆盖到 disk0s1 (EFI 部分)
-         1. sudo dd if=/dev/disk2s1 of/dev/disk0s1
+         1. sudo dd if=/dev/disk2s1 of=/dev/disk0s1
 
 7. auto 启动mac
    1. ProperTree github.com
@@ -102,3 +106,13 @@ echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs
    4. 'macOS-monterey' 22:40 -> 22:41 4th restart
       1. 选语言
       2. 22:53 end
+
+### ProperTree
+1. `https://github.com/corpnewt/ProperTree`
+2. install python 3.10+
+3. `diskutil mount disk0s1` 装载 EFI分区 
+4. properTree 编辑 efi/oc/config.plist -> showpicker : false 直接启动
+
+### VNC
+1. 系统偏好 -> 共享 -> 屏幕共享
+2. vnc viewer `https://www.realvnc.com/en/connect/download/viewer`

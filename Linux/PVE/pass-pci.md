@@ -92,4 +92,9 @@ root@pve:~# dmesg | grep -e DMAR -e IOMMU
    2. “SSD仿真”，如果使用的就是PVE硬盘，则强烈推荐勾选该选项，可以大幅度提升磁盘读写效率（图30）。
    3. 务必勾选“启用NUMA”项，另外处理器的类别也设置为“host”
    4. “VirlO（半虚拟化）”
-   5. 
+
+
+### old Technology
+1. GVT-g 英特尔 集成在内核中，应与第 5、6 和 7 代英特尔酷睿处理器以及 E3 v4、E3 v5 和 E3 v6 Xeon 处理器一起使用。
+   1. `-set VMID -hostpci0 00:02.0,mdev=i915-GVTg_V5_4`  /etc/pve/qemu-server/100.conf
+   2. 8代及以上cpu不支持
