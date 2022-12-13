@@ -8,7 +8,7 @@ ssh -L 4431:localhost:443 zhaixiang@jp.bosstg.cn serveraliveinterval=30 -g
 
 ssh -L 4400:localhost:xxx zhaixiang@ss.bosstg.cn -P xxx  serveraliveinterval=30 -g
 
-## debian 10 :
+## debian 10 ,11:
 1. `apt install shadowsocks-libev`
 2. `https://kiwivm.64clouds.com/xxx/main-exec.php?mode=blacklistcheck`  测试 ip
 3. `https://cloud.digitalocean.com/`
@@ -18,5 +18,5 @@ nano /etc/shadowsocks-libev/config.json
 
 /etc/init.d/shadowsocks-libev status
 
-
+ufw allow 4430
 ```
