@@ -1,5 +1,15 @@
 # setup
 
+## 全局目录
+
+1. `npm prefix -g` ,   `npm config ls`
+2. `npm config set prefix "c:\zx\"`
+3. `npm config set cache "c:\zx\"`
+4. `yarn global bin` 配置 `yarn config set prefix "c:\zx\yarn"`
+5. `yarn global dir`, `yanr cache dir`
+6. `yarn config set global-folder "c:\zx\"`
+7. `yarn config set cache-folder "c:\zx\"`
+
 ```sh
 # 查询npm全局目录
 npm root -g
@@ -7,7 +17,6 @@ npm root -g
 # 查询npm缓存目录
 npm config get cache
 # C:\Users\runzx\AppData\Roaming\npm-cache
-
 
 npm config get registry
 # 新的域名 registry.npm.taobao.org 域名将于 2022 年 05 月 31 日零时起停止服务。
@@ -20,8 +29,8 @@ registry=https://mirrors.cloud.tencent.com/npm/
 # registry=https://registry.npmjs.org/
 legacy-peer-deps=true
 
-
 ## yarn
+
 # 项目下配置文件  .yarnrc
 "registry" "https://repo.huaweicloud.com/repository/npm/"
 "cache-folder" "~/.cache/yarn_cache"
@@ -29,7 +38,6 @@ legacy-peer-deps=true
 # v2  .yarnrc.yml
 # "Berry" 是 Yarn 2 发布序列的代号，同时也是我们的 代码仓库 的名称
 yarn set version latest
-
 
 yarn config get registry
 yarn config set registry https://mirrors.cloud.tencent.com/npm/
