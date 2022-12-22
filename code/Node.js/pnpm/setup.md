@@ -8,6 +8,8 @@ pnpm  config set cache-dir 'c:\zx\pnpm\cache'
 pnpm  config set store-dir 'c:\zx\pnpm\store'
 pnpm  config set state-dir 'c:\zx\pnpm\state'
 
+pnpm setup
+
 ```
 ## npm
 1. npm run <cmd>  --> pnpm <cmd>
