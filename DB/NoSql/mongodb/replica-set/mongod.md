@@ -115,6 +115,15 @@ config = {
 }
 
 rs.initiate(config)
+// 版本 5.0 中的
+rs.reconfigForPSASet(2,cfg)
+(
+  memberIndex: 1,
+  config: config,
+  {
+    "force" : true,
+  }
+)
 ```
 
 5.  移除 rs.remove("172.18.87.30:27017")

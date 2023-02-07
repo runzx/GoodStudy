@@ -5,6 +5,7 @@
 
 2. 下载tcl
     wget https://sourceforge.net/projects/tcl/files/Tcl/8.6.8/tcl8.6.8-src.tar.gz
+    wget https://sourceforge.net/projects/tcl/files/Tcl/8.6.8/tcl8.6.13-src.tar.gz
     tar -zxvf  tcl8.6.8-src.tar.gz
     cd tcl8.6.8/unix/
     ./configure
@@ -35,7 +36,7 @@
     
     dir /var/redis/data     # 修改dump目录文件    /data/redis/data
     
-    logfile /var/redis/log/redis.log        # 修改log目录文件     /data/redis/log/redis.log
+    logfile /var/log/redis/redis.log        # 修改log目录文件     /data/redis/log/redis.log
 5. 启动redis
     redis-server /etc/redis/redis.conf
 
