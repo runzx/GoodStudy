@@ -1,3 +1,31 @@
+## debian
+### as root
+```sh
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
+apt-get install -y nodejs
+
+curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+apt-get install -y nodejs
+
+# mirrors
+# /etc/apt/sources.list
+deb https://mirrors.ustc.edu.cn/nodesource/deb/node_16.x bullseye main
+deb-src https://mirrors.ustc.edu.cn/nodesource/deb/node_16.x bullseye main
+
+
+# npm
+npm config set registry https://registry.npmmirror.com
+
+```
+
+### Ubuntu
+```sh
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
+sudo apt-get install -y nodejs
+
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
+sudo apt-get install -y nodejs
+```
 
 Node.js v10.x:
   # Using Ubuntu
