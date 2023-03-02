@@ -49,7 +49,7 @@ vi /etc/docker/daemon.json
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://2be16b36.m.daocloud.io
 
 # 加入 docker 用户组命令
-# sudo usermod -aG docker USER_NAME
+sudo usermod -aG docker $USER
 
 #  repo 中列出可用版本
 yum list docker-ce --showduplicates | sort -r
