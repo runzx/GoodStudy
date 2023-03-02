@@ -2,6 +2,13 @@
 
 
 ```sh
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+# 报错Cannot autolaunch D-Bus without X11 $DISPLAY
+# gnupg2 pass\ 
 # gpg
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg

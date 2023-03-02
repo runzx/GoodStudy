@@ -5,9 +5,14 @@
 sudo apt-get install \
     ca-certificates \
     curl \
-    gnupg \
+    gnupg gnupg2 pass\
     lsb-release
 
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+    
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 # 换成 中科大 
