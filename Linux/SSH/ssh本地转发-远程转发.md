@@ -1,6 +1,25 @@
-本地转发与远程转发的对比与分析
+# ssh 端口转发
+1. HostA --ssh--> HostB
+2. target： HostC
+## 本地端口转发
+1. `ssh -L localPortA:targetHostC:portC username@sshHostB -p portB`
+2. 通过 sshHostB 把本地的 A端口 转发到 targetHostC:portC 上
+3. 有3方
+4. localHost 可不写，默认 0.0.0.0, 如是 127.0.0.1 则只转发本地请求
+   1. `ssh_config` 中 `GatewayPorts` 选项的值一般为「yes」
 
-1。 而 SSH 连接是有方向的，从 SSH Client 到 SSH Server 。
+##　远程端口转发
+1. `ssh -R portB:targetHostC:portC username@hostB`
+2. 对 portB 访问通过 hostA 转到 portC 上， 访问是反向
+
+## 关键参数
+1. `-f` 将 ssh 转到后台运行
+2. `-N` 不执行脚本或命令
+
+
+## 本地转发与远程转发的比与分析
+1. 采取哪种端口转发主要取决于SSH连接建立的方向。
+2. 而 SSH 连接是有方向的，从 SSH Client 到 SSH Server 。
     而我们的应用也是有方向的，比如需要连接 LDAP Server 时，LDAP Server 自然就是 Server 端，
         我们应用连接的方向也是从应用的 Client 端连接到应用的 Server 端。
     如果这两个连接的方向一致，那我们就说它是本地转发。
@@ -8,7 +27,7 @@
     
     本地转发时：
         LdapClientHost 同时是应用的客户端，也是 SSH Client，这两个连接都从它指向 LdapServertHost（既是 LDAP 服务端，也是 SSH Server）。
-2. 命令
+3. 命令
     ssh -C -f -N -g -L listen_port:DST_Host:DST_port user@Tunnel_Host 
         将本地机(客户机)的某个端口转发到远端指定机器的指定端口. 
         ssh -L <local port>:<remote host>:<remote port> <SSH hostname>
@@ -36,7 +55,7 @@
     端口绑定到外部地址上
         GatewayPorts yes    # sshd
     端口号小于1024需要root权限
-3. 调试微信小程序 远程主机到本地
+4. 调试微信小程序 远程主机到本地
     在PC上 
         ssh -R  7000:127.0.0.1:3000 zhaixiang@www.bosstg.cn -p 15822
     在www.bosstg.cn 上通过nginx 把80访问转发到7000 --> 能到访问到PC上的3000主机
@@ -45,6 +64,6 @@
             server 127.0.0.1:7000; 
         }
 
-4. 测试
+5. 测试
     列出所有端口
         netstat -ntlp
