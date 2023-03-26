@@ -16,6 +16,17 @@ ssh -L 4400:localhost:xxx zhaixiang@ss.bosstg.cn -P xxx  serveraliveinterval=30 
 ```sh 
 nano /etc/shadowsocks-libev/config.json
 
+{
+    "server": ["0.0.0.0"],
+    "mode":"tcp_and_udp",
+    "server_port":4430,
+    "local_port":1080,
+    "password":"sS`2012mm",
+    "timeout":86400,
+    "method":"aes-256-gcm"
+}
+
+
 /etc/init.d/shadowsocks-libev status
 
 ufw allow 4430
