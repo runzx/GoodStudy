@@ -7,6 +7,8 @@
 3. 有3方
 4. localHost 可不写，默认 0.0.0.0, 如是 127.0.0.1 则只转发本地请求
    1. `ssh_config` 中 `GatewayPorts` 选项的值一般为「yes」
+      1. `no` 转发仅对本地主机可用
+      2. ip 客户端指定地址
 
 ##　远程端口转发
 1. `ssh -R portB:targetHostC:portC username@hostB`
