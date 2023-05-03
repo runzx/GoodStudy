@@ -43,4 +43,8 @@
    5. find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件
 9. 修改 主机名
    1.  sudo hostnamectl set-hostname xxx
-   2.  
+
+
+## mirror
+1. sudo nano /etc/pacman.d/mirrorlist
+2. Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch   // 文件顶端
