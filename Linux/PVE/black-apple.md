@@ -110,7 +110,7 @@ echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs
 ### ProperTree
 1. `https://github.com/corpnewt/ProperTree`
 2. install python 3.10+
-3. `diskutil mount disk0s1` 装载 EFI分区 
+3. `sudo diskutil mount disk0s1` 装载 EFI分区 
 4. properTree 编辑 efi/oc/config.plist -> showpicker : false 直接启动
 
 ### VNC
