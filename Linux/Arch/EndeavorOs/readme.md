@@ -4,3 +4,5 @@
    2. sudo pacman -R firewalld
 2. `sudo firewall-cmd --zone=public --add-port=27017/tcp --permanent` 
    1. sudo systemctl restart firewalld 重启后生效
+
+3. 启动提示： eos-welcome -enable
